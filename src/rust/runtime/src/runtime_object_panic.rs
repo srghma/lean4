@@ -7,8 +7,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_object_panic_impl {
     use crate::base::{
-        AtomicBool, CStr, LeanObject, Ordering, c_char, c_int, c_void, lean_dec, lean_io_eprintln,
-        lean_mk_string, lean_mk_string_from_bytes, lean_string_cstr, ptr,
+        c_void, lean_dec, lean_io_eprintln, lean_mk_string, lean_mk_string_from_bytes,
+        lean_string_cstr, ptr, AtomicBool, LeanObject, Ordering,
     };
     #[cfg(unix)]
     use libloading::os::unix::Library as UnixLibrary;
@@ -19,15 +19,15 @@ mod runtime_object_panic_impl {
     }
 
     pub unsafe fn lean_internal_panic_unreachable() -> ! {
-        lean_internal_panic(c_char_ptr(b"unreachable code has been reached\0"))
+        lean_internal_panic("unreachable code has been reached")
     }
 
     pub unsafe fn lean_internal_panic_rc_overflow() -> ! {
-        lean_internal_panic(c_char_ptr(b"reference counter overflowed\0"))
+        lean_internal_panic("reference counter overflowed")
     }
 
     pub unsafe fn lean_internal_panic_overflow() -> ! {
-        lean_internal_panic(c_char_ptr(b"integer overflow in runtime computation\0"))
+        lean_internal_panic("integer overflow in runtime computation")
     }
 
     pub fn lean_set_exit_on_panic(flag: bool) {

@@ -40,8 +40,8 @@ pub unsafe fn lean_push_unicode_scalar(dst: *mut c_char, code: c_uint) -> c_uint
     } else {
         4
     };
-    for i in 0..len {
-        *dst.add(i) = bytes[i] as c_char;
+    for (i, byte) in bytes.iter().enumerate().take(len) {
+        *dst.add(i) = *byte as c_char;
     }
     len as c_uint
 }

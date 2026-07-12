@@ -11,6 +11,7 @@ use crate::{
 // ════════════════════════════════════════════════════════════════════════════
 
 // NOT IN EmitRust; here because it is used in `lean_mk_string`, `lean_mk_string_unchecked`.
+#[inline]
 pub unsafe fn lean_alloc_string(size: usize, capacity: usize, len: usize) -> *mut LeanObject {
     let byte_size = core::mem::size_of::<LeanStringObject<0>>()
         .checked_add(capacity)
@@ -33,6 +34,8 @@ pub unsafe fn w_string_cstr(o: *mut LeanObject) -> *mut c_char {
     // TODO: move to priv bc is used
     (o as *mut u8).add(size_of::<LeanStringObject<0>>()) as *mut c_char
 }
+
+#[inline]
 pub unsafe fn lean_mk_string_unchecked(s: *const c_char, sz: usize, len: usize) -> *mut LeanObject {
     // TODO: move to priv bc is used
     let rsz = sz + 1;

@@ -1,9 +1,8 @@
-use core::ffi::c_char;
 use core::sync::atomic::{AtomicBool, Ordering};
 use std::sync::OnceLock;
 
 use crate::r#priv::print_backtrace::print_backtrace;
-use crate::runtime_object_panic::lean_internal_panic_out_of_memory::{abort_on_panic, cstr_lossy};
+use crate::runtime_object_panic::lean_internal_panic_out_of_memory::abort_on_panic;
 use crate::runtime_object_panic::panic_eprintln::panic_eprintln;
 
 pub static G_EXIT_ON_PANIC: AtomicBool = AtomicBool::new(false);
@@ -31,7 +30,6 @@ pub fn lean_panic_impl(msg: &[u8], force_stderr: bool) {
     }
 }
 
-pub unsafe fn lean_panic(msg: *const c_char, force_stderr: bool) {
-    let line = cstr_lossy(msg);
-    lean_panic_impl(line.as_bytes(), force_stderr);
+pub unsafe fn lean_panic(msg: impl AsRef<str>, force_stderr: bool) {
+    lean_panic_impl(msg.as_ref().as_bytes(), force_stderr);
 }

@@ -2,7 +2,7 @@ use leanh_l1::{
     datatypes::{LeanTaskImp, LeanTaskObject},
     runtime_object_task::{p3_resolve::enqueue_core, task_manager::TaskManager},
 };
-use std::sync::{Arc, atomic::Ordering};
+use std::sync::{atomic::Ordering, Arc};
 
 use crate::r#priv::enqueue_task::enqueue_task;
 
@@ -21,7 +21,7 @@ pub(crate) fn add_task_dep(
     }
     let mut guard = tm.inner.lock().unwrap();
     if !unsafe { (*t1).m_value.load(Ordering::Acquire).is_null() } {
-        enqueue_core(tm, &mut guard, t2);
+        unsafe { enqueue_core(tm, &mut guard, t2) };
         return;
     }
     unsafe {

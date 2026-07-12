@@ -2,9 +2,9 @@ use std::{ffi::c_void, sync::atomic::Ordering};
 
 use crate::{
     datatypes::{
-        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG,
-        LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
-        LeanObject,
+        LeanObject, LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG,
+        LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
+        LEAN_THUNK_TAG,
     },
     emitted::{
         lean_alloc_closure::lean_alloc_closure, lean_box::lean_box, lean_dec::lean_dec,
@@ -86,7 +86,7 @@ pub unsafe fn lean_mark_persistent(o: *mut LeanObject) {
                         }
                     }
                     _ => {
-                        lean_internal_panic(c"lean_mark_persistent: unknown tag".as_ptr());
+                        lean_internal_panic("lean_mark_persistent: unknown tag");
                     }
                 }
             }

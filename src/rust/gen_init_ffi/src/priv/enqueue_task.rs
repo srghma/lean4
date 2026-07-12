@@ -8,5 +8,5 @@ use std::sync::Arc;
 
 pub(crate) fn enqueue_task(tm: &Arc<TaskManager>, t: *mut LeanTaskObject) {
     let mut guard = tm.inner.lock().unwrap();
-    enqueue_core(tm, &mut guard, t);
+    unsafe { enqueue_core(tm, &mut guard, t) };
 }

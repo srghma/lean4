@@ -12,7 +12,7 @@ mod kernel_level_impl {
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 
     // Structural equality on lean Level objects (mirrors C++ operator==).
     // Level tags:
@@ -56,11 +56,11 @@ mod kernel_level_impl {
         has_param: bool,
     ) -> u64 {
         if !lean_is_scalar(depth) {
-            lean_internal_panic(b"universe level depth is too big\0".as_ptr() as *const i8);
+            lean_internal_panic("universe level depth is too big");
         }
         let d = lean_unbox(depth) as usize;
         if d > 0x00FF_FFFF {
-            lean_internal_panic(b"universe level depth is too big\0".as_ptr() as *const i8);
+            lean_internal_panic("universe level depth is too big");
         }
         let h1 = h as u32 as u64;
         h1 | ((has_mvar as u64) << 32) | ((has_param as u64) << 33) | ((d as u64) << 40)

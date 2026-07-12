@@ -4,19 +4,19 @@ use std::sync::atomic::Ordering;
 
 use crate::{
     datatypes::{
-        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG,
-        LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
-        LeanMpzObject, LeanObject, LeanPromiseObject, LeanTaskObject,
+        LeanMpzObject, LeanObject, LeanPromiseObject, LeanTaskObject, LEAN_ARRAY_TAG,
+        LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG,
+        LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
     },
     r#priv::{
         dec_for_del::dec_for_del, lean_array_byte_size::lean_array_byte_size,
         lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
         lean_closure_arg_cptr::lean_closure_arg_cptr,
         lean_closure_byte_size::lean_closure_byte_size,
-        lean_closure_num_fixed::lean_closure_num_fixed, lean_dealloc::lean_dealloc,
-        lean_free_small_object::lean_free_small_object,
+        lean_closure_num_fixed::lean_closure_num_fixed,
         lean_deactivate_promise::lean_deactivate_promise,
-        lean_deactivate_task::lean_deactivate_task,
+        lean_deactivate_task::lean_deactivate_task, lean_dealloc::lean_dealloc,
+        lean_free_small_object::lean_free_small_object,
         lean_sarray_byte_size::lean_sarray_byte_size, lean_string_byte_size::lean_string_byte_size,
         lean_to_external::lean_to_external, lean_to_promise::lean_to_promise,
         lean_to_ref::lean_to_ref, lean_to_task::lean_to_task, lean_to_thunk::lean_to_thunk,
@@ -83,7 +83,7 @@ pub unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut L
             lean_free_small_object(o);
         }
         _ => {
-            lean_internal_panic(c"lean_del_core: unknown object tag".as_ptr());
+            lean_internal_panic("lean_del_core: unknown object tag");
         }
     }
 }

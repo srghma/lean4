@@ -4,9 +4,10 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_net_addr_impl {
-    use crate::runtime_expr_shared::{INET_ADDRSTRLEN, INET6_ADDRSTRLEN};
+    use crate::runtime_expr_shared::{INET6_ADDRSTRLEN, INET_ADDRSTRLEN};
+    use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, null_mut};
     use libuv_sys2::{
@@ -19,17 +20,9 @@ mod runtime_net_addr_impl {
         pub ipv6: libc::in6_addr,
     }
 
-    unsafe extern "C" {
-        fn lean_internal_panic(msg: *const c_char) -> !;
-    }
-
     unsafe fn assert_uv(result: c_int) {
         if result != 0 {
-            lean_internal_panic(
-                b"unexpected libuv network-address conversion failure\0"
-                    .as_ptr()
-                    .cast(),
-            );
+            lean_internal_panic("unexpected libuv network-address conversion failure");
         }
     }
 
@@ -148,7 +141,7 @@ mod runtime_net_addr_impl {
         } else if family as c_int == libc::AF_INET6 {
             lean_in6_addr_to_ipv6_addr(addr_of!((*ip_addr).ipv6))
         } else {
-            lean_internal_panic(b"unsupported socket address family\0".as_ptr().cast());
+            lean_internal_panic("unsupported socket address family");
         };
 
         let ctor = lean_alloc_ctor(
@@ -177,7 +170,7 @@ mod runtime_net_addr_impl {
             let port = u16::from_be((*addr_in6).sin6_port);
             (lean_mk_socketaddress(lean_ipv6, port), 1)
         } else {
-            lean_internal_panic(b"unsupported socket address family\0".as_ptr().cast());
+            lean_internal_panic("unsupported socket address family");
         };
 
         let ctor = lean_alloc_ctor(tag, 1, 0);

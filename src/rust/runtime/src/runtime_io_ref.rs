@@ -7,7 +7,7 @@ mod runtime_io_ref_impl {
     use crate::datatypes::LeanRefObject;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::sync::atomic::{AtomicPtr, Ordering};
     use leanh::LEAN_REF_TAG;
 
@@ -117,7 +117,7 @@ mod runtime_io_ref_impl {
         } else {
             let old_a = (*lean_to_ref(ref_)).value;
             if old_a.is_null() {
-                lean_internal_panic(c"null reference read".as_ptr());
+                lean_internal_panic("null reference read");
             }
             (*lean_to_ref(ref_)).value = a;
             old_a

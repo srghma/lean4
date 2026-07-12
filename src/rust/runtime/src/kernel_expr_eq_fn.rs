@@ -145,7 +145,7 @@ mod kernel_expr_eq_fn_impl {
 
         unsafe fn check_system(&self, depth: usize) {
             if depth > MAX_STACK_DEPTH {
-                lean_internal_panic(b"expression equality test\0".as_ptr() as *const i8);
+                lean_internal_panic("expression equality test");
             }
         }
 

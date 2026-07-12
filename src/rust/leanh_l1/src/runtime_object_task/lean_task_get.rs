@@ -1,11 +1,11 @@
 use crate::datatypes::{LeanObject, LeanTaskImp, LeanTaskObject};
 use crate::r#priv::lean_to_task::lean_to_task;
 use crate::runtime_object_panic::lean_panic::lean_panic;
-use crate::runtime_object_task::p3_resolve::{LEAN_SYNC_PRIO, spawn_worker};
+use crate::runtime_object_task::p3_resolve::{spawn_worker, LEAN_SYNC_PRIO};
 use crate::runtime_object_task::scoped_current_task::current_task;
-use crate::runtime_object_task::task_manager::{LEAN_MAX_PRIO, TaskManager};
-use std::sync::Arc;
+use crate::runtime_object_task::task_manager::{TaskManager, LEAN_MAX_PRIO};
 use std::sync::atomic::Ordering;
+use std::sync::Arc;
 
 use crate::runtime_object_task::p1_get_task_manager::get_task_manager;
 
@@ -26,10 +26,7 @@ fn wait_for(slf: &Arc<TaskManager>, t: *mut LeanTaskObject) {
         let ct_imp = unsafe { (*ct).m_imp as *mut LeanTaskImp };
         if unsafe { (*ct_imp).m_prio == LEAN_SYNC_PRIO } {
             unsafe {
-                lean_panic(
-                    c"`Task.get` called from a `(sync := true)` task".as_ptr(),
-                    false,
-                );
+                lean_panic("`Task.get` called from a `(sync := true)` task", false);
             }
         }
     }

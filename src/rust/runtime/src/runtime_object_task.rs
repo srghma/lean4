@@ -7,7 +7,7 @@ pub(crate) mod runtime_object_task_impl {
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::runtime_object_rc_impl::{lean_alloc_small_object, lean_free_small_object};
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
     use core::sync::atomic::Ordering;
     use leanh::LeanTaskImp;
     use std::collections::VecDeque;
@@ -128,11 +128,10 @@ pub(crate) mod runtime_object_task_impl {
     pub unsafe fn lean_promise_new_impl() -> *mut LeanObject {
         if get_task_manager().is_none() {
             lean_internal_panic(
-                c"`IO.Promise.new` called before the task manager is running; \
-                  this typically happens when called (directly or transitively, \
-                  e.g. via `IO.CancelToken.new`) from an `initialize` block. \
-                  Construct lazily on first use instead."
-                    .as_ptr() as *const i8,
+                "`IO.Promise.new` called before the task manager is running; \
+                 this typically happens when called (directly or transitively, \
+                 e.g. via `IO.CancelToken.new`) from an `initialize` block. \
+                 Construct lazily on first use instead.",
             );
         }
 

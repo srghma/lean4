@@ -800,7 +800,7 @@ mod kernel_instantiate_impl {
     ) -> *mut LeanObject {
         let params = constant_info_lparams(info);
         if list_len(params) != list_len(levels) {
-            lean_internal_panic(TYPE_LPARAMS_MISMATCH.as_ptr() as *const i8);
+            lean_internal_panic(TYPE_LPARAMS_MISMATCH.to_string_lossy());
         }
         let ty = constant_info_type(info);
         if list_is_nil(levels) || !expr_has_level_param(ty) {
@@ -817,10 +817,10 @@ mod kernel_instantiate_impl {
     ) -> *mut LeanObject {
         let params = constant_info_lparams(info);
         if list_len(params) != list_len(levels) {
-            lean_internal_panic(VALUE_LPARAMS_MISMATCH.as_ptr() as *const i8);
+            lean_internal_panic(VALUE_LPARAMS_MISMATCH.to_string_lossy());
         }
         if !constant_info_has_value(info) {
-            lean_internal_panic(VALUE_LPARAMS_EXPECTED_VALUE.as_ptr() as *const i8);
+            lean_internal_panic(VALUE_LPARAMS_EXPECTED_VALUE.to_string_lossy());
         }
         let value = constant_info_value(info);
         if list_is_nil(levels) || !expr_has_level_param(value) {
@@ -870,13 +870,13 @@ mod kernel_instantiate_impl {
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
         if !lean_is_scalar(begin) || !lean_is_scalar(end) {
-            lean_internal_panic(b"invalid range for Expr.instantiateRange\0".as_ptr() as *const i8);
+            lean_internal_panic("invalid range for Expr.instantiateRange");
         }
         let sz = lean_array_size(subst);
         let b = lean_unbox(begin);
         let e = lean_unbox(end);
         if b > e || e > sz {
-            lean_internal_panic(b"invalid range for Expr.instantiateRange\0".as_ptr() as *const i8);
+            lean_internal_panic("invalid range for Expr.instantiateRange");
         }
         let n = e - b;
         let base = lean_array_data_ptr(subst).add(b);
@@ -905,17 +905,13 @@ mod kernel_instantiate_impl {
         subst: *mut LeanObject,
     ) -> *mut LeanObject {
         if !lean_is_scalar(begin) || !lean_is_scalar(end) {
-            lean_internal_panic(
-                b"invalid range for Expr.instantiateRevRange\0".as_ptr() as *const i8
-            );
+            lean_internal_panic("invalid range for Expr.instantiateRevRange");
         }
         let sz = lean_array_size(subst);
         let b = lean_unbox(begin);
         let e = lean_unbox(end);
         if b > e || e > sz {
-            lean_internal_panic(
-                b"invalid range for Expr.instantiateRevRange\0".as_ptr() as *const i8
-            );
+            lean_internal_panic("invalid range for Expr.instantiateRevRange");
         }
         let n = e - b;
         let base = lean_array_data_ptr(subst).add(b);

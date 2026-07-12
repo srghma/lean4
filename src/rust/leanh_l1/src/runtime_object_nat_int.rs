@@ -15,7 +15,7 @@ use gmp_mpfr_sys::gmp::{
     mpz_tdiv_r, mpz_xor,
 };
 
-use crate::datatypes::{LEAN_MAX_SMALL_NAT, LEAN_MPZ_TAG, LeanMpzObject, LeanObject};
+use crate::datatypes::{LeanMpzObject, LeanObject, LEAN_MAX_SMALL_NAT, LEAN_MPZ_TAG};
 use crate::emitted::{
     lean_box::lean_box, lean_dec::lean_dec, lean_inc::lean_inc, lean_is_scalar::lean_is_scalar,
     lean_unbox::lean_unbox,
@@ -465,7 +465,7 @@ pub unsafe fn lean_nat_shiftl(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut 
         return lean_box(0);
     }
     if !lean_is_scalar(a2) || lean_unbox(a2) > u32::MAX as usize {
-        lean_internal_panic(c"Nat.shiftl exponent is too big".as_ptr());
+        lean_internal_panic("Nat.shiftl exponent is too big");
     }
     let k = lean_unbox(a2) as u64;
     let mut m = uninit_mpzt();
@@ -492,7 +492,7 @@ pub unsafe fn lean_nat_big_shiftr(a1: *mut LeanObject, a2: *mut LeanObject) -> *
     if s > u32::MAX as usize {
         if mpz_log2(&m) >= s {
             mpz_clear(&mut m);
-            lean_internal_panic(c"Nat.shiftr exponent is too big".as_ptr());
+            lean_internal_panic("Nat.shiftr exponent is too big");
         }
         mpz_clear(&mut m);
         return lean_box(0);
@@ -503,7 +503,7 @@ pub unsafe fn lean_nat_big_shiftr(a1: *mut LeanObject, a2: *mut LeanObject) -> *
 
 pub unsafe fn lean_nat_pow(a1: *mut LeanObject, a2: *mut LeanObject) -> *mut LeanObject {
     if !lean_is_scalar(a2) || lean_unbox(a2) > u32::MAX as usize {
-        lean_internal_panic(c"Nat.pow exponent is too big".as_ptr());
+        lean_internal_panic("Nat.pow exponent is too big");
     }
     let exp = lean_unbox(a2) as c_ulong;
     let mut base = uninit_mpzt();

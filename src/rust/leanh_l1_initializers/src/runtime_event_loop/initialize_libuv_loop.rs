@@ -1,7 +1,7 @@
 use leanh_l1::runtime_object_panic::lean_internal_panic_out_of_memory::lean_internal_panic;
 use std::{ptr, sync::atomic::Ordering};
 
-use core::ffi::{CStr, c_int};
+use core::ffi::{c_int, CStr};
 use libuv_sys2::{
     uv_async_init, uv_async_t, uv_cond_init, uv_default_loop, uv_mutex_init_recursive, uv_stop,
     uv_strerror,
@@ -20,7 +20,7 @@ unsafe fn check_uv(result: c_int, msg: &'static [u8]) {
             CStr::from_bytes_with_nul(msg).unwrap().to_string_lossy()
         ))
         .expect("libuv error message has no NUL");
-        lean_internal_panic(text.as_ptr());
+        lean_internal_panic(text.to_string_lossy());
     }
 }
 
