@@ -1,4 +1,4 @@
-use std::sync::atomic::{AtomicPtr, Ordering};
+use std::sync::atomic::AtomicPtr;
 
 use leanh_l1::{
     datatypes::{LEAN_THUNK_TAG, LeanObject, LeanTaskObject, LeanThunkObject},
@@ -8,7 +8,7 @@ use leanh_l1::{
 
 use crate::r#priv::{
     lean_task_bind_core::lean_task_bind_core, lean_task_map_core::lean_task_map_core,
-    lean_task_spawn_core::lean_task_spawn_core, lean_thunk_get_core::lean_thunk_get_core,
+    lean_task_spawn_core::lean_task_spawn_core, lean_thunk_get::lean_thunk_get,
     set_task_header_st::set_task_header_st,
 };
 // Generated stub file for Lean FFI imports
@@ -49,17 +49,6 @@ pub unsafe fn lean_thunk_pure(value: *mut LeanObject) -> *mut LeanObject {
     (*o).m_value = AtomicPtr::new(value);
     (*o).m_closure = AtomicPtr::new(core::ptr::null_mut());
     o as *mut LeanObject
-}
-
-#[inline]
-pub unsafe fn lean_thunk_get(thunk: *mut LeanObject) -> *mut LeanObject {
-    let value = (*(thunk as *mut LeanThunkObject))
-        .m_value
-        .load(Ordering::Acquire);
-    if !value.is_null() {
-        return value;
-    }
-    lean_thunk_get_core(thunk)
 }
 
 #[inline]

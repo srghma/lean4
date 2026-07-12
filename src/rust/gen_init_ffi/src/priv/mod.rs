@@ -26,6 +26,7 @@ pub mod lean_string_data_byte_size;
 pub mod lean_task_bind_core;
 pub mod lean_task_map_core;
 pub mod lean_task_spawn_core;
+pub mod lean_thunk_get;
 pub mod lean_thunk_get_core;
 pub mod lean_utf8_n_strlen;
 pub mod mk_capacity;
