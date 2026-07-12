@@ -109,8 +109,18 @@ checksum = "5baebc0774151f905a1a2cc41989300b1e6fbb29aff0ceffa1064fdd3088d582"
 name = "gen_init_ffi"
 version = "0.1.0"
 dependencies = [
+ "gmp-mpfr-sys",
  "leanh_l1",
  "leanh_l1_initializers",
+ "libc",
+ "libc-stdhandle",
+ "libloading 0.9.0",
+ "libm",
+ "libmimalloc-sys",
+ "libuv-sys2",
+ "llvm-sys",
+ "sysinfo",
+ "thread-id",
 ]
 
 [[package]]
