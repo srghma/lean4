@@ -15,7 +15,7 @@ use gmp_mpfr_sys::gmp::{
     mpz_tdiv_r, mpz_xor,
 };
 
-use crate::datatypes::{LeanMpzObject, LeanObject, LEAN_MAX_SMALL_NAT, LEAN_MPZ_TAG};
+use crate::datatypes::{LEAN_MAX_SMALL_NAT, LeanMpzObject, LeanObject, LeanObjectTag};
 use crate::emitted::{
     lean_box::lean_box, lean_dec::lean_dec, lean_inc::lean_inc, lean_is_scalar::lean_is_scalar,
     lean_unbox::lean_unbox,
@@ -50,7 +50,7 @@ pub unsafe fn lean_alloc_mpz(mpz: *const mpz_t) -> *mut LeanObject {
     let slot = lean_mpz_val_mut(obj);
     mpz_init_set(slot, mpz);
     (*obj).rc = 1;
-    (*obj).tag = LEAN_MPZ_TAG;
+    (*obj).tag = LeanObjectTag::Mpz.as_u8();
     (*obj).other = 0;
     (*obj).cs_size = saved_cs_size;
     obj

@@ -14,6 +14,7 @@ Exports:
 */
 
 mod library_time_task_impl {
+    use crate::runtime_expr_shared::{LeanNameTag, lean_name_tag};
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::BTreeMap;
@@ -67,20 +68,25 @@ mod library_time_task_impl {
         let mut parts: Vec<String> = Vec::new();
         let mut cur = n;
         while !lean_is_scalar(cur) {
-            let tag = lean_ptr_tag(cur);
-            parts.push(if tag == 1 {
-                let str_obj = lean_ctor_get(cur, 1);
-                CStr::from_ptr(lean_string_cstr(str_obj))
-                    .to_string_lossy()
-                    .into_owned()
-            } else {
-                let nat = lean_ctor_get(cur, 1);
-                if lean_is_scalar(nat) {
-                    lean_unbox(nat).to_string()
-                } else {
-                    "?".to_string()
+            match lean_name_tag(cur) {
+                LeanNameTag::Anonymous => break,
+                LeanNameTag::String => {
+                    let str_obj = lean_ctor_get(cur, 1);
+                    parts.push(
+                        CStr::from_ptr(lean_string_cstr(str_obj))
+                            .to_string_lossy()
+                            .into_owned(),
+                    );
                 }
-            });
+                LeanNameTag::Numeral => {
+                    let nat = lean_ctor_get(cur, 1);
+                    parts.push(if lean_is_scalar(nat) {
+                        lean_unbox(nat).to_string()
+                    } else {
+                        "?".to_string()
+                    });
+                }
+            }
             cur = lean_ctor_get(cur, 0);
         }
         parts.reverse();

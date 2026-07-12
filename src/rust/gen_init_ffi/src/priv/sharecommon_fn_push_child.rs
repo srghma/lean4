@@ -1,10 +1,10 @@
 use leanh_l1::{
     datatypes::{LeanObject, LeanObjectTag},
+    emitted::lean_object_tag::lean_object_tag,
     emitted::{
         lean_box::lean_box, lean_ctor_get::lean_ctor_get, lean_dec::lean_dec,
         lean_is_scalar::lean_is_scalar,
     },
-    emitted::lean_object_tag::lean_object_tag,
 };
 
 use crate::r#priv::{

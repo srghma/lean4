@@ -27,9 +27,8 @@ Scalar field layout (after object pointer fields):
 
 mod kernel_expr_impl {
     use crate::runtime_expr_shared::{
-        EXPR_APP, EXPR_BVAR, EXPR_BVAR_RANGE_SHIFT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA, EXPR_PI,
-        EXPR_PROJ, LeanBinderInfo, expr_binder_info_raw, expr_bvar_range, expr_bvar_range_data,
-        expr_data, expr_let_nondep,
+        LeanBinderInfo, LeanExprKind, expr_binder_info_raw, expr_bvar_range, expr_bvar_range_data,
+        expr_data, expr_kind, expr_let_nondep,
     };
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
@@ -77,8 +76,8 @@ mod kernel_expr_impl {
         if expr_bvar_range(e) <= n_i as u64 {
             return false;
         }
-        match lean_obj_tag(e) {
-            EXPR_BVAR => {
+        match expr_kind(e) {
+            LeanExprKind::BVar => {
                 let idx_obj = lean_ctor_get(e, 0);
                 if lean_is_scalar(idx_obj) {
                     lean_unbox(idx_obj) as u32 == n_i
@@ -88,21 +87,21 @@ mod kernel_expr_impl {
                     false
                 }
             }
-            EXPR_APP => {
+            LeanExprKind::App => {
                 has_loose_bvar_impl(lean_ctor_get(e, 0), i, offset)
                     || has_loose_bvar_impl(lean_ctor_get(e, 1), i, offset)
             }
-            EXPR_LAMBDA | EXPR_PI => {
+            LeanExprKind::Lambda | LeanExprKind::Pi => {
                 has_loose_bvar_impl(lean_ctor_get(e, 1), i, offset)
                     || has_loose_bvar_impl(lean_ctor_get(e, 2), i, offset + 1)
             }
-            EXPR_LET => {
+            LeanExprKind::Let => {
                 has_loose_bvar_impl(lean_ctor_get(e, 1), i, offset)
                     || has_loose_bvar_impl(lean_ctor_get(e, 2), i, offset)
                     || has_loose_bvar_impl(lean_ctor_get(e, 3), i, offset + 1)
             }
-            EXPR_MDATA => has_loose_bvar_impl(lean_ctor_get(e, 1), i, offset),
-            EXPR_PROJ => has_loose_bvar_impl(lean_ctor_get(e, 2), i, offset),
+            LeanExprKind::MData => has_loose_bvar_impl(lean_ctor_get(e, 1), i, offset),
+            LeanExprKind::Proj => has_loose_bvar_impl(lean_ctor_get(e, 2), i, offset),
             _ => false, // Const, Sort, FVar, MVar, Lit: no loose bvars
         }
     }
@@ -145,9 +144,8 @@ mod kernel_expr_impl {
             return e;
         }
 
-        let tag = lean_obj_tag(e);
-        match tag {
-            EXPR_BVAR => {
+        match expr_kind(e) {
+            LeanExprKind::BVar => {
                 let idx_obj = lean_ctor_get(e, 0);
                 if lean_is_scalar(idx_obj) {
                     let idx = lean_unbox(idx_obj) as u32;
@@ -167,7 +165,7 @@ mod kernel_expr_impl {
                     e
                 }
             }
-            EXPR_APP => {
+            LeanExprKind::App => {
                 let fn_e = lean_ctor_get(e, 0);
                 let arg_e = lean_ctor_get(e, 1);
                 let new_fn = shift_loose_bvars(fn_e, offset, s, d, lift);
@@ -181,7 +179,7 @@ mod kernel_expr_impl {
                     lean_expr_mk_app(new_fn, new_arg)
                 }
             }
-            EXPR_LAMBDA | EXPR_PI => {
+            LeanExprKind::Lambda | LeanExprKind::Pi => {
                 let dom = lean_ctor_get(e, 1);
                 let body = lean_ctor_get(e, 2);
                 let new_dom = shift_loose_bvars(dom, offset, s, d, lift);
@@ -195,14 +193,14 @@ mod kernel_expr_impl {
                     let name = lean_ctor_get(e, 0);
                     lean_inc(name);
                     let bi = expr_binder_info_raw(e);
-                    if tag == EXPR_LAMBDA {
+                    if matches!(expr_kind(e), LeanExprKind::Lambda) {
                         lean_expr_mk_lambda(name, new_dom, new_body, bi)
                     } else {
                         lean_expr_mk_forall(name, new_dom, new_body, bi)
                     }
                 }
             }
-            EXPR_LET => {
+            LeanExprKind::Let => {
                 let ty = lean_ctor_get(e, 1);
                 let val = lean_ctor_get(e, 2);
                 let body = lean_ctor_get(e, 3);
@@ -222,7 +220,7 @@ mod kernel_expr_impl {
                     lean_expr_mk_let(name, new_ty, new_val, new_body, nondep)
                 }
             }
-            EXPR_MDATA => {
+            LeanExprKind::MData => {
                 let child = lean_ctor_get(e, 1);
                 let new_child = shift_loose_bvars(child, offset, s, d, lift);
                 if new_child == child {
@@ -235,7 +233,7 @@ mod kernel_expr_impl {
                     lean_expr_mk_mdata(md, new_child)
                 }
             }
-            EXPR_PROJ => {
+            LeanExprKind::Proj => {
                 let child = lean_ctor_get(e, 2);
                 let new_child = shift_loose_bvars(child, offset, s, d, lift);
                 if new_child == child {

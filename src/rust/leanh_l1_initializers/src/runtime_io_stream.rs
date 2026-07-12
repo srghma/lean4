@@ -9,8 +9,8 @@ use leanh_l1::{
 
 use crate::{
     r#priv::{
-        lean_register_external_class::lean_register_external_class,
         lean_alloc_external::lean_alloc_external,
+        lean_register_external_class::lean_register_external_class,
     },
     todo_import_from_lean::lean_stream_of_handle::lean_stream_of_handle,
 };

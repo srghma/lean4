@@ -9,6 +9,7 @@ The C++ value-type facade now lives inline in kernel/level.h.
 */
 
 mod kernel_level_impl {
+    use crate::runtime_expr_shared::{LeanLevelKind, level_kind};
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
@@ -26,19 +27,20 @@ mod kernel_level_impl {
         if l1 == l2 {
             return true;
         }
-        let tag = lean_obj_tag(l1);
-        if tag != lean_obj_tag(l2) {
+        let tag = level_kind(l1);
+        if tag != level_kind(l2) {
             return false;
         }
         match tag {
-            0 => true,
-            1 => level_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0)),
-            2 | 3 => {
+            LeanLevelKind::Zero => true,
+            LeanLevelKind::Succ => level_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0)),
+            LeanLevelKind::Max | LeanLevelKind::IMax => {
                 level_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0))
                     && level_eq(lean_ctor_get(l1, 1), lean_ctor_get(l2, 1))
             }
-            4 | 5 => lean_name_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0)),
-            _ => false,
+            LeanLevelKind::Param | LeanLevelKind::MVar => {
+                lean_name_eq(lean_ctor_get(l1, 0), lean_ctor_get(l2, 0))
+            }
         }
     }
 

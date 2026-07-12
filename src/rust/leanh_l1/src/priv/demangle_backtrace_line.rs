@@ -1,5 +1,5 @@
-use core::ffi::c_char;
 use core::ffi::CStr;
+use core::ffi::c_char;
 use libloading::os::unix::Library as UnixLibrary;
 
 use crate::datatypes::LeanObject;

@@ -1,7 +1,7 @@
 use std::ffi::c_uint;
 
 use leanh_l1::{
-    datatypes::{LeanObject, LeanScalarArray, LEAN_SCALAR_ARRAY_TAG},
+    datatypes::{LeanObject, LeanObjectTag, LeanScalarArray},
     r#priv::lean_alloc_object::lean_alloc_object,
 };
 
@@ -21,7 +21,7 @@ pub unsafe fn lean_alloc_sarray(
     (*obj).m_header.rc = 1;
     (*obj).m_header.cs_size = 0;
     (*obj).m_header.other = elem_size as u8;
-    (*obj).m_header.tag = LEAN_SCALAR_ARRAY_TAG;
+    (*obj).m_header.tag = LeanObjectTag::ScalarArray.as_u8();
     (*obj).m_size = size;
     (*obj).m_capacity = capacity;
     obj as *mut LeanObject

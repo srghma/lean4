@@ -1,7 +1,7 @@
 use leanh_l1::emitted::lean_mark_persistent::lean_mark_persistent;
 use std::ptr;
 
-use crate::r#priv::initialize_constructions_module::{mk_name, LeanName};
+use crate::r#priv::initialize_constructions_module::{LeanName, mk_name};
 
 static mut VERBOSE_OPT: LeanName = LeanName {
     obj: ptr::null_mut(),

@@ -7,5 +7,10 @@ pub unsafe fn lean_mk_io_error_no_file_or_directory(
     os_code: u32,
     details: *mut LeanObject,
 ) -> *mut LeanObject {
-    mk_io_error_two_objs(LeanIoErrorTag::NoFileOrDirectory, filename, os_code, details)
+    mk_io_error_two_objs(
+        LeanIoErrorTag::NoFileOrDirectory,
+        filename,
+        os_code,
+        details,
+    )
 }

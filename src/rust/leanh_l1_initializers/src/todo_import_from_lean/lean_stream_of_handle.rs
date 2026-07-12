@@ -19,7 +19,12 @@ use crate::r#priv::{
     lean_io_prim_handle_write::lean_io_prim_handle_write,
 };
 
-const STREAM_CTOR_TAG: u32 = 0;
+#[repr(u32)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+enum LeanStreamTag {
+    Stream = 0,
+}
+
 const STREAM_NUM_FIELDS: u32 = 6;
 const STREAM_SCALAR_SIZE: u32 = 0;
 
@@ -115,7 +120,11 @@ pub unsafe fn lean_stream_of_handle(h: *mut LeanObject) -> *mut LeanObject {
     let is_tty = lean_alloc_closure(lean_io_fs_handle_is_tty_boxed as *mut c_void, 2, 1);
     lean_closure_set(is_tty, 0, h);
 
-    let stream = lean_alloc_ctor(STREAM_CTOR_TAG, STREAM_NUM_FIELDS, STREAM_SCALAR_SIZE);
+    let stream = lean_alloc_ctor(
+        LeanStreamTag::Stream as u32,
+        STREAM_NUM_FIELDS,
+        STREAM_SCALAR_SIZE,
+    );
     lean_ctor_set(stream, STREAM_FLUSH_IDX, flush);
     lean_ctor_set(stream, STREAM_READ_IDX, read);
     lean_ctor_set(stream, STREAM_WRITE_IDX, write);

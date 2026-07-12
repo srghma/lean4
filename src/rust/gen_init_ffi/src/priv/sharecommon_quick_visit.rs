@@ -1,7 +1,7 @@
 use leanh_l1::{
     datatypes::{LeanObject, LeanObjectTag},
-    emitted::{lean_inc::lean_inc, lean_is_scalar::lean_is_scalar},
     emitted::lean_object_tag::lean_object_tag,
+    emitted::{lean_inc::lean_inc, lean_is_scalar::lean_is_scalar},
 };
 
 use crate::r#priv::{
@@ -35,7 +35,9 @@ pub(crate) unsafe fn sharecommon_quick_visit(
             sharecommon_quick_visit_terminal(this, a)
         }
         LeanObjectTag::Array => sharecommon_quick_visit_array(this, a),
-        LeanObjectTag::Ctor(_) | LeanObjectTag::StructArray => sharecommon_quick_visit_ctor(this, a),
+        LeanObjectTag::Ctor(_) | LeanObjectTag::StructArray => {
+            sharecommon_quick_visit_ctor(this, a)
+        }
         tag => panic!("unexpected LeanObjectTag in sharecommon_quick_visit: {tag:?}"),
     }
 }

@@ -24,10 +24,7 @@ Literal tags: 0 = natVal, 1 = strVal
 */
 
 mod kernel_equiv_manager_impl {
-    use crate::runtime_expr_shared::{
-        EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA,
-        EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT,
-    };
+    use crate::runtime_expr_shared::{lean_literal_tag, LeanExprKind, LeanLiteralTag, expr_kind};
     use crate::*;
     use core::ffi::c_void;
     use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
@@ -112,14 +109,13 @@ mod kernel_equiv_manager_impl {
             if a == b {
                 return true;
             }
-            let ta = lean_obj_tag(a);
-            if ta != lean_obj_tag(b) {
+            let ta = lean_literal_tag(a);
+            if ta != lean_literal_tag(b) {
                 return false;
             }
             match ta {
-                0 => Self::nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-                1 => Self::str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-                _ => false,
+                LeanLiteralTag::Nat => Self::nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+                LeanLiteralTag::String => Self::str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             }
         }
 
@@ -158,11 +154,11 @@ mod kernel_equiv_manager_impl {
                 return false;
             }
 
-            let tag_a = lean_obj_tag(a);
-            let tag_b = lean_obj_tag(b);
+            let tag_a = expr_kind(a);
+            let tag_b = expr_kind(b);
 
             // BVar: compare indices directly without union-find (matches C++)
-            if tag_a == EXPR_BVAR && tag_b == EXPR_BVAR {
+            if matches!(tag_a, LeanExprKind::BVar) && matches!(tag_b, LeanExprKind::BVar) {
                 return Self::nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0));
             }
 
@@ -183,30 +179,32 @@ mod kernel_equiv_manager_impl {
             // The outer type_checker checks the heartbeat at other call sites.
 
             let result = match tag_a {
-                EXPR_BVAR => unreachable!(), // handled above
-                EXPR_CONST => {
+                LeanExprKind::BVar => unreachable!(), // handled above
+                LeanExprKind::Const => {
                     lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
                         && Self::levels_eq(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
                 }
-                EXPR_MVAR | EXPR_FVAR => lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-                EXPR_APP => {
+                LeanExprKind::MVar | LeanExprKind::FVar => {
+                    lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
+                }
+                LeanExprKind::App => {
                     self.is_equiv_core(lean_ctor_get(a, 0), lean_ctor_get(b, 0), use_hash)
                         && self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
                 }
-                EXPR_LAMBDA | EXPR_PI => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
                         && self.is_equiv_core(lean_ctor_get(a, 2), lean_ctor_get(b, 2), use_hash)
                 }
-                EXPR_SORT => lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-                EXPR_LIT => Self::lit_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-                EXPR_MDATA => {
+                LeanExprKind::Sort => lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+                LeanExprKind::Lit => Self::lit_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+                LeanExprKind::MData => {
                     self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     self.is_equiv_core(lean_ctor_get(a, 2), lean_ctor_get(b, 2), use_hash)
                         && Self::nat_eq(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
                 }
-                EXPR_LET => {
+                LeanExprKind::Let => {
                     self.is_equiv_core(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
                         && self.is_equiv_core(lean_ctor_get(a, 2), lean_ctor_get(b, 2), use_hash)
                         && self.is_equiv_core(lean_ctor_get(a, 3), lean_ctor_get(b, 3), use_hash)

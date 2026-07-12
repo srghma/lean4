@@ -9,5 +9,10 @@ pub unsafe fn lean_mk_io_error_inappropriate_type(
     os_code: u32,
     details: *mut LeanObject,
 ) -> *mut LeanObject {
-    mk_io_error_two_objs(LeanIoErrorTag::InappropriateType, mk_option_none(), os_code, details)
+    mk_io_error_two_objs(
+        LeanIoErrorTag::InappropriateType,
+        mk_option_none(),
+        os_code,
+        details,
+    )
 }

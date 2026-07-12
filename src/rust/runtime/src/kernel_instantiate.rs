@@ -31,10 +31,10 @@ Scalar field layout:
 
 mod kernel_instantiate_impl {
     use crate::runtime_expr_shared::{
-        EXPR_APP, EXPR_BVAR, EXPR_DATA_HAS_LEVEL_PARAM_BIT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA,
-        EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_DATA_DEPTH_SHIFT, LEVEL_IMAX, LEVEL_MAX, LEVEL_PARAM,
-        LEVEL_SUCC, LeanBinderInfo, expr_binder_info_raw, expr_bvar_range, expr_data,
-        expr_let_nondep, level_data,
+        LeanBinderInfo, LeanConstantInfoTag, LeanExprKind, LeanLevelKind,
+        expr_binder_info_raw, expr_bvar_range, expr_data, expr_kind, expr_let_nondep,
+        lean_constant_info_tag, level_data, level_kind, LEVEL_DATA_DEPTH_SHIFT,
+        EXPR_DATA_HAS_LEVEL_PARAM_BIT,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
@@ -82,9 +82,6 @@ mod kernel_instantiate_impl {
         ) -> *mut LeanObject;
     }
 
-    const CONSTANT_INFO_DEFINITION: u8 = 1;
-    const CONSTANT_INFO_THEOREM: u8 = 2;
-
     const LIST_CONS_TAG: u32 = 1;
     const LIST_CONS_FIELDS: usize = 2;
 
@@ -122,13 +119,12 @@ mod kernel_instantiate_impl {
     }
 
     unsafe fn level_is_one(l: *const LeanObject) -> bool {
-        !lean_is_scalar(l) && lean_obj_tag(l) == LEVEL_SUCC && level_is_zero(lean_ctor_get(l, 0))
+        matches!(level_kind(l), LeanLevelKind::Succ) && level_is_zero(lean_ctor_get(l, 0))
     }
 
     unsafe fn level_is_explicit(l: *const LeanObject) -> bool {
         lean_is_scalar(l)
-            || (!lean_is_scalar(l)
-                && lean_obj_tag(l) == LEVEL_SUCC
+            || (matches!(level_kind(l), LeanLevelKind::Succ)
                 && level_is_explicit(lean_ctor_get(l, 0)))
     }
 
@@ -136,19 +132,19 @@ mod kernel_instantiate_impl {
         if lean_is_scalar(l) {
             return false;
         }
-        match lean_obj_tag(l) {
-            LEVEL_SUCC => true,
-            LEVEL_MAX => {
+        match level_kind(l) {
+            LeanLevelKind::Succ => true,
+            LeanLevelKind::Max => {
                 level_is_not_zero(lean_ctor_get(l, 0)) || level_is_not_zero(lean_ctor_get(l, 1))
             }
-            LEVEL_IMAX => level_is_not_zero(lean_ctor_get(l, 1)),
+            LeanLevelKind::IMax => level_is_not_zero(lean_ctor_get(l, 1)),
             _ => false,
         }
     }
 
     unsafe fn level_to_offset(mut l: *mut LeanObject) -> (*mut LeanObject, u32) {
         let mut offset = 0;
-        while !lean_is_scalar(l) && lean_obj_tag(l) == LEVEL_SUCC {
+        while matches!(level_kind(l), LeanLevelKind::Succ) {
             l = lean_ctor_get(l, 0);
             offset += 1;
         }
@@ -182,14 +178,14 @@ mod kernel_instantiate_impl {
             return lhs;
         }
         if !lean_is_scalar(rhs)
-            && lean_obj_tag(rhs) == LEVEL_MAX
+            && matches!(level_kind(rhs), LeanLevelKind::Max)
             && (level_eq(lean_ctor_get(rhs, 0), lhs) || level_eq(lean_ctor_get(rhs, 1), lhs))
         {
             lean_dec(lhs);
             return rhs;
         }
         if !lean_is_scalar(lhs)
-            && lean_obj_tag(lhs) == LEVEL_MAX
+            && matches!(level_kind(lhs), LeanLevelKind::Max)
             && (level_eq(lean_ctor_get(lhs, 0), rhs) || level_eq(lean_ctor_get(lhs, 1), rhs))
         {
             lean_dec(rhs);
@@ -266,9 +262,8 @@ mod kernel_instantiate_impl {
                 }
             }
 
-            let tag = lean_obj_tag(e);
-            let result: *mut LeanObject = match tag {
-                EXPR_BVAR => {
+            let result: *mut LeanObject = match expr_kind(e) {
+                LeanExprKind::BVar => {
                     let idx_obj = lean_ctor_get(e, 0);
                     if lean_is_scalar(idx_obj) {
                         let idx = lean_unbox(idx_obj);
@@ -308,7 +303,7 @@ mod kernel_instantiate_impl {
                         e
                     }
                 }
-                EXPR_APP => {
+                LeanExprKind::App => {
                     let fn_e = lean_ctor_get(e, 0);
                     let arg_e = lean_ctor_get(e, 1);
                     let new_fn = self.apply(fn_e, offset);
@@ -322,7 +317,7 @@ mod kernel_instantiate_impl {
                         lean_expr_mk_app(new_fn, new_arg)
                     }
                 }
-                EXPR_LAMBDA | EXPR_PI => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     let dom = lean_ctor_get(e, 1);
                     let body = lean_ctor_get(e, 2);
                     let new_dom = self.apply(dom, offset);
@@ -336,14 +331,14 @@ mod kernel_instantiate_impl {
                         let name = lean_ctor_get(e, 0);
                         lean_inc(name);
                         let bi = expr_binder_info_raw(e);
-                        if tag == EXPR_LAMBDA {
+                        if matches!(expr_kind(e), LeanExprKind::Lambda) {
                             lean_expr_mk_lambda(name, new_dom, new_body, bi)
                         } else {
                             lean_expr_mk_forall(name, new_dom, new_body, bi)
                         }
                     }
                 }
-                EXPR_LET => {
+                LeanExprKind::Let => {
                     let ty = lean_ctor_get(e, 1);
                     let val = lean_ctor_get(e, 2);
                     let body = lean_ctor_get(e, 3);
@@ -363,7 +358,7 @@ mod kernel_instantiate_impl {
                         lean_expr_mk_let(name, new_ty, new_val, new_body, nondep)
                     }
                 }
-                EXPR_MDATA => {
+                LeanExprKind::MData => {
                     let child = lean_ctor_get(e, 1);
                     let new_child = self.apply(child, offset);
                     if new_child == child {
@@ -376,7 +371,7 @@ mod kernel_instantiate_impl {
                         lean_expr_mk_mdata(md, new_child)
                     }
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     let child = lean_ctor_get(e, 2);
                     let new_child = self.apply(child, offset);
                     if new_child == child {
@@ -467,18 +462,18 @@ mod kernel_instantiate_impl {
     // C++ compatibility entry point for `lean::cheap_beta_reduce`.
     #[no_mangle]
     pub unsafe fn lean_expr_cheap_beta_reduce(e: *mut LeanObject) -> *mut LeanObject {
-        if lean_obj_tag(e) != EXPR_APP {
+        if !matches!(expr_kind(e), LeanExprKind::App) {
             lean_inc(e);
             return e;
         }
 
         let mut rev_args: Vec<*mut LeanObject> = Vec::new();
         let mut head = e;
-        while lean_obj_tag(head) == EXPR_APP {
+        while matches!(expr_kind(head), LeanExprKind::App) {
             rev_args.push(lean_ctor_get(head, 1));
             head = lean_ctor_get(head, 0);
         }
-        if lean_obj_tag(head) != EXPR_LAMBDA {
+        if !matches!(expr_kind(head), LeanExprKind::Lambda) {
             lean_inc(e);
             return e;
         }
@@ -486,7 +481,8 @@ mod kernel_instantiate_impl {
 
         let mut consumed_lambdas = 0usize;
         let mut fn_body = head;
-        while lean_obj_tag(fn_body) == EXPR_LAMBDA && consumed_lambdas < rev_args.len() {
+        while matches!(expr_kind(fn_body), LeanExprKind::Lambda) && consumed_lambdas < rev_args.len()
+        {
             consumed_lambdas += 1;
             fn_body = lean_ctor_get(fn_body, 2);
         }
@@ -495,7 +491,7 @@ mod kernel_instantiate_impl {
             return mk_app_from_borrowed(fn_body, &rev_args[consumed_lambdas..]);
         }
 
-        if lean_obj_tag(fn_body) == EXPR_BVAR {
+        if matches!(expr_kind(fn_body), LeanExprKind::BVar) {
             let idx_obj = lean_ctor_get(fn_body, 0);
             if lean_is_scalar(idx_obj) {
                 let idx = lean_unbox(idx_obj);
@@ -554,8 +550,8 @@ mod kernel_instantiate_impl {
             lean_inc(level);
             return level;
         }
-        match lean_obj_tag(level) {
-            LEVEL_SUCC => {
+        match level_kind(level) {
+            LeanLevelKind::Succ => {
                 let child = lean_ctor_get(level, 0);
                 let new_child = instantiate_level_lparams(child, params, levels);
                 if new_child == child {
@@ -566,7 +562,7 @@ mod kernel_instantiate_impl {
                     lean_level_mk_succ(new_child)
                 }
             }
-            LEVEL_MAX | LEVEL_IMAX => {
+            LeanLevelKind::Max | LeanLevelKind::IMax => {
                 let lhs = lean_ctor_get(level, 0);
                 let rhs = lean_ctor_get(level, 1);
                 let new_lhs = instantiate_level_lparams(lhs, params, levels);
@@ -576,13 +572,13 @@ mod kernel_instantiate_impl {
                     lean_dec(new_rhs);
                     lean_inc(level);
                     level
-                } else if lean_obj_tag(level) == LEVEL_MAX {
+                } else if matches!(level_kind(level), LeanLevelKind::Max) {
                     mk_max_simplified(new_lhs, new_rhs)
                 } else {
                     mk_imax_simplified(new_lhs, new_rhs)
                 }
             }
-            LEVEL_PARAM => {
+            LeanLevelKind::Param => {
                 if let Some(replacement) = find_level_param(lean_ctor_get(level, 0), params, levels)
                 {
                     replacement
@@ -639,8 +635,8 @@ mod kernel_instantiate_impl {
             lean_inc(e);
             return e;
         }
-        match lean_obj_tag(e) {
-            EXPR_SORT => {
+        match expr_kind(e) {
+            LeanExprKind::Sort => {
                 let level = lean_ctor_get(e, 0);
                 let new_level = instantiate_level_lparams(level, params, levels);
                 if new_level == level {
@@ -651,7 +647,7 @@ mod kernel_instantiate_impl {
                     lean_expr_mk_sort(new_level)
                 }
             }
-            EXPR_CONST => {
+            LeanExprKind::Const => {
                 let old_levels = lean_ctor_get(e, 1);
                 let new_levels = instantiate_levels_lparams(old_levels, params, levels);
                 if new_levels == old_levels {
@@ -664,7 +660,7 @@ mod kernel_instantiate_impl {
                     lean_expr_mk_const(name, new_levels)
                 }
             }
-            EXPR_APP => {
+            LeanExprKind::App => {
                 let f = lean_ctor_get(e, 0);
                 let a = lean_ctor_get(e, 1);
                 let new_f = instantiate_expr_lparams_impl(f, params, levels);
@@ -678,7 +674,7 @@ mod kernel_instantiate_impl {
                     lean_expr_mk_app(new_f, new_a)
                 }
             }
-            EXPR_LAMBDA | EXPR_PI => {
+            LeanExprKind::Lambda | LeanExprKind::Pi => {
                 let domain = lean_ctor_get(e, 1);
                 let body = lean_ctor_get(e, 2);
                 let new_domain = instantiate_expr_lparams_impl(domain, params, levels);
@@ -692,14 +688,14 @@ mod kernel_instantiate_impl {
                     let name = lean_ctor_get(e, 0);
                     lean_inc(name);
                     let bi = expr_binder_info_raw(e);
-                    if lean_obj_tag(e) == EXPR_LAMBDA {
+                    if matches!(expr_kind(e), LeanExprKind::Lambda) {
                         lean_expr_mk_lambda(name, new_domain, new_body, bi)
                     } else {
                         lean_expr_mk_forall(name, new_domain, new_body, bi)
                     }
                 }
             }
-            EXPR_LET => {
+            LeanExprKind::Let => {
                 let ty = lean_ctor_get(e, 1);
                 let val = lean_ctor_get(e, 2);
                 let body = lean_ctor_get(e, 3);
@@ -718,7 +714,7 @@ mod kernel_instantiate_impl {
                     lean_expr_mk_let(name, new_ty, new_val, new_body, expr_let_nondep(e))
                 }
             }
-            EXPR_MDATA => {
+            LeanExprKind::MData => {
                 let child = lean_ctor_get(e, 1);
                 let new_child = instantiate_expr_lparams_impl(child, params, levels);
                 if new_child == child {
@@ -731,7 +727,7 @@ mod kernel_instantiate_impl {
                     lean_expr_mk_mdata(data, new_child)
                 }
             }
-            EXPR_PROJ => {
+            LeanExprKind::Proj => {
                 let child = lean_ctor_get(e, 2);
                 let new_child = instantiate_expr_lparams_impl(child, params, levels);
                 if new_child == child {
@@ -775,8 +771,10 @@ mod kernel_instantiate_impl {
 
     #[inline(always)]
     unsafe fn constant_info_has_value(info: *const LeanObject) -> bool {
-        let tag = lean_obj_tag(info);
-        tag == CONSTANT_INFO_DEFINITION || tag == CONSTANT_INFO_THEOREM
+        matches!(
+            lean_constant_info_tag(info),
+            LeanConstantInfoTag::Definition | LeanConstantInfoTag::Theorem
+        )
     }
 
     #[inline(always)]

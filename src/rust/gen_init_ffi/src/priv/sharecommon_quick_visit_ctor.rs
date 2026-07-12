@@ -1,10 +1,10 @@
 use leanh_l1::{
     datatypes::{LeanObject, LeanObjectTag},
+    emitted::lean_object_tag::lean_object_tag,
     emitted::{
         lean_alloc_ctor::lean_alloc_ctor, lean_ctor_get::lean_ctor_get,
         lean_ctor_set::lean_ctor_set,
     },
-    emitted::lean_object_tag::lean_object_tag,
 };
 
 use crate::r#priv::{

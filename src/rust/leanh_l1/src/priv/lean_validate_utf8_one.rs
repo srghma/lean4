@@ -1,10 +1,6 @@
 use std::ffi::{c_uchar, c_uint};
 
-pub unsafe fn lean_validate_utf8_one(
-    text: *const c_uchar,
-    size: usize,
-    pos: *mut usize,
-) -> bool {
+pub unsafe fn lean_validate_utf8_one(text: *const c_uchar, size: usize, pos: *mut usize) -> bool {
     let i = *pos;
     let byte = *text.add(i) as c_uint;
     if byte & 0x80 == 0 {

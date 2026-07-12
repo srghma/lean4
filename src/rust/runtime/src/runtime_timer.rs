@@ -11,9 +11,24 @@ mod runtime_timer_impl {
     use core::ptr::{addr_of_mut, null_mut};
     use libuv_sys2::{uv_close, uv_loop_t, uv_timer_init, uv_timer_start, uv_timer_stop};
 
-    const TIMER_STATE_INITIAL: c_int = 0;
-    const TIMER_STATE_RUNNING: c_int = 1;
-    const TIMER_STATE_FINISHED: c_int = 2;
+    #[repr(i32)]
+    #[derive(Copy, Clone, Debug, Eq, PartialEq)]
+    enum TimerState {
+        Initial = 0,
+        Running = 1,
+        Finished = 2,
+    }
+
+    impl TimerState {
+        fn from_i32(v: c_int) -> Self {
+            match v {
+                0 => TimerState::Initial,
+                1 => TimerState::Running,
+                2 => TimerState::Finished,
+                n => panic!("invalid TimerState {n}"),
+            }
+        }
+    }
 
     unsafe fn timer_from_obj(obj: *mut LeanObject) -> *mut LeanUvTimerObject {
         lean_get_external_data(obj).cast()
@@ -28,7 +43,7 @@ mod runtime_timer_impl {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let timer = timer_from_obj(obj);
 
-        debug_assert_eq!((*timer).state, TIMER_STATE_RUNNING);
+        debug_assert_eq!(TimerState::from_i32((*timer).state), TimerState::Running);
 
         if (*timer).repeating {
             if !(*timer).promise.is_null() && !timer_promise_is_finished(timer) {
@@ -43,7 +58,7 @@ mod runtime_timer_impl {
             }
 
             uv_timer_stop((*timer).uv_timer);
-            (*timer).state = TIMER_STATE_FINISHED;
+            (*timer).state = TimerState::Finished as c_int;
             lean_dec(obj);
         }
     }
@@ -57,7 +72,7 @@ mod runtime_timer_impl {
 
         (*timer).timeout = timeout;
         (*timer).repeating = repeating;
-        (*timer).state = TIMER_STATE_INITIAL;
+        (*timer).state = TimerState::Initial as c_int;
         (*timer).promise = null_mut();
 
         let uv_timer = libc::malloc(core::mem::size_of::<uv_timer_t>()).cast::<uv_timer_t>();
@@ -90,7 +105,7 @@ mod runtime_timer_impl {
 
         let promise = lean_io_promise_new();
         (*timer).promise = promise;
-        (*timer).state = TIMER_STATE_RUNNING;
+        (*timer).state = TimerState::Running as c_int;
 
         lean_inc(obj);
         lean_inc(promise);
@@ -126,9 +141,9 @@ mod runtime_timer_impl {
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*timer).repeating {
-            match (*timer).state {
-                TIMER_STATE_INITIAL => setup_timer(obj, timer),
-                TIMER_STATE_RUNNING => {
+            match TimerState::from_i32((*timer).state) {
+                TimerState::Initial => setup_timer(obj, timer),
+                TimerState::Running => {
                     if (*timer).promise.is_null() || timer_promise_is_finished(timer) {
                         if !(*timer).promise.is_null() {
                             lean_dec((*timer).promise);
@@ -141,7 +156,7 @@ mod runtime_timer_impl {
                     event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                     lean_io_result_mk_ok(promise)
                 }
-                TIMER_STATE_FINISHED => {
+                TimerState::Finished => {
                     if !(*timer).promise.is_null() {
                         lean_inc((*timer).promise);
                         let promise = (*timer).promise;
@@ -160,7 +175,7 @@ mod runtime_timer_impl {
                     )))
                 }
             }
-        } else if (*timer).state == TIMER_STATE_INITIAL {
+        } else if TimerState::from_i32((*timer).state) == TimerState::Initial {
             setup_timer(obj, timer)
         } else if !(*timer).promise.is_null() {
             lean_inc((*timer).promise);
@@ -179,7 +194,7 @@ mod runtime_timer_impl {
 
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
-        if (*timer).state == TIMER_STATE_RUNNING {
+        if TimerState::from_i32((*timer).state) == TimerState::Running {
             uv_timer_stop((*timer).uv_timer);
 
             let result = uv_timer_start(
@@ -216,11 +231,11 @@ mod runtime_timer_impl {
             (*timer).promise = null_mut();
         }
 
-        if (*timer).state == TIMER_STATE_RUNNING {
+        if TimerState::from_i32((*timer).state) == TimerState::Running {
             uv_timer_stop((*timer).uv_timer);
             event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
-            (*timer).state = TIMER_STATE_FINISHED;
+            (*timer).state = TimerState::Finished as c_int;
             lean_dec(obj);
 
             lean_io_result_mk_ok(lean_box(0))
@@ -235,7 +250,7 @@ mod runtime_timer_impl {
 
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
-        if (*timer).state == TIMER_STATE_RUNNING && !(*timer).promise.is_null() {
+        if TimerState::from_i32((*timer).state) == TimerState::Running && !(*timer).promise.is_null() {
             if (*timer).repeating {
                 lean_dec((*timer).promise);
                 (*timer).promise = null_mut();
@@ -244,7 +259,7 @@ mod runtime_timer_impl {
 
                 lean_dec((*timer).promise);
                 (*timer).promise = null_mut();
-                (*timer).state = TIMER_STATE_INITIAL;
+                (*timer).state = TimerState::Initial as c_int;
 
                 lean_dec(obj);
             }

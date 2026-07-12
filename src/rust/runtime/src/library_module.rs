@@ -16,11 +16,7 @@ mod library_module_impl {
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{CStr, c_char, c_int, c_void};
-    use leanh::{
-        LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG,
-        LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
-        LEAN_THUNK_TAG,
-    };
+    use leanh::datatypes::LeanObjectTag;
 
     // olean file header layout (88 bytes, verified by static_assert in module.cpp):
     //   marker[5]        {'o','l','e','a','n'}
@@ -319,19 +315,19 @@ mod library_module_impl {
         let mut m_next = data_ptr.add(core::mem::size_of::<usize>()); // skip root offset
         while (m_next as usize) < m_end {
             let curr = m_next as *mut LeanObject;
-            let tag = (*curr).tag;
-            let advance = if tag <= LEAN_MAX_CTOR_TAG {
-                // Constructor: fix each object-pointer field.
-                let num_objs = (*curr).other as usize;
-                let field_ptr = curr.add(1) as *mut *mut LeanObject;
-                for i in 0..num_objs {
-                    let fp = field_ptr.add(i);
-                    *fp = fix_object_ptr(*fp, m_begin, m_base_addr, m_size, dep_regions);
+            let tag = LeanObjectTag::from_u8((*curr).tag);
+            let advance = match tag {
+                LeanObjectTag::Ctor(_) => {
+                    // Constructor: fix each object-pointer field.
+                    let num_objs = (*curr).other as usize;
+                    let field_ptr = curr.add(1) as *mut *mut LeanObject;
+                    for i in 0..num_objs {
+                        let fp = field_ptr.add(i);
+                        *fp = fix_object_ptr(*fp, m_begin, m_base_addr, m_size, dep_regions);
+                    }
+                    runtime_object_size_impl::lean_object_byte_size(curr)
                 }
-                runtime_object_size_impl::lean_object_byte_size(curr)
-            } else {
-                match tag {
-                    LEAN_CLOSURE_TAG => {
+                LeanObjectTag::Closure => {
                         // Fix captured object pointers only; m_fun was relocated above.
                         let c = curr as *const LeanClosureObject;
                         let num_fixed = (*c).num_fixed as usize;
@@ -341,8 +337,8 @@ mod library_module_impl {
                             *fp = fix_object_ptr(*fp, m_begin, m_base_addr, m_size, dep_regions);
                         }
                         runtime_object_size_impl::lean_object_byte_size(curr)
-                    }
-                    LEAN_ARRAY_TAG => {
+                }
+                LeanObjectTag::Array => {
                         let arr = curr as *const LeanArrayObject;
                         let n = (*arr).size;
                         let elems = arr.add(1) as *mut *mut LeanObject;
@@ -351,16 +347,16 @@ mod library_module_impl {
                             *fp = fix_object_ptr(*fp, m_begin, m_base_addr, m_size, dep_regions);
                         }
                         runtime_object_size_impl::lean_object_byte_size(curr)
-                    }
-                    LEAN_SCALAR_ARRAY_TAG => {
+                }
+                LeanObjectTag::ScalarArray => {
                         // No pointer fields; advance by byte size.
                         runtime_object_size_impl::lean_object_byte_size(curr)
-                    }
-                    LEAN_STRING_TAG => {
+                }
+                LeanObjectTag::String => {
                         // No pointer fields.
                         runtime_object_size_impl::lean_object_byte_size(curr)
-                    }
-                    LEAN_MPZ_TAG => {
+                }
+                LeanObjectTag::Mpz => {
                         // Fix _mp_d: stored as m_base_addr-relative, convert to m_begin-relative.
                         let mp_d_field =
                             (curr as *mut u8).add(LEAN_MPZ_MP_D_OFFSET).cast::<usize>();
@@ -368,35 +364,34 @@ mod library_module_impl {
                         mp_d_field.write(m_begin + (old_mp_d - m_base_addr));
                         // cs_size was set by lean_set_non_heap_header to include limb data.
                         runtime_object_size_impl::lean_object_byte_size(curr)
-                    }
-                    LEAN_THUNK_TAG => {
+                }
+                LeanObjectTag::Thunk => {
                         // Fix m_value at offset 8.
                         let vp = (curr as *mut u8).add(8).cast::<*mut LeanObject>();
                         *vp = fix_object_ptr(*vp, m_begin, m_base_addr, m_size, dep_regions);
                         LEAN_THUNK_OBJECT_SIZE
-                    }
-                    LEAN_REF_TAG => {
+                }
+                LeanObjectTag::Ref => {
                         // Fix m_value at offset 8.
                         let vp = (curr as *mut u8).add(8).cast::<*mut LeanObject>();
                         *vp = fix_object_ptr(*vp, m_begin, m_base_addr, m_size, dep_regions);
                         LEAN_REF_OBJECT_SIZE
-                    }
-                    LEAN_TASK_TAG => {
+                }
+                LeanObjectTag::Task => {
                         // Fix m_value (AtomicPtr<LeanObject>) at offset 8.
                         let vp = (curr as *mut u8).add(8).cast::<*mut LeanObject>();
                         *vp = fix_object_ptr(*vp, m_begin, m_base_addr, m_size, dep_regions);
                         LEAN_TASK_OBJECT_SIZE
-                    }
-                    LEAN_PROMISE_TAG => {
+                }
+                LeanObjectTag::Promise => {
                         // Fix m_result at offset 8.
                         let vp = (curr as *mut u8).add(8).cast::<*mut LeanObject>();
                         *vp = fix_object_ptr(*vp, m_begin, m_base_addr, m_size, dep_regions);
                         LEAN_PROMISE_OBJECT_SIZE
-                    }
-                    _ => {
-                        // Unknown tag: use lean_object_byte_size as best effort.
-                        runtime_object_size_impl::lean_object_byte_size(curr)
-                    }
+                }
+                LeanObjectTag::External | LeanObjectTag::Reserved => {
+                    // Unknown / external tags: use lean_object_byte_size as best effort.
+                    runtime_object_size_impl::lean_object_byte_size(curr)
                 }
             };
             m_next = m_next.add(align_up_ptr(advance));

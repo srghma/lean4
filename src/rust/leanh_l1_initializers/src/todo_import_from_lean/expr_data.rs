@@ -3,17 +3,27 @@ use leanh_l1::{
     emitted::{lean_ctor_get_uint64::lean_ctor_get_uint64, lean_obj_tag::lean_obj_tag},
 };
 
+use crate::todo_import_from_lean::lean_expr_tag::LeanExprTag;
+
 #[inline]
 pub unsafe fn expr_data(expr: *const LeanObject) -> u64 {
-    let num_fields = match lean_obj_tag(expr) {
-        0 | 1 | 2 | 3 | 9 => 1,
-        4 | 5 | 10 => 2,
-        6 | 7 | 11 => 3,
-        8 => 4,
-        _ => 1,
+    let num_fields = match unsafe { lean_expr_tag(expr) } {
+        LeanExprTag::BVar
+        | LeanExprTag::FVar
+        | LeanExprTag::MVar
+        | LeanExprTag::Sort
+        | LeanExprTag::Lit => 1,
+        LeanExprTag::Const | LeanExprTag::App | LeanExprTag::MData => 2,
+        LeanExprTag::Lambda | LeanExprTag::Pi | LeanExprTag::Proj => 3,
+        LeanExprTag::Let => 4,
     };
     lean_ctor_get_uint64(
         expr,
         (core::mem::size_of::<*mut LeanObject>() * num_fields) as u32,
     )
+}
+
+#[inline]
+unsafe fn lean_expr_tag(expr: *const LeanObject) -> LeanExprTag {
+    LeanExprTag::from_u8(lean_obj_tag(expr))
 }

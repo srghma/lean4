@@ -24,10 +24,11 @@ pub unsafe fn print_backtrace(force_stderr: bool) {
         let symbol = *symbols.add(i);
         if !symbol.is_null() {
             if std::env::var_os("LEAN_BACKTRACE_RAW").is_none()
-                && let Some(line) = demangle_backtrace_line(symbol) {
-                    panic_eprintln(line.as_bytes(), force_stderr);
-                    continue;
-                }
+                && let Some(line) = demangle_backtrace_line(symbol)
+            {
+                panic_eprintln(line.as_bytes(), force_stderr);
+                continue;
+            }
             let line = unsafe { CStr::from_ptr(symbol) };
             panic_eprintln(line.to_string_lossy().as_bytes(), force_stderr);
         }

@@ -9,8 +9,8 @@ use leanh_l1::{
 
 use crate::r#priv::lean_expr_mk_data::lean_expr_mk_data;
 use crate::todo_import_from_lean::lean_expr_mk_const::EXPR_DATA_OFFSET;
+use crate::todo_import_from_lean::lean_expr_tag::LeanExprTag;
 
-const EXPR_LIT_TAG: u32 = 9;
 const EXPR_LIT_FIELDS: u32 = 1;
 const EXPR_LIT_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
 const EXPR_LIT_HASH_SEED: u64 = 3;
@@ -29,7 +29,11 @@ pub unsafe fn lean_expr_mk_lit(lit: *mut LeanObject) -> *mut LeanObject {
         false,
         false,
     );
-    let expr = lean_alloc_ctor(EXPR_LIT_TAG, EXPR_LIT_FIELDS, EXPR_LIT_SCALAR_SIZE);
+    let expr = lean_alloc_ctor(
+        LeanExprTag::Lit as u32,
+        EXPR_LIT_FIELDS,
+        EXPR_LIT_SCALAR_SIZE,
+    );
     lean_ctor_set(expr, 0, lit);
     lean_ctor_set_uint64(expr, EXPR_DATA_OFFSET, data);
     expr

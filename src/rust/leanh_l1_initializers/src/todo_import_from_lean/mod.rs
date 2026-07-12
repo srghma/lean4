@@ -26,6 +26,7 @@ pub mod lean_expr_mk_mdata;
 pub mod lean_expr_mk_mvar;
 pub mod lean_expr_mk_proj;
 pub mod lean_expr_mk_sort;
+pub mod lean_expr_tag;
 pub mod lean_is_out_param;
 pub mod lean_level_depth;
 pub mod lean_level_has_mvar;

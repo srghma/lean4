@@ -1,11 +1,7 @@
 use std::{ffi::c_void, sync::atomic::Ordering};
 
 use crate::{
-    datatypes::{
-        LeanObject, LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG,
-        LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
-        LEAN_THUNK_TAG,
-    },
+    datatypes::{LeanObject, LeanObjectTag},
     emitted::{
         lean_alloc_closure::lean_alloc_closure, lean_box::lean_box, lean_dec::lean_dec,
         lean_is_scalar::lean_is_scalar,
@@ -35,7 +31,7 @@ pub unsafe fn lean_mark_persistent(o: *mut LeanObject) {
         if !lean_is_scalar(cur) && lean_has_rc(cur) {
             (*cur).rc = 0;
             lsan_ignore(cur);
-            let tag = lean_ptr_tag(cur);
+            let tag = LeanObjectTag::from_u8(lean_ptr_tag(cur));
             if lean_is_ctor(cur) {
                 let it = lean_ctor_obj_cptr(cur);
                 for i in 0..lean_ctor_num_objs(cur) {
@@ -43,32 +39,32 @@ pub unsafe fn lean_mark_persistent(o: *mut LeanObject) {
                 }
             } else {
                 match tag {
-                    LEAN_SCALAR_ARRAY_TAG | LEAN_STRING_TAG | LEAN_MPZ_TAG => {}
-                    LEAN_EXTERNAL_TAG => {
+                    LeanObjectTag::ScalarArray | LeanObjectTag::String | LeanObjectTag::Mpz => {}
+                    LeanObjectTag::External => {
                         let fn_obj = lean_alloc_closure(mark_persistent_fn as *mut c_void, 1, 0);
                         let external = lean_to_external(cur);
                         ((*(*external).m_class).m_foreach)((*external).m_data, fn_obj);
                         lean_dec(fn_obj);
                     }
-                    LEAN_TASK_TAG => {
+                    LeanObjectTag::Task => {
                         todo.push(lean_task_get(cur));
                     }
-                    LEAN_PROMISE_TAG => {
+                    LeanObjectTag::Promise => {
                         todo.push((*lean_to_promise(cur)).m_result as *mut LeanObject);
                     }
-                    LEAN_CLOSURE_TAG => {
+                    LeanObjectTag::Closure => {
                         let it = lean_closure_arg_cptr(cur);
                         for i in 0..lean_closure_num_fixed(cur) {
                             todo.push(*it.add(i));
                         }
                     }
-                    LEAN_ARRAY_TAG => {
+                    LeanObjectTag::Array => {
                         let it = lean_array_cptr(cur);
                         for i in 0..lean_array_size(cur) {
                             todo.push(*it.add(i));
                         }
                     }
-                    LEAN_THUNK_TAG => {
+                    LeanObjectTag::Thunk => {
                         let thunk = lean_to_thunk(cur);
                         let c = (*thunk).m_closure.load(Ordering::Acquire);
                         if !c.is_null() {
@@ -79,7 +75,7 @@ pub unsafe fn lean_mark_persistent(o: *mut LeanObject) {
                             todo.push(v);
                         }
                     }
-                    LEAN_REF_TAG => {
+                    LeanObjectTag::Ref => {
                         let value = (*lean_to_ref(cur)).m_value;
                         if !value.is_null() {
                             todo.push(value);

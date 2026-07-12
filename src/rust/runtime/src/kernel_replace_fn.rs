@@ -22,7 +22,9 @@ Field layout (from expr.h):
 */
 
 mod kernel_replace_fn_impl {
-    use crate::runtime_expr_shared::{LeanBinderInfo, expr_binder_info_raw, expr_let_nondep};
+    use crate::runtime_expr_shared::{
+        LeanBinderInfo, LeanExprKind, expr_binder_info_raw, expr_kind, expr_let_nondep,
+    };
     use crate::*;
     use core::ffi::c_void;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -106,16 +108,9 @@ mod kernel_replace_fn_impl {
                 return inner;
             }
 
-            const EXPR_APP: u8 = 5;
-            const EXPR_LAMBDA: u8 = 6;
-            const EXPR_PI: u8 = 7;
-            const EXPR_LET: u8 = 8;
-            const EXPR_MDATA: u8 = 10;
-            const EXPR_PROJ: u8 = 11;
-
-            let tag = lean_obj_tag(e);
+            let tag = expr_kind(e);
             let result: *mut LeanObject = match tag {
-                EXPR_APP => {
+                LeanExprKind::App => {
                     let fn_e = lean_ctor_get(e, 0);
                     let arg_e = lean_ctor_get(e, 1);
                     let new_fn = self.apply(fn_e, offset);
@@ -129,7 +124,7 @@ mod kernel_replace_fn_impl {
                         lean_expr_mk_app(new_fn, new_arg)
                     }
                 }
-                EXPR_LAMBDA | EXPR_PI => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     let dom = lean_ctor_get(e, 1);
                     let body = lean_ctor_get(e, 2);
                     let new_dom = self.apply(dom, offset);
@@ -143,14 +138,14 @@ mod kernel_replace_fn_impl {
                         let name = lean_ctor_get(e, 0);
                         lean_inc(name);
                         let bi = expr_binder_info_raw(e);
-                        if tag == EXPR_LAMBDA {
+                        if matches!(tag, LeanExprKind::Lambda) {
                             lean_expr_mk_lambda(name, new_dom, new_body, bi)
                         } else {
                             lean_expr_mk_forall(name, new_dom, new_body, bi)
                         }
                     }
                 }
-                EXPR_LET => {
+                LeanExprKind::Let => {
                     let ty = lean_ctor_get(e, 1);
                     let val = lean_ctor_get(e, 2);
                     let body = lean_ctor_get(e, 3);
@@ -170,7 +165,7 @@ mod kernel_replace_fn_impl {
                         lean_expr_mk_let(name, new_ty, new_val, new_body, nondep)
                     }
                 }
-                EXPR_MDATA => {
+                LeanExprKind::MData => {
                     let child = lean_ctor_get(e, 1);
                     let new_child = self.apply(child, offset);
                     if new_child == child {
@@ -183,7 +178,7 @@ mod kernel_replace_fn_impl {
                         lean_expr_mk_mdata(md, new_child)
                     }
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     let child = lean_ctor_get(e, 2);
                     let new_child = self.apply(child, offset);
                     if new_child == child {
@@ -267,16 +262,9 @@ mod kernel_replace_fn_impl {
             }
             // r = lean_box(0) = None (scalar): recurse into children.
 
-            const EXPR_APP: u8 = 5;
-            const EXPR_LAMBDA: u8 = 6;
-            const EXPR_PI: u8 = 7;
-            const EXPR_LET: u8 = 8;
-            const EXPR_MDATA: u8 = 10;
-            const EXPR_PROJ: u8 = 11;
-
-            let tag = lean_obj_tag(e);
+            let tag = expr_kind(e);
             let result: *mut LeanObject = match tag {
-                EXPR_APP => {
+                LeanExprKind::App => {
                     let fn_e = lean_ctor_get(e, 0);
                     let arg_e = lean_ctor_get(e, 1);
                     let new_fn = self.apply(fn_e);
@@ -290,7 +278,7 @@ mod kernel_replace_fn_impl {
                         lean_expr_mk_app(new_fn, new_arg)
                     }
                 }
-                EXPR_LAMBDA | EXPR_PI => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     let dom = lean_ctor_get(e, 1);
                     let body = lean_ctor_get(e, 2);
                     let new_dom = self.apply(dom);
@@ -304,14 +292,14 @@ mod kernel_replace_fn_impl {
                         let name = lean_ctor_get(e, 0);
                         lean_inc(name);
                         let bi = expr_binder_info_raw(e);
-                        if tag == EXPR_LAMBDA {
+                        if matches!(tag, LeanExprKind::Lambda) {
                             lean_expr_mk_lambda(name, new_dom, new_body, bi)
                         } else {
                             lean_expr_mk_forall(name, new_dom, new_body, bi)
                         }
                     }
                 }
-                EXPR_LET => {
+                LeanExprKind::Let => {
                     let ty = lean_ctor_get(e, 1);
                     let val = lean_ctor_get(e, 2);
                     let body = lean_ctor_get(e, 3);
@@ -331,7 +319,7 @@ mod kernel_replace_fn_impl {
                         lean_expr_mk_let(name, new_ty, new_val, new_body, nondep)
                     }
                 }
-                EXPR_MDATA => {
+                LeanExprKind::MData => {
                     let child = lean_ctor_get(e, 1);
                     let new_child = self.apply(child);
                     if new_child == child {
@@ -344,7 +332,7 @@ mod kernel_replace_fn_impl {
                         lean_expr_mk_mdata(md, new_child)
                     }
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     let child = lean_ctor_get(e, 2);
                     let new_child = self.apply(child);
                     if new_child == child {

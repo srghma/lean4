@@ -11,8 +11,29 @@ use leanh_l1::{
     r#priv::lean_uint64_mix_hash::lean_uint64_mix_hash,
 };
 
-pub const LEAN_NAME_ANONYMOUS_TAG: u8 = 0;
-pub const LEAN_NAME_STRING_TAG: u32 = 1;
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+pub enum LeanNameTag {
+    Anonymous = 0,
+    Str = 1,
+}
+
+impl LeanNameTag {
+    #[inline]
+    pub fn from_u8(tag: u8) -> Self {
+        match tag {
+            0 => LeanNameTag::Anonymous,
+            1 => LeanNameTag::Str,
+            n => panic!("invalid LeanNameTag {n}"),
+        }
+    }
+}
+
+#[inline]
+unsafe fn lean_name_tag(obj: *const LeanObject) -> LeanNameTag {
+    LeanNameTag::from_u8(lean_obj_tag(obj))
+}
+
 pub const LEAN_NAME_NUM_OBJECT_FIELDS: u32 = 2;
 pub const LEAN_NAME_HASH_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
 pub const LEAN_NAME_HASH_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2;
@@ -112,19 +133,18 @@ pub unsafe fn lean_name_mk_string(
     prefix: *mut LeanObject,
     string: *mut LeanObject,
 ) -> *mut LeanObject {
-    let prefix_hash = if lean_obj_tag(prefix) == LEAN_NAME_ANONYMOUS_TAG {
-        LEAN_NAME_ANONYMOUS_HASH
-    } else {
-        leanh_l1::emitted::lean_ctor_get_uint64::lean_ctor_get_uint64(
+    let prefix_hash = match lean_name_tag(prefix) {
+        LeanNameTag::Anonymous => LEAN_NAME_ANONYMOUS_HASH,
+        LeanNameTag::Str => leanh_l1::emitted::lean_ctor_get_uint64::lean_ctor_get_uint64(
             prefix,
             LEAN_NAME_HASH_OFFSET as u32,
-        )
+        ),
     };
     let string_hash = lean_string_hash(string);
     let hash = lean_uint64_mix_hash(prefix_hash, string_hash);
 
     let obj = lean_alloc_ctor(
-        LEAN_NAME_STRING_TAG,
+        LeanNameTag::Str as u32,
         LEAN_NAME_NUM_OBJECT_FIELDS,
         LEAN_NAME_HASH_SCALAR_SIZE,
     );

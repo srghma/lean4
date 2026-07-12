@@ -40,6 +40,17 @@ pub enum LeanIoResultTag {
     Error = 1,
 }
 
+impl LeanIoResultTag {
+    #[inline]
+    pub fn from_u8(tag: u8) -> Self {
+        match tag {
+            0 => LeanIoResultTag::Ok,
+            1 => LeanIoResultTag::Error,
+            n => panic!("invalid LeanIoResultTag {n}"),
+        }
+    }
+}
+
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum LeanOptionTag {
@@ -47,11 +58,22 @@ pub enum LeanOptionTag {
     Some = 1,
 }
 
+impl LeanOptionTag {
+    #[inline]
+    pub fn from_u8(tag: u8) -> Self {
+        match tag {
+            0 => LeanOptionTag::None,
+            1 => LeanOptionTag::Some,
+            n => panic!("invalid LeanOptionTag {n}"),
+        }
+    }
+}
+
 impl LeanObjectTag {
     #[inline]
     pub fn from_u8(tag: u8) -> Self {
         match tag {
-            0..=LEAN_MAX_CTOR_TAG => LeanObjectTag::Ctor(tag),
+            0..=243 => LeanObjectTag::Ctor(tag),
             244 => LeanObjectTag::Promise,
             245 => LeanObjectTag::Closure,
             246 => LeanObjectTag::Array,
@@ -221,19 +243,6 @@ pub struct LeanMpzObject {
     pub m_value: mpz_t,
 }
 
-pub const LEAN_MAX_CTOR_TAG: u8 = 243;
-pub const LEAN_PROMISE_TAG: u8 = 244;
-pub const LEAN_CLOSURE_TAG: u8 = 245;
-pub const LEAN_ARRAY_TAG: u8 = 246;
-pub const LEAN_STRUCT_ARRAY_TAG: u8 = 247;
-pub const LEAN_SCALAR_ARRAY_TAG: u8 = 248;
-pub const LEAN_STRING_TAG: u8 = 249;
-pub const LEAN_MPZ_TAG: u8 = 250;
-pub const LEAN_THUNK_TAG: u8 = 251;
-pub const LEAN_TASK_TAG: u8 = 252;
-pub const LEAN_REF_TAG: u8 = 253;
-pub const LEAN_EXTERNAL_TAG: u8 = 254;
-pub const LEAN_RESERVED_TAG: u8 = 255;
 pub const LEAN_OBJECT_SIZE_DELTA: usize = 8;
 pub const LEAN_MAX_CTOR_FIELDS: u32 = 256;
 pub const LEAN_MAX_CTOR_SCALARS_SIZE: u32 = 1024;

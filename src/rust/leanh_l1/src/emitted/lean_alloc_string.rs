@@ -1,7 +1,7 @@
 // from runtime_object_string
 
 use crate::{
-    datatypes::{LEAN_STRING_TAG, LeanObject, LeanStringObject},
+    datatypes::{LeanObject, LeanObjectTag, LeanStringObject},
     r#priv::lean_alloc_object::lean_alloc_object,
 };
 
@@ -14,7 +14,7 @@ pub unsafe fn lean_alloc_string(size: usize, capacity: usize, len: usize) -> *mu
     (*obj).m_header.rc = 1;
     (*obj).m_header.cs_size = 0;
     (*obj).m_header.other = 0;
-    (*obj).m_header.tag = LEAN_STRING_TAG;
+    (*obj).m_header.tag = LeanObjectTag::String.as_u8();
     (*obj).m_size = size;
     (*obj).m_capacity = capacity;
     (*obj).m_length = len;

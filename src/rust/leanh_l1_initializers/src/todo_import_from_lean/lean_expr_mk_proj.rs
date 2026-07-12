@@ -9,8 +9,8 @@ use leanh_l1::{
 use crate::r#priv::lean_expr_mk_data::lean_expr_mk_data;
 use crate::todo_import_from_lean::expr_data::expr_data;
 use crate::todo_import_from_lean::lean_expr_mk_const::EXPR_DATA_OFFSET;
+use crate::todo_import_from_lean::lean_expr_tag::LeanExprTag;
 
-const EXPR_PROJ_TAG: u32 = 11;
 const EXPR_PROJ_FIELDS: u32 = 3;
 const EXPR_PROJ_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
 const EXPR_PROJ_DATA_OFFSET: usize = EXPR_DATA_OFFSET + core::mem::size_of::<*mut LeanObject>();
@@ -42,7 +42,11 @@ pub unsafe fn lean_expr_mk_proj(
         ((child >> 42) & 1) != 0,
         ((child >> 43) & 1) != 0,
     );
-    let result = lean_alloc_ctor(EXPR_PROJ_TAG, EXPR_PROJ_FIELDS, EXPR_PROJ_SCALAR_SIZE);
+    let result = lean_alloc_ctor(
+        LeanExprTag::Proj as u32,
+        EXPR_PROJ_FIELDS,
+        EXPR_PROJ_SCALAR_SIZE,
+    );
     lean_ctor_set(result, 0, type_name);
     lean_ctor_set(result, 1, idx);
     lean_ctor_set(result, 2, struct_);

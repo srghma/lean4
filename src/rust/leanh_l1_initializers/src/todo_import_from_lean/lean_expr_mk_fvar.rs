@@ -7,8 +7,8 @@ use leanh_l1::{
 };
 
 use crate::r#priv::lean_expr_mk_data::lean_expr_mk_data;
+use crate::todo_import_from_lean::lean_expr_tag::LeanExprTag;
 
-const EXPR_FVAR_TAG: u32 = 1;
 const EXPR_FVAR_FIELDS: u32 = 1;
 const EXPR_FVAR_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
 const EXPR_FVAR_HASH_SEED: u64 = 13;
@@ -31,7 +31,11 @@ pub unsafe fn lean_expr_mk_fvar(fvar_id: *mut LeanObject) -> *mut LeanObject {
         false,
         false,
     );
-    let expr = lean_alloc_ctor(EXPR_FVAR_TAG, EXPR_FVAR_FIELDS, EXPR_FVAR_SCALAR_SIZE);
+    let expr = lean_alloc_ctor(
+        LeanExprTag::FVar as u32,
+        EXPR_FVAR_FIELDS,
+        EXPR_FVAR_SCALAR_SIZE,
+    );
     lean_ctor_set(expr, 0, fvar_id);
     lean_ctor_set_uint64(expr, core::mem::size_of::<*mut LeanObject>(), data);
     expr

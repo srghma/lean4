@@ -9,7 +9,7 @@ use std::ptr;
 
 use crate::{
     kernel_type_checker::lean_name_eq::lean_name_eq,
-    r#priv::initialize_name_generator::{NameGeneratorState, NAME_GENERATOR_STATE},
+    r#priv::initialize_name_generator::{NAME_GENERATOR_STATE, NameGeneratorState},
     todo_import_from_lean::lean_name_mk_string::lean_name_mk_string,
 };
 

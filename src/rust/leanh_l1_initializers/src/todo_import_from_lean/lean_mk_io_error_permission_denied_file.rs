@@ -10,5 +10,10 @@ pub unsafe fn lean_mk_io_error_permission_denied_file(
     os_code: u32,
     details: *mut LeanObject,
 ) -> *mut LeanObject {
-    mk_io_error_two_objs(LeanIoErrorTag::PermissionDenied, mk_option_some(filename), os_code, details)
+    mk_io_error_two_objs(
+        LeanIoErrorTag::PermissionDenied,
+        mk_option_some(filename),
+        os_code,
+        details,
+    )
 }

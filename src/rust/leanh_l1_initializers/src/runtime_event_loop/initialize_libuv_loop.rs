@@ -1,7 +1,7 @@
 use leanh_l1::runtime_object_panic::lean_internal_panic_out_of_memory::lean_internal_panic;
 use std::{ptr, sync::atomic::Ordering};
 
-use core::ffi::{c_int, CStr};
+use core::ffi::{CStr, c_int};
 use libuv_sys2::{
     uv_async_init, uv_async_t, uv_cond_init, uv_default_loop, uv_mutex_init_recursive, uv_stop,
     uv_strerror,

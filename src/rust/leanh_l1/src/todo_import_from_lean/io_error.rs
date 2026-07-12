@@ -34,30 +34,37 @@ pub enum LeanIoErrorTag {
     UserError = 18,
 }
 
+impl LeanIoErrorTag {
+    #[inline]
+    pub fn from_u8(tag: u8) -> Self {
+        match tag {
+            0 => LeanIoErrorTag::AlreadyExists,
+            1 => LeanIoErrorTag::OtherError,
+            2 => LeanIoErrorTag::ResourceBusy,
+            3 => LeanIoErrorTag::ResourceVanished,
+            4 => LeanIoErrorTag::UnsupportedOperation,
+            5 => LeanIoErrorTag::HardwareFault,
+            6 => LeanIoErrorTag::UnsatisfiedConstraints,
+            7 => LeanIoErrorTag::IllegalOperation,
+            8 => LeanIoErrorTag::ProtocolError,
+            9 => LeanIoErrorTag::TimeExpired,
+            10 => LeanIoErrorTag::Interrupted,
+            11 => LeanIoErrorTag::NoFileOrDirectory,
+            12 => LeanIoErrorTag::InvalidArgument,
+            13 => LeanIoErrorTag::PermissionDenied,
+            14 => LeanIoErrorTag::ResourceExhausted,
+            15 => LeanIoErrorTag::InappropriateType,
+            16 => LeanIoErrorTag::NoSuchThing,
+            17 => LeanIoErrorTag::UnexpectedEof,
+            18 => LeanIoErrorTag::UserError,
+            n => panic!("invalid LeanIoErrorTag {n}"),
+        }
+    }
+}
+
 #[inline]
 pub unsafe fn lean_io_error_tag(err: *const LeanObject) -> LeanIoErrorTag {
-    match lean_obj_tag(err) {
-        0 => LeanIoErrorTag::AlreadyExists,
-        1 => LeanIoErrorTag::OtherError,
-        2 => LeanIoErrorTag::ResourceBusy,
-        3 => LeanIoErrorTag::ResourceVanished,
-        4 => LeanIoErrorTag::UnsupportedOperation,
-        5 => LeanIoErrorTag::HardwareFault,
-        6 => LeanIoErrorTag::UnsatisfiedConstraints,
-        7 => LeanIoErrorTag::IllegalOperation,
-        8 => LeanIoErrorTag::ProtocolError,
-        9 => LeanIoErrorTag::TimeExpired,
-        10 => LeanIoErrorTag::Interrupted,
-        11 => LeanIoErrorTag::NoFileOrDirectory,
-        12 => LeanIoErrorTag::InvalidArgument,
-        13 => LeanIoErrorTag::PermissionDenied,
-        14 => LeanIoErrorTag::ResourceExhausted,
-        15 => LeanIoErrorTag::InappropriateType,
-        16 => LeanIoErrorTag::NoSuchThing,
-        17 => LeanIoErrorTag::UnexpectedEof,
-        18 => LeanIoErrorTag::UserError,
-        n => panic!("invalid LeanIoErrorTag {n}"),
-    }
+    LeanIoErrorTag::from_u8(lean_obj_tag(err))
 }
 
 pub const LEAN_IO_ERROR_TEXT_ALREADY_EXISTS: &str = "already exists";

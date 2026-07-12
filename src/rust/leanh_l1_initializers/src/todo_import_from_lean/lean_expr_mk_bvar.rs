@@ -9,8 +9,8 @@ use leanh_l1::{
 };
 
 use crate::r#priv::lean_expr_mk_data::lean_expr_mk_data;
+use crate::todo_import_from_lean::lean_expr_tag::LeanExprTag;
 
-const EXPR_BVAR_TAG: u32 = 0;
 const EXPR_BVAR_FIELDS: u32 = 1;
 const EXPR_BVAR_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
 const EXPR_BVAR_HASH_SEED: u64 = 7;
@@ -29,7 +29,11 @@ pub unsafe fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject {
         false,
         false,
     );
-    let expr = lean_alloc_ctor(EXPR_BVAR_TAG, EXPR_BVAR_FIELDS, EXPR_BVAR_SCALAR_SIZE);
+    let expr = lean_alloc_ctor(
+        LeanExprTag::BVar as u32,
+        EXPR_BVAR_FIELDS,
+        EXPR_BVAR_SCALAR_SIZE,
+    );
     lean_ctor_set(expr, 0, idx);
     lean_ctor_set_uint64(expr, core::mem::size_of::<*mut LeanObject>(), data);
     expr

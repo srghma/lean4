@@ -13,9 +13,108 @@ mod runtime_signal_impl {
         uv_signal_stop,
     };
 
-    const SIGNAL_STATE_INITIAL: c_int = 0;
-    const SIGNAL_STATE_RUNNING: c_int = 1;
-    const SIGNAL_STATE_FINISHED: c_int = 2;
+    #[repr(i32)]
+    #[derive(Copy, Clone, Debug, Eq, PartialEq)]
+    enum SignalState {
+        Initial = 0,
+        Running = 1,
+        Finished = 2,
+    }
+
+    impl SignalState {
+        fn from_i32(v: c_int) -> Self {
+            match v {
+                0 => SignalState::Initial,
+                1 => SignalState::Running,
+                2 => SignalState::Finished,
+                n => panic!("invalid SignalState {n}"),
+            }
+        }
+    }
+
+    #[repr(u32)]
+    #[derive(Copy, Clone, Debug, Eq, PartialEq)]
+    enum LeanSignalKind {
+        Hup = 1,
+        Int = 2,
+        Quit = 3,
+        Abort = 6,
+        Trap = 5,
+        Usr1 = 10,
+        Usr2 = 12,
+        Alarm = 14,
+        Term = 15,
+        Chld = 17,
+        Cont = 18,
+        Tstp = 20,
+        Ttin = 21,
+        Ttou = 22,
+        Urg = 23,
+        Xcpu = 24,
+        Xfsz = 25,
+        Vtalrm = 26,
+        Prof = 27,
+        Winch = 28,
+        Io = 29,
+        Sys = 31,
+    }
+
+    impl LeanSignalKind {
+        fn from_u32(v: u32) -> Self {
+            match v {
+                1 => LeanSignalKind::Hup,
+                2 => LeanSignalKind::Int,
+                3 => LeanSignalKind::Quit,
+                5 => LeanSignalKind::Trap,
+                6 => LeanSignalKind::Abort,
+                10 => LeanSignalKind::Usr1,
+                12 => LeanSignalKind::Usr2,
+                14 => LeanSignalKind::Alarm,
+                15 => LeanSignalKind::Term,
+                17 => LeanSignalKind::Chld,
+                18 => LeanSignalKind::Cont,
+                20 => LeanSignalKind::Tstp,
+                21 => LeanSignalKind::Ttin,
+                22 => LeanSignalKind::Ttou,
+                23 => LeanSignalKind::Urg,
+                24 => LeanSignalKind::Xcpu,
+                25 => LeanSignalKind::Xfsz,
+                26 => LeanSignalKind::Vtalrm,
+                27 => LeanSignalKind::Prof,
+                28 => LeanSignalKind::Winch,
+                29 => LeanSignalKind::Io,
+                31 => LeanSignalKind::Sys,
+                n => panic!("invalid LeanSignalKind {n}"),
+            }
+        }
+    }
+
+    fn lean_signal_to_libc(sig: LeanSignalKind) -> c_int {
+        match sig {
+            LeanSignalKind::Hup => libc::SIGHUP,
+            LeanSignalKind::Int => libc::SIGINT,
+            LeanSignalKind::Quit => libc::SIGQUIT,
+            LeanSignalKind::Abort => libc::SIGABRT,
+            LeanSignalKind::Trap => libc::SIGTRAP,
+            LeanSignalKind::Usr1 => libc::SIGUSR1,
+            LeanSignalKind::Usr2 => libc::SIGUSR2,
+            LeanSignalKind::Alarm => libc::SIGALRM,
+            LeanSignalKind::Term => libc::SIGTERM,
+            LeanSignalKind::Chld => libc::SIGCHLD,
+            LeanSignalKind::Cont => libc::SIGCONT,
+            LeanSignalKind::Tstp => libc::SIGTSTP,
+            LeanSignalKind::Ttin => libc::SIGTTIN,
+            LeanSignalKind::Ttou => libc::SIGTTOU,
+            LeanSignalKind::Urg => libc::SIGURG,
+            LeanSignalKind::Xcpu => libc::SIGXCPU,
+            LeanSignalKind::Xfsz => libc::SIGXFSZ,
+            LeanSignalKind::Vtalrm => libc::SIGVTALRM,
+            LeanSignalKind::Prof => libc::SIGPROF,
+            LeanSignalKind::Winch => libc::SIGWINCH,
+            LeanSignalKind::Io => libc::SIGIO,
+            LeanSignalKind::Sys => libc::SIGSYS,
+        }
+    }
 
     unsafe fn signal_from_obj(obj: *mut LeanObject) -> *mut LeanUvSignalObject {
         lean_get_external_data(obj).cast()
@@ -30,7 +129,7 @@ mod runtime_signal_impl {
         let obj = (*handle).handle.data.cast::<LeanObject>();
         let signal = signal_from_obj(obj);
 
-        debug_assert_eq!((*signal).state, SIGNAL_STATE_RUNNING);
+        debug_assert_eq!(SignalState::from_i32((*signal).state), SignalState::Running);
 
         if (*signal).repeating {
             if !(*signal).promise.is_null() && !signal_promise_is_finished(signal) {
@@ -45,39 +144,13 @@ mod runtime_signal_impl {
             }
 
             uv_signal_stop((*signal).uv_signal);
-            (*signal).state = SIGNAL_STATE_FINISHED;
+            (*signal).state = SignalState::Finished as c_int;
             lean_dec(obj);
         }
     }
 
     pub unsafe fn lean_uv_signal_mk(signum_obj: u32, repeating: bool) -> *mut LeanObject {
-        let mut signum = signum_obj as c_int;
-
-        match signum {
-            1 => signum = libc::SIGHUP,
-            2 => signum = libc::SIGINT,
-            3 => signum = libc::SIGQUIT,
-            6 => signum = libc::SIGABRT,
-            15 => signum = libc::SIGTERM,
-            28 => signum = libc::SIGWINCH,
-            5 => signum = libc::SIGTRAP,
-            10 => signum = libc::SIGUSR1,
-            12 => signum = libc::SIGUSR2,
-            14 => signum = libc::SIGALRM,
-            17 => signum = libc::SIGCHLD,
-            18 => signum = libc::SIGCONT,
-            20 => signum = libc::SIGTSTP,
-            21 => signum = libc::SIGTTIN,
-            22 => signum = libc::SIGTTOU,
-            23 => signum = libc::SIGURG,
-            24 => signum = libc::SIGXCPU,
-            25 => signum = libc::SIGXFSZ,
-            26 => signum = libc::SIGVTALRM,
-            27 => signum = libc::SIGPROF,
-            29 => signum = libc::SIGIO,
-            31 => signum = libc::SIGSYS,
-            _ => signum = 0,
-        }
+        let signum = lean_signal_to_libc(LeanSignalKind::from_u32(signum_obj));
 
         let signal =
             libc::malloc(core::mem::size_of::<LeanUvSignalObject>()).cast::<LeanUvSignalObject>();
@@ -87,7 +160,7 @@ mod runtime_signal_impl {
 
         (*signal).signum = signum;
         (*signal).repeating = repeating;
-        (*signal).state = SIGNAL_STATE_INITIAL;
+        (*signal).state = SignalState::Initial as c_int;
         (*signal).promise = null_mut();
 
         let uv_signal = libc::malloc(core::mem::size_of::<uv_signal_t>()).cast::<uv_signal_t>();
@@ -123,7 +196,7 @@ mod runtime_signal_impl {
 
         let promise = lean_io_promise_new();
         (*signal).promise = promise;
-        (*signal).state = SIGNAL_STATE_RUNNING;
+        (*signal).state = SignalState::Running as c_int;
 
         lean_inc(obj);
         lean_inc(promise);
@@ -159,9 +232,9 @@ mod runtime_signal_impl {
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
         if (*signal).repeating {
-            match (*signal).state {
-                SIGNAL_STATE_INITIAL => setup_signal(obj, signal),
-                SIGNAL_STATE_RUNNING => {
+            match SignalState::from_i32((*signal).state) {
+                SignalState::Initial => setup_signal(obj, signal),
+                SignalState::Running => {
                     if (*signal).promise.is_null() || signal_promise_is_finished(signal) {
                         if !(*signal).promise.is_null() {
                             lean_dec((*signal).promise);
@@ -174,7 +247,7 @@ mod runtime_signal_impl {
                     event_loop_unlock(addr_of_mut!(GLOBAL_EV));
                     lean_io_result_mk_ok(promise)
                 }
-                SIGNAL_STATE_FINISHED => {
+                SignalState::Finished => {
                     if !(*signal).promise.is_null() {
                         lean_inc((*signal).promise);
                         let promise = (*signal).promise;
@@ -193,7 +266,7 @@ mod runtime_signal_impl {
                     )))
                 }
             }
-        } else if (*signal).state == SIGNAL_STATE_INITIAL {
+        } else if SignalState::from_i32((*signal).state) == SignalState::Initial {
             setup_signal(obj, signal)
         } else if !(*signal).promise.is_null() {
             lean_inc((*signal).promise);
@@ -217,11 +290,11 @@ mod runtime_signal_impl {
             (*signal).promise = null_mut();
         }
 
-        if (*signal).state == SIGNAL_STATE_RUNNING {
+        if SignalState::from_i32((*signal).state) == SignalState::Running {
             let result = uv_signal_stop((*signal).uv_signal);
             event_loop_unlock(addr_of_mut!(GLOBAL_EV));
 
-            (*signal).state = SIGNAL_STATE_FINISHED;
+            (*signal).state = SignalState::Finished as c_int;
             lean_dec(obj);
 
             if result != 0 {
@@ -240,7 +313,7 @@ mod runtime_signal_impl {
 
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
 
-        if (*signal).state == SIGNAL_STATE_RUNNING && !(*signal).promise.is_null() {
+        if SignalState::from_i32((*signal).state) == SignalState::Running && !(*signal).promise.is_null() {
             if (*signal).repeating {
                 lean_dec((*signal).promise);
                 (*signal).promise = null_mut();
@@ -249,7 +322,7 @@ mod runtime_signal_impl {
 
                 lean_dec((*signal).promise);
                 (*signal).promise = null_mut();
-                (*signal).state = SIGNAL_STATE_INITIAL;
+                (*signal).state = SignalState::Initial as c_int;
 
                 lean_dec(obj);
             }

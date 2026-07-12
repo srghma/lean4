@@ -12,6 +12,7 @@ mod library_ir_interpreter_impl {
     use core::sync::atomic::{AtomicBool, AtomicPtr, AtomicUsize, Ordering};
     #[cfg(unix)]
     use libloading::os::unix::Library as UnixLibrary;
+    use leanh::datatypes::LeanObjectTag;
     use std::collections::HashMap;
     use std::hash::{BuildHasher, Hash, Hasher};
     use std::sync::{Mutex, MutexGuard, OnceLock};
@@ -409,8 +410,30 @@ mod library_ir_interpreter_impl {
         IsTaggedPtr = 13,
     }
 
+    impl ExprKind {
+        fn from_u8(tag: u8) -> Self {
+            match tag {
+                0 => ExprKind::Ctor,
+                1 => ExprKind::Reset,
+                2 => ExprKind::Reuse,
+                3 => ExprKind::Proj,
+                4 => ExprKind::UProj,
+                5 => ExprKind::SProj,
+                6 => ExprKind::FAp,
+                7 => ExprKind::PAp,
+                8 => ExprKind::Ap,
+                9 => ExprKind::Box,
+                10 => ExprKind::Unbox,
+                11 => ExprKind::Lit,
+                12 => ExprKind::IsShared,
+                13 => ExprKind::IsTaggedPtr,
+                n => panic!("invalid ExprKind tag {n}"),
+            }
+        }
+    }
+
     unsafe fn expr_tag(e: *mut LeanObject) -> ExprKind {
-        core::mem::transmute(lean_obj_tag(e))
+        ExprKind::from_u8(lean_obj_tag(e))
     }
 
     #[derive(Clone, Copy, PartialEq, Eq)]
@@ -418,6 +441,20 @@ mod library_ir_interpreter_impl {
     enum LitValKind {
         Num = 0,
         Str = 1,
+    }
+
+    impl LitValKind {
+        fn from_u8(tag: u8) -> Self {
+            match tag {
+                0 => LitValKind::Num,
+                1 => LitValKind::Str,
+                n => panic!("invalid LitValKind tag {n}"),
+            }
+        }
+    }
+
+    fn lit_val_tag_from_u8(tag: u8) -> LitValKind {
+        LitValKind::from_u8(tag)
     }
 
     #[derive(Clone, Copy, PartialEq, Eq)]
@@ -438,8 +475,29 @@ mod library_ir_interpreter_impl {
         Unreachable = 12,
     }
 
+    impl FnBodyKind {
+        fn from_u8(tag: u8) -> Self {
+            match tag {
+                0 => FnBodyKind::VDecl,
+                1 => FnBodyKind::JDecl,
+                2 => FnBodyKind::Set,
+                3 => FnBodyKind::SetTag,
+                4 => FnBodyKind::USet,
+                5 => FnBodyKind::SSet,
+                6 => FnBodyKind::Inc,
+                7 => FnBodyKind::Dec,
+                8 => FnBodyKind::Del,
+                9 => FnBodyKind::Case,
+                10 => FnBodyKind::Ret,
+                11 => FnBodyKind::Jmp,
+                12 => FnBodyKind::Unreachable,
+                n => panic!("invalid FnBodyKind tag {n}"),
+            }
+        }
+    }
+
     unsafe fn fn_body_tag(b: *mut LeanObject) -> FnBodyKind {
-        core::mem::transmute(lean_obj_tag(b))
+        FnBodyKind::from_u8(lean_obj_tag(b))
     }
 
     #[derive(Clone, Copy, PartialEq, Eq)]
@@ -449,8 +507,18 @@ mod library_ir_interpreter_impl {
         Extern = 1,
     }
 
+    impl DeclKind {
+        fn from_u8(tag: u8) -> Self {
+            match tag {
+                0 => DeclKind::Fun,
+                1 => DeclKind::Extern,
+                n => panic!("invalid DeclKind tag {n}"),
+            }
+        }
+    }
+
     unsafe fn decl_tag(d: *mut LeanObject) -> DeclKind {
-        core::mem::transmute(lean_obj_tag(d))
+        DeclKind::from_u8(lean_obj_tag(d))
     }
 
     #[derive(Clone, Copy, PartialEq, Eq)]
@@ -460,8 +528,18 @@ mod library_ir_interpreter_impl {
         Default = 1,
     }
 
+    impl AltCoreKind {
+        fn from_u8(tag: u8) -> Self {
+            match tag {
+                0 => AltCoreKind::Ctor,
+                1 => AltCoreKind::Default,
+                n => panic!("invalid AltCoreKind tag {n}"),
+            }
+        }
+    }
+
     unsafe fn alt_core_tag(a: *mut LeanObject) -> AltCoreKind {
-        core::mem::transmute(lean_obj_tag(a))
+        AltCoreKind::from_u8(lean_obj_tag(a))
     }
 
     // ---------------------------------------------------------------------------
@@ -496,7 +574,7 @@ mod library_ir_interpreter_impl {
 
     // lit_val
     unsafe fn lit_val_tag(l: *mut LeanObject) -> LitValKind {
-        core::mem::transmute(lean_obj_tag(l))
+        lit_val_tag_from_u8(lean_obj_tag(l))
     }
     unsafe fn lit_val_num(l: *mut LeanObject) -> *mut LeanObject {
         lean_ctor_get_obj(l, 0)
@@ -760,7 +838,7 @@ mod library_ir_interpreter_impl {
         lean_array_get(decl_params(d), i)
     }
     unsafe fn decl_fun_body(d: *mut LeanObject) -> Result<*mut LeanObject, String> {
-        if decl_tag(d) != DeclKind::Fun {
+        if !matches!(decl_tag(d), DeclKind::Fun) {
             let fn_id = decl_fun_id(d);
             let name_str = lean_name_to_string_for_err(fn_id);
             return Err(format!(
@@ -788,9 +866,10 @@ mod library_ir_interpreter_impl {
         let mut components: Vec<String> = Vec::new();
         let mut cur = n;
         while !lean_is_scalar(cur) {
-            let tag = lean_obj_tag(cur);
+            let tag = crate::runtime_expr_shared::lean_name_tag(cur);
             match tag {
-                1 => {
+                crate::runtime_expr_shared::LeanNameTag::Anonymous => break,
+                crate::runtime_expr_shared::LeanNameTag::String => {
                     // Name.str prefix str
                     let str_obj = lean_ctor_get_obj(cur, 1);
                     let cstr = lean_string_cstr(str_obj);
@@ -800,14 +879,13 @@ mod library_ir_interpreter_impl {
                     components.push(s);
                     cur = lean_ctor_get_obj(cur, 0);
                 }
-                2 => {
+                crate::runtime_expr_shared::LeanNameTag::Numeral => {
                     // Name.num prefix n
                     let num_obj = lean_ctor_get_obj(cur, 1);
                     let n = lean_usize_of_nat(num_obj);
                     components.push(n.to_string());
                     cur = lean_ctor_get_obj(cur, 0);
                 }
-                _ => break,
             }
         }
         components.reverse();
@@ -1495,7 +1573,10 @@ mod library_ir_interpreter_impl {
                         let tag: usize = if case_type.is_scalar() {
                             v.num() as usize
                         } else {
-                            lean_obj_tag(v.obj()) as usize
+                            match LeanObjectTag::from_u8(lean_obj_tag(v.obj())) {
+                                LeanObjectTag::Ctor(tag) => tag as usize,
+                                tag => panic!("invalid case tag object {tag:?}"),
+                            }
                         };
                         let n_alts = array_size(alts);
                         let mut found = false;

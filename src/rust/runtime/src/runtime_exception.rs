@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_exception_impl {
-    use crate::runtime_expr_shared::{EXCEPT_ERROR_TAG, EXCEPT_OK_TAG};
+    use crate::runtime_expr_shared::LeanExceptTag;
     use core::ffi::c_char;
     use leanh_l1::runtime_exception::{abort_with_message, cstr_to_string};
     use leanh_l1::{
@@ -33,13 +33,13 @@ mod runtime_exception_impl {
     }
 
     pub unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(EXCEPT_OK_TAG, 1, 0);
+        let result = lean_alloc_ctor(LeanExceptTag::Ok as u32, 1, 0);
         lean_ctor_set(result, 0, value);
         result
     }
 
     pub unsafe fn mk_except_err(error: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(EXCEPT_ERROR_TAG, 1, 0);
+        let result = lean_alloc_ctor(LeanExceptTag::Error as u32, 1, 0);
         lean_ctor_set(result, 0, error);
         result
     }

@@ -5,11 +5,6 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 use crate::*;
 use core::ffi::c_void;
-use leanh::{
-    LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG,
-    LEAN_REF_TAG, LEAN_RESERVED_TAG, LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG,
-    LEAN_THUNK_TAG,
-};
 use std::collections::{HashMap, HashSet};
 use std::hash::{BuildHasherDefault, Hasher};
 

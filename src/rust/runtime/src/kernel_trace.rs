@@ -13,6 +13,7 @@ use crate::base::{
     lean_is_scalar, lean_mk_string, lean_name_eq_export, lean_name_mk_string, lean_obj_tag,
     lean_alloc_ctor, lean_mk_cnstr, mk_name,
 };
+use crate::runtime_expr_shared::{LeanNameTag, lean_name_tag};
 use core::ptr;
 use std::cell::Cell;
 
@@ -29,19 +30,16 @@ unsafe extern "C" {
     fn lean_name_mk_numeral(prefix: *mut LeanObject, n: *mut LeanObject) -> *mut LeanObject;
 }
 
-const NAME_STRING_TAG: u8 = 1;
-const NAME_NUMERAL_TAG: u8 = 2;
-
 unsafe fn append_name(prefix: *mut LeanObject, suffix: *const LeanObject) -> *mut LeanObject {
     if lean_is_scalar(suffix) {
         return prefix;
     }
     let suffix_prefix = lean_ctor_get(suffix, 0);
     let prefix = append_name(prefix, suffix_prefix);
-    match lean_obj_tag(suffix) {
-        NAME_STRING_TAG => lean_name_mk_string(prefix, lean_ctor_get(suffix, 1)),
-        NAME_NUMERAL_TAG => lean_name_mk_numeral(prefix, lean_ctor_get(suffix, 1)),
-        _ => prefix,
+    match lean_name_tag(suffix) {
+        LeanNameTag::Anonymous => prefix,
+        LeanNameTag::String => lean_name_mk_string(prefix, lean_ctor_get(suffix, 1)),
+        LeanNameTag::Numeral => lean_name_mk_numeral(prefix, lean_ctor_get(suffix, 1)),
     }
 }
 

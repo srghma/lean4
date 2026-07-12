@@ -19,8 +19,7 @@ Field layout (from expr.h):
 
 mod kernel_for_each_fn_impl {
     use crate::runtime_expr_shared::{
-        EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA,
-        EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT,
+        LeanExprKind, expr_kind,
     };
     use crate::*;
     use core::ffi::c_void;
@@ -57,45 +56,41 @@ mod kernel_for_each_fn_impl {
         }
 
         unsafe fn apply(&mut self, e: *mut LeanObject, offset: u32) {
-            let tag = lean_obj_tag(e);
-
-            // BVar=0, Sort=3, Const=4: pure leaves — call callback (return value ignored),
-            // no cache tracking, no recursion possible.
-            if tag == EXPR_BVAR || tag == EXPR_SORT || tag == EXPR_CONST {
-                (self.callback)(self.ctx, e, offset);
-                return;
+            match expr_kind(e) {
+                LeanExprKind::BVar | LeanExprKind::Sort | LeanExprKind::Const => {
+                    (self.callback)(self.ctx, e, offset);
+                    return;
+                }
+                _ => {}
             }
 
-            // All other nodes: check visited cache to avoid redundant traversal.
             if self.visited(e, offset) {
                 return;
             }
 
-            // Call callback; if it returns false, do not recurse into children.
             if !(self.callback)(self.ctx, e, offset) {
                 return;
             }
 
-            match tag {
-                // FVar=1, MVar=2, Lit=9: non-leaf tag path but no Expr children.
-                EXPR_FVAR | EXPR_MVAR | EXPR_LIT => {}
-                EXPR_APP => {
+            match expr_kind(e) {
+                LeanExprKind::FVar | LeanExprKind::MVar | LeanExprKind::Lit => {}
+                LeanExprKind::App => {
                     self.apply(lean_ctor_get(e, 0), offset);
                     self.apply(lean_ctor_get(e, 1), offset);
                 }
-                EXPR_LAMBDA | EXPR_PI => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     self.apply(lean_ctor_get(e, 1), offset);
                     self.apply(lean_ctor_get(e, 2), offset + 1);
                 }
-                EXPR_LET => {
+                LeanExprKind::Let => {
                     self.apply(lean_ctor_get(e, 1), offset);
                     self.apply(lean_ctor_get(e, 2), offset);
                     self.apply(lean_ctor_get(e, 3), offset + 1);
                 }
-                EXPR_MDATA => {
+                LeanExprKind::MData => {
                     self.apply(lean_ctor_get(e, 1), offset);
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     self.apply(lean_ctor_get(e, 2), offset);
                 }
                 _ => {}
@@ -163,19 +158,18 @@ mod kernel_for_each_fn_impl {
             if self.found.is_some() {
                 return;
             }
-            let tag = lean_obj_tag(e);
-
-            // Leaf nodes: call predicate without visited-set tracking
-            if tag == EXPR_BVAR || tag == EXPR_CONST || tag == EXPR_SORT {
-                lean_inc(p);
-                lean_inc(e);
-                if lean_unbox(lean_apply_1(p, e)) != 0 {
-                    self.found = Some(e);
+            match expr_kind(e) {
+                LeanExprKind::BVar | LeanExprKind::Const | LeanExprKind::Sort => {
+                    lean_inc(p);
+                    lean_inc(e);
+                    if lean_unbox(lean_apply_1(p, e)) != 0 {
+                        self.found = Some(e);
+                    }
+                    return;
                 }
-                return;
+                _ => {}
             }
 
-            // Non-leaf: skip if already visited
             if !self.cache.insert(e as usize) {
                 return;
             }
@@ -187,37 +181,35 @@ mod kernel_for_each_fn_impl {
                 return;
             }
 
-            // Recurse into expr children
-            match tag {
-                EXPR_MDATA => {
+            match expr_kind(e) {
+                LeanExprKind::MData => {
                     self.apply_find(p, lean_ctor_get(e, 1));
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     self.apply_find(p, lean_ctor_get(e, 2));
                 }
-                EXPR_APP => {
-                    // partial_apps=true: apply normally to fn (visits partial applications)
+                LeanExprKind::App => {
                     self.apply_find(p, lean_ctor_get(e, 0));
                     if self.found.is_none() {
                         self.apply_find(p, lean_ctor_get(e, 1));
                     }
                 }
-                EXPR_LAMBDA | EXPR_PI => {
-                    self.apply_find(p, lean_ctor_get(e, 1)); // domain
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
+                    self.apply_find(p, lean_ctor_get(e, 1));
                     if self.found.is_none() {
-                        self.apply_find(p, lean_ctor_get(e, 2)); // body
+                        self.apply_find(p, lean_ctor_get(e, 2));
                     }
                 }
-                EXPR_LET => {
-                    self.apply_find(p, lean_ctor_get(e, 1)); // type
+                LeanExprKind::Let => {
+                    self.apply_find(p, lean_ctor_get(e, 1));
                     if self.found.is_none() {
-                        self.apply_find(p, lean_ctor_get(e, 2)); // value
+                        self.apply_find(p, lean_ctor_get(e, 2));
                     }
                     if self.found.is_none() {
-                        self.apply_find(p, lean_ctor_get(e, 3)); // body
+                        self.apply_find(p, lean_ctor_get(e, 3));
                     }
                 }
-                _ => { /* FVar, MVar, Lit: no Expr children */ }
+                _ => {}
             }
         }
 
@@ -227,7 +219,7 @@ mod kernel_for_each_fn_impl {
             if self.found.is_some() {
                 return;
             }
-            if lean_obj_tag(e) == EXPR_APP {
+            if matches!(expr_kind(e), LeanExprKind::App) {
                 self.apply_fn_ext(p, lean_ctor_get(e, 0)); // unpack fn recursively
                 if self.found.is_none() {
                     self.apply_ext(p, lean_ctor_get(e, 1)); // visit arg
@@ -243,21 +235,18 @@ mod kernel_for_each_fn_impl {
             if self.found.is_some() {
                 return;
             }
-            let tag = lean_obj_tag(e);
-
-            // Leaf nodes: call predicate without visited-set tracking
-            if tag == EXPR_BVAR || tag == EXPR_CONST || tag == EXPR_SORT {
-                lean_inc(p);
-                lean_inc(e);
-                if lean_unbox(lean_apply_1(p, e)) == 0 {
-                    // 0 = FindStep.found
-                    self.found = Some(e);
+            match expr_kind(e) {
+                LeanExprKind::BVar | LeanExprKind::Const | LeanExprKind::Sort => {
+                    lean_inc(p);
+                    lean_inc(e);
+                    if lean_unbox(lean_apply_1(p, e)) == 0 {
+                        self.found = Some(e);
+                    }
+                    return;
                 }
-                // 1 (visit) or 2 (done): no children to visit anyway
-                return;
+                _ => {}
             }
 
-            // Non-leaf: skip if already visited
             if !self.cache.insert(e as usize) {
                 return;
             }
@@ -266,47 +255,42 @@ mod kernel_for_each_fn_impl {
             lean_inc(e);
             match lean_unbox(lean_apply_1(p, e)) {
                 0 => {
-                    // FindStep.found
                     self.found = Some(e);
                     return;
                 }
-                1 => { /* FindStep.visit — recurse into children below */ }
-                _ => {
-                    return;
-                } // FindStep.done — skip children
+                1 => {}
+                _ => return,
             }
 
-            // Recurse into expr children
-            match tag {
-                EXPR_MDATA => {
+            match expr_kind(e) {
+                LeanExprKind::MData => {
                     self.apply_ext(p, lean_ctor_get(e, 1));
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     self.apply_ext(p, lean_ctor_get(e, 2));
                 }
-                EXPR_APP => {
-                    // partial_apps=false: use apply_fn_ext for fn (skips partial applications)
+                LeanExprKind::App => {
                     self.apply_fn_ext(p, lean_ctor_get(e, 0));
                     if self.found.is_none() {
                         self.apply_ext(p, lean_ctor_get(e, 1));
                     }
                 }
-                EXPR_LAMBDA | EXPR_PI => {
-                    self.apply_ext(p, lean_ctor_get(e, 1)); // domain
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
+                    self.apply_ext(p, lean_ctor_get(e, 1));
                     if self.found.is_none() {
-                        self.apply_ext(p, lean_ctor_get(e, 2)); // body
+                        self.apply_ext(p, lean_ctor_get(e, 2));
                     }
                 }
-                EXPR_LET => {
-                    self.apply_ext(p, lean_ctor_get(e, 1)); // type
+                LeanExprKind::Let => {
+                    self.apply_ext(p, lean_ctor_get(e, 1));
                     if self.found.is_none() {
-                        self.apply_ext(p, lean_ctor_get(e, 2)); // value
+                        self.apply_ext(p, lean_ctor_get(e, 2));
                     }
                     if self.found.is_none() {
-                        self.apply_ext(p, lean_ctor_get(e, 3)); // body
+                        self.apply_ext(p, lean_ctor_get(e, 3));
                     }
                 }
-                _ => { /* FVar, MVar, Lit: no Expr children */ }
+                _ => {}
             }
         }
     }

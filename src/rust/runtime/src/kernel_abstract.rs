@@ -26,8 +26,7 @@ Expression kind tags:
 
 mod kernel_abstract_impl {
     use crate::runtime_expr_shared::{
-        EXPR_APP, EXPR_BVAR, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA, EXPR_MVAR, EXPR_PI,
-        EXPR_PROJ, expr_binder_info_raw, expr_data, expr_let_nondep,
+        LeanExprKind, expr_binder_info_raw, expr_data, expr_kind, expr_let_nondep,
     };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -94,9 +93,9 @@ mod kernel_abstract_impl {
                 }
             }
 
-            let tag = lean_obj_tag(e);
+            let tag = expr_kind(e);
             let result: *mut LeanObject = match tag {
-                EXPR_FVAR | EXPR_MVAR => {
+                LeanExprKind::FVar | LeanExprKind::MVar => {
                     // Search backward through subst for a matching FVar/MVar name.
                     let e_name = lean_ctor_get(e, 0); // field[0] = name
                     let mut i = self.n;
@@ -105,9 +104,10 @@ mod kernel_abstract_impl {
                     while i > 0 {
                         i -= 1;
                         let v = *self.subst.add(i);
-                        let v_tag = lean_obj_tag(v);
-                        if (tag == EXPR_FVAR && v_tag == EXPR_FVAR)
-                            || (tag == EXPR_MVAR && v_tag == EXPR_MVAR)
+                        let v_tag = expr_kind(v);
+                        if (matches!(tag, LeanExprKind::FVar) && matches!(v_tag, LeanExprKind::FVar))
+                            || (matches!(tag, LeanExprKind::MVar)
+                                && matches!(v_tag, LeanExprKind::MVar))
                         {
                             let v_name = lean_ctor_get(v, 0);
                             if lean_name_eq(v_name, e_name) {
@@ -126,7 +126,7 @@ mod kernel_abstract_impl {
                         e
                     }
                 }
-                EXPR_APP => {
+                LeanExprKind::App => {
                     let fn_e = lean_ctor_get(e, 0);
                     let arg_e = lean_ctor_get(e, 1);
                     let new_fn = self.apply(fn_e, offset);
@@ -140,7 +140,7 @@ mod kernel_abstract_impl {
                         lean_expr_mk_app(new_fn, new_arg)
                     }
                 }
-                EXPR_LAMBDA | EXPR_PI => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     let dom = lean_ctor_get(e, 1);
                     let body = lean_ctor_get(e, 2);
                     let new_dom = self.apply(dom, offset);
@@ -154,14 +154,14 @@ mod kernel_abstract_impl {
                         let name = lean_ctor_get(e, 0);
                         lean_inc(name);
                         let bi = expr_binder_info_raw(e);
-                        if tag == EXPR_LAMBDA {
+                        if matches!(tag, LeanExprKind::Lambda) {
                             lean_expr_mk_lambda(name, new_dom, new_body, bi)
                         } else {
                             lean_expr_mk_forall(name, new_dom, new_body, bi)
                         }
                     }
                 }
-                EXPR_LET => {
+                LeanExprKind::Let => {
                     let ty = lean_ctor_get(e, 1);
                     let val = lean_ctor_get(e, 2);
                     let body = lean_ctor_get(e, 3);
@@ -181,7 +181,7 @@ mod kernel_abstract_impl {
                         lean_expr_mk_let(name, new_ty, new_val, new_body, nondep)
                     }
                 }
-                EXPR_MDATA => {
+                LeanExprKind::MData => {
                     let child = lean_ctor_get(e, 1);
                     let new_child = self.apply(child, offset);
                     if new_child == child {
@@ -194,7 +194,7 @@ mod kernel_abstract_impl {
                         lean_expr_mk_mdata(md, new_child)
                     }
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     let child = lean_ctor_get(e, 2);
                     let new_child = self.apply(child, offset);
                     if new_child == child {

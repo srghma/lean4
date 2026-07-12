@@ -15,9 +15,7 @@ pub(crate) mod runtime_object_rc_impl {
     use leanh::{
         LeanArrayObject, LeanClosureObject, LeanExternalClass, LeanExternalObject, LeanMpzObject,
         LeanObject, LeanPromiseObject, LeanRefObject, LeanScalarArray, LeanStringObject,
-        LeanTaskObject, LeanThunkObject, MpzT, LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG,
-        LEAN_MAX_CTOR_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG, LEAN_SCALAR_ARRAY_TAG,
-        LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
+        LeanTaskObject, LeanThunkObject, MpzT,
     };
     #[cfg(all(lean_has_address_sanitizer, unix))]
     use libloading::os::unix::Library as UnixLibrary;

@@ -11,6 +11,7 @@ pub(crate) mod runtime_object_task_impl {
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::sync::atomic::Ordering;
+    use leanh::datatypes::LeanObjectTag;
     use leanh::LeanTaskImp;
     use std::collections::VecDeque;
     use std::mem::MaybeUninit;
@@ -18,8 +19,6 @@ pub(crate) mod runtime_object_task_impl {
     use std::thread::JoinHandle;
 
     // ─── Constants ────────────────────────────────────────────────────────────
-
-    use leanh::{LEAN_CLOSURE_TAG, LEAN_PROMISE_TAG, LEAN_TASK_TAG};
 
     fn wait_any(tm: &Arc<TaskManager>, task_list: *mut LeanObject) -> *mut LeanObject {
         if let Some(t) = wait_any_check(task_list) {
@@ -128,7 +127,7 @@ pub(crate) mod runtime_object_task_impl {
             as *mut LeanPromiseObject;
         (*o).header.rc = 1;
         (*o).header.other = 0;
-        (*o).header.tag = LEAN_PROMISE_TAG;
+        (*o).header.tag = LeanObjectTag::Promise.as_u8();
         (*o).header.cs_size = 0;
         (*o).result = t as *mut LeanObject;
 

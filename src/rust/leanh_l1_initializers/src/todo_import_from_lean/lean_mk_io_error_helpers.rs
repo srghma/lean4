@@ -1,10 +1,10 @@
 use leanh_l1::{
     datatypes::LeanObject,
-    todo_import_from_lean::io_error::LeanIoErrorTag,
     emitted::{
         lean_alloc_ctor::lean_alloc_ctor, lean_ctor_set::lean_ctor_set,
         lean_ctor_set_uint32::lean_ctor_set_uint32,
     },
+    todo_import_from_lean::io_error::LeanIoErrorTag,
 };
 
 const IO_ERROR_ONE_OBJ_FIELDS: u32 = 1;

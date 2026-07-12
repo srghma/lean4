@@ -1,8 +1,6 @@
 use std::ffi::c_uchar;
 
-use crate::{
-    r#priv::lean_validate_utf8_one::lean_validate_utf8_one,
-};
+use crate::r#priv::lean_validate_utf8_one::lean_validate_utf8_one;
 
 // in cpp this is just validate_utf8
 pub unsafe fn lean_validate_utf8(

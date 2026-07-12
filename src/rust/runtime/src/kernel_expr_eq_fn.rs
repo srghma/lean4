@@ -39,8 +39,8 @@ Level kind tags:
 mod kernel_expr_eq_fn_impl {
     use crate::runtime_alloc_impl::add_heartbeats;
     use crate::runtime_expr_shared::{
-        expr_binder_info_raw, expr_let_nondep, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR,
-        EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT,
+        LeanExprKind, LeanLiteralTag, expr_binder_info_raw, expr_kind, expr_let_nondep,
+        lean_literal_tag,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
@@ -155,15 +155,14 @@ mod kernel_expr_eq_fn_impl {
             if a == b {
                 return true;
             }
-            let tag_a = lean_obj_tag(a);
-            let tag_b = lean_obj_tag(b);
+            let tag_a = lean_literal_tag(a);
+            let tag_b = lean_literal_tag(b);
             if tag_a != tag_b {
                 return false;
             }
             match tag_a {
-                0 => self.nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-                1 => self.str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-                _ => false,
+                LeanLiteralTag::Nat => self.nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+                LeanLiteralTag::String => self.str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             }
         }
 
@@ -205,23 +204,23 @@ mod kernel_expr_eq_fn_impl {
                 return false;
             }
 
-            let tag = lean_obj_tag(a);
-            if tag != lean_obj_tag(b) {
+            let tag = expr_kind(a);
+            if tag != expr_kind(b) {
                 return false;
             }
 
             // Leaf cases: compare directly without caching.
             match tag {
-                EXPR_BVAR => {
+                LeanExprKind::BVar => {
                     return self.nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0));
                 }
-                EXPR_LIT => {
+                LeanExprKind::Lit => {
                     return self.lit_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0));
                 }
-                EXPR_MVAR | EXPR_FVAR => {
+                LeanExprKind::MVar | LeanExprKind::FVar => {
                     return lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0));
                 }
-                EXPR_SORT => {
+                LeanExprKind::Sort => {
                     return lean_level_eqv(lean_ctor_get(a, 0), lean_ctor_get(b, 0));
                 }
                 _ => {}
@@ -237,23 +236,23 @@ mod kernel_expr_eq_fn_impl {
             let depth = depth + 1;
 
             match tag {
-                EXPR_MDATA => {
+                LeanExprKind::MData => {
                     // field[0] = KVMap (structural equality via kvmap_eq), field[1] = expr
                     self.apply(lean_ctor_get(a, 1), lean_ctor_get(b, 1), depth, false)
                         && kvmap_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
                 }
-                EXPR_PROJ => {
+                LeanExprKind::Proj => {
                     // field[0] = sname (Name), field[1] = idx (Nat), field[2] = expr
                     self.apply(lean_ctor_get(a, 2), lean_ctor_get(b, 2), depth, false)
                         && lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
                         && self.nat_eq(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
                 }
-                EXPR_CONST => {
+                LeanExprKind::Const => {
                     // field[0] = name, field[1] = List Level
                     lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
                         && self.levels_eq(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
                 }
-                EXPR_APP => {
+                LeanExprKind::App => {
                     self.check_system(depth);
                     // Compare args first, then traverse the fn chain.
                     if !self.apply(lean_ctor_get(a, 1), lean_ctor_get(b, 1), depth, false) {
@@ -262,10 +261,10 @@ mod kernel_expr_eq_fn_impl {
                     let mut curr_a = lean_ctor_get(a, 0);
                     let mut curr_b = lean_ctor_get(b, 0);
                     loop {
-                        if lean_obj_tag(curr_a) != EXPR_APP {
+                        if !matches!(expr_kind(curr_a), LeanExprKind::App) {
                             break;
                         }
-                        if lean_obj_tag(curr_b) != EXPR_APP {
+                        if !matches!(expr_kind(curr_b), LeanExprKind::App) {
                             return false;
                         }
                         if !self.apply(
@@ -281,7 +280,7 @@ mod kernel_expr_eq_fn_impl {
                     }
                     self.apply(curr_a, curr_b, depth, false)
                 }
-                EXPR_LAMBDA | EXPR_PI => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     // field[0]=name, field[1]=domain, field[2]=body; scalar: data u64, binder_info u8
                     self.check_system(depth);
                     if !self.apply(lean_ctor_get(a, 1), lean_ctor_get(b, 1), depth, false) {
@@ -300,7 +299,7 @@ mod kernel_expr_eq_fn_impl {
                     }
                     true
                 }
-                EXPR_LET => {
+                LeanExprKind::Let => {
                     // field[0]=name, field[1]=type, field[2]=value, field[3]=body; scalar: data u64, nondep u8
                     self.check_system(depth);
                     if !self.apply(lean_ctor_get(a, 1), lean_ctor_get(b, 1), depth, false) {

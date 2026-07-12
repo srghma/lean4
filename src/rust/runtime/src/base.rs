@@ -8,6 +8,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 use core::ptr;
 use core::sync::atomic::{AtomicBool, AtomicI32, AtomicPtr, AtomicU32, Ordering};
+use crate::runtime_expr_shared::{
+    lean_map_entry_kind, lean_map_node_kind, LeanMapEntryKind, LeanMapNodeKind,
+};
 use leanh::{
     LEAN_ARRAY_TAG, LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MAX_CTOR_TAG, LEAN_OBJECT_SIZE_DELTA,
     LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LeanArrayObject, LeanClosureObject, LeanCtorObject,
@@ -660,9 +663,9 @@ unsafe fn lean_map_foreach_rbmap(m: *mut LeanObject, cb: LeanMapForeachFn, ctx: 
 }
 
 unsafe fn lean_map_foreach_entry(e: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
-    match lean_obj_tag(e) {
-        0 => cb(lean_ctor_get(e, 0), lean_ctor_get(e, 1), ctx),
-        1 => lean_map_foreach_node(lean_ctor_get(e, 0), cb, ctx),
+    match lean_map_entry_kind(e) {
+        LeanMapEntryKind::Entries => cb(lean_ctor_get(e, 0), lean_ctor_get(e, 1), ctx),
+        LeanMapEntryKind::Node => lean_map_foreach_node(lean_ctor_get(e, 0), cb, ctx),
         _ => {}
     }
 }
@@ -687,7 +690,7 @@ unsafe fn lean_map_foreach_entries(es: *mut LeanObject, cb: LeanMapForeachFn, ct
 }
 
 unsafe fn lean_map_foreach_node(n: *mut LeanObject, cb: LeanMapForeachFn, ctx: *mut c_void) {
-    if lean_ptr_tag(n) == 0 {
+    if matches!(lean_map_node_kind(n), LeanMapNodeKind::Entries) {
         lean_map_foreach_entries(lean_ctor_get(n, 0), cb, ctx);
     } else {
         lean_map_foreach_collision(lean_ctor_get(n, 0), lean_ctor_get(n, 1), cb, ctx);

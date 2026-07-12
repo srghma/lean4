@@ -8,5 +8,10 @@ pub unsafe fn lean_mk_io_error_invalid_argument(
     os_code: u32,
     details: *mut LeanObject,
 ) -> *mut LeanObject {
-    mk_io_error_two_objs(LeanIoErrorTag::InvalidArgument, mk_option_none(), os_code, details)
+    mk_io_error_two_objs(
+        LeanIoErrorTag::InvalidArgument,
+        mk_option_none(),
+        os_code,
+        details,
+    )
 }

@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod library_elab_environment_impl {
-    use crate::runtime_expr_shared::{EXCEPT_ERROR_TAG, EXCEPT_OK_TAG};
+    use crate::runtime_expr_shared::{LeanExceptTag, lean_except_tag};
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
@@ -53,7 +53,7 @@ mod library_elab_environment_impl {
 
         let result = kernel_add_dispatch(kernel_env, decl, check);
 
-        if lean_obj_tag(result) == EXCEPT_OK_TAG {
+        if matches!(lean_except_tag(result), LeanExceptTag::Ok) {
             // Unwrap Except.ok(new_kernel_env)
             let new_kernel_env = lean_ctor_get(result, 0);
             lean_inc(new_kernel_env);
@@ -66,7 +66,7 @@ mod library_elab_environment_impl {
                 lean_elab_environment_update_base_after_kernel_add(elab_env, new_kernel_env, decl);
 
             // Wrap new_elab_env in Except.ok
-            let ok = lean_alloc_ctor(EXCEPT_OK_TAG as u32, 1, 0);
+            let ok = lean_alloc_ctor(LeanExceptTag::Ok as u32, 1, 0);
             lean_ctor_set(ok, 0, new_elab_env);
             ok
         } else {

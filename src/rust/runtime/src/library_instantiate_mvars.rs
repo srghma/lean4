@@ -9,12 +9,8 @@ Rust implementation of src/library/instantiate_mvars.cpp entry points.
 
 mod library_instantiate_mvars_impl {
     use crate::runtime_expr_shared::{
-        EXPR_APP as EXPR_APP_TAG, EXPR_BVAR as EXPR_BVAR_TAG, EXPR_CONST as EXPR_CONST_TAG,
-        EXPR_FVAR as EXPR_FVAR_TAG, EXPR_LAMBDA as EXPR_LAMBDA_TAG, EXPR_LET as EXPR_LET_TAG,
-        EXPR_MDATA as EXPR_MDATA_TAG, EXPR_MVAR as EXPR_MVAR_TAG, EXPR_PI as EXPR_PI_TAG,
-        EXPR_PROJ as EXPR_PROJ_TAG, EXPR_SORT as EXPR_SORT_TAG, LEVEL_DATA_DEPTH_SHIFT,
-        LEVEL_DATA_HAS_MVAR, LEVEL_IMAX as LEVEL_IMAX_TAG, LEVEL_MAX as LEVEL_MAX_TAG,
-        LEVEL_PARAM as LEVEL_PARAM_TAG, LEVEL_SUCC as LEVEL_SUCC_TAG, LeanBinderInfo,
+        LeanBinderInfo, LeanExprKind, LeanLevelKind, expr_kind, level_kind,
+        LEVEL_DATA_DEPTH_SHIFT, LEVEL_DATA_HAS_MVAR,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::*;
@@ -89,9 +85,7 @@ mod library_instantiate_mvars_impl {
     }
 
     unsafe fn is_one_level(l: *const LeanObject) -> bool {
-        !lean_is_scalar(l)
-            && lean_obj_tag(l) == LEVEL_SUCC_TAG
-            && is_zero_level(lean_ctor_get(l, 0))
+        matches!(level_kind(l), LeanLevelKind::Succ) && is_zero_level(lean_ctor_get(l, 0))
     }
 
     // A level is "explicit" iff it is a chain of succs ending at zero (no params/mvars/max/imax).
@@ -99,7 +93,7 @@ mod library_instantiate_mvars_impl {
         if lean_is_scalar(l) {
             return true; // zero
         }
-        if lean_obj_tag(l) == LEVEL_SUCC_TAG {
+        if matches!(level_kind(l), LeanLevelKind::Succ) {
             is_explicit_level(lean_ctor_get(l, 0))
         } else {
             false
@@ -124,12 +118,12 @@ mod library_instantiate_mvars_impl {
         if lean_is_scalar(l) {
             return false;
         }
-        match lean_obj_tag(l) {
-            LEVEL_SUCC_TAG => true,
-            LEVEL_MAX_TAG => {
+        match level_kind(l) {
+            LeanLevelKind::Succ => true,
+            LeanLevelKind::Max => {
                 is_not_zero_level(lean_ctor_get(l, 0)) || is_not_zero_level(lean_ctor_get(l, 1))
             }
-            LEVEL_IMAX_TAG => is_not_zero_level(lean_ctor_get(l, 1)),
+            LeanLevelKind::IMax => is_not_zero_level(lean_ctor_get(l, 1)),
             _ => false, // param, mvar — unknown sign
         }
     }
@@ -164,7 +158,7 @@ mod library_instantiate_mvars_impl {
         }
         // max(u, max(u, v)) = max(u, v)  (rhs already contains lhs as a child).
         if !lean_is_scalar(rhs)
-            && lean_obj_tag(rhs) == LEVEL_MAX_TAG
+            && matches!(level_kind(rhs), LeanLevelKind::Max)
             && (lean_ctor_get(rhs, 0) == lhs || lean_ctor_get(rhs, 1) == lhs)
         {
             lean_dec(lhs);
@@ -172,7 +166,7 @@ mod library_instantiate_mvars_impl {
         }
         // max(max(u, v), u) = max(u, v)  (lhs already contains rhs as a child).
         if !lean_is_scalar(lhs)
-            && lean_obj_tag(lhs) == LEVEL_MAX_TAG
+            && matches!(level_kind(lhs), LeanLevelKind::Max)
             && (lean_ctor_get(lhs, 0) == rhs || lean_ctor_get(lhs, 1) == rhs)
         {
             lean_dec(rhs);
@@ -324,23 +318,22 @@ mod library_instantiate_mvars_impl {
                     return cached;
                 }
             }
-            // Level kind tags: 0=Zero(scalar) 1=Succ 2=Max 3=IMax 4=Param 5=MVar
-            match lean_obj_tag(l) {
-                1 => {
+            match level_kind(l) {
+                LeanLevelKind::Succ => {
                     let child = self.visit(lean_ctor_get(l, 0));
                     self.rebuild_unary(l, child, lean_level_mk_succ, shared)
                 }
-                2 => {
+                LeanLevelKind::Max => {
                     let lhs = self.visit(lean_ctor_get(l, 0));
                     let rhs = self.visit(lean_ctor_get(l, 1));
                     self.rebuild_binary(l, lhs, rhs, mk_max_simplified, shared)
                 }
-                3 => {
+                LeanLevelKind::IMax => {
                     let lhs = self.visit(lean_ctor_get(l, 0));
                     let rhs = self.visit(lean_ctor_get(l, 1));
                     self.rebuild_binary(l, lhs, rhs, mk_imax_simplified, shared)
                 }
-                5 => {
+                LeanLevelKind::MVar => {
                     // LevelMVar: field 0 = LevelMVarId (a Name)
                     let mid = lean_ctor_get(l, 0);
                     let Some(assignment) = self.get_assignment(mid) else {
@@ -430,13 +423,7 @@ mod library_instantiate_mvars_impl {
 
     unsafe fn expr_binder_info_raw(e: *const LeanObject) -> LeanBinderInfo {
         let num_objs = (*e).other as usize;
-        match lean_ctor_get_uint8(e, num_objs * 8 + 8) {
-            0 => LeanBinderInfo::Default,
-            1 => LeanBinderInfo::Implicit,
-            2 => LeanBinderInfo::StrictImplicit,
-            3 => LeanBinderInfo::InstImplicit,
-            _ => LeanBinderInfo::Default,
-        }
+        LeanBinderInfo::from_u8(lean_ctor_get_uint8(e, num_objs * 8 + 8))
     }
 
     unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
@@ -461,7 +448,7 @@ mod library_instantiate_mvars_impl {
     }
 
     unsafe fn app_head(mut e: *mut LeanObject) -> *mut LeanObject {
-        while !lean_is_scalar(e) && lean_obj_tag(e) == EXPR_APP_TAG {
+        while !lean_is_scalar(e) && matches!(expr_kind(e), LeanExprKind::App) {
             e = lean_ctor_get(e, 0);
         }
         e
@@ -469,7 +456,7 @@ mod library_instantiate_mvars_impl {
 
     unsafe fn app_num_args(mut e: *const LeanObject) -> usize {
         let mut n = 0;
-        while !lean_is_scalar(e) && lean_obj_tag(e) == EXPR_APP_TAG {
+        while !lean_is_scalar(e) && matches!(expr_kind(e), LeanExprKind::App) {
             n += 1;
             e = lean_ctor_get(e, 0);
         }
@@ -519,8 +506,8 @@ mod library_instantiate_mvars_impl {
         preserve_data: bool,
         zeta: bool,
     ) -> *mut LeanObject {
-        match lean_obj_tag(f) {
-            EXPR_LAMBDA_TAG => {
+        match expr_kind(f) {
+            LeanExprKind::Lambda => {
                 if i + 1 < num_rev_args {
                     apply_beta_rec(
                         lean_ctor_get(f, 2),
@@ -534,7 +521,7 @@ mod library_instantiate_mvars_impl {
                     instantiate_with_slice(lean_ctor_get(f, 2), num_rev_args, rev_args)
                 }
             }
-            EXPR_LET_TAG => {
+            LeanExprKind::Let => {
                 if zeta && i < num_rev_args {
                     let value = lean_ctor_get(f, 2);
                     let body = instantiate_with_slice(lean_ctor_get(f, 3), 1, &value);
@@ -548,7 +535,7 @@ mod library_instantiate_mvars_impl {
                     mk_rev_app(r, n, rev_args)
                 }
             }
-            EXPR_MDATA_TAG => {
+            LeanExprKind::MData => {
                 if preserve_data {
                     let n = num_rev_args - i;
                     let r = instantiate_with_slice(f, i, rev_args.add(n));
@@ -753,7 +740,7 @@ mod library_instantiate_mvars_impl {
             let old_a = lean_ctor_get(e, 1);
             let new_a = self.visit(old_a);
             let old_f = lean_ctor_get(e, 0);
-            let new_f = if lean_obj_tag(old_f) == EXPR_APP_TAG {
+            let new_f = if matches!(expr_kind(old_f), LeanExprKind::App) {
                 self.visit_nonmvar_app(old_f)
             } else {
                 self.visit(old_f)
@@ -775,7 +762,7 @@ mod library_instantiate_mvars_impl {
         ) -> *mut LeanObject {
             let mut args = Vec::new();
             let mut curr = e;
-            while lean_obj_tag(curr) == EXPR_APP_TAG {
+            while matches!(expr_kind(curr), LeanExprKind::App) {
                 args.push(self.visit(lean_ctor_get(curr, 1)));
                 curr = lean_ctor_get(curr, 0);
             }
@@ -789,7 +776,7 @@ mod library_instantiate_mvars_impl {
 
         unsafe fn visit_app(&mut self, e: *mut LeanObject) -> *mut LeanObject {
             let f = app_head(e);
-            if lean_obj_tag(f) != EXPR_MVAR_TAG {
+            if !matches!(expr_kind(f), LeanExprKind::MVar) {
                 return self.visit_nonmvar_app(e);
             }
             let mid = mvar_name(f);
@@ -842,8 +829,8 @@ mod library_instantiate_mvars_impl {
                     return cached;
                 }
             }
-            match lean_obj_tag(e) {
-                EXPR_SORT_TAG => {
+            match expr_kind(e) {
+                LeanExprKind::Sort => {
                     let old = lean_ctor_get(e, 0);
                     let level = self.level_inst.visit(old);
                     self.reuse_or(
@@ -854,7 +841,7 @@ mod library_instantiate_mvars_impl {
                         shared,
                     )
                 }
-                EXPR_CONST_TAG => {
+                LeanExprKind::Const => {
                     let old_levels = lean_ctor_get(e, 1);
                     let levels = map_level_list(&mut self.level_inst, old_levels);
                     self.reuse_or(
@@ -869,8 +856,8 @@ mod library_instantiate_mvars_impl {
                         shared,
                     )
                 }
-                EXPR_MVAR_TAG => self.visit_mvar(e),
-                EXPR_MDATA_TAG => {
+                LeanExprKind::MVar => self.visit_mvar(e),
+                LeanExprKind::MData => {
                     let old = lean_ctor_get(e, 1);
                     let expr = self.visit(old);
                     self.reuse_or(
@@ -885,7 +872,7 @@ mod library_instantiate_mvars_impl {
                         shared,
                     )
                 }
-                EXPR_PROJ_TAG => {
+                LeanExprKind::Proj => {
                     let old = lean_ctor_get(e, 2);
                     let expr = self.visit(old);
                     self.reuse_or(
@@ -902,11 +889,11 @@ mod library_instantiate_mvars_impl {
                         shared,
                     )
                 }
-                EXPR_APP_TAG => {
+                LeanExprKind::App => {
                     let r = self.visit_app(e);
                     self.cache_result(e, r, shared)
                 }
-                EXPR_LAMBDA_TAG | EXPR_PI_TAG => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     let old_dom = lean_ctor_get(e, 1);
                     let old_body = lean_ctor_get(e, 2);
                     let dom = self.visit(old_dom);
@@ -919,7 +906,7 @@ mod library_instantiate_mvars_impl {
                             let name = lean_ctor_get(e, 0);
                             lean_inc(name);
                             let bi = expr_binder_info_raw(e);
-                            if lean_obj_tag(e) == EXPR_LAMBDA_TAG {
+                            if matches!(expr_kind(e), LeanExprKind::Lambda) {
                                 lean_expr_mk_lambda(name, dom, body, bi)
                             } else {
                                 lean_expr_mk_forall(name, dom, body, bi)
@@ -928,7 +915,7 @@ mod library_instantiate_mvars_impl {
                         shared,
                     )
                 }
-                EXPR_LET_TAG => {
+                LeanExprKind::Let => {
                     let old_typ = lean_ctor_get(e, 1);
                     let old_val = lean_ctor_get(e, 2);
                     let old_body = lean_ctor_get(e, 3);
@@ -1294,11 +1281,11 @@ mod library_instantiate_mvars_impl {
         }
 
         unsafe fn is_resolvable_expr_core(&mut self, e: *const LeanObject) -> bool {
-            match lean_obj_tag(e) {
-                EXPR_MVAR_TAG => false,
-                EXPR_APP_TAG => {
+            match expr_kind(e) {
+                LeanExprKind::MVar => false,
+                LeanExprKind::App => {
                     let f = app_head(e);
-                    if lean_obj_tag(f) == EXPR_MVAR_TAG {
+                    if matches!(expr_kind(f), LeanExprKind::MVar) {
                         let d_opt = get_delayed_assignment(self.mctx, mvar_name(f));
                         if lean_is_scalar(d_opt) {
                             return false;
@@ -1322,7 +1309,7 @@ mod library_instantiate_mvars_impl {
                             return false;
                         }
                         let mut curr = e;
-                        while lean_obj_tag(curr) == EXPR_APP_TAG {
+                        while matches!(expr_kind(curr), LeanExprKind::App) {
                             if !self.is_resolvable_expr(lean_ctor_get(curr, 1)) {
                                 lean_dec(fvars);
                                 lean_dec(d_opt);
@@ -1338,17 +1325,17 @@ mod library_instantiate_mvars_impl {
                             && self.is_resolvable_expr(lean_ctor_get(e, 1))
                     }
                 }
-                EXPR_LAMBDA_TAG | EXPR_PI_TAG => {
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     self.is_resolvable_expr(lean_ctor_get(e, 1))
                         && self.is_resolvable_expr(lean_ctor_get(e, 2))
                 }
-                EXPR_LET_TAG => {
+                LeanExprKind::Let => {
                     self.is_resolvable_expr(lean_ctor_get(e, 1))
                         && self.is_resolvable_expr(lean_ctor_get(e, 2))
                         && self.is_resolvable_expr(lean_ctor_get(e, 3))
                 }
-                EXPR_MDATA_TAG => self.is_resolvable_expr(lean_ctor_get(e, 1)),
-                EXPR_PROJ_TAG => self.is_resolvable_expr(lean_ctor_get(e, 2)),
+                LeanExprKind::MData => self.is_resolvable_expr(lean_ctor_get(e, 1)),
+                LeanExprKind::Proj => self.is_resolvable_expr(lean_ctor_get(e, 2)),
                 _ => true,
             }
         }
@@ -1381,7 +1368,7 @@ mod library_instantiate_mvars_impl {
         ) -> *mut LeanObject {
             let mut args = Vec::new();
             let mut curr = e;
-            while lean_obj_tag(curr) == EXPR_APP_TAG {
+            while matches!(expr_kind(curr), LeanExprKind::App) {
                 args.push(self.visit(lean_ctor_get(curr, 1)));
                 curr = lean_ctor_get(curr, 0);
             }
@@ -1446,7 +1433,7 @@ mod library_instantiate_mvars_impl {
             let old_a = lean_ctor_get(e, 1);
             let new_a = self.visit(old_a);
             let old_f = lean_ctor_get(e, 0);
-            let new_f = if lean_obj_tag(old_f) == EXPR_APP_TAG {
+            let new_f = if matches!(expr_kind(old_f), LeanExprKind::App) {
                 self.visit_nonmvar_app(old_f)
             } else {
                 self.visit(old_f)
@@ -1463,7 +1450,7 @@ mod library_instantiate_mvars_impl {
 
         unsafe fn visit_app(&mut self, e: *mut LeanObject) -> *mut LeanObject {
             let f = app_head(e);
-            if lean_obj_tag(f) != EXPR_MVAR_TAG {
+            if !matches!(expr_kind(f), LeanExprKind::MVar) {
                 return self.visit_nonmvar_app(e);
             }
             let mid = mvar_name(f);
@@ -1515,23 +1502,23 @@ mod library_instantiate_mvars_impl {
             let saved_result_scope = self.result_scope;
             self.result_scope = 0;
             let mut skip_cache = false;
-            let r = match lean_obj_tag(e) {
-                EXPR_FVAR_TAG => {
+            let r = match expr_kind(e) {
+                LeanExprKind::FVar => {
                     skip_cache = true;
                     self.visit_fvar(e)
                 }
-                EXPR_MVAR_TAG => {
+                LeanExprKind::MVar => {
                     skip_cache = true;
                     lean_inc(e);
                     e
                 }
-                EXPR_MDATA_TAG => {
+                LeanExprKind::MData => {
                     let md = lean_ctor_get(e, 0);
                     let expr = self.visit(lean_ctor_get(e, 1));
                     lean_inc(md);
                     lean_expr_mk_mdata(md, expr)
                 }
-                EXPR_PROJ_TAG => {
+                LeanExprKind::Proj => {
                     let sname = lean_ctor_get(e, 0);
                     let idx = lean_ctor_get(e, 1);
                     let expr = self.visit(lean_ctor_get(e, 2));
@@ -1539,8 +1526,8 @@ mod library_instantiate_mvars_impl {
                     lean_inc(idx);
                     lean_expr_mk_proj(sname, idx, expr)
                 }
-                EXPR_APP_TAG => self.visit_app(e),
-                EXPR_LAMBDA_TAG | EXPR_PI_TAG => {
+                LeanExprKind::App => self.visit_app(e),
+                LeanExprKind::Lambda | LeanExprKind::Pi => {
                     let dom = self.visit(lean_ctor_get(e, 1));
                     self.depth += 1;
                     let body = self.visit(lean_ctor_get(e, 2));
@@ -1548,13 +1535,13 @@ mod library_instantiate_mvars_impl {
                     let name = lean_ctor_get(e, 0);
                     lean_inc(name);
                     let bi = expr_binder_info_raw(e);
-                    if lean_obj_tag(e) == EXPR_LAMBDA_TAG {
+                    if matches!(expr_kind(e), LeanExprKind::Lambda) {
                         lean_expr_mk_lambda(name, dom, body, bi)
                     } else {
                         lean_expr_mk_forall(name, dom, body, bi)
                     }
                 }
-                EXPR_LET_TAG => {
+                LeanExprKind::Let => {
                     let typ = self.visit(lean_ctor_get(e, 1));
                     let val = self.visit(lean_ctor_get(e, 2));
                     self.depth += 1;

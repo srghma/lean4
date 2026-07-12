@@ -59,7 +59,11 @@ pub unsafe fn lean_uint8_once_cold(loc: *mut u8, tok: *mut LeanOnceCell, init: U
     run_once(loc, tok, init)
 }
 
-pub unsafe fn lean_bool_once_cold(loc: *mut bool, tok: *mut LeanOnceCell, init: BoolInitFn) -> bool {
+pub unsafe fn lean_bool_once_cold(
+    loc: *mut bool,
+    tok: *mut LeanOnceCell,
+    init: BoolInitFn,
+) -> bool {
     run_once(loc, tok, init)
 }
 

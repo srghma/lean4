@@ -1,5 +1,5 @@
 use crate::{
-    datatypes::{LEAN_MAX_CTOR_TAG, LeanObject},
+    datatypes::{LeanObject, LeanObjectTag},
     r#priv::lean_is_ctor::lean_is_ctor,
 };
 
@@ -7,6 +7,9 @@ use crate::{
 #[inline]
 pub unsafe fn lean_ctor_set_tag(obj: *mut LeanObject, new_tag: u8) {
     debug_assert!(lean_is_ctor(obj));
-    debug_assert!(new_tag <= LEAN_MAX_CTOR_TAG);
+    debug_assert!(matches!(
+        LeanObjectTag::from_u8(new_tag),
+        LeanObjectTag::Ctor(_)
+    ));
     (*obj).tag = new_tag;
 }

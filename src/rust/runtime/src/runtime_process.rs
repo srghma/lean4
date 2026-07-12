@@ -66,7 +66,8 @@ mod runtime_process_impl {
             match v {
                 0 => StdioMode::Piped,
                 1 => StdioMode::Inherit,
-                _ => StdioMode::Null,
+                2 => StdioMode::Null,
+                n => panic!("invalid StdioMode {n}"),
             }
         }
     }

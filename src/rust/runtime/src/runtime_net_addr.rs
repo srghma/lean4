@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_net_addr_impl {
-    use crate::runtime_expr_shared::{INET6_ADDRSTRLEN, INET_ADDRSTRLEN};
+    use crate::runtime_expr_shared::{INET6_ADDRSTRLEN, INET_ADDRSTRLEN, LeanIpAddrTag, lean_ip_addr_tag};
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
     use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
@@ -48,12 +48,15 @@ mod runtime_net_addr_impl {
         out: *mut InAddrStorage,
     ) {
         let ip_obj = lean_ctor_get(ip_addr, 0);
-        if lean_ptr_tag(ip_addr) == 0 {
-            lean_ipv4_addr_to_in_addr(ip_obj, addr_of!((*out).ipv4).cast_mut());
-            *ip_type = libc::AF_INET;
-        } else {
-            lean_ipv6_addr_to_in6_addr(ip_obj, addr_of!((*out).ipv6).cast_mut());
-            *ip_type = libc::AF_INET6;
+        match lean_ip_addr_tag(ip_addr) {
+            LeanIpAddrTag::V4 => {
+                lean_ipv4_addr_to_in_addr(ip_obj, addr_of!((*out).ipv4).cast_mut());
+                *ip_type = libc::AF_INET;
+            }
+            LeanIpAddrTag::V6 => {
+                lean_ipv6_addr_to_in6_addr(ip_obj, addr_of!((*out).ipv6).cast_mut());
+                *ip_type = libc::AF_INET6;
+            }
         }
     }
     pub unsafe fn lean_ip_addr_ntop(
@@ -80,16 +83,19 @@ mod runtime_net_addr_impl {
         let ip_addr_obj = lean_ctor_get(socket_addr_obj, 0);
         let port = lean_ctor_get_uint16(socket_addr_obj, core::mem::size_of::<*mut LeanObject>());
 
-        if lean_ptr_tag(ip_addr) == 0 {
-            let cast = out.cast::<libc::sockaddr_in>();
-            lean_ipv4_addr_to_in_addr(ip_addr_obj, addr_of!((*cast).sin_addr).cast_mut());
-            (*cast).sin_family = libc::AF_INET as libc::sa_family_t;
-            (*cast).sin_port = port.to_be();
-        } else {
-            let cast = out.cast::<libc::sockaddr_in6>();
-            lean_ipv6_addr_to_in6_addr(ip_addr_obj, addr_of!((*cast).sin6_addr).cast_mut());
-            (*cast).sin6_family = libc::AF_INET6 as libc::sa_family_t;
-            (*cast).sin6_port = port.to_be();
+        match lean_ip_addr_tag(ip_addr) {
+            LeanIpAddrTag::V4 => {
+                let cast = out.cast::<libc::sockaddr_in>();
+                lean_ipv4_addr_to_in_addr(ip_addr_obj, addr_of!((*cast).sin_addr).cast_mut());
+                (*cast).sin_family = libc::AF_INET as libc::sa_family_t;
+                (*cast).sin_port = port.to_be();
+            }
+            LeanIpAddrTag::V6 => {
+                let cast = out.cast::<libc::sockaddr_in6>();
+                lean_ipv6_addr_to_in6_addr(ip_addr_obj, addr_of!((*cast).sin6_addr).cast_mut());
+                (*cast).sin6_family = libc::AF_INET6 as libc::sa_family_t;
+                (*cast).sin6_port = port.to_be();
+            }
         }
     }
     pub unsafe fn lean_in_addr_to_ipv4_addr(ipv4_addr: *const libc::in_addr) -> *mut LeanObject {

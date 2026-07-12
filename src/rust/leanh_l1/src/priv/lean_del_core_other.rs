@@ -3,11 +3,7 @@
 use std::sync::atomic::Ordering;
 
 use crate::{
-    datatypes::{
-        LeanMpzObject, LeanObject, LeanPromiseObject, LeanTaskObject, LEAN_ARRAY_TAG,
-        LEAN_CLOSURE_TAG, LEAN_EXTERNAL_TAG, LEAN_MPZ_TAG, LEAN_PROMISE_TAG, LEAN_REF_TAG,
-        LEAN_SCALAR_ARRAY_TAG, LEAN_STRING_TAG, LEAN_TASK_TAG, LEAN_THUNK_TAG,
-    },
+    datatypes::{LeanMpzObject, LeanObject, LeanObjectTag, LeanPromiseObject, LeanTaskObject},
     r#priv::{
         dec_for_del::dec_for_del, lean_array_byte_size::lean_array_byte_size,
         lean_array_cptr::lean_array_cptr, lean_array_size::lean_array_size,
@@ -26,33 +22,33 @@ use crate::{
 
 #[inline(always)]
 pub unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut LeanObject) {
-    match tag {
-        LEAN_CLOSURE_TAG => {
+    match LeanObjectTag::from_u8(tag) {
+        LeanObjectTag::Closure => {
             let it = lean_closure_arg_cptr(o);
             for i in 0..lean_closure_num_fixed(o) {
                 dec_for_del(*it.add(i), todo);
             }
             lean_dealloc(o, lean_closure_byte_size(o));
         }
-        LEAN_ARRAY_TAG => {
+        LeanObjectTag::Array => {
             let it = lean_array_cptr(o);
             for i in 0..lean_array_size(o) {
                 dec_for_del(*it.add(i), todo);
             }
             lean_dealloc(o, lean_array_byte_size(o));
         }
-        LEAN_SCALAR_ARRAY_TAG => {
+        LeanObjectTag::ScalarArray => {
             lean_dealloc(o, lean_sarray_byte_size(o));
         }
-        LEAN_STRING_TAG => {
+        LeanObjectTag::String => {
             lean_dealloc(o, lean_string_byte_size(o));
         }
-        LEAN_MPZ_TAG => {
+        LeanObjectTag::Mpz => {
             let mpz = core::ptr::addr_of_mut!((*(o as *mut LeanMpzObject)).m_value);
             gmp_mpfr_sys::gmp::mpz_clear(mpz);
             lean_free_small_object(o);
         }
-        LEAN_THUNK_TAG => {
+        LeanObjectTag::Thunk => {
             let thunk = lean_to_thunk(o);
             let c = (*thunk).m_closure.load(Ordering::Acquire);
             if !c.is_null() {
@@ -64,20 +60,20 @@ pub unsafe fn lean_del_core_other(o: *mut LeanObject, tag: u8, todo: &mut *mut L
             }
             lean_free_small_object(o);
         }
-        LEAN_REF_TAG => {
+        LeanObjectTag::Ref => {
             let value = (*lean_to_ref(o)).m_value;
             if !value.is_null() {
                 dec_for_del(value, todo);
             }
             lean_free_small_object(o);
         }
-        LEAN_TASK_TAG => {
+        LeanObjectTag::Task => {
             lean_deactivate_task(lean_to_task(o) as *mut LeanTaskObject);
         }
-        LEAN_PROMISE_TAG => {
+        LeanObjectTag::Promise => {
             lean_deactivate_promise(lean_to_promise(o) as *mut LeanPromiseObject);
         }
-        LEAN_EXTERNAL_TAG => {
+        LeanObjectTag::External => {
             let external = lean_to_external(o);
             ((*(*external).m_class).m_finalize)((*external).m_data);
             lean_free_small_object(o);

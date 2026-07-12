@@ -1,5 +1,5 @@
 use leanh_l1::{
-    datatypes::{LeanExternalClass, LeanExternalObject, LeanObject, LEAN_EXTERNAL_TAG},
+    datatypes::{LeanExternalClass, LeanExternalObject, LeanObject, LeanObjectTag},
     r#priv::lean_alloc_small_object::lean_alloc_small_object,
 };
 use std::ffi::c_void;
@@ -12,7 +12,7 @@ pub unsafe fn lean_alloc_external(
         as *mut LeanExternalObject;
     (*obj).m_header.rc = 1;
     (*obj).m_header.other = 0;
-    (*obj).m_header.tag = LEAN_EXTERNAL_TAG;
+    (*obj).m_header.tag = LeanObjectTag::External.as_u8();
     (*obj).m_class = class;
     (*obj).m_data = data;
     obj as *mut LeanObject

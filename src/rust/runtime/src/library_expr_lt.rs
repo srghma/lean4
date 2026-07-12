@@ -54,10 +54,9 @@ DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte off
 
 mod library_expr_lt_impl {
     use crate::runtime_expr_shared::{
-        expr_data, expr_let_nondep, DV_BOOL, DV_NAME, DV_NAT, DV_STRING, EXPR_APP, EXPR_BVAR,
-        EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI,
-        EXPR_PROJ, EXPR_SORT, LEVEL_DATA_DEPTH_SHIFT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR,
-        LEVEL_PARAM, LEVEL_SUCC,
+        expr_data, expr_kind, expr_let_nondep, level_data, level_kind, lean_data_value_kind,
+        lean_literal_tag, LeanDataValueKind, LeanExprKind, LeanLevelKind, LeanLiteralTag,
+        LEVEL_DATA_DEPTH_SHIFT,
     };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::*;
@@ -92,10 +91,10 @@ mod library_expr_lt_impl {
         if da > db {
             return false;
         }
-        let tag_a = lean_obj_tag(a);
-        let tag_b = lean_obj_tag(b);
+        let tag_a = level_kind(a);
+        let tag_b = level_kind(b);
         if tag_a != tag_b {
-            return tag_a < tag_b;
+            return (tag_a as u32) < (tag_b as u32);
         }
         if use_hash {
             let ha = level_hash(a) as u32;
@@ -111,8 +110,10 @@ mod library_expr_lt_impl {
             return false;
         }
         match tag_a {
-            LEVEL_PARAM | LEVEL_MVAR => l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            LEVEL_MAX | LEVEL_IMAX => {
+            LeanLevelKind::Param | LeanLevelKind::MVar => {
+                l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
+            }
+            LeanLevelKind::Max | LeanLevelKind::IMax => {
                 let lhs_a = lean_ctor_get(a, 0);
                 let lhs_b = lean_ctor_get(b, 0);
                 // C++ uses level_lhs(a) != level_lhs(b) which is level::operator!= (structural).
@@ -121,7 +122,7 @@ mod library_expr_lt_impl {
                 }
                 level_lt(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
             }
-            LEVEL_SUCC => level_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0), use_hash),
+            LeanLevelKind::Succ => level_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0), use_hash),
             _ => false,
         }
     }
@@ -169,15 +170,15 @@ mod library_expr_lt_impl {
         if a == b {
             return true;
         }
-        let tag_a = lean_obj_tag(a);
-        if tag_a != lean_obj_tag(b) {
+        let tag_a = lean_data_value_kind(a);
+        if tag_a != lean_data_value_kind(b) {
             return false;
         }
         match tag_a {
-            DV_STRING => str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            DV_BOOL => lean_ctor_get_uint8(a, 0) == lean_ctor_get_uint8(b, 0),
-            DV_NAME => lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            DV_NAT => nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanDataValueKind::String => str_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanDataValueKind::Bool => lean_ctor_get_uint8(a, 0) == lean_ctor_get_uint8(b, 0),
+            LeanDataValueKind::Name => lean_name_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanDataValueKind::Nat => nat_eq(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             _ => false,
         }
     }
@@ -188,19 +189,19 @@ mod library_expr_lt_impl {
         if a == b {
             return false;
         }
-        let tag_a = lean_obj_tag(a);
-        let tag_b = lean_obj_tag(b);
+        let tag_a = lean_data_value_kind(a);
+        let tag_b = lean_data_value_kind(b);
         if tag_a != tag_b {
-            return tag_a < tag_b;
+            return (tag_a as u32) < (tag_b as u32);
         }
         match tag_a {
-            DV_STRING => lean_string_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            DV_BOOL => {
+            LeanDataValueKind::String => lean_string_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanDataValueKind::Bool => {
                 // false < true: a.bool == 0 && b.bool != 0
                 lean_ctor_get_uint8(a, 0) == 0 && lean_ctor_get_uint8(b, 0) != 0
             }
-            DV_NAME => l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            DV_NAT => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanDataValueKind::Name => l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanDataValueKind::Nat => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             _ => false,
         }
     }
@@ -255,14 +256,14 @@ mod library_expr_lt_impl {
         if a == b {
             return false;
         }
-        let tag_a = lean_obj_tag(a);
-        let tag_b = lean_obj_tag(b);
+        let tag_a = lean_literal_tag(a);
+        let tag_b = lean_literal_tag(b);
         if tag_a != tag_b {
-            return tag_a < tag_b;
+            return (tag_a as u32) < (tag_b as u32);
         }
         match tag_a {
-            0 => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
-            1 => lean_string_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanLiteralTag::Nat => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanLiteralTag::String => lean_string_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
             _ => false,
         }
     }
@@ -280,10 +281,10 @@ mod library_expr_lt_impl {
             return false;
         }
 
-        let tag_a = lean_obj_tag(a);
-        let tag_b = lean_obj_tag(b);
+        let tag_a = expr_kind(a);
+        let tag_b = expr_kind(b);
         if tag_a != tag_b {
-            return tag_a < tag_b;
+            return (tag_a as u32) < (tag_b as u32);
         }
 
         if use_hash {
@@ -304,11 +305,11 @@ mod library_expr_lt_impl {
         }
 
         match tag_a {
-            EXPR_LIT => lit_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanExprKind::Lit => lit_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
 
-            EXPR_BVAR => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
+            LeanExprKind::BVar => nat_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0)),
 
-            EXPR_MDATA => {
+            LeanExprKind::MData => {
                 // field[0]=KVMap, field[1]=expr
                 // C++: if (mdata_expr(a) != mdata_expr(b)) — structural expr inequality
                 let inner_a = lean_ctor_get(a, 1);
@@ -319,7 +320,7 @@ mod library_expr_lt_impl {
                 kvmap_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
             }
 
-            EXPR_PROJ => {
+            LeanExprKind::Proj => {
                 // field[0]=sname(Name), field[1]=idx(Nat), field[2]=expr
                 // C++: if (proj_expr(a) != proj_expr(b)) — structural expr inequality
                 let expr_a = lean_ctor_get(a, 2);
@@ -335,7 +336,7 @@ mod library_expr_lt_impl {
                 nat_lt(lean_ctor_get(a, 1), lean_ctor_get(b, 1))
             }
 
-            EXPR_CONST => {
+            LeanExprKind::Const => {
                 // field[0]=name, field[1]=List Level
                 // C++: if (const_name(a) != const_name(b)) — structural name inequality
                 let name_a = lean_ctor_get(a, 0);
@@ -346,7 +347,7 @@ mod library_expr_lt_impl {
                 levels_lt(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
             }
 
-            EXPR_APP => {
+            LeanExprKind::App => {
                 // field[0]=fn, field[1]=arg
                 // C++: if (app_fn(a) != app_fn(b)) — structural expr inequality
                 let fn_a = lean_ctor_get(a, 0);
@@ -357,7 +358,7 @@ mod library_expr_lt_impl {
                 expr_lt(lean_ctor_get(a, 1), lean_ctor_get(b, 1), use_hash)
             }
 
-            EXPR_LAMBDA | EXPR_PI => {
+            LeanExprKind::Lambda | LeanExprKind::Pi => {
                 // field[0]=name, field[1]=domain, field[2]=body
                 // C++: if (binding_domain(a) != binding_domain(b)) — structural expr inequality
                 let dom_a = lean_ctor_get(a, 1);
@@ -368,7 +369,7 @@ mod library_expr_lt_impl {
                 expr_lt(lean_ctor_get(a, 2), lean_ctor_get(b, 2), use_hash)
             }
 
-            EXPR_LET => {
+            LeanExprKind::Let => {
                 // field[0]=name, field[1]=type, field[2]=value, field[3]=body; scalar: nondep
                 // C++: if (let_nondep(a) != let_nondep(b)) — scalar comparison
                 let nd_a = expr_let_nondep(a);
@@ -391,12 +392,12 @@ mod library_expr_lt_impl {
                 expr_lt(lean_ctor_get(a, 3), lean_ctor_get(b, 3), use_hash)
             }
 
-            EXPR_SORT => {
+            LeanExprKind::Sort => {
                 // field[0] = Level
                 level_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0), use_hash)
             }
 
-            EXPR_FVAR | EXPR_MVAR => {
+            LeanExprKind::FVar | LeanExprKind::MVar => {
                 // field[0] = Name (FVar name or MVar name); no lctx, so use name ordering.
                 // C++ uses fvar_name(a) < fvar_name(b) which is name::operator< (lexicographic).
                 l_Lean_Name_lt(lean_ctor_get(a, 0), lean_ctor_get(b, 0))
