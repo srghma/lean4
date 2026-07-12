@@ -38,6 +38,10 @@ Level kind tags:
 
 mod kernel_expr_eq_fn_impl {
     use crate::runtime_alloc_impl::add_heartbeats;
+    use crate::runtime_expr_shared::{
+        EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA,
+        EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, expr_binder_info_raw, expr_let_nondep,
+    };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
@@ -51,19 +55,6 @@ mod kernel_expr_eq_fn_impl {
         fn lean_data_value_beq(a: *mut LeanObject, b: *mut LeanObject) -> bool;
     }
 
-    const EXPR_BVAR: u8 = 0;
-    const EXPR_FVAR: u8 = 1;
-    const EXPR_MVAR: u8 = 2;
-    const EXPR_SORT: u8 = 3;
-    const EXPR_CONST: u8 = 4;
-    const EXPR_APP: u8 = 5;
-    const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI: u8 = 7;
-    const EXPR_LET: u8 = 8;
-    const EXPR_LIT: u8 = 9;
-    const EXPR_MDATA: u8 = 10;
-    const EXPR_PROJ: u8 = 11;
-
     // Max recursion depth: get_available_stack_size() / 256 = 8*1024*1024 / 256 = 32768
     const MAX_STACK_DEPTH: usize = 8 * 1024 * 1024 / 256;
 
@@ -72,25 +63,6 @@ mod kernel_expr_eq_fn_impl {
     unsafe fn expr_hash(e: *const LeanObject) -> u32 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) as u32
-    }
-
-    // BinderInfo byte for Lambda/Pi (stored after the data u64).
-    #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
-        let num_objs = (*e).other as usize;
-        lean_ctor_get_uint8(e, num_objs * 8 + 8)
-    }
-
-    // nondep byte for Let (4 obj fields).
-    #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
-        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
-    }
-
-    // lean_string_size: reads m_size from lean_string_object (at byte offset 8).
-    #[inline(always)]
-    unsafe fn string_size(s: *const LeanObject) -> usize {
-        *((s as *const u8).add(8) as *const usize)
     }
 
     // Structural equality for KVMap = list_ref<pair_ref<name, data_value>>.

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod library_ir_interpreter_impl {
+    use crate::kernel_trace::ScopeTraceEnv;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{c_char, c_void};
@@ -185,15 +186,6 @@ mod library_ir_interpreter_impl {
         let c_msg = std::ffi::CString::new(msg).unwrap_or_default();
         let s = lean_mk_string(c_msg.as_ptr());
         lean_io_result_mk_error_from_string_obj(s)
-    }
-
-    // ---------------------------------------------------------------------------
-    // scope_trace_env wrapper (C++ RAII moved to Rust manual dtor)
-    // ---------------------------------------------------------------------------
-
-    #[repr(C)]
-    struct ScopeTraceEnv {
-        m_old_opts: *const *mut LeanObject,
     }
 
     struct ScopeTraceEnvGuard {
@@ -2021,7 +2013,7 @@ mod library_ir_interpreter_impl {
     // mk_lean_name_anon - create an anonymous (single-component) name
     // ---------------------------------------------------------------------------
 
-    unsafe fn mk_lean_name_anon(s: &str) -> *mut LeanObject {
+    unsafe fn lean_name_anon(s: &str) -> *mut LeanObject {
         let c_s = std::ffi::CString::new(s).unwrap();
         let str_obj = lean_mk_string(c_s.as_ptr());
         lean_name_mk_string(lean_box(0), str_obj)

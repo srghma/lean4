@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_dns_impl {
     use crate::runtime_event_loop::GLOBAL_EV;
+    use crate::runtime_exception::mk_except_ok;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::mem::MaybeUninit;
@@ -51,12 +52,6 @@ mod runtime_dns_impl {
         true
     }
 
-    unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(1, 1, 0);
-        lean_ctor_set(result, 0, value);
-        result
-    }
-
     pub unsafe fn lean_uv_dns_get_info(
         name: *mut LeanObject,
         service: *mut LeanObject,
@@ -79,7 +74,8 @@ mod runtime_dns_impl {
             ));
         }
 
-        let resolver = libc::malloc(core::mem::size_of::<uv_getaddrinfo_t>()).cast::<uv_getaddrinfo_t>();
+        let resolver =
+            libc::malloc(core::mem::size_of::<uv_getaddrinfo_t>()).cast::<uv_getaddrinfo_t>();
         if resolver.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(libc::ENOMEM, null_mut()));
         }
@@ -100,7 +96,11 @@ mod runtime_dns_impl {
         event_loop_lock(addr_of_mut!(GLOBAL_EV));
         lean_inc(promise);
 
-        unsafe fn getaddrinfo_cb(req: *mut uv_getaddrinfo_t, status: c_int, res: *mut libc::addrinfo) {
+        unsafe fn getaddrinfo_cb(
+            req: *mut uv_getaddrinfo_t,
+            status: c_int,
+            res: *mut libc::addrinfo,
+        ) {
             let handle = req.cast::<uv_handle_t>();
             let promise = (*handle).data.cast::<LeanObject>();
 

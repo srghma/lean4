@@ -7,6 +7,11 @@ src/library/module.cpp (lean_cxx_compacted_region_save) to Rust.
 */
 
 mod runtime_compact_writer_impl {
+    use crate::runtime_expr_shared::{
+        LEAN_MP_LIMB_SIZE, LEAN_MPZ_MP_D_OFFSET, LEAN_MPZ_MP_SIZE_OFFSET, LibInfo, OLEAN_FLAGS_GMP,
+        OLEAN_HEADER_SIZE, OLEAN_MARKER, OLEAN_VERSION_V2, OLEAN_VERSION_V3, PTR_SIZE,
+        align_up_ptr,
+    };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{CStr, c_char, c_void};
@@ -23,17 +28,9 @@ mod runtime_compact_writer_impl {
     // Constants
     // -------------------------------------------------------------------------
 
-    const PTR_SIZE: usize = core::mem::size_of::<usize>();
     // mmap/MapViewOfFileEx addresses must be aligned to 64KB on all platforms
     const PAGE_ALIGN: usize = 1 << 16;
     const COMPACTOR_INIT_SZ: usize = 1024 * 1024;
-
-    const OLEAN_HEADER_SIZE: usize = 88;
-    const OLEAN_MARKER: &[u8; 5] = b"olean";
-    const OLEAN_VERSION_V2: u8 = 2;
-    const OLEAN_VERSION_V3: u8 = 3;
-
-    const OLEAN_FLAGS_GMP: u8 = 0b1;
 
     const LEAN_GITHASH: &str = env!("LEAN_RUST_GITHASH");
 
@@ -53,21 +50,9 @@ mod runtime_compact_writer_impl {
 
     const LEAN_MPZ_MP_ALLOC_OFFSET: usize = 8;
 
-    const LEAN_MPZ_MP_SIZE_OFFSET: usize = 12;
-
-    const LEAN_MPZ_MP_D_OFFSET: usize = 16;
-
-    const LEAN_MP_LIMB_SIZE: usize = 8; // sizeof(mp_limb_t) on LP64
-
     // -------------------------------------------------------------------------
     // Helpers
     // -------------------------------------------------------------------------
-
-    #[inline]
-    fn align_up_ptr(sz: usize) -> usize {
-        let rem = sz % PTR_SIZE;
-        if rem != 0 { sz + PTR_SIZE - rem } else { sz }
-    }
 
     /// Read the cached hash stored in a Lean Name object.
     /// Layout: header(8) + parent_ptr(8) + component_ptr(8) + hash(u64,8) = 32 bytes.
@@ -93,11 +78,6 @@ mod runtime_compact_writer_impl {
     // -------------------------------------------------------------------------
     // Library info (for closure fn-pointer relocation table)
     // -------------------------------------------------------------------------
-
-    struct LibInfo {
-        base_addr: usize,
-        id: std::string::String,
-    }
 
     #[cfg(target_os = "linux")]
     unsafe fn get_loaded_libs() -> Vec<LibInfo> {

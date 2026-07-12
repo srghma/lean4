@@ -30,6 +30,12 @@ Scalar field layout:
 */
 
 mod kernel_instantiate_impl {
+    use crate::runtime_expr_shared::{
+        EXPR_APP, EXPR_BVAR, EXPR_DATA_HAS_LEVEL_PARAM_BIT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA,
+        EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_DATA_DEPTH_SHIFT, LEVEL_DATA_HAS_PARAM_BIT,
+        LEVEL_IMAX, LEVEL_MAX, LEVEL_PARAM, LEVEL_SUCC, expr_binder_info_raw, expr_bvar_range,
+        expr_data, expr_let_nondep, level_data,
+    };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
@@ -75,26 +81,6 @@ mod kernel_instantiate_impl {
         ) -> *mut LeanObject;
     }
 
-    const LEVEL_DATA_HAS_PARAM_BIT: u64 = 1u64 << 33;
-    const LEVEL_DATA_DEPTH_SHIFT: u32 = 40;
-
-    const LEVEL_SUCC: u8 = 1;
-    const LEVEL_MAX: u8 = 2;
-    const LEVEL_IMAX: u8 = 3;
-    const LEVEL_PARAM: u8 = 4;
-
-    const EXPR_BVAR: u8 = 0;
-    const EXPR_SORT: u8 = 3;
-    const EXPR_CONST: u8 = 4;
-    const EXPR_APP: u8 = 5;
-    const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI: u8 = 7;
-    const EXPR_LET: u8 = 8;
-    const EXPR_MDATA: u8 = 10;
-    const EXPR_PROJ: u8 = 11;
-
-    const EXPR_DATA_HAS_LEVEL_PARAM_BIT: u64 = 1u64 << 43;
-
     const CONSTANT_INFO_DEFINITION: u8 = 1;
     const CONSTANT_INFO_THEOREM: u8 = 2;
 
@@ -119,46 +105,12 @@ mod kernel_instantiate_impl {
         )
     }
 
-    // bvarRange = bits [63:44] of the Expr.Data u64.
-    #[inline(always)]
-    unsafe fn expr_bvar_range(e: *const LeanObject) -> u64 {
-        expr_data(e) >> 44
-    }
-
-    #[inline(always)]
-    unsafe fn expr_data(e: *const LeanObject) -> u64 {
-        let num_objs = (*e).other as usize;
-        lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>())
-    }
-
     #[inline(always)]
     unsafe fn expr_has_level_param(e: *const LeanObject) -> bool {
         (expr_data(e) & EXPR_DATA_HAS_LEVEL_PARAM_BIT) != 0
     }
 
     // BinderInfo byte for Lambda/Pi (stored after data u64, num_objs=3).
-    #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *mut LeanObject) -> u8 {
-        let num_objs = (*e).other as usize;
-        lean_ctor_get_uint8(e, num_objs * 8 + 8)
-    }
-
-    // nondep byte for Let (4 obj fields, stored after data u64).
-    #[inline(always)]
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> bool {
-        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
-    }
-
-    #[inline(always)]
-    unsafe fn level_data(l: *const LeanObject) -> u64 {
-        if lean_is_scalar(l) {
-            0
-        } else {
-            let num_objs = (*l).other as usize;
-            lean_ctor_get_uint64(l, num_objs * core::mem::size_of::<*mut LeanObject>())
-        }
-    }
-
     #[inline(always)]
     unsafe fn level_depth(l: *const LeanObject) -> u32 {
         (level_data(l) >> LEVEL_DATA_DEPTH_SHIFT) as u32

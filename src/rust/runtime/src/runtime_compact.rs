@@ -50,7 +50,7 @@ pub struct OleanCompactedRegion {
 }
 
 // Verify that key field offsets match the C++ compacted_region layout.
-const _: () = {
+const OLEAN_COMPACTED_REGION_LAYOUT_ASSERT: () = {
     assert!(core::mem::offset_of!(OleanCompactedRegion, m_size) == 0);
     assert!(core::mem::offset_of!(OleanCompactedRegion, m_base_addr) == 8);
     assert!(core::mem::offset_of!(OleanCompactedRegion, m_is_mmap) == 16);

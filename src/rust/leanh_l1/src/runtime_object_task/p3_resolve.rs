@@ -25,7 +25,7 @@ pub const LEAN_SYNC_PRIO: u32 = u32::MAX;
 
 // ─── Helper: send raw pointer across threads ──────────────────────────────
 
-struct SendPtr<T>(*mut T);
+pub struct SendPtr<T>(pub *mut T);
 
 unsafe impl<T> Send for SendPtr<T> {}
 impl<T> SendPtr<T> {
@@ -37,7 +37,7 @@ impl<T> SendPtr<T> {
 
 // ─── Worker thread spawning ───────────────────────────────────────────────
 
-fn spawn_lean_worker<F: FnOnce() + Send + 'static>(f: F) -> JoinHandle<()> {
+fn spawn_worker_handle<F: FnOnce() + Send + 'static>(f: F) -> JoinHandle<()> {
     const STACK_SIZE: usize = 1024 * 1024 * 1024; // 1 GB
 
     std::thread::Builder::new()
@@ -132,7 +132,7 @@ fn spawn_dedicated_worker(
     guard.num_dedicated_workers += 1;
     let tm = Arc::clone(slf);
     let t_send = SendPtr(t);
-    spawn_lean_worker(move || {
+    spawn_worker_handle(move || {
         save_stack_info(false);
         let mut guard = tm.inner.lock().unwrap();
         run_task_locked(&tm, &mut guard, t_send.get());
@@ -163,7 +163,7 @@ pub fn spawn_worker(slf: &Arc<TaskManager>, guard: &mut MutexGuard<'_, TaskManag
     }
     guard.total_std_workers += 1;
     let tm = Arc::clone(slf);
-    let handle = spawn_lean_worker(move || {
+    let handle = spawn_worker_handle(move || {
         save_stack_info(false);
         let mut guard = tm.inner.lock().unwrap();
         guard.idle_std_workers += 1;

@@ -62,6 +62,7 @@ pub mod runtime_io_ref;
 pub mod runtime_io_stream;
 pub mod runtime_io_task;
 pub mod runtime_libuv;
+pub mod runtime_expr_shared;
 pub mod runtime_memory;
 pub mod runtime_mpn;
 pub mod runtime_mpz;

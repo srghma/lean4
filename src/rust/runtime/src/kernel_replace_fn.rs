@@ -22,6 +22,7 @@ Field layout (from expr.h):
 */
 
 mod kernel_replace_fn_impl {
+    use crate::runtime_expr_shared::{expr_binder_info_raw, expr_let_nondep};
     use crate::*;
     use core::ffi::c_void;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -209,19 +210,6 @@ mod kernel_replace_fn_impl {
             }
             result
         }
-    }
-
-    // Read BinderInfo uint8 stored right after the data u64 in Lambda/Pi (3 obj fields).
-    #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *mut LeanObject) -> u8 {
-        let num_objs = (*e).other as usize; // 3 for Lambda/Pi
-        lean_ctor_get_uint8(e, num_objs * 8 + 8)
-    }
-
-    // Read nondep uint8 stored right after the data u64 in Let (4 obj fields).
-    #[inline(always)]
-    unsafe fn expr_let_nondep(e: *mut LeanObject) -> bool {
-        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
     }
 
     // Cache maps expression pointer → owned result reference.

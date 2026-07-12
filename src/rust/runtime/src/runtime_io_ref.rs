@@ -4,18 +4,12 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_io_ref_impl {
+    use crate::datatypes::LeanRefObject;
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::sync::atomic::{AtomicPtr, Ordering};
     use leanh::LEAN_REF_TAG;
-
-    #[repr(C)]
-    struct LeanRefObject {
-        // duplicate in src/rust/leanh/src/datatypes.rs at line 97 (🔁)
-        header: LeanObject,
-        value: *mut LeanObject,
-    }
 
     unsafe fn lean_set_st_header(o: *mut LeanObject, tag: u8, other: u8) {
         (*o).rc = 1;

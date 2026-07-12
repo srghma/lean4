@@ -8,6 +8,11 @@ Port of src/library/module.cpp:
 */
 
 mod library_module_impl {
+    use crate::runtime_expr_shared::{
+        LEAN_MP_LIMB_SIZE, LEAN_MPZ_MP_D_OFFSET, LEAN_MPZ_MP_SIZE_OFFSET, LibInfo, OLEAN_FLAGS_GMP,
+        OLEAN_HEADER_SIZE, OLEAN_MARKER, OLEAN_VERSION_V2, OLEAN_VERSION_V3, PTR_SIZE,
+        align_up_ptr,
+    };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{CStr, c_char, c_int, c_void};
@@ -24,12 +29,6 @@ mod library_module_impl {
     //   lean_version[33]
     //   githash[40]
     //   base_addr: usize (address for the whole file including header)
-    const OLEAN_HEADER_SIZE: usize = 88;
-    const OLEAN_MARKER: &[u8; 5] = b"olean";
-    const OLEAN_VERSION_V2: u8 = 2;
-    const OLEAN_VERSION_V3: u8 = 3;
-    const OLEAN_FLAGS_GMP: u8 = 0b1;
-
     // v3 format extra header: 8 bytes data_size right after the 88-byte header.
     const OLEAN_V3_DATA_SIZE_FIELD: usize = core::mem::size_of::<usize>();
 
@@ -46,41 +45,19 @@ mod library_module_impl {
 
     const LEAN_MPZ_OBJECT_HEADER_SIZE: usize = 24; // header(8) + __mpz_struct(16)
 
-    const LEAN_MP_LIMB_SIZE: usize = 8; // sizeof(mp_limb_t) on LP64
-
     // Byte offset of _mp_d within mpz_object (GMP):
     //   header(8) + _mp_alloc(4) + _mp_size(4) = 16
-
-    const LEAN_MPZ_MP_D_OFFSET: usize = 16;
-
-    const LEAN_MPZ_MP_SIZE_OFFSET: usize = 12; // offset of _mp_size (i32)
 
     // On Linux 4.17+ MAP_FIXED_NOREPLACE atomically rejects mappings at taken addresses.
     // Older kernels silently ignore the flag. We define it unconditionally if not already defined.
     #[cfg(target_os = "linux")]
     const MAP_FIXED_NOREPLACE: libc::c_int = 0x100000;
 
-    // Pointer alignment constant (size of void* = 8 on LP64).
-    const PTR_SIZE: usize = core::mem::size_of::<usize>();
-
-    /// Round `d` up to the next multiple of PTR_SIZE.
-    #[inline]
-    fn align_up_ptr(d: usize) -> usize {
-        let rem = d % PTR_SIZE;
-        if rem != 0 { d + PTR_SIZE - rem } else { d }
-    }
-
     /// Info about a dependency region needed for cross-region pointer fixup.
     struct DepRegionInfo {
         m_begin: usize,
         m_base_addr: usize,
         m_size: usize,
-    }
-
-    /// Info about a loaded library (used for closure fn-ptr relocation).
-    struct LibInfo {
-        base_addr: usize,
-        id: std::string::String,
     }
 
     /// Extract dep-region info from the Lean `Array CompactedRegion` argument.

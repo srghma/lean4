@@ -25,54 +25,13 @@ Expression kind tags:
 */
 
 mod kernel_abstract_impl {
+    use crate::runtime_expr_shared::{
+        EXPR_APP, EXPR_BVAR, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA, EXPR_MVAR, EXPR_PI,
+        EXPR_PROJ, expr_binder_info_raw, expr_data, expr_let_nondep,
+    };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use std::collections::HashMap;
-
-    unsafe extern "C" {
-        fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_lambda(
-            n: *mut LeanObject,
-            d: *mut LeanObject,
-            b: *mut LeanObject,
-            bi: u8,
-        ) -> *mut LeanObject;
-        fn lean_expr_mk_forall(
-            n: *mut LeanObject,
-            d: *mut LeanObject,
-            b: *mut LeanObject,
-            bi: u8,
-        ) -> *mut LeanObject;
-        fn lean_expr_mk_let(
-            n: *mut LeanObject,
-            t: *mut LeanObject,
-            v: *mut LeanObject,
-            b: *mut LeanObject,
-            nondep: bool,
-        ) -> *mut LeanObject;
-        fn lean_expr_mk_mdata(data: *mut LeanObject, expr: *mut LeanObject) -> *mut LeanObject;
-        fn lean_expr_mk_proj(
-            sname: *mut LeanObject,
-            idx: *mut LeanObject,
-            expr: *mut LeanObject,
-        ) -> *mut LeanObject;
-    }
-
-    const EXPR_FVAR: u8 = 1;
-    const EXPR_MVAR: u8 = 2;
-    const EXPR_APP: u8 = 5;
-    const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI: u8 = 7;
-    const EXPR_LET: u8 = 8;
-    const EXPR_MDATA: u8 = 10;
-    const EXPR_PROJ: u8 = 11;
-
-    // Read the Expr.Data u64 stored right after the object pointer fields.
-    #[inline(always)]
-    unsafe fn expr_data(e: *const LeanObject) -> u64 {
-        let num_objs = (*e).other as usize;
-        lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>())
-    }
 
     #[inline(always)]
     unsafe fn has_fvar(e: *const LeanObject) -> bool {
@@ -92,19 +51,6 @@ mod kernel_abstract_impl {
     #[inline(always)]
     unsafe fn has_mvar(e: *const LeanObject) -> bool {
         has_expr_mvar(e) || has_level_mvar(e)
-    }
-
-    // BinderInfo byte for Lambda/Pi.
-    #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
-        let num_objs = (*e).other as usize;
-        lean_ctor_get_uint8(e, num_objs * 8 + 8)
-    }
-
-    // nondep byte for Let.
-    #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
-        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
     }
 
     // Get pointer to start of array data without dereferencing.

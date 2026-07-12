@@ -5,18 +5,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_timer_impl {
     use crate::runtime_event_loop::GLOBAL_EV;
+    use crate::runtime_expr_shared::LEAN_TASK_STATE_FINISHED;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ptr::{addr_of_mut, null_mut};
-    use libuv_sys2::{
-        uv_close, uv_loop_t, uv_timer_init,
-        uv_timer_start, uv_timer_stop,
-    };
+    use libuv_sys2::{uv_close, uv_loop_t, uv_timer_init, uv_timer_start, uv_timer_stop};
 
     const TIMER_STATE_INITIAL: c_int = 0;
     const TIMER_STATE_RUNNING: c_int = 1;
     const TIMER_STATE_FINISHED: c_int = 2;
-    const LEAN_TASK_STATE_FINISHED: u8 = 2;
 
     unsafe fn timer_from_obj(obj: *mut LeanObject) -> *mut LeanUvTimerObject {
         lean_get_external_data(obj).cast()
@@ -257,7 +254,7 @@ mod runtime_timer_impl {
         lean_io_result_mk_ok(lean_box(0))
     }
 
-    const _: () = {
+    const TIMER_LAYOUT_ASSERTS: () = {
         assert!(core::mem::size_of::<uv_handle_t>() == 96);
         assert!(core::mem::align_of::<uv_handle_t>() == 8);
         assert!(core::mem::size_of::<uv_timer_t>() == 152);

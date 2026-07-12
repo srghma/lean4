@@ -28,7 +28,7 @@ pub mod lean_del_core;
 pub mod lean_del_core_other;
 pub mod lean_free_object;
 pub mod lean_free_small_object;
-pub mod lean_get_lean_num_threads;
+pub mod get_lean_num_threads;
 pub mod lean_has_rc;
 pub mod lean_is_array;
 pub mod lean_is_closure;

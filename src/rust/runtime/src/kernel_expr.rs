@@ -26,17 +26,14 @@ Scalar field layout (after object pointer fields):
 */
 
 mod kernel_expr_impl {
+    use crate::runtime_expr_shared::{
+        EXPR_APP, EXPR_BVAR, EXPR_BVAR_RANGE_SHIFT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA, EXPR_PI,
+        EXPR_PROJ, expr_binder_info_raw, expr_bvar_range, expr_bvar_range_data, expr_data,
+        expr_let_nondep,
+    };
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-
-    const EXPR_BVAR: u8 = 0;
-    const EXPR_APP: u8 = 5;
-    const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI: u8 = 7;
-    const EXPR_LET: u8 = 8;
-    const EXPR_MDATA: u8 = 10;
-    const EXPR_PROJ: u8 = 11;
 
     unsafe extern "C" {
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
@@ -65,33 +62,6 @@ mod kernel_expr_impl {
             idx: *mut LeanObject,
             expr: *mut LeanObject,
         ) -> *mut LeanObject;
-    }
-
-    // Read the Expr.Data u64 scalar stored just after the object pointer fields.
-    // Layout: header(8) | obj0(8) | ... | obj_{n-1}(8) | data(u64,8) | ...
-    #[inline(always)]
-    unsafe fn expr_data(e: *const LeanObject) -> u64 {
-        let num_objs = (*e).other as usize;
-        lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>())
-    }
-
-    // bvarRange = bits [63:44] of Expr.Data
-    #[inline(always)]
-    unsafe fn expr_bvar_range(e: *const LeanObject) -> u64 {
-        expr_data(e) >> 44
-    }
-
-    // BinderInfo uint8 stored right after the data u64 in Lambda/Pi (3 obj fields).
-    #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
-        let num_objs = (*e).other as usize; // 3 for Lambda/Pi
-        lean_ctor_get_uint8(e, num_objs * 8 + 8)
-    }
-
-    // nondep uint8 stored right after the data u64 in Let (4 obj fields).
-    #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
-        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0 // 4 obj fields * 8 bytes + 8 bytes data
     }
 
     // ── hash / data-word builders ────────────────────────────────────────────
@@ -134,7 +104,7 @@ mod kernel_expr_impl {
             | ((has_expr_mvar as u64) << 41)
             | ((has_level_mvar as u64) << 42)
             | ((has_level_param as u64) << 43)
-            | (r << 44)
+            | (r << EXPR_BVAR_RANGE_SHIFT)
     }
 
     #[no_mangle]
@@ -143,10 +113,10 @@ mod kernel_expr_impl {
         if depth > 255 {
             depth = 255;
         }
-        let range = (f_data >> 44).max(a_data >> 44);
+        let range = expr_bvar_range_data(f_data).max(expr_bvar_range_data(a_data));
         let h = lean_hash_mix(f_data, a_data) as u64;
         let flags = (f_data | a_data) & (0x0Fu64 << 40);
-        flags | h | (depth << 32) | (range << 44)
+        flags | h | (depth << 32) | (range << EXPR_BVAR_RANGE_SHIFT)
     }
 
     // ── has_loose_bvar ──────────────────────────────────────────────────────

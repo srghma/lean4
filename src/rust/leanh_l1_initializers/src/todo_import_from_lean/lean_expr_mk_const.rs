@@ -46,12 +46,13 @@ unsafe fn lean_expr_mk_data(
 }
 
 #[inline]
-unsafe fn level_data(level: *const LeanObject) -> u64 {
-    let num_fields = match lean_obj_tag(level) {
-        1 | 4 | 5 => 1,
-        2 | 3 => 2,
-        _ => unreachable!("unexpected Lean level tag"),
-    };
+pub unsafe fn level_data(level: *const LeanObject) -> u64 {
+    let num_fields = (*l).other as usize; // TODO: make like cpp
+    // let num_fields = match lean_obj_tag(level) {
+    //     1 | 4 | 5 => 1,
+    //     2 | 3 => 2,
+    //     _ => unreachable!("unexpected Lean level tag"),
+    // };
     lean_ctor_get_uint64(
         level,
         (core::mem::size_of::<*mut LeanObject>() * num_fields) as u32,
@@ -59,7 +60,7 @@ unsafe fn level_data(level: *const LeanObject) -> u64 {
 }
 
 #[inline]
-unsafe fn level_hash(level: *const LeanObject) -> u64 {
+pub unsafe fn level_hash(level: *const LeanObject) -> u64 {
     if lean_is_scalar(level) {
         LEVEL_ZERO_HASH
     } else {
@@ -77,7 +78,7 @@ unsafe fn level_has_mvar(level: *const LeanObject) -> bool {
 }
 
 #[inline]
-unsafe fn level_has_param(level: *const LeanObject) -> bool {
+pub unsafe fn level_has_param(level: *const LeanObject) -> bool {
     if lean_is_scalar(level) {
         false
     } else {

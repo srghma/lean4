@@ -24,6 +24,10 @@ Literal tags: 0 = natVal, 1 = strVal
 */
 
 mod kernel_equiv_manager_impl {
+    use crate::runtime_expr_shared::{
+        EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA,
+        EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT,
+    };
     use crate::*;
     use core::ffi::c_void;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -35,19 +39,6 @@ mod kernel_equiv_manager_impl {
     }
 
     use crate::runtime_object_name_impl::lean_name_eq;
-
-    const EXPR_BVAR: u8 = 0;
-    const EXPR_FVAR: u8 = 1;
-    const EXPR_MVAR: u8 = 2;
-    const EXPR_SORT: u8 = 3;
-    const EXPR_CONST: u8 = 4;
-    const EXPR_APP: u8 = 5;
-    const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI: u8 = 7;
-    const EXPR_LET: u8 = 8;
-    const EXPR_LIT: u8 = 9;
-    const EXPR_MDATA: u8 = 10;
-    const EXPR_PROJ: u8 = 11;
 
     struct EquivManager {
         nodes: Vec<(u32, u8)>,           // (parent, rank)
@@ -180,13 +171,6 @@ mod kernel_equiv_manager_impl {
                 ls1 = lean_ctor_get(ls1, 1);
                 ls2 = lean_ctor_get(ls2, 1);
             }
-        }
-
-        // Read the expression hash from the data u64 (bits 31:0).
-        #[inline(always)]
-        unsafe fn expr_hash(e: *const LeanObject) -> u32 {
-            let num_objs = (*e).other as usize;
-            lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) as u32
         }
 
         unsafe fn is_equiv_core(

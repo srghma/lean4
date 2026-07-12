@@ -13,10 +13,16 @@ All C++ `throw X` → `return Err(KernelError::X)`.
     clippy::missing_safety_doc
 )]
 mod kernel_type_checker_impl {
+    use crate::runtime_expr_shared::{
+        BI_DEFAULT, BI_IMPLICIT, BI_INST_IMPLICIT, BI_STRICT_IMPLICIT, EXCEPT_ERROR_TAG,
+        EXCEPT_OK_TAG, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT,
+        EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR,
+        LEVEL_PARAM, LEVEL_SUCC, expr_bvar_range_data,
+    };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::ffi::{c_char, c_void};
-    use leanh::{LEAN_MAX_SMALL_NAT};
+    use leanh::LEAN_MAX_SMALL_NAT;
     use std::collections::{HashMap, HashSet};
     use std::ptr;
     use std::sync::atomic::{AtomicPtr, Ordering};
@@ -31,7 +37,10 @@ mod kernel_type_checker_impl {
     // ---------------------------------------------------------------------------
 
     #[inline(always)]
-    unsafe fn lean_level_eq(a: *const LeanObject, b: *const LeanObject) -> bool {
+    unsafe fn lean_level_eq(
+        a: *const LeanObject,
+        b: *const LeanObject,
+    ) -> bool {
         lean_level_eq_raw(a as *mut _, b as *mut _)
     }
 
@@ -276,7 +285,7 @@ mod kernel_type_checker_impl {
             .add(num_objs * 8)
             .cast::<u64>()
             .read();
-        (data >> 44) > 0
+        expr_bvar_range_data(data) > 0
     }
 
     // Count arguments in an App chain: App(App(f,a1),a2) has 2 args.
@@ -1142,44 +1151,12 @@ mod kernel_type_checker_impl {
         local_ctx_mk_binding(lctx, fvars, n, body, false, true)
     }
 
-    // ---------------------------------------------------------------------------
-    // Expression kind constants (mirrors expr_kind in C++)
-    // ---------------------------------------------------------------------------
-    const EXPR_BVAR: u32 = 0;
-    const EXPR_FVAR: u32 = 1;
-    const EXPR_MVAR: u32 = 2;
-    const EXPR_SORT: u32 = 3;
-    const EXPR_CONST: u32 = 4;
-    const EXPR_APP: u32 = 5;
-    const EXPR_LAMBDA: u32 = 6;
-    const EXPR_PI: u32 = 7;
-    const EXPR_LET: u32 = 8;
-    const EXPR_LIT: u32 = 9;
-    const EXPR_MDATA: u32 = 10;
-    const EXPR_PROJ: u32 = 11;
-
-    // Level kind constants
     const LEVEL_ZERO: u32 = 0; // scalar (lean_is_scalar)
-    const LEVEL_SUCC: u32 = 1;
-    const LEVEL_MAX: u32 = 2;
-    const LEVEL_IMAX: u32 = 3;
-    const LEVEL_PARAM: u32 = 4;
-    const LEVEL_MVAR: u32 = 5;
-
-    // `Except ε α` constructor tags: `error` is declared first, `ok` second.
-    const EXCEPT_ERROR_TAG: u32 = 0;
-    const EXCEPT_OK_TAG: u32 = 1;
 
     // Definition safety
     const DEF_SAFETY_UNSAFE: u8 = 0;
     const DEF_SAFETY_SAFE: u8 = 1;
     const DEF_SAFETY_PARTIAL: u8 = 2;
-
-    // Binder info
-    const BI_DEFAULT: u8 = 0;
-    const BI_IMPLICIT: u8 = 1;
-    const BI_STRICT: u8 = 2;
-    const BI_INST: u8 = 3;
 
     // Quotient eliminator argument layout (mirrors `quot_reduce_rec` in quot.h).
     // `Quot.lift {α} (r) {β} (f) (h) (q)`: q (the Quot.mk) is arg 5, f is arg 3.
@@ -5229,13 +5206,11 @@ mod kernel_type_checker_impl {
         result
     }
 
+    use self::kernel_type_checker_lean_level_eq as lean_level_eq;
+    use self::kernel_type_checker_level_to_offset as level_to_offset;
     /// Build `Except.ok value` (a single-field constructor). `Except` declares `error`
     /// first (tag 0) and `ok` second (tag 1), so `ok` uses tag `EXCEPT_OK_TAG`.
-    unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let ok = lean_alloc_ctor(EXCEPT_OK_TAG, 1, 0);
-        lean_ctor_set(ok, 0, value);
-        ok
-    }
+    use crate::runtime_exception::{mk_except_err, mk_except_ok};
 
     // ---------------------------------------------------------------------------
     // add-declaration path (Rust port of environment::add_axiom/add_definition/

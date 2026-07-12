@@ -15,12 +15,13 @@ Supports Unix (Linux + macOS). On Windows the C++ file is still compiled.
 
 mod runtime_process_impl {
     use crate::base::{
-        LeanObject, c_char, c_uint, lean_alloc_ctor, lean_array_get, lean_array_size,
-        lean_box, lean_ctor_get, lean_ctor_get_uint8, lean_ctor_set, lean_ctor_set_uint8, lean_dec,
+        LeanObject, c_char, c_uint, lean_alloc_ctor, lean_array_get, lean_array_size, lean_box,
+        lean_ctor_get, lean_ctor_get_uint8, lean_ctor_set, lean_ctor_set_uint8, lean_dec,
         lean_decode_io_error, lean_inc, lean_io_result_mk_error, lean_io_result_mk_ok,
         lean_is_scalar, lean_mk_io_user_error, lean_mk_string, lean_mk_string_from_bytes,
         lean_obj_tag, lean_string_cstr,
     };
+    use crate::runtime_expr_shared::PTR_SIZE;
     use crate::runtime_io_stream::io_wrap_handle;
     use core::ffi::c_int;
     use core::ptr::null_mut;
@@ -46,7 +47,6 @@ mod runtime_process_impl {
     //   3 object fields: stdin, stdout, stderr
     //   then scalars:    u32 pid    (offset = 3 * sizeof(*))
     //                    bool setsid (stored as u8 at offset = 3 * sizeof(*) + 4)
-    const PTR_SIZE: usize = core::mem::size_of::<*mut LeanObject>();
     const CHILD_PID_OFFSET: usize = 3 * PTR_SIZE;
     const CHILD_SETSID_OFFSET: usize = 3 * PTR_SIZE + 4; // after u32
 

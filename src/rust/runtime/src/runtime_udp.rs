@@ -5,10 +5,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_udp_impl {
     use crate::runtime_event_loop::GLOBAL_EV;
+    use crate::runtime_exception::{mk_except_err, mk_except_ok};
+    use crate::runtime_expr_shared::{INET_ADDRSTRLEN, UV_EALREADY};
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
+    use leanh_l1_initializers::runtime_io_error::consts::UV_ENOBUFS;
     use libuv_sys2::{
         uv_buf_init, uv_close, uv_handle_t, uv_udp_bind, uv_udp_connect, uv_udp_getpeername,
         uv_udp_getsockname, uv_udp_init, uv_udp_recv_start, uv_udp_recv_stop, uv_udp_send,
@@ -41,31 +44,7 @@ mod runtime_udp_impl {
         lean_get_external_data(o).cast()
     }
 
-    unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(1, 1, 0);
-        lean_ctor_set(result, 0, value);
-        result
-    }
-
-    unsafe fn mk_except_err(error: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(0, 1, 0);
-        lean_ctor_set(result, 0, error);
-        result
-    }
-
-    unsafe fn option_none() -> *mut LeanObject {
-        lean_box(0)
-    }
-
-    unsafe fn option_some(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(1, 1, 0);
-        lean_ctor_set(result, 0, value);
-        result
-    }
-
     const UV_UDP_REUSEADDR: c_uint = 4;
-    const UV_EALREADY: c_int = -3003;
-    const UV_ENOBUFS: isize = -105;
 
     pub unsafe fn lean_uv_udp_new() -> *mut LeanObject {
         let udp_socket = libc::malloc(core::mem::size_of::<LeanUvUdpSocketObject>())
@@ -407,7 +386,7 @@ mod runtime_udp_impl {
 
             (*udp_socket).m_promise_read = null_mut();
 
-            if nread == UV_ENOBUFS {
+            if nread == UV_ENOBUFS as isize {
                 lean_promise_resolve(mk_except_ok(lean_box(0)), promise);
             } else if nread < 0 {
                 lean_promise_resolve(
@@ -563,8 +542,6 @@ mod runtime_udp_impl {
 
         lean_io_result_mk_ok(lean_box(0))
     }
-
-    const INET_ADDRSTRLEN: usize = 16;
 
     pub unsafe fn lean_uv_udp_set_membership(
         socket: *mut LeanObject,

@@ -135,7 +135,10 @@ pub unsafe fn lean_max_small_nat(_: *mut LeanObject) -> *mut LeanObject {
     lean_box(usize::MAX >> 1)
 }
 
-pub unsafe fn lean_dbg_trace(msg: *mut LeanObject, action: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_dbg_trace(
+    msg: *mut LeanObject,
+    action: *mut LeanObject,
+) -> *mut LeanObject {
     io_eprintln_checked(msg);
     lean_apply_1(action, lean_box(0))
 }

@@ -4,8 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_thread_impl {
-    use crate::base::{lean_box, LeanObject};
+    use crate::base::{LeanObject, lean_box};
     use crate::runtime_interrupt::{get_max_heartbeat, set_max_heartbeat};
+    use crate::runtime_object_task::p3_resolve::SendPtr;
     use core::cell::Cell;
     use core::ffi::c_void;
 
@@ -165,14 +166,6 @@ mod runtime_thread_impl {
     }
 
     type MainFn = unsafe fn(argc: c_int, argv: *mut *mut c_char) -> *mut LeanObject;
-
-    struct SendPtr<T>(*mut T);
-    unsafe impl<T> Send for SendPtr<T> {}
-    impl<T> SendPtr<T> {
-        fn get(self) -> *mut T {
-            self.0
-        }
-    }
 
     #[cfg(lean_multi_thread)]
     pub unsafe fn lean_run_main(

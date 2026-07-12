@@ -53,6 +53,12 @@ DataValue Bool (tag=1): 0 ptr fields, 1 uint8 scalar (the bool value at byte off
 */
 
 mod library_expr_lt_impl {
+    use crate::runtime_expr_shared::{
+        DV_BOOL, DV_NAME, DV_NAT, DV_STRING, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR,
+        EXPR_LAMBDA, EXPR_LET, EXPR_LIT, EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT,
+        LEVEL_DATA_DEPTH_SHIFT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR, LEVEL_PARAM, LEVEL_SUCC,
+        expr_data, expr_let_nondep,
+    };
     use crate::runtime_object_name_impl::lean_name_eq;
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
@@ -68,45 +74,10 @@ mod library_expr_lt_impl {
         fn l_Lean_Name_lt(n1: *mut LeanObject, n2: *mut LeanObject) -> bool;
     }
 
-    // ── Expr field layout helpers ─────────────────────────────────────────────
-
-    const EXPR_BVAR: u8 = 0;
-    const EXPR_FVAR: u8 = 1;
-    const EXPR_MVAR: u8 = 2;
-    const EXPR_SORT: u8 = 3;
-    const EXPR_CONST: u8 = 4;
-    const EXPR_APP: u8 = 5;
-    const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI: u8 = 7;
-    const EXPR_LET: u8 = 8;
-    const EXPR_LIT: u8 = 9;
-    const EXPR_MDATA: u8 = 10;
-    const EXPR_PROJ: u8 = 11;
-
     #[inline(always)]
     unsafe fn expr_hash(e: *const LeanObject) -> u32 {
         let num_objs = (*e).other as usize;
         lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) as u32
-    }
-
-    #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
-        lean_ctor_get_uint8(e, 4 * core::mem::size_of::<*mut LeanObject>() + 8) != 0
-    }
-
-    // ── Level helpers ─────────────────────────────────────────────────────────
-
-    const LEVEL_SUCC: u8 = 1;
-    const LEVEL_MAX: u8 = 2;
-    const LEVEL_IMAX: u8 = 3;
-    const LEVEL_PARAM: u8 = 4;
-    const LEVEL_MVAR: u8 = 5;
-
-    #[inline(always)]
-    unsafe fn level_data(l: *const LeanObject) -> u64 {
-        debug_assert!(!lean_is_scalar(l));
-        let num_objs = (*l).other as usize;
-        lean_ctor_get_uint64(l, num_objs * core::mem::size_of::<*mut LeanObject>())
     }
 
     #[inline(always)]
@@ -116,9 +87,6 @@ mod library_expr_lt_impl {
         }
         level_data(l) as u32
     }
-
-    // Depth occupies bits[63:40] of the Level.Data u64.
-    const LEVEL_DATA_DEPTH_SHIFT: u32 = 40;
 
     #[inline(always)]
     unsafe fn level_depth(l: *const LeanObject) -> u32 {
@@ -225,13 +193,6 @@ mod library_expr_lt_impl {
         }
         lean_nat_big_eq(a, b)
     }
-
-    // ── DataValue helpers ─────────────────────────────────────────────────────
-
-    const DV_STRING: u8 = 0;
-    const DV_BOOL: u8 = 1;
-    const DV_NAME: u8 = 2;
-    const DV_NAT: u8 = 3;
 
     // String equality (borrowed).
     #[inline(always)]

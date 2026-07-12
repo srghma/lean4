@@ -2,7 +2,7 @@ use core::ffi::c_char;
 const LAKE_CONFIG_MANUAL_SECTION: &str =
     "find/?domain=Verso.Genre.Manual.section&name=lake-config-toml";
 
-unsafe fn cstr_to_string(value: *const c_char) -> String {
+pub unsafe fn cstr_to_string(value: *const c_char) -> String {
     if value.is_null() {
         return String::new();
     }
@@ -11,7 +11,7 @@ unsafe fn cstr_to_string(value: *const c_char) -> String {
         .into_owned()
 }
 
-fn abort_with_message(msg: &str) -> ! {
+pub fn abort_with_message(msg: &str) -> ! {
     eprintln!("{msg}");
     std::process::abort();
 }

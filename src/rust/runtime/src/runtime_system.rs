@@ -4,58 +4,33 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_system_impl {
+    use crate::runtime_event_loop::GLOBAL_EV;
+    use crate::runtime_exception::{mk_except_err, mk_except_ok};
+    use crate::runtime_expr_shared::{INET_ADDRSTRLEN, INET6_ADDRSTRLEN};
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
-    use crate::runtime_event_loop::GLOBAL_EV;
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, addr_of_mut, null_mut};
+    use leanh_l1_initializers::runtime_io_error::consts::{UV_ENOBUFS, UV_ENOENT};
     use libuv_sys2::{
         uv_chdir, uv_cpu_info, uv_cpu_info_t as UvCpuInfo, uv_cwd, uv_exepath, uv_free_cpu_info,
         uv_get_available_memory, uv_get_constrained_memory, uv_get_free_memory,
         uv_get_process_title, uv_get_total_memory, uv_getrusage, uv_group_t as UvGroup, uv_hrtime,
-        uv_os_environ,
-        uv_os_free_environ, uv_os_free_group, uv_os_free_passwd, uv_os_get_group, uv_os_get_passwd,
-        uv_os_getenv, uv_os_gethostname, uv_os_getpid, uv_os_getppid, uv_os_getpriority,
-        uv_os_homedir, uv_os_setenv, uv_os_setpriority, uv_os_tmpdir, uv_os_uname, uv_os_unsetenv,
-        uv_passwd_t as UvPasswd, uv_random, uv_random_t as UvRandom, uv_rusage_t as UvRusage,
-        uv_set_process_title, uv_strerror, uv_timeval_t as UvTimeval, uv_uptime,
-        uv_utsname_t as UvUtsname,
+        uv_os_environ, uv_os_free_environ, uv_os_free_group, uv_os_free_passwd, uv_os_get_group,
+        uv_os_get_passwd, uv_os_getenv, uv_os_gethostname, uv_os_getpid, uv_os_getppid,
+        uv_os_getpriority, uv_os_homedir, uv_os_setenv, uv_os_setpriority, uv_os_tmpdir,
+        uv_os_uname, uv_os_unsetenv, uv_passwd_t as UvPasswd, uv_random, uv_random_t as UvRandom,
+        uv_rusage_t as UvRusage, uv_set_process_title, uv_strerror, uv_timeval_t as UvTimeval,
+        uv_uptime, uv_utsname_t as UvUtsname,
     };
 
     const PATH_MAX: usize = 4096;
-    const INET_ADDRSTRLEN: usize = 16;
-    const INET6_ADDRSTRLEN: usize = 46;
-
-    const UV_ENOENT: c_int = -2;
-    const UV_ENOBUFS: c_int = -105;
 
     #[repr(C)]
     struct RandomReq {
         req: UvRandom,
         promise: *mut LeanObject,
         byte_array: *mut LeanObject,
-    }
-
-    unsafe fn option_none() -> *mut LeanObject {
-        lean_box(0)
-    }
-
-    unsafe fn option_some(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(1, 1, 0);
-        lean_ctor_set(result, 0, value);
-        result
-    }
-
-    unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(1, 1, 0);
-        lean_ctor_set(result, 0, value);
-        result
-    }
-
-    unsafe fn mk_except_err(error: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(0, 1, 0);
-        lean_ctor_set(result, 0, error);
-        result
     }
 
     unsafe fn lean_array_set(obj: *mut LeanObject, idx: usize, value: *mut LeanObject) {

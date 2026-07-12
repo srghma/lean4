@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod library_elab_environment_impl {
+    use crate::runtime_expr_shared::{EXCEPT_ERROR_TAG, EXCEPT_OK_TAG};
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
@@ -25,9 +26,6 @@ mod library_elab_environment_impl {
             check: bool,
         ) -> *mut LeanObject;
     }
-
-    const EXCEPT_ERROR_TAG: u8 = 0;
-    const EXCEPT_OK_TAG: u8 = 1;
 
     // Dispatch kernel-env add on declaration kind (check=1 → type-check, check=0 → skip).
     // CONSUMES kernel_env. BORROWS decl (caller must not use decl after this call returning Err).

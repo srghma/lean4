@@ -5,11 +5,11 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_io_fs_impl {
     use crate::base::{
-        LeanObject, c_char, lean_alloc_array, lean_alloc_sarray, lean_alloc_sarray_would_overflow,
-        lean_array_push, lean_box, lean_ctor_set_uint8, lean_ctor_set_uint64, lean_dec,
-        lean_decode_io_error, lean_inc, lean_int64_to_int_rust, lean_io_result_mk_error,
-        lean_io_result_mk_ok, lean_mk_io_user_error, lean_mk_string, lean_alloc_ctor,
-        lean_ctor_set, lean_errno, lean_sarray_cptr, lean_sarray_set_size,
+        LeanObject, c_char, lean_alloc_array, lean_alloc_ctor, lean_alloc_sarray,
+        lean_alloc_sarray_would_overflow, lean_array_push, lean_box, lean_ctor_set,
+        lean_ctor_set_uint8, lean_ctor_set_uint64, lean_dec, lean_decode_io_error, lean_errno,
+        lean_inc, lean_int64_to_int_rust, lean_io_result_mk_error, lean_io_result_mk_ok,
+        lean_mk_io_user_error, lean_mk_string, lean_sarray_cptr, lean_sarray_set_size,
         lean_string_cstr, lean_string_size,
     };
     use crate::runtime_io_error::lean_mk_io_error_no_file_or_directory;
@@ -49,10 +49,6 @@ mod runtime_io_fs_impl {
         lean_mk_string(detail.as_ptr())
     }
 
-    unsafe fn ctor_set(obj: *mut LeanObject, index: u32, value: *mut LeanObject) {
-        lean_ctor_set(obj, index, value);
-    }
-
     unsafe fn ctor_set_uint32(obj: *mut LeanObject, offset: usize, value: u32) {
         (obj.add(1) as *mut u8)
             .add(offset)
@@ -62,7 +58,7 @@ mod runtime_io_fs_impl {
 
     unsafe fn system_time_to_obj(sec: i64, nsec: u32) -> *mut LeanObject {
         let o = lean_alloc_ctor(0, 1, core::mem::size_of::<u32>() as u32);
-        ctor_set(o, 0, super::lean_int64_to_int_rust(sec));
+        lean_ctor_set(o, 0, super::lean_int64_to_int_rust(sec));
         ctor_set_uint32(o, core::mem::size_of::<*mut LeanObject>(), nsec);
         o
     }
@@ -77,8 +73,8 @@ mod runtime_io_fs_impl {
             2,
             (2 * core::mem::size_of::<u64>() + core::mem::size_of::<u8>()) as u32,
         );
-        ctor_set(mdata, 0, system_time_to_obj(atime_sec, atime_nsec));
-        ctor_set(mdata, 1, system_time_to_obj(mtime_sec, mtime_nsec));
+        lean_ctor_set(mdata, 0, system_time_to_obj(atime_sec, atime_nsec));
+        lean_ctor_set(mdata, 1, system_time_to_obj(mtime_sec, mtime_nsec));
 
         let ptr_size = core::mem::size_of::<*mut LeanObject>();
         lean_ctor_set_uint64(mdata, 2 * ptr_size, st.st_size as u64);
@@ -172,7 +168,10 @@ mod runtime_io_fs_impl {
         }
     }
 
-    pub unsafe fn lean_io_rename(from: *mut LeanObject, to: *mut LeanObject) -> *mut LeanObject {
+    pub unsafe fn lean_io_rename(
+        from: *mut LeanObject,
+        to: *mut LeanObject,
+    ) -> *mut LeanObject {
         let from_str = match check_no_nuls(from) {
             Ok(s) => s,
             Err(e) => return e,
@@ -276,8 +275,8 @@ mod runtime_io_fs_impl {
 
             let lentry = lean_alloc_ctor(0, 2, 0);
             lean_inc(dirname);
-            ctor_set(lentry, 0, dirname);
-            ctor_set(lentry, 1, lean_mk_string(name));
+            lean_ctor_set(lentry, 0, dirname);
+            lean_ctor_set(lentry, 1, lean_mk_string(name));
             arr = lean_array_push(arr, lentry);
         }
 
@@ -366,8 +365,8 @@ mod runtime_io_fs_impl {
             return lean_io_result_mk_error(lean_decode_io_error(err, core::ptr::null_mut()));
         }
         let pair = lean_alloc_ctor(0, 2, 0);
-        ctor_set(pair, 0, io_wrap_handle(handle));
-        ctor_set(pair, 1, lean_mk_string(bytes.as_ptr().cast()));
+        lean_ctor_set(pair, 0, io_wrap_handle(handle));
+        lean_ctor_set(pair, 1, lean_mk_string(bytes.as_ptr().cast()));
         lean_io_result_mk_ok(pair)
     }
 
@@ -392,10 +391,7 @@ mod runtime_io_fs_impl {
             if fd < 0 {
                 lean_dec(res);
                 let fname = lean_mk_string(random_path.as_ptr());
-                return lean_io_result_mk_error(lean_decode_io_error(
-                    super::lean_errno(),
-                    fname,
-                ));
+                return lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), fname));
             }
 
             while remain > 0 {

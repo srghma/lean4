@@ -70,7 +70,7 @@ mod runtime_event_loop_impl {
         is_alive
     }
 
-    const _: () = {
+    const EVENT_LOOP_LAYOUT_ASSERTS: () = {
         assert!(core::mem::size_of::<uv_mutex_t>() == 40);
         assert!(core::mem::align_of::<uv_mutex_t>() == 8);
         assert!(core::mem::size_of::<uv_cond_t>() == 48);

@@ -17,6 +17,12 @@ pub fn initialize_print() {}
 pub fn finalize_print() {}
 
 mod library_print_impl {
+    use crate::runtime_expr_shared::{
+        BI_DEFAULT, BI_IMPLICIT, BI_INST_IMPLICIT, BI_STRICT_IMPLICIT, DV_BOOL, DV_NAME, DV_NAT,
+        DV_STRING, EXPR_APP, EXPR_BVAR, EXPR_CONST, EXPR_FVAR, EXPR_LAMBDA, EXPR_LET, EXPR_LIT,
+        EXPR_MDATA, EXPR_MVAR, EXPR_PI, EXPR_PROJ, EXPR_SORT, LEVEL_IMAX, LEVEL_MAX, LEVEL_MVAR,
+        LEVEL_PARAM, LEVEL_SUCC, expr_binder_info_raw, expr_bvar_range, expr_let_nondep,
+    };
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
 
@@ -29,54 +35,8 @@ mod library_print_impl {
         fn l_Nat_reprFast(n: *mut LeanObject) -> *mut LeanObject;
     }
 
-    // Level kind tags (heap objects; Level.zero = lean_box(0), scalar).
-    const LEVEL_SUCC: u8 = 1;
-    const LEVEL_MAX: u8 = 2;
-    const LEVEL_IMAX: u8 = 3;
-    const LEVEL_PARAM: u8 = 4;
-    // LEVEL_MVAR = 5
-
-    // Expr kind tags.
-    const EXPR_BVAR: u8 = 0;
-    const EXPR_FVAR: u8 = 1;
-    const EXPR_MVAR: u8 = 2;
-    const EXPR_SORT: u8 = 3;
-    const EXPR_CONST: u8 = 4;
-    const EXPR_APP: u8 = 5;
-    const EXPR_LAMBDA: u8 = 6;
-    const EXPR_PI: u8 = 7;
-    const EXPR_LET: u8 = 8;
-    const EXPR_LIT: u8 = 9;
-    const EXPR_MDATA: u8 = 10;
-    const EXPR_PROJ: u8 = 11;
-
-    // BinderInfo values stored as u8 in Lambda/Pi scalar area.
-    const BI_DEFAULT: u8 = 0;
-    const BI_IMPLICIT: u8 = 1;
-    const BI_STRICT_IMPLICIT: u8 = 2;
-    const BI_INST_IMPLICIT: u8 = 3;
-
     // Literal kind tags.
     const LIT_NAT: u8 = 0;
-
-    // Expr.Data u64 is stored after all object pointer fields; bvarRange = bits[63:44].
-    #[inline(always)]
-    unsafe fn expr_bvar_range(e: *const LeanObject) -> u64 {
-        let num_objs = (*e).other as usize;
-        lean_ctor_get_uint64(e, num_objs * core::mem::size_of::<*mut LeanObject>()) >> 44
-    }
-
-    // BinderInfo byte for Lambda/Pi (3 obj fields + data u64 + 1 byte).
-    #[inline(always)]
-    unsafe fn expr_binder_info_raw(e: *const LeanObject) -> u8 {
-        lean_ctor_get_uint8(e, (*e).other as usize * 8 + 8)
-    }
-
-    // nondep flag for Let (4 obj fields + data u64 + 1 byte).
-    #[inline(always)]
-    unsafe fn expr_let_nondep(e: *const LeanObject) -> bool {
-        lean_ctor_get_uint8(e, 4 * 8 + 8) != 0
-    }
 
     // Pi with Default binder whose body has no loose BVars = arrow type (A → B).
     #[inline(always)]
@@ -407,13 +367,6 @@ mod library_print_impl {
         fmt_expr(inst_body, out);
         lean_dec(inst_body);
     }
-
-    // DataValue tag constants (matches inductive DataValue where order).
-    const DV_STRING: u8 = 0; // ofString (v : String)
-    const DV_BOOL: u8 = 1; // ofBool   (v : Bool)
-    const DV_NAME: u8 = 2; // ofName   (v : Name)
-    const DV_NAT: u8 = 3; // ofNat    (v : Nat)
-    // ofInt=4, ofSyntax=5 — printed as fallback
 
     // Print escaped string content (without surrounding quotes), mirroring escaped() in C++.
     unsafe fn fmt_escaped(s: *mut LeanObject, out: &mut String) {

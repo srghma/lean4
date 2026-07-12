@@ -16,66 +16,6 @@ use leanh::{
     LeanTaskObject,
 };
 
-unsafe extern "C" {
-    pub fn lean_mk_io_user_error(msg: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_alloc_object(size: usize) -> *mut LeanObject; // duplicate in src/rust/leanh/src/not_in_emit_rust.rs at line 459 (🔁)
-    pub fn lean_decode_uv_error(errnum: c_int, fname: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_io_eprintln(msg: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_promise_resolve(value: *mut LeanObject, promise: *mut LeanObject);
-    pub fn lean_io_promise_new() -> *mut LeanObject;
-    pub fn lean_io_promise_resolve(
-        value: *mut LeanObject,
-        promise: *mut LeanObject,
-    ) -> *mut LeanObject;
-    pub fn lean_io_error_to_string(err: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_options_get_empty(_: *mut LeanObject) -> *mut LeanObject;
-    pub fn lean_options_get_bool(
-        opts: *mut LeanObject,
-        name: *mut LeanObject,
-        default_value: bool,
-    ) -> bool;
-    pub fn lean_options_update_bool(
-        opts: *mut LeanObject,
-        name: *mut LeanObject,
-        value: bool,
-    ) -> *mut LeanObject;
-    pub fn lean_get_init_fn_name_for(
-        env: *mut LeanObject,
-        name: *mut LeanObject,
-    ) -> *mut LeanObject;
-    pub fn lean_get_profiler(opts: *mut LeanObject) -> bool;
-    pub fn lean_get_profiler_threshold(opts: *mut LeanObject) -> f64;
-
-    pub fn initialize_alloc();
-    pub fn finalize_alloc();
-    // initialize_object / finalize_object now provided inline (no-op / lean_finalize_external_classes)
-    pub fn initialize_io();
-    pub fn finalize_io();
-    pub fn initialize_thread();
-    pub fn finalize_thread();
-    // fn initialize_ascii_impl();
-    // fn finalize_ascii_impl();
-
-    // initialize_print / finalize_print now provided by library_print.rs (no-ops)
-    // initialize_num / finalize_num now provided by kernel_num.rs (empty no-ops)
-    // initialize_annotation / finalize_annotation removed (annotation.cpp deleted; no-ops)
-    pub fn initialize_library_util();
-    pub fn finalize_library_util();
-    pub fn initialize_time_task();
-    pub fn finalize_time_task();
-    pub fn finalize_ir_interpreter();
-    pub fn initialize_level();
-    pub fn finalize_level();
-    pub fn finalize_local_ctx();
-    pub fn initialize_quot();
-    pub fn finalize_quot();
-    // initialize_trace / finalize_trace now provided by kernel_trace.rs
-    // init_default_print_fn_impl removed: lean_expr_dbg_to_string now implemented in Rust
-    pub fn initialize_Init(builtin: bool) -> *mut LeanObject;
-    pub fn initialize_Std(builtin: bool) -> *mut LeanObject;
-    pub fn initialize_Lean(builtin: bool) -> *mut LeanObject;
-}
-
 #[repr(C)]
 struct LeanListCell {
     rc: AtomicU32,
@@ -141,7 +81,10 @@ pub unsafe fn lean_io_prim_handle_truncate(h: *const LeanObject) -> *mut LeanObj
     }
 }
 
-pub unsafe fn lean_io_prim_handle_mk(filename: *mut LeanObject, mode: u8) -> *mut LeanObject {
+pub unsafe fn lean_io_prim_handle_mk(
+    filename: *mut LeanObject,
+    mode: u8,
+) -> *mut LeanObject {
     let fname = lean_string_cstr(filename);
     if libc::strlen(fname) != lean_string_size(filename) - 1 {
         return mk_embedded_nul_error(filename);
@@ -183,74 +126,6 @@ fn env_flag(value: &str) -> bool {
     value.as_bytes() == b"1"
 }
 
-include!("library_constants.rs");
-include!("library_util.rs");
-include!("library_dynlib.rs");
-include!("runtime_apply.rs");
-include!("runtime_debug.rs");
-include!("runtime_dns.rs");
-include!("runtime_event_loop.rs");
-include!("runtime_libuv.rs");
-include!("runtime_mpn.rs");
-include!("runtime_mutex.rs");
-include!("runtime_net_addr.rs");
-include!("runtime_signal.rs");
-include!("runtime_process.rs");
-include!("runtime_stack_overflow.rs");
-include!("runtime_stack_info.rs");
-include!("runtime_exception.rs");
-include!("runtime_interrupt.rs");
-include!("runtime_system.rs");
-include!("runtime_tcp.rs");
-include!("runtime_timer.rs");
-include!("runtime_udp.rs");
-include!("runtime_alloc.rs");
-include!("runtime_memory.rs");
-include!("runtime_object_panic.rs");
-include!("runtime_object_size.rs");
-include!("runtime_object_array.rs");
-include!("runtime_object_rc.rs");
-include!("runtime_object_task.rs");
-include!("library_formatter.rs");
-include!("runtime_io_ref.rs");
-include!("runtime_io_fs.rs");
-include!("runtime_io_error.rs");
-include!("runtime_io_handle.rs");
-include!("runtime_io_task.rs");
-include!("runtime_io_stream.rs");
-include!("runtime_sharecommon.rs");
-include!("runtime_thread.rs");
-include!("runtime_once.rs");
-include!("runtime_float.rs");
-include!("runtime_mpz.rs");
-include!("runtime_object_nat_int.rs");
-include!("runtime_object_string.rs");
-include!("runtime_object_name.rs");
-include!("kernel_abstract.rs");
-include!("library_expr_lt.rs");
-include!("library_time_task.rs");
-include!("library_print.rs");
-include!("runtime_compact.rs");
-include!("runtime_compact_writer.rs");
-include!("kernel_replace_fn.rs");
-include!("kernel_expr_eq_fn.rs");
-include!("kernel_for_each_fn.rs");
-include!("kernel_level.rs");
-include!("kernel_expr.rs");
-include!("kernel_equiv_manager.rs");
-include!("kernel_instantiate.rs");
-include!("kernel_local_ctx.rs");
-include!("kernel_declaration.rs");
-include!("kernel_environment.rs");
-include!("kernel_quot.rs");
-include!("kernel_type_checker.rs");
-include!("library_instantiate_mvars.rs");
-include!("library_module.rs");
-include!("library_elab_environment.rs");
-include!("library_ir_interpreter.rs");
-include!("library_llvm.rs");
-include!("kernel_num.rs");
-include!("kernel_trace.rs");
 
 pub unsafe fn lean_finalize_external_classes() {
     let mut classes = EXTERNAL_CLASSES.lock().unwrap();
@@ -287,7 +162,10 @@ pub fn lean_io_mk_world() -> *mut LeanObject {
     unsafe { lean_box(0) }
 }
 
-pub unsafe fn lean_io_allocprof(msg: *mut LeanObject, fn_obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_allocprof(
+    msg: *mut LeanObject,
+    fn_obj: *mut LeanObject,
+) -> *mut LeanObject {
     let label = CStr::from_ptr(lean_string_cstr(msg)).to_string_lossy();
     let result = lean_apply_1(fn_obj, lean_box(0));
     let output = std::ffi::CString::new(format!(
@@ -884,7 +762,10 @@ pub unsafe fn lean_smap_foreach_test(m: *mut LeanObject) -> *mut LeanObject {
     lean_box(0)
 }
 
-pub unsafe fn lean_io_timeit(msg: *mut LeanObject, fn_obj: *mut LeanObject) -> *mut LeanObject {
+pub unsafe fn lean_io_timeit(
+    msg: *mut LeanObject,
+    fn_obj: *mut LeanObject,
+) -> *mut LeanObject {
     use std::ffi::CStr;
     use std::io::{self, Write};
     use std::time::Instant;

@@ -4,18 +4,14 @@ Released under Apache 2.0 license as described in the file LICENSE.
 */
 
 mod runtime_net_addr_impl {
+    use crate::runtime_expr_shared::{INET_ADDRSTRLEN, INET6_ADDRSTRLEN};
     use crate::*;
     use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of, null_mut};
     use libuv_sys2::{
-        uv_free_interface_addresses,
-        uv_inet_ntop, uv_inet_pton,
-        uv_interface_addresses,
+        uv_free_interface_addresses, uv_inet_ntop, uv_inet_pton, uv_interface_addresses,
     };
-
-    const INET_ADDRSTRLEN: usize = 16;
-    const INET6_ADDRSTRLEN: usize = 46;
 
     #[repr(C)]
     pub union InAddrStorage {
@@ -37,15 +33,6 @@ mod runtime_net_addr_impl {
         }
     }
 
-    unsafe fn option_none() -> *mut LeanObject {
-        lean_box(0)
-    }
-
-    unsafe fn option_some(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(1, 1, 0);
-        lean_ctor_set(result, 0, value);
-        result
-    }
     pub unsafe fn lean_ipv4_addr_to_in_addr(ipv4_addr: *mut LeanObject, out: *mut libc::in_addr) {
         let mut host_addr = 0u32;
         for index in 0..4 {

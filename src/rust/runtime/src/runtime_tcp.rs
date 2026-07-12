@@ -5,10 +5,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 
 mod runtime_tcp_impl {
     use crate::runtime_event_loop::GLOBAL_EV;
+    use crate::runtime_exception::{mk_except_err, mk_except_ok};
+    use crate::runtime_expr_shared::UV_EALREADY;
     use crate::*;
-    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
+    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
     use core::mem::MaybeUninit;
     use core::ptr::{addr_of_mut, null_mut};
+    use leanh_l1_initializers::runtime_io_error::consts::{UV_EAGAIN, UV_ENOBUFS};
     use libuv_sys2::{
         uv_accept, uv_buf_init, uv_close, uv_listen, uv_read_start, uv_read_stop, uv_shutdown,
         uv_tcp_bind, uv_tcp_connect, uv_tcp_getpeername, uv_tcp_getsockname, uv_tcp_init,
@@ -46,32 +49,7 @@ mod runtime_tcp_impl {
         lean_get_external_data(o).cast()
     }
 
-    unsafe fn mk_except_ok(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(1, 1, 0);
-        lean_ctor_set(result, 0, value);
-        result
-    }
-
-    unsafe fn mk_except_err(error: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(0, 1, 0);
-        lean_ctor_set(result, 0, error);
-        result
-    }
-
-    unsafe fn option_none() -> *mut LeanObject {
-        lean_box(0)
-    }
-
-    unsafe fn option_some(value: *mut LeanObject) -> *mut LeanObject {
-        let result = lean_alloc_ctor(1, 1, 0);
-        lean_ctor_set(result, 0, value);
-        result
-    }
-
-    const UV_EALREADY: c_int = -3003;
     const UV_EOF: isize = -4095;
-    const UV_ENOBUFS: isize = -105;
-    const UV_EAGAIN: c_int = -11;
 
     pub unsafe fn lean_uv_tcp_new() -> *mut LeanObject {
         let tcp_socket = libc::malloc(core::mem::size_of::<LeanUvTcpSocketObject>())
