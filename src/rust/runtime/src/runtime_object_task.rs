@@ -67,28 +67,7 @@ pub(crate) mod runtime_object_task_impl {
         0 // waiting / queued
     }
 
-    fn is_shutting_down(tm: &TaskManager) -> bool {
-        tm.inner.lock().unwrap().shutting_down
-    }
-
     // ─── IO task helpers ──────────────────────────────────────────────────────
-
-    pub fn lean_io_check_canceled_core() -> bool {
-        let ct = current_task();
-        if ct.is_null() {
-            return false;
-        }
-        unsafe {
-            let imp = (*ct).imp as *mut LeanTaskImp;
-            debug_assert!(!imp.is_null());
-            if (*imp).m_canceled {
-                return true;
-            }
-        }
-        get_task_manager()
-            .map(|tm| is_shutting_down(&tm))
-            .unwrap_or(false)
-    }
 
     pub unsafe fn lean_io_cancel_core(t: *mut LeanObject) {
         let task = t as *mut LeanTaskObject;

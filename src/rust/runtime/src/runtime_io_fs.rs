@@ -58,7 +58,7 @@ mod runtime_io_fs_impl {
 
     unsafe fn system_time_to_obj(sec: i64, nsec: u32) -> *mut LeanObject {
         let o = lean_alloc_ctor(0, 1, core::mem::size_of::<u32>() as u32);
-        lean_ctor_set(o, 0, super::lean_int64_to_int_rust(sec));
+        lean_ctor_set(o, 0, super::lean_int64_to_int(sec));
         ctor_set_uint32(o, core::mem::size_of::<*mut LeanObject>(), nsec);
         o
     }
@@ -139,7 +139,7 @@ mod runtime_io_fs_impl {
         if libc::chmod(fname, mode as libc::mode_t) == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), filename))
+            lean_io_result_mk_error(lean_decode_io_error(lean_errno(), filename))
         }
     }
 
@@ -152,7 +152,7 @@ mod runtime_io_fs_impl {
         if ret == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), p))
+            lean_io_result_mk_error(lean_decode_io_error(lean_errno(), p))
         }
     }
 
@@ -164,7 +164,7 @@ mod runtime_io_fs_impl {
         if libc::rmdir(str_) == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), p))
+            lean_io_result_mk_error(lean_decode_io_error(lean_errno(), p))
         }
     }
 
@@ -186,7 +186,7 @@ mod runtime_io_fs_impl {
             lean_io_result_mk_ok(lean_box(0))
         } else {
             let details = rename_error_detail(from_str, to_str);
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), details))
+            lean_io_result_mk_error(lean_decode_io_error(lean_errno(), details))
         }
     }
 
@@ -207,7 +207,7 @@ mod runtime_io_fs_impl {
         if ret == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), orig))
+            lean_io_result_mk_error(lean_decode_io_error(lean_errno(), orig))
         }
     }
 
@@ -221,7 +221,7 @@ mod runtime_io_fs_impl {
         if ret == 0 {
             lean_io_result_mk_ok(lean_box(0))
         } else {
-            lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), filename))
+            lean_io_result_mk_error(lean_decode_io_error(lean_errno(), filename))
         }
     }
 
@@ -256,7 +256,7 @@ mod runtime_io_fs_impl {
         let dir = libc::opendir(dirname_ptr);
         if dir.is_null() {
             return lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_errno(),
+                lean_errno(),
                 dirname,
             ));
         }
@@ -332,7 +332,7 @@ mod runtime_io_fs_impl {
         let path = libc::mkdtemp(bytes.as_mut_ptr().cast());
         if path.is_null() {
             lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_errno(),
+                lean_errno(),
                 core::ptr::null_mut(),
             ))
         } else {
@@ -354,13 +354,13 @@ mod runtime_io_fs_impl {
         let fd = libc::mkstemp(bytes.as_mut_ptr().cast());
         if fd == -1 {
             return lean_io_result_mk_error(lean_decode_io_error(
-                super::lean_errno(),
+                lean_errno(),
                 core::ptr::null_mut(),
             ));
         }
         let handle = libc::fdopen(fd, c"r+".as_ptr());
         if handle.is_null() {
-            let err = super::lean_errno();
+            let err = lean_errno();
             libc::close(fd);
             return lean_io_result_mk_error(lean_decode_io_error(err, core::ptr::null_mut()));
         }
@@ -370,55 +370,6 @@ mod runtime_io_fs_impl {
         lean_io_result_mk_ok(pair)
     }
 
-    pub unsafe fn lean_io_get_random_bytes(nbytes: usize) -> *mut LeanObject {
-        if nbytes == 0 {
-            return lean_io_result_mk_ok(lean_alloc_sarray(1, 0, 0));
-        }
-        if lean_alloc_sarray_would_overflow(1, nbytes) {
-            return lean_io_result_mk_error(lean_decode_io_error(
-                libc::ENOMEM,
-                core::ptr::null_mut(),
-            ));
-        }
-
-        let res = lean_alloc_sarray(1, 0, nbytes);
-        let mut remain = nbytes;
-        let mut dst = lean_sarray_cptr(res).cast_mut();
-
-        {
-            let random_path = c"/dev/urandom";
-            let fd = libc::open(random_path.as_ptr(), libc::O_RDONLY | libc::O_CLOEXEC);
-            if fd < 0 {
-                lean_dec(res);
-                let fname = lean_mk_string(random_path.as_ptr());
-                return lean_io_result_mk_error(lean_decode_io_error(super::lean_errno(), fname));
-            }
-
-            while remain > 0 {
-                let read_size = remain;
-
-                let nread = libc::read(fd, dst.cast(), read_size);
-                if nread < 0 {
-                    if super::lean_errno() != libc::EINTR {
-                        let err = super::lean_errno();
-                        libc::close(fd);
-                        lean_dec(res);
-                        return lean_io_result_mk_error(lean_decode_io_error(
-                            err,
-                            core::ptr::null_mut(),
-                        ));
-                    }
-                } else {
-                    remain -= nread as usize;
-                    dst = dst.add(nread as usize);
-                }
-            }
-            libc::close(fd);
-        }
-
-        lean_sarray_set_size(res, nbytes);
-        lean_io_result_mk_ok(res)
-    }
 
     pub unsafe fn lean_io_current_dir() -> *mut LeanObject {
         let mut buffer = [0u8; libc::PATH_MAX as usize];

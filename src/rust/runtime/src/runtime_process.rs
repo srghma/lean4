@@ -28,7 +28,7 @@ mod runtime_process_impl {
 
     // lean_box_uint32 is a static inline in lean.h; implement it directly in Rust
     // On 64-bit systems (our target), UInt32 is boxed as a tagged scalar: lean_box(v)
-    unsafe fn lean_box_uint32_rust(v: u32) -> *mut LeanObject {
+    unsafe fn lean_box_uint32(v: u32) -> *mut LeanObject {
         lean_box(v as usize)
     }
 
@@ -170,7 +170,7 @@ mod runtime_process_impl {
             // WIFSIGNALED – bash convention: 128 + signal
             128 + libc::WTERMSIG(status) as u32
         };
-        io_result_ok(lean_box_uint32_rust(exit_code))
+        io_result_ok(lean_box_uint32(exit_code))
     }
 
     // ─── lean_io_process_child_try_wait ──────────────────────────────────────
@@ -193,7 +193,7 @@ mod runtime_process_impl {
             } else {
                 128 + libc::WTERMSIG(status) as u32
             };
-            io_result_ok(mk_option_some(lean_box_uint32_rust(exit_code)))
+            io_result_ok(mk_option_some(lean_box_uint32(exit_code)))
         }
     }
 

@@ -157,20 +157,6 @@ pub fn lean_io_mk_world() -> *mut LeanObject {
     unsafe { lean_box(0) }
 }
 
-pub unsafe fn lean_io_allocprof(
-    msg: *mut LeanObject,
-    fn_obj: *mut LeanObject,
-) -> *mut LeanObject {
-    let label = CStr::from_ptr(lean_string_cstr(msg)).to_string_lossy();
-    let result = lean_apply_1(fn_obj, lean_box(0));
-    let output = std::ffi::CString::new(format!(
-        "{label}\nAllocation profiling data is not available, compile lean using `-D RUNTIME_STATS=ON`\n"
-    ))
-    .expect("allocation profiler output has no NUL");
-    let print_result = lean_io_eprintln(lean_mk_string(output.as_ptr()));
-    lean_dec(print_result);
-    result
-}
 
 fn is_safe_ascii_byte(byte: u8) -> bool {
     matches!(
@@ -599,9 +585,6 @@ pub fn lean_system_platform_emscripten(_: *mut LeanObject) -> bool {
     false
 }
 
-pub fn lean_io_initializing() -> bool {
-    INITIALIZING.load(Ordering::Relaxed)
-}
 
 pub unsafe fn lean_get_githash(_: *mut LeanObject) -> *mut LeanObject {
     lean_mk_string(concat!(env!("LEAN_RUST_GITHASH"), "\0").as_ptr() as *const c_char)
@@ -757,55 +740,16 @@ pub unsafe fn lean_smap_foreach_test(m: *mut LeanObject) -> *mut LeanObject {
     lean_box(0)
 }
 
-pub unsafe fn lean_io_timeit(
-    msg: *mut LeanObject,
-    fn_obj: *mut LeanObject,
-) -> *mut LeanObject {
-    use std::ffi::CStr;
-    use std::io::{self, Write};
-    use std::time::Instant;
-
-    let start = Instant::now();
-    let result = lean_apply_1(fn_obj, lean_box(0));
-    let elapsed = start.elapsed().as_secs_f64();
-
-    let prefix = CStr::from_ptr(lean_string_cstr(msg)).to_string_lossy();
-    let mut stderr = io::stderr().lock();
-    let _ = if elapsed < 1.0 {
-        stderr.write_fmt(format_args!("{prefix} {:.3}ms\n", elapsed * 1000.0))
-    } else {
-        stderr.write_fmt(format_args!("{prefix} {:.3}s\n", elapsed))
-    };
-    result
-}
-
 pub unsafe fn lean_io_get_num_heartbeats() -> *mut LeanObject {
-    lean_uint64_to_nat_rust(lean_get_num_heartbeats())
+    lean_uint64_to_nat(lean_get_num_heartbeats())
 }
 
 pub unsafe fn lean_io_set_heartbeats(count: *mut LeanObject) -> *mut LeanObject {
-    lean_set_heartbeats(lean_uint64_of_nat_rust(count));
+    lean_set_heartbeats(lean_uint64_of_nat(count));
     lean_dec(count);
     lean_box(0)
 }
 
-pub unsafe fn lean_io_mono_ms_now() -> *mut LeanObject {
-    use std::sync::OnceLock;
-    use std::time::Instant;
-
-    static START: OnceLock<Instant> = OnceLock::new();
-    let start = START.get_or_init(Instant::now);
-    lean_uint64_to_nat_rust(start.elapsed().as_millis() as u64)
-}
-
-pub unsafe fn lean_io_mono_nanos_now() -> *mut LeanObject {
-    use std::sync::OnceLock;
-    use std::time::Instant;
-
-    static START: OnceLock<Instant> = OnceLock::new();
-    let start = START.get_or_init(Instant::now);
-    lean_uint64_to_nat_rust(start.elapsed().as_nanos() as u64)
-}
 
 pub unsafe fn lean_get_current_time() -> *mut LeanObject {
     use std::time::{SystemTime, UNIX_EPOCH};
@@ -813,8 +757,8 @@ pub unsafe fn lean_get_current_time() -> *mut LeanObject {
     let now = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default();
-    let secs = lean_int64_to_int_rust(now.as_secs() as i64);
-    let nanos = lean_int64_to_int_rust(now.subsec_nanos() as i64);
+    let secs = lean_int64_to_int(now.as_secs() as i64);
+    let nanos = lean_int64_to_int(now.subsec_nanos() as i64);
     let mut fields = [secs, nanos];
     let timestamp = lean_mk_cnstr(0, 2, fields.as_mut_ptr(), 0);
     lean_io_result_mk_ok(timestamp)

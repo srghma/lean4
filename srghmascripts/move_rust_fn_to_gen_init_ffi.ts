@@ -240,11 +240,12 @@ async function main() {
     const forbiddenReport = await reportForbiddenRoots(fnName);
     const rootLabels = ["leanh_l1", "leanh_l1_initializers", "runtime", "leanh_l2"] as const;
     const initOcc = await findExistingInitBody(fnName);
-    const missingRoots = rootLabels.filter((label) => !rootHasAny(forbiddenReport, label));
-    const hasForbidden = missingRoots.length !== rootLabels.length;
+    const dependencyRoots = ["leanh_l1", "leanh_l1_initializers"] as const;
+    const dependencyMissingRoots = dependencyRoots.filter((label) => !rootHasAny(forbiddenReport, label));
+    const hasForbiddenDependency = dependencyMissingRoots.length !== dependencyRoots.length;
     const hasInitBody = initOcc !== null;
 
-    if (hasForbidden || hasInitBody) {
+    if (hasForbiddenDependency || hasInitBody) {
       await printOccurrences("Forbidden bodies in leanh_l1", forbiddenReport.leanhL1Bodies);
       await printOccurrences("Forbidden decls in leanh_l1", forbiddenReport.leanhL1Decls);
       await printOccurrences(
@@ -263,8 +264,8 @@ async function main() {
       if (hasInitBody && initOcc) {
         await printOccurrences("Existing gen_init_ffi Init bodies", [initOcc]);
       }
-      if (hasForbidden && missingRoots.length > 0) {
-        console.log(`- missing roots - ${missingRoots.join(", ")}`);
+      if (hasForbiddenDependency && dependencyMissingRoots.length > 0) {
+        console.log(`- missing dependency roots - ${dependencyMissingRoots.join(", ")}`);
       }
       console.error(
         `Tried to cut out function ${fnName} but couldnt bc it's already defined in deps of gen_init_ffi or in gen_init_ffi.`,
