@@ -1,0 +1,8 @@
+
+use crate::r#priv::sharecommon_quick_data::RustShareCommonQuick;
+
+// appended by move_rust_fn_to_gen_init_ffi.ts from src/rust/runtime/src/runtime_sharecommon.rs:15-18
+
+pub(crate) fn sharecommon_quick_set_check_set(this: &mut RustShareCommonQuick, check_set: bool) {
+    this.check_set = check_set;
+}

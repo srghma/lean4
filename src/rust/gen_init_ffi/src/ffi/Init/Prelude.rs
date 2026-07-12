@@ -21,6 +21,12 @@ use leanh_l1_initializers::r#priv::{
 
 pub use leanh_l1::emitted::lean_is_scalar::lean_is_scalar;
 
+pub use crate::r#priv::uint_family::lean_uint8_dec_eq;
+pub use crate::r#priv::uint_family::lean_uint8_dec_le;
+pub use crate::r#priv::uint_family::lean_uint8_dec_lt;
+pub use crate::r#priv::uint_family::lean_uint8_of_nat;
+pub use crate::r#priv::uint_family::lean_uint8_of_nat_mk;
+pub use crate::r#priv::uint_family::lean_uint8_to_nat;
 pub use crate::r#priv::uint_family::lean_uint16_dec_eq;
 pub use crate::r#priv::uint_family::lean_uint16_of_nat;
 pub use crate::r#priv::uint_family::lean_uint16_of_nat_mk;
@@ -35,12 +41,6 @@ pub use crate::r#priv::uint_family::lean_uint64_dec_eq;
 pub use crate::r#priv::uint_family::lean_uint64_of_nat;
 pub use crate::r#priv::uint_family::lean_uint64_of_nat_mk;
 pub use crate::r#priv::uint_family::lean_uint64_to_nat;
-pub use crate::r#priv::uint_family::lean_uint8_dec_eq;
-pub use crate::r#priv::uint_family::lean_uint8_dec_le;
-pub use crate::r#priv::uint_family::lean_uint8_dec_lt;
-pub use crate::r#priv::uint_family::lean_uint8_of_nat;
-pub use crate::r#priv::uint_family::lean_uint8_of_nat_mk;
-pub use crate::r#priv::uint_family::lean_uint8_to_nat;
 pub use crate::r#priv::uint_family::lean_usize_dec_eq;
 pub use crate::r#priv::uint_family::lean_usize_of_nat;
 pub use crate::r#priv::uint_family::lean_usize_of_nat_mk;

@@ -7,10 +7,7 @@ pub use leanh_l1::r#priv::lean_array_size::lean_array_size;
 
 pub use cargo::lean_array_uget;
 
-pub unsafe fn lean_array_uget_borrowed(array: *mut LeanObject, idx: usize) -> *mut LeanObject {
-    unsafe { leanh::lean_array_uget_borrowed(array, idx) }
-}
-
+pub use cargo::r#priv::lean_array_get_core::lean_array_get_core as lean_array_uget_borrowed;
 pub unsafe fn lean_array_uset(
     array: *mut LeanObject,
     idx: usize,

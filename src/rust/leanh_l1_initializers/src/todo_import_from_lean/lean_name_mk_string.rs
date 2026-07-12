@@ -1,4 +1,5 @@
 use core::ptr;
+use std::ffi::c_uchar;
 
 use leanh_l1::{
     datatypes::LeanObject,
@@ -10,15 +11,15 @@ use leanh_l1::{
     r#priv::lean_uint64_mix_hash::lean_uint64_mix_hash,
 };
 
-const LEAN_NAME_ANONYMOUS_TAG: u8 = 0;
-const LEAN_NAME_STRING_TAG: u32 = 1;
-const LEAN_NAME_NUM_OBJECT_FIELDS: u32 = 2;
-const LEAN_NAME_HASH_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
-const LEAN_NAME_HASH_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2;
-const LEAN_NAME_ANONYMOUS_HASH: u64 = 1723;
-const LEAN_STRING_HASH_SEED: u64 = 11;
+pub const LEAN_NAME_ANONYMOUS_TAG: u8 = 0;
+pub const LEAN_NAME_STRING_TAG: u32 = 1;
+pub const LEAN_NAME_NUM_OBJECT_FIELDS: u32 = 2;
+pub const LEAN_NAME_HASH_SCALAR_SIZE: u32 = core::mem::size_of::<u64>() as u32;
+pub const LEAN_NAME_HASH_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2;
+pub const LEAN_NAME_ANONYMOUS_HASH: u64 = 1723;
+pub const LEAN_STRING_HASH_SEED: u64 = 11;
 
-fn lean_hash_str(len: usize, text: *const u8, seed: u64) -> u64 {
+pub unsafe fn lean_hash_str(len: usize, text: *const c_uchar, seed: u64) -> u64 {
     const M: u64 = 0xc6a4a7935bd1e995;
     const R: u32 = 47;
 

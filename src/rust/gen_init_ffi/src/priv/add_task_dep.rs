@@ -2,7 +2,7 @@ use leanh_l1::{
     datatypes::{LeanTaskImp, LeanTaskObject},
     runtime_object_task::{p3_resolve::enqueue_core, task_manager::TaskManager},
 };
-use std::sync::{atomic::Ordering, Arc};
+use std::sync::{Arc, atomic::Ordering};
 
 use crate::r#priv::enqueue_task::enqueue_task;
 
