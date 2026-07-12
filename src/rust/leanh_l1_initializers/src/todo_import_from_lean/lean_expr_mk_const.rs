@@ -1,9 +1,9 @@
 use leanh_l1::{
     datatypes::LeanObject,
     emitted::{
-        lean_alloc_ctor::lean_alloc_ctor, lean_box::lean_box, lean_ctor_get::lean_ctor_get,
+        lean_alloc_ctor::lean_alloc_ctor, lean_ctor_get::lean_ctor_get,
         lean_ctor_set::lean_ctor_set, lean_ctor_set_uint64::lean_ctor_set_uint64,
-        lean_is_scalar::lean_is_scalar,
+        lean_is_scalar::lean_is_scalar, lean_unsigned_to_nat::lean_unsigned_to_nat,
     },
     r#priv::lean_uint64_mix_hash::lean_uint64_mix_hash,
 };
@@ -22,29 +22,7 @@ const EXPR_LEVELS_HASH_SEED: u64 = 7;
 const NAME_HASH_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2;
 pub const EXPR_DATA_OFFSET: usize = core::mem::size_of::<*mut LeanObject>() * 2;
 
-#[inline]
-unsafe fn lean_expr_mk_data(
-    hash: u64,
-    bvar_range: *mut LeanObject,
-    mut approx_depth: u32,
-    has_fvar: bool,
-    has_expr_mvar: bool,
-    has_level_mvar: bool,
-    has_level_param: bool,
-) -> u64 {
-    if approx_depth > 255 {
-        approx_depth = 255;
-    }
-    debug_assert!(lean_is_scalar(bvar_range));
-    let range = ((bvar_range as usize) >> 1) as u64;
-    (hash as u32 as u64)
-        | ((approx_depth as u64) << 32)
-        | ((has_fvar as u64) << 40)
-        | ((has_expr_mvar as u64) << 41)
-        | ((has_level_mvar as u64) << 42)
-        | ((has_level_param as u64) << 43)
-        | (range << 44)
-}
+use crate::r#priv::lean_expr_mk_data::lean_expr_mk_data;
 
 #[inline]
 unsafe fn fold_levels_hash(mut levels: *const LeanObject) -> u64 {
@@ -81,10 +59,7 @@ unsafe fn any_level_param(mut levels: *const LeanObject) -> bool {
 #[inline]
 unsafe fn name_hash(name: *const LeanObject) -> u64 {
     debug_assert!(!lean_is_scalar(name));
-    leanh_l1::emitted::lean_ctor_get_uint64::lean_ctor_get_uint64(
-        name,
-        (core::mem::size_of::<*mut LeanObject>() * 2) as u32,
-    )
+    leanh_l1::emitted::lean_ctor_get_uint64::lean_ctor_get_uint64(name, NAME_HASH_OFFSET as u32)
 }
 
 pub unsafe fn lean_expr_mk_const(
@@ -97,7 +72,7 @@ pub unsafe fn lean_expr_mk_const(
     );
     let data = lean_expr_mk_data(
         hash,
-        lean_box(0),
+        lean_unsigned_to_nat(0),
         0,
         false,
         false,

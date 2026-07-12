@@ -6,10 +6,10 @@ use leanh_l1::{
 use crate::{
     r#priv::{
         lean_alloc_sarray::lean_alloc_sarray,
-        lean_alloc_sarray_would_overflow::lean_alloc_sarray_would_overflow,
-        lean_io_result_mk_error::lean_io_result_mk_error, lean_errno::lean_errno,
+        lean_alloc_sarray_would_overflow::lean_alloc_sarray_would_overflow, lean_errno::lean_errno,
         lean_get_external_data::lean_get_external_data,
-        lean_sarray_cptr::lean_sarray_cptr, lean_sarray_set_size::lean_sarray_set_size,
+        lean_io_result_mk_error::lean_io_result_mk_error, lean_sarray_cptr::lean_sarray_cptr,
+        lean_sarray_set_size::lean_sarray_set_size,
     },
     runtime_io_error::lean_decode_io_error::lean_decode_io_error,
 };
@@ -40,9 +40,6 @@ pub unsafe fn lean_io_prim_handle_read(h: *const LeanObject, nbytes: usize) -> *
         lean_io_result_mk_ok(res)
     } else {
         lean_dec(res);
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_errno(),
-            core::ptr::null_mut(),
-        ))
+        lean_io_result_mk_error(lean_decode_io_error(lean_errno(), core::ptr::null_mut()))
     }
 }

@@ -42,7 +42,6 @@ pub const EXCEPT_OK_TAG: u32 = 1;
 pub const LEVEL_DATA_HAS_MVAR: u64 = 1 << 32;
 pub const LEVEL_DATA_HAS_PARAM_BIT: u64 = 1u64 << 33;
 pub const LEVEL_DATA_DEPTH_SHIFT: u32 = 40;
-pub const EXPR_BVAR_RANGE_SHIFT: u32 = 44;
 pub const EXPR_DATA_HAS_LEVEL_PARAM_BIT: u64 = 1u64 << 43;
 
 // Socket address string buffer sizes shared by net helpers.

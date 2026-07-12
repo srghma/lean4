@@ -27,13 +27,13 @@ Scalar field layout (after object pointer fields):
 
 mod kernel_expr_impl {
     use crate::runtime_expr_shared::{
+        expr_binder_info_raw, expr_bvar_range, expr_bvar_range_data, expr_data, expr_let_nondep,
         EXPR_APP, EXPR_BVAR, EXPR_BVAR_RANGE_SHIFT, EXPR_LAMBDA, EXPR_LET, EXPR_MDATA, EXPR_PI,
-        EXPR_PROJ, expr_binder_info_raw, expr_bvar_range, expr_bvar_range_data, expr_data,
-        expr_let_nondep,
+        EXPR_PROJ,
     };
     use crate::runtime_object_panic_impl::lean_internal_panic;
     use crate::*;
-    use core::ffi::{CStr, c_char, c_int, c_long, c_uchar, c_uint, c_void};
+    use core::ffi::{c_char, c_int, c_long, c_uchar, c_uint, c_void, CStr};
 
     unsafe extern "C" {
         fn lean_expr_mk_bvar(idx: *mut LeanObject) -> *mut LeanObject;
@@ -62,61 +62,6 @@ mod kernel_expr_impl {
             idx: *mut LeanObject,
             expr: *mut LeanObject,
         ) -> *mut LeanObject;
-    }
-
-    // ── hash / data-word builders ────────────────────────────────────────────
-
-    #[inline(always)]
-    fn lean_hash_mix(h: u64, k: u64) -> u32 {
-        const M: u64 = 0xc6a4a7935bd1e995;
-        const R: u32 = 47;
-        let k = k.wrapping_mul(M);
-        let k = k ^ (k >> R);
-        let k = k ^ M;
-        let h = h ^ k;
-        h.wrapping_mul(M) as u32
-    }
-
-    #[no_mangle]
-    pub unsafe fn lean_expr_mk_data(
-        hash: u64,
-        bvar_range: *mut LeanObject,
-        mut approx_depth: u32,
-        has_fvar: bool,
-        has_expr_mvar: bool,
-        has_level_mvar: bool,
-        has_level_param: bool,
-    ) -> u64 {
-        if approx_depth > 255 {
-            approx_depth = 255;
-        }
-        if !lean_is_scalar(bvar_range) {
-            lean_internal_panic(b"too many bound variables\0".as_ptr() as *const i8);
-        }
-        let range = lean_unbox(bvar_range) as usize;
-        if range > 1_048_575 {
-            lean_internal_panic(b"too many bound variables\0".as_ptr() as *const i8);
-        }
-        let h = hash as u32 as u64;
-        let r = range as u64;
-        h | ((approx_depth as u64) << 32)
-            | ((has_fvar as u64) << 40)
-            | ((has_expr_mvar as u64) << 41)
-            | ((has_level_mvar as u64) << 42)
-            | ((has_level_param as u64) << 43)
-            | (r << EXPR_BVAR_RANGE_SHIFT)
-    }
-
-    #[no_mangle]
-    pub unsafe fn lean_expr_mk_app_data(fn_data: u64, arg_data: u64) -> u64 {
-        let mut depth = ((fn_data >> 32) & 0xFF).max((arg_data >> 32) & 0xFF) + 1;
-        if depth > 255 {
-            depth = 255;
-        }
-        let range = expr_bvar_range_data(fn_data).max(expr_bvar_range_data(arg_data));
-        let h = lean_hash_mix(fn_data, arg_data) as u64;
-        let flags = (fn_data | arg_data) & (0x0Fu64 << 40);
-        flags | h | (depth << 32) | (range << EXPR_BVAR_RANGE_SHIFT)
     }
 
     // ── has_loose_bvar ──────────────────────────────────────────────────────

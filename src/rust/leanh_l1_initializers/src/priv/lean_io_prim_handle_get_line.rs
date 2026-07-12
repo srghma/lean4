@@ -7,8 +7,8 @@ use leanh_l1::{
 
 use crate::{
     r#priv::{
-        lean_io_result_mk_error::lean_io_result_mk_error, lean_errno::lean_errno,
-        lean_get_external_data::lean_get_external_data,
+        lean_errno::lean_errno, lean_get_external_data::lean_get_external_data,
+        lean_io_result_mk_error::lean_io_result_mk_error,
     },
     runtime_io_error::lean_decode_io_error::lean_decode_io_error,
 };
@@ -30,10 +30,7 @@ pub unsafe fn lean_io_prim_handle_get_line(h: *const LeanObject) -> *mut LeanObj
     }
 
     if libc::ferror(fp) != 0 {
-        lean_io_result_mk_error(lean_decode_io_error(
-            lean_errno(),
-            core::ptr::null_mut(),
-        ))
+        lean_io_result_mk_error(lean_decode_io_error(lean_errno(), core::ptr::null_mut()))
     } else {
         if libc::feof(fp) != 0 {
             libc::clearerr(fp);
