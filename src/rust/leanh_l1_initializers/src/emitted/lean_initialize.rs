@@ -11,17 +11,17 @@ use crate::r#priv::{
 
 type ModuleInitializer = unsafe fn(bool) -> *mut LeanObject;
 
-pub fn lean_initialize_with(
-    initialize_init: ModuleInitializer,
-    initialize_std: ModuleInitializer,
-    initialize_lean: ModuleInitializer,
+pub fn lean_initialize(
+    initialize_Init: ModuleInitializer,
+    initialize_Std: ModuleInitializer,
+    initialize_Lean: ModuleInitializer,
 ) {
     save_stack_info(true);
     initialize_util_module();
     let builtin = true;
-    unsafe { consume_io_result(initialize_init(builtin)) };
-    unsafe { consume_io_result(initialize_std(builtin)) };
-    unsafe { consume_io_result(initialize_lean(builtin)) };
+    unsafe { consume_io_result(initialize_Init(builtin)) };
+    unsafe { consume_io_result(initialize_Std(builtin)) };
+    unsafe { consume_io_result(initialize_Lean(builtin)) };
     initialize_kernel_module();
     // init_default_print_fn();
     initialize_library_core_module();
