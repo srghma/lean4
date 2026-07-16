@@ -199,3 +199,90 @@ typedef struct {
 | **Ref/Thunk/Task/Promise/External/MPZ** | 0 | full byte size | alloc slot size |
 
 > The only types that actually USE m_other at runtime are Ctor (lean_ctor_num_objs) and ScalarArray (lean_sarray_elem_size). Everything else always writes and reads 0.
+
+-------
+
+```cpp
+ ~/projects/lean4  ⇅ rust-rewrite  rg -C 3 'm_header;' ./origin-master-src/                   
+./origin-master-src/include/lean/lean.h
+180-typedef lean_object * b_lean_obj_res; /* Borrowed object result. */
+181-
+182-typedef struct {
+183:    lean_object   m_header;
+184-    lean_object * m_objs[];
+185-} lean_ctor_object;
+186-
+187-/* Array arrays */
+188-typedef struct {
+189:    lean_object   m_header;
+190-    size_t        m_size;
+191-    size_t        m_capacity;
+192-    lean_object * m_data[];
+--
+194-
+195-/* Scalar arrays */
+196-typedef struct {
+197:    lean_object   m_header;
+198-    size_t        m_size;
+199-    size_t        m_capacity;
+200-    uint8_t       m_data[];
+201-} lean_sarray_object;
+202-
+203-typedef struct {
+204:    lean_object m_header;
+205-    size_t      m_size;     /* byte length including '\0' terminator */
+206-    size_t      m_capacity;
+207-    size_t      m_length;   /* UTF8 length */
+--
+209-} lean_string_object;
+210-
+211-typedef struct {
+212:    lean_object   m_header;
+213-    void *        m_fun;
+214-    uint16_t      m_arity;     /* Number of arguments expected by m_fun. */
+215-    uint16_t      m_num_fixed; /* Number of arguments that have been already fixed. */
+--
+217-} lean_closure_object;
+218-
+219-typedef struct {
+220:    lean_object   m_header;
+221-    lean_object * m_value;
+222-} lean_ref_object;
+223-
+224-typedef struct {
+225:    lean_object            m_header;
+226-    _Atomic(lean_object *) m_value;
+227-    _Atomic(lean_object *) m_closure;
+228-} lean_thunk_object;
+--
+294-     * invariant: m_imp == nullptr
+295-     * transition: RC becomes 0 ==> freed (`deactivate_task` lock) */
+296-typedef struct lean_task {
+297:    lean_object            m_header;
+298-    _Atomic(lean_object *) m_value;
+299-    lean_task_imp *        m_imp;
+300-} lean_task_object;
+301-
+302-typedef struct lean_promise {
+303:    lean_object        m_header;
+304-    lean_task_object * m_result;
+305-} lean_promise_object;
+306-
+--
+316-
+317-/* Object for wrapping external data. */
+318-typedef struct {
+319:    lean_object           m_header;
+320-    lean_external_class * m_class;
+321-    void *                m_data;
+322-} lean_external_object;
+
+./origin-master-src/runtime/object.h
+19-typedef object * b_obj_res;
+20-
+21-struct mpz_object {
+22:    lean_object m_header;
+23-    mpz         m_value;
+24-    mpz_object() {}
+25-    explicit mpz_object(mpz const & m):m_value(m) {}
+```
