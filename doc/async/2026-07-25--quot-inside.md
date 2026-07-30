@@ -1,3 +1,5 @@
+# How Multiset is implemented
+
 ```lean
 structure Equivalence {α : Sort u} (r : α → α → Prop) : Prop where
   /-- An equivalence relation is reflexive: `r x x` -/
@@ -99,12 +101,18 @@ def Multiset.{u} (α : Type u) : Type u :=
   Quotient (List.isSetoid α)
 ```
 
+<details>
+  <summary>
+<blockquote>
+explain `Quot` vs `Quotient`.
 
-> explain `Quot` vs `Quotient`
-> 
-> seems like `Quot` is more unsafe
-> 
-> make such example where we use `Quot` with some `r` which is not `Equivalence` (doesnt have `refl`? not `symm`? not `trans`? give examples of such `r` which is still real-world)
+seems like `Quot` is more unsafe.
+
+make such example where we use `Quot` with some `r` which is not `Equivalence` (doesnt have `refl`? not `symm`? not `trans`? give examples of such `r` which is still real-world).
+</blockquote>
+</summary>
+
+
 
 ```lean
 ---- If you give Quot a relation r that isn't symmetric or transitive, Quot will force it to become symmetric and transitive anyway!
@@ -146,9 +154,86 @@ theorem a_eq_c : Quot.mk Edge Node.A = Quot.mk Edge Node.C := by
 theorem b_eq_a : Quot.mk Edge Node.B = Quot.mk Edge Node.A := by
   rw [a_eq_b]
 ```
+
+</details>
+
+<details>
+  <summary>
+    so why Perm is Setoid for list? it seems like completely other Setoids for list are possible. no?
+  </summary>
+
+**Yes, you are 100% correct!**
+
+`Perm` is **not** the only possible `Setoid` for `List α`. You can define infinitely many different `Setoid` instances on `List α`.
+
+The reason `Perm` is registered as the default `instance` for `Setoid (List α)` is purely a **design convenience** to construct **`Multiset α`**.
+
+---
+
+### Other Examples of Setoids on `List α`
+
+Depending on what equivalence relation you pick, quotienting `List α` yields completely different mathematical structures:
+
+| Equivalence Relation on `List α` | What is ignored? | Resulting Quotient Type |
+| :--- | :--- | :--- |
+| **1. `Perm` (Permutation)** | Ignores **Order** | **`Multiset α`** (Counts matter, order doesn't) |
+| **2. Same Elements** ($l_1 \text{ and } l_2$ contain the same items) | Ignores **Order AND Duplicates** | **`Finset α`** (Finite sets) |
+| **3. Same Length** ($\text{length}(l_1) = \text{length}(l_2)$) | Ignores **Element values** | Equivalent to **`Nat`** |
+| **4. Same Head** (First elements are equal) | Ignores **Tail of list** | Equivalent to **`Option α`** |
+| **5. Same Sum** ($\sum l_1 = \sum l_2$) | Ignores **Everything except sum** | Equivalent to **`Nat` / `Int`** |
+
+---
+
+### How to define and use a Custom Setoid on `List`
+
+You are never forced to use `Perm`. You can define your own `Setoid` for `List` at any time!
+
+Here is a working Lean 4 example defining a custom `Setoid` on `List Nat` where two lists are equivalent if they have the **same sum**:
+
+```lean
+-- 1. Define a custom equivalence relation: Same Sum
+def SameSum (l1 l2 : List Nat) : Prop :=
+  l1.sum = l2.sum
+
+-- 2. Prove it is an Equivalence Relation
+theorem SameSum.eqv : Equivalence SameSum where
+  refl l := rfl
+  symm h := h.symm
+  trans h1 h2 := h1.trans h2
+
+-- 3. Package it into a custom Setoid!
+def sumSetoid : Setoid (List Nat) where
+  r := SameSum
+  iseqv := SameSum.eqv
+
+-- 4. Create a Quotient type from this custom Setoid
+def SumQuotient := Quotient sumSetoid
+
+-- In this quotient, [1, 5] and [2, 4] are LITERALLY EQUAL
+-- because both sum to 6!
+example : Quotient.mk sumSetoid [1, 5] = Quotient.mk sumSetoid [2, 4] := by
+  apply Quotient.sound
+  -- Show that 1 + 5 = 2 + 4
+  dsimp [sumSetoid, SameSum]
+  rfl
+```
+
+---
+
+### Summary: Why is `Perm` the default `instance`?
+
+In Lean, when a function expects a `Setoid (List α)` and you don't pass one explicitly, typeclass resolution looks for the `instance`.
+
+Lean's library authors chose `Perm` as the default `instance` because **Multiset** is the most standard, general-purpose data structure built from lists. But Lean allows you to pass **any custom `Setoid`** to `Quotient` whenever you want!
+
+</details>
+
 ----------
 
-### Why this is useful in Real-World CS / Math:
+<details>
+  <summary>
+  Why this is useful in Real-World CS / Math:
+  </summary>
 
 1. **Term Rewriting / Lambda Calculus**:
    A single-step $\beta$-reduction $M \to_\beta N$ is **not** symmetric or reflexive. But if you take `Quot (· →_β ·)`, you instantly get the type of **Lambda Terms modulo $\beta$-convertibility**!
@@ -156,8 +241,15 @@ theorem b_eq_a : Quot.mk Edge Node.B = Quot.mk Edge Node.A := by
    You define single-step word reduction $w_1 \cdot x \cdot x^{-1} \cdot w_2 \sim w_1 \cdot w_2$ (not symmetric or transitive). `Quot` on this rule gives you the **Free Group**.
 3. **Graph Algorithms**:
    Converting single-step directed transitions into connected components or state equivalences without manually defining paths or transitive closures first.
+</details>
+
 
 ----------
+
+<details>
+  <summary>
+  How works
+  </summary>
 
 ## The big idea: two layers
 
@@ -471,6 +563,12 @@ This is the propositional content of quotients ("related elements are equal"). T
       (h : (a b : α) → (p : r a b) → Eq.ndrec (f a) (sound p) = f b)
       (q : Quot r) : motive q :=
     Eq.ndrecOn (Quot.liftIndepPr1 f h q) ((lift (Quot.indep f) (Quot.indepCoherent f h) q).2)
+
+
+-- where
+abbrev Eq.ndrecOn.{u1, u2} {α : Sort u2} {a : α} {motive : α → Sort u1} {b : α} (h : a = b) (m : motive a) : motive b :=
+  Eq.ndrec m h
+
   ```
 
 So `Quot.rec` reduces via the ordinary reduction of the underlying `Quot.lift` — no special kernel support. Also in that region: `Quot.liftOn`, `Quot.inductionOn`, `Quot.recOn` (1891), plus the beta rules `liftBeta`/`indBeta` (proved by `rfl`, i.e. they hold *definitionally* thanks to the kernel computation rule).
@@ -503,3 +601,189 @@ Quot.rec    : {α : Sort u} → {r : α → α → Prop} → {motive : Quot r �
 - **`Quot.rec`** — derived definition, `src/Init/Core.lean:1870` (helpers 1836-1853).
 
 The port status for this area is solid: `add_quot`, `check_eq_type`, and `quot_reduce_rec` are all fully in Rust and match the C++. One thing to keep in mind for the rewrite — the comment at `kernel_type_checker.rs:5976-5978` notes the construction temporaries in `add_quot_impl` are deliberately *not* freed yet, because releasing them corrupts `Environment.replay`/`Quot.sound`; the exact C++ RAII ownership pattern hasn't been mirrored there. That's a live refcount subtlety in this exact function if you touch it.
+
+</details>
+
+<details>
+
+<summary>
+explain Eq.ndrec
+
+is it a primitive like Quot.mk?
+
+is Eq a primitive like Quot?
+
+is it a part of kernel?
+
+Quot has add_quot_impl which adds it into env. Does Eq have similar?
+
+Quot has quot_reduce_rec which computes expressions involving Quot. Does Eq have similar?
+</summary>
+
+
+| Question                                       | Answer                                                                         |
+| ---------------------------------------------- | ------------------------------------------------------------------------------ |
+| Is `Eq` a primitive like `Quot`?               | **No.** `Eq` is an ordinary `inductive` type. `Quot` is kernel-special.        |
+| Is `Eq.ndrec` a primitive like `Quot.mk`?      | **No.** It's a plain Lean `abbrev` over `Eq.rec`, the auto-generated recursor. |
+| Is `Eq` part of the kernel?                    | Only as generic inductive machinery. There's no `Eq`-specific "add" code.      |
+| Does `Eq` have an `add_quot_impl` equivalent?  | **No.** It goes through the generic `add_inductive` path.                      |
+| Does `Eq` have a `quot_reduce_rec` equivalent? | **No.** It reduces via the generic recursor/iota path all inductives use.      |
+
+The one-line summary: **`Quot` is a hand-built kernel primitive; `Eq` is just a normal inductive type. Everything special about `Quot` exists *because* it isn't an inductive.**
+
+---
+
+## What `Eq.ndrec` actually is
+
+`src/Init/Prelude.lean:80`:
+
+```lean
+@[simp] abbrev Eq.ndrec {α : Sort u2} {a : α} {motive : α → Sort u1}
+    (m : motive a) {b : α} (h : Eq a b) : motive b :=
+  h.rec m
+```
+
+It's **transport / substitution**: given a value `m : motive a` and a proof `h : a = b`, it hands you back a `motive b`. "nd" = *non-dependent*: the `motive` depends only on the element (`α → Sort`), not on the proof `h`. It's a thin convenience wrapper — the body is literally `h.rec m`, i.e. `Eq.rec` applied to `m`.
+
+That's exactly why it appears in `Quot.rec`'s coherence hypothesis (`Core.lean:1872`): `Eq.ndrec (f a) (sound p) = f b` transports `f a` along the equality `sound p : Quot.mk r a = Quot.mk r b`.
+
+The real layering for `Eq`:
+
+- `Eq` — the inductive type (`Prelude.lean:73`), `inductive Eq : α → α → Prop`
+- `Eq.refl` — its single constructor, added automatically by the inductive machinery
+- `Eq.rec` — its recursor, **auto-generated** by the inductive machinery (not hand-written, not `opaque`)
+- `Eq.ndrec` — a library `abbrev` over `Eq.rec`
+
+Compare with `Quot`, where `Quot`, `Quot.mk`, `Quot.lift`, `Quot.ind` are `opaque` signatures materialized by the kernel's bespoke `add_quot_impl`. `Eq` has none of that.
+
+---
+
+## Why `Eq` needs no `add_quot` and no `quot_reduce_rec`
+
+**Adding it.** `Quot` needs `add_quot_impl` (`kernel_type_checker.rs:5889`) because it is *not* an inductive — the kernel has to synthesize four constants by hand. `Eq` is a genuine inductive, so it's registered through the same generic `add_inductive` path as `List`/`Nat`, and its constructor + recursor are generated automatically. There is no `add_eq`.
+
+The *only* `Eq`-specific code in the kernel is `check_eq_type_for_quot` (`kernel_type_checker.rs:5781`, porting `check_eq_type` in `quot.cpp:19`). And it does **not add `Eq`** — it only *validates* that `Eq` already exists with the expected shape before `Quot` is added, because `Quot.lift`'s type mentions `Eq`.
+
+**Reducing it.** `Quot` needs the bespoke `quot_reduce_rec` (`kernel_type_checker.rs:3085`) precisely because it has no real constructor for the generic iota rule to fire on — `Quot.lift f h (Quot.mk r a) ↝ f a` is a special rule. `Eq.rec` has a real constructor (`Eq.refl`), so it reduces through the **generic** recursor/iota path, `inductive_reduce_rec_impl` (`kernel_type_checker.rs:4790`) — the same function that reduces every inductive recursor. Note the dispatch order in `reduce_recursor` (`:3070`): quotient reduction is tried first, then falls through to the generic inductive reduction that handles `Eq.rec`, `Nat.rec`, etc.
+
+---
+
+## The one genuinely special thing about `Eq`: K-like reduction
+
+`Eq.rec` is flagged as a **K recursor** (`lean_recursor_val_is_k`, `kernel_type_checker.rs:937`). In `inductive_reduce_rec_impl` (`:4830`):
+
+```rust
+if lean_recursor_val_is_k(rec_val) {
+    major = to_cnstr_when_K_impl(env, rec_val, major, tc)?;
+}
+```
+
+K-like reduction lets `Eq.rec` reduce even when the major premise isn't *syntactically* `Eq.refl` — if its type says it's an equality proof, the kernel synthesizes the constructor. This is definitional "Axiom K" / uniqueness of identity proofs, set up by `init_k_target` (`:6870`).
+
+Two things to note:
+1. This is a **generic recursor feature** keyed off the `is_k` flag, not `Eq`-bespoke code. Any qualifying subsingleton-like inductive gets it.
+2. Related: because `Eq a b : Prop`, all its proofs are definitionally equal via **proof irrelevance** (`is_def_eq_proof_irrel`, `:4023`) — again a generic `Prop` rule, not `Eq`-specific.
+
+So `Eq` is "special" only in that it happens to be a subsingleton `Prop`-valued inductive whose recursor qualifies for K — all handled by generic machinery — whereas `Quot` is special because the kernel author literally carved out dedicated add/reduce code paths for it.
+
+</details>
+
+<details>
+
+<summary>
+If Quot is not an inductive, then what is it?
+
+I want to extract Quot from kernel.
+
+The definition and computation rule
+
+Is there some generic syntax we could make to define Quot in lean itself?
+
+Maybe homotopy type-theory or some other tt is more low-level and would allow define Quot inside of language itself?
+
+Other languages have Quot? https://github.com/redprl/cooltt  ? redtt ? https://arend-lang.github.io/ ? Rocq?
+</summary>
+
+## If `Quot` isn't an inductive, what is it?
+
+It's an **axiomatic primitive type former** — a small, hand-picked extension of the kernel's type theory. Concretely, in Lean's trusted base `Quot` is:
+
+- 4 *primitive constants* whose **types** are checked but whose **implementations are trusted** (no definitional body): `Quot`, `Quot.mk`, `Quot.lift`, `Quot.ind`;
+- 1 *axiom*: `Quot.sound`;
+- 1 *definitional computation rule* wired into `whnf`: `Quot.lift f h (Quot.mk r a) ≡ f a` (and the analogous one for `Quot.ind`);
+- a guard that `Eq` exists with the right shape (`check_eq_type`).
+
+In the language of homotopy type theory, `Quot` is exactly a **set quotient**, which is a *higher inductive type* (HIT). But Lean does **not** implement general HITs — it bakes in this one specific HIT as an axiom + a reduction rule.
+
+## Why it can't be an ordinary inductive
+
+Ordinary inductive types are **freely generated** by their point constructors. The kernel's inductive machinery can only add *elements* (`Nat.zero`, `Nat.succ`, `Eq.refl`, …); it can never add an **equality between two distinct elements** of the type it's defining.
+
+`Quot` needs precisely that:
+
+```lean
+Quot.sound : r a b → Quot.mk r a = Quot.mk r b
+```
+
+`Quot.mk r a` and `Quot.mk r b` are built from different inputs, yet must become *propositionally equal*. That is an **equality/path constructor**, and "a type former with point constructors *and* path constructors" is the definition of a HIT. CIC (Lean's and Coq's base calculus) has no path constructors, so quotients are simply not expressible as inductives — they must be *added*.
+
+## Can you define `Quot` in Lean itself?
+
+**Propositionally: yes. Definitionally: no** — and the "no" is the entire reason it lives in the kernel.
+
+You can encode a quotient as "the type of its equivalence classes":
+
+```lean
+def Quot' (r : α → α → Prop) := { P : α → Prop // ∃ a, P = fun b => r a b }
+```
+
+With `funext`, `propext`, and `Classical.choice`, you can even *prove* an analogue of `sound` and a *propositional* `lift`-beta law. Lean/Coq stdlib and mathlib have done exactly this kind of thing.
+
+But the encoded version only gives you
+
+```lean
+Quot'.lift f h (Quot'.mk r a) = f a   -- provable, but NOT by rfl
+```
+
+whereas the kernel primitive gives you that equation **judgmentally** (`by rfl`, holds in `whnf`, usable by `decide`, `simp only`, unification, `Decidable` instances, etc.). You cannot manufacture a *new definitional reduction rule* from inside CIC (Calculus of Inductive Constructions) — reduction rules come only from (a) β/η/ι of the built-in formers, or (b) primitives the kernel special-cases. So there is **no generic Lean syntax** that produces a type with its own judgmental computation rule; the only two sources are inductive recursors and the built-in `Quot`.
+
+That's also why `Quot` *is* "the generic syntax": there is exactly one primitive quotient, and `Quotient`, `Int`, `Rat`, `Multiset`, `Finset`, … are all *library* constructions on top of it.
+
+**Practical consequence for your "extract Quot from the kernel" goal:** you can't drop it to a pure-Lean encoding without losing the definitional `lift`-beta rule, and a huge amount of code (anything using `Quotient`/`Int`/`Rat`/mathlib quotients, plus `decide`-style reductions through quotients) depends on that rule holding by `rfl`. The kernel footprint is already about as minimal as CIC allows: 4 constants + 1 axiom + 1 whnf rule + the `Eq`-shape guard. Making it non-primitive requires *changing the underlying type theory*, not refactoring the port.
+
+## HoTT / cubical: yes, this is exactly where quotients become definable *in-language*
+
+The "more low-level" thing you're reaching for is **Higher Inductive Types**, and the system that makes them *compute* is **cubical type theory**.
+
+- In **plain MLTT/CIC** (Lean, Coq), equality is itself an inductive (`Eq`/`Id`) with no computational path structure, so quotients must be axiomatic.
+- In **cubical TT**, equality is the **primitive** object: there's an interval `I`, and paths, `transp`, and `hcomp` (Kan composition) have their own reduction rules. Because paths are primitive and *compute*, you can declare quotients as a genuine HIT:
+
+  ```
+  data Quotient (A : Type) (R : A → A → Prop) where
+    mk    : A → Quotient A R
+    sound : (a b : A) → R a b → mk a ≡ mk b   -- a real path constructor
+    -- + set-truncation
+  ```
+
+  and the eliminator **computes on both `mk` and `sound`**. So there the quotient is defined *inside the language*, no axiom. The cost: the kernel is dramatically more complex (interval, face lattice, composition/Kan operations, coercion), which is precisely why Lean and Coq chose the axiomatic shortcut instead.
+
+The deep reason Lean can get away with the shortcut: `Quot.sound` lands in `Prop`, and proofs in `Prop` are proof-irrelevant and never "run," so a *non-computing* `sound` costs nothing operationally. Only `lift` needs to compute, and one whnf rule handles that.
+
+## Survey of other systems
+
+| System                      | Foundation                                              | Quotients                                                                                                                                                                                                                                                                                                   |
+| --------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Lean 4**                  | CIC + primitives                                        | Axiomatic `Quot` (this discussion) — definitional `lift`-beta, `sound` as axiom                                                                                                                                                                                                                             |
+| **Rocq / Coq**              | CIC                                                     | **No primitive quotient.** In practice: **setoids** (`Setoid`/`Equivalence` + `Proper`/generalized rewriting) — the famous "setoid hell." Can encode quotients via added axioms (funext/propext/choice) but only with *propositional* beta. `SProp` gives definitional proof irrelevance but not quotients. |
+| **Cubical Agda**            | Cubical TT                                              | Native HITs; `SetQuotient` (`_/_`) in the cubical library, fully computational `sound`                                                                                                                                                                                                                      |
+| **Agda (vanilla)**          | MLTT                                                    | No primitive; setoids, or postulated quotients (or switch on `--cubical`)                                                                                                                                                                                                                                   |
+| **Arend**                   | HoTT-flavored w/ interval + native HITs                 | Built-in HITs incl. set-level quotients (`\truncated \data`); `sound`-like constructors with computation rules — genuinely in-language                                                                                                                                                                      |
+| **cooltt / redtt / redPRL** | Cartesian cubical (cooltt/redtt) / cubical PRL (redPRL) | HITs supported ⇒ quotients definable as computing HITs; redPRL descends from Nuprl's PRL tradition                                                                                                                                                                                                          |
+| **Nuprl**                   | Extensional computational TT                            | **Quotient type is primitive** (`{x,y : A // E}`), leaning on the system's extensional equality — a different flavor entirely                                                                                                                                                                               |
+| **Isabelle/HOL**            | Classical simple type theory + choice                   | `quotient_type` command + Lifting/Transfer package; "has quotients," but HOL has no definitional reduction at all, so it's not comparable to CIC's judgmental rule                                                                                                                                          |
+
+So to directly answer "does X have Quot": the **cubical / HIT systems (cooltt, redtt, Arend, Cubical Agda)** let you *define* it in-language *with a computing path*; **Rocq/Coq** does **not** — it uses setoids or added axioms; **Nuprl** has it as an extensional primitive; **Isabelle/HOL** has it as a package on a different foundation.
+
+If you genuinely wanted `Quot` "not baked into the kernel," the only principled route is a **cubical kernel with HITs** — which is a different and substantially larger kernel than the CIC one you're porting. Within CIC, the current axiom-plus-one-reduction-rule form is the canonical minimal answer, and matches what Coq would need too (Coq just declined to add it).
+
+</details>
