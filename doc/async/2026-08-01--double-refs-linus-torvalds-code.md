@@ -2518,14 +2518,7 @@ fn int main() {
 
 </details>
 
-<details>
-  <summary>go</summary>
 
-```go
-
-```
-
-</details>
 
 
 
@@ -3051,6 +3044,15 @@ proc main() =
     curr = next
 
 main()
+```
+
+</details>
+
+<details>
+  <summary>go</summary>
+
+```go
+
 ```
 
 </details>
