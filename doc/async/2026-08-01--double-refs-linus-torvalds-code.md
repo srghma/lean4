@@ -4,7 +4,7 @@
 
 <details>
   <summary>bench.cpp</summary>
-  
+
 ```cpp
 #include <benchmark/benchmark.h>
 #include <vector>
@@ -1403,5 +1403,1379 @@ const styles = {
 };
 ```
 
-  
+
+</details>
+
+
+| **Inner \ Outer** | **Outer Pointer is Non-Nullable (`*...`)** | **Outer Pointer is Nullable (`?*...`)** |
+| :--- | :--- | :--- |
+| **Inner Pointer is Non-Nullable (`*Node`)** | IF non-optional node THEN **`**Node`** <br> ELSE **`**?Node`** | IF non-optional node THEN **`?**Node`** <br> ELSE **`?**?Node`** |
+| **Inner Pointer is Nullable (`?*Node`)** | IF non-optional node THEN **`*?*Node`** (Linus) <br> ELSE **`*?*?Node`** | IF non-optional node THEN **`?*?*Node`** <br> ELSE **`?*?*?Node`** |
+
+
+<details>
+  <summary>zig ?* ?* ?</summary>
+
+
+
+```zig
+import React, { useMemo, useState } from "react";
+
+/* ============================================================================
+   TYPE-SPACE DATA
+   ----------------------------------------------------------------------------
+   Every learnable Zig type in this app is keyed by its literal spelling
+   ("Node", "*Node", "?*Node", ...). Vector / matrix / cube all just render
+   pointers into this one map, so clicking the same type from two different
+   sections (e.g. "*Node" in both the matrix and the cube) shows identical
+   content -- there's exactly one source of truth per type.
+   ========================================================================== */
+
+const EXAMPLES = {
+  Node: {
+    formula: "Node",
+    title: "Plain value",
+    blurb: "The struct itself. Copying it copies every field.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+};
+
+pub fn main() void {
+    // \`Node\` is a plain value: it lives wherever you put it
+    // (stack, another struct, ...) and copying it copies the
+    // whole struct.
+    var n: Node = .{ .value = 10 };
+    n.value += 5;
+    std.debug.print("n.value = {d}\\n", .{n.value});
+}`,
+  },
+  "?Node": {
+    formula: "?Node",
+    title: "Optional value",
+    blurb: "The whole struct, plus one extra bit for \u201cpresent or not\u201d. Still not a pointer.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+};
+
+pub fn main() void {
+    // \`?Node\` is an *optional value*, not a pointer: it's the
+    // whole struct plus one bit saying "present or not".
+    var maybe: ?Node = Node{ .value = 3 };
+
+    if (maybe) |n| {
+        std.debug.print("present: {d}\\n", .{n.value});
+    }
+
+    maybe = null;
+    std.debug.print("is null now: {}\\n", .{maybe == null});
+}`,
+  },
+  "*Node": {
+    formula: "*Node",
+    title: "Non-null pointer",
+    blurb: "Must point at a real Node. No unwrapping, ever.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+};
+
+fn bump(n: *Node) void {
+    // \`n\` is guaranteed non-null: no unwrapping required.
+    n.value += 1;
+}
+
+pub fn main() void {
+    var n = Node{ .value = 1 };
+    bump(&n);
+    std.debug.print("n.value = {d}\\n", .{n.value});
+}`,
+  },
+  "*?Node": {
+    formula: "*?Node",
+    title: "Non-null pointer to an optional value",
+    blurb: "The pointer can't be null \u2014 but the value it points at can be empty.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+};
+
+fn clearSlot(slot: *?Node) void {
+    // \`slot\` itself can never be null, but the *value it
+    // points at* can be empty.
+    slot.* = null;
+}
+
+pub fn main() void {
+    var slot: ?Node = Node{ .value = 7 };
+    clearSlot(&slot);
+    std.debug.print("slot is null: {}\\n", .{slot == null});
+}`,
+  },
+  "?*Node": {
+    formula: "?*Node",
+    title: "Nullable pointer",
+    blurb: "The classic linked-list \u201cnext\u201d field: either a real Node or nothing.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+    next: ?*Node = null,
+};
+
+pub fn main() void {
+    var b = Node{ .value = 2 };
+    var a = Node{ .value = 1, .next = &b };
+
+    var walk: ?*Node = &a;
+    while (walk) |n| : (walk = n.next) {
+        std.debug.print("{d}\\n", .{n.value});
+    }
+}`,
+  },
+  "?*?Node": {
+    formula: "?*?Node",
+    title: "Nullable pointer to an optional value",
+    blurb: "Two independent maybes stacked: the pointer might be absent, and so might the value.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+};
+
+fn maybeClear(slot: ?*?Node) void {
+    if (slot) |s| {
+        s.* = null;
+    }
+}
+
+pub fn main() void {
+    var value: ?Node = Node{ .value = 9 };
+    maybeClear(&value);
+    std.debug.print("value is null: {}\\n", .{value == null});
+}`,
+  },
+  "**Node": {
+    formula: "**Node",
+    title: "Non-null pointer to a non-null pointer",
+    blurb: "Both levels are guaranteed non-null. Not the good-taste.md trick \u2014 see the callout below.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+};
+
+fn bumpIndirect(pp: **Node) void {
+    // both levels are guaranteed non-null
+    pp.*.*.value += 100;
+}
+
+pub fn main() void {
+    var n = Node{ .value = 1 };
+    var p: *Node = &n;
+    bumpIndirect(&p);
+    std.debug.print("n.value = {d}\\n", .{n.value});
+}`,
+  },
+  "**?Node": {
+    formula: "**?Node",
+    title: "Non-null pointer to a non-null pointer to an optional value",
+    blurb: "Two guaranteed pointer hops, landing on a slot that may or may not hold a Node.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+};
+
+fn clearIndirect(pp: **?Node) void {
+    pp.*.* = null;
+}
+
+pub fn main() void {
+    var slot: ?Node = Node{ .value = 4 };
+    var p: *?Node = &slot;
+    clearIndirect(&p);
+    std.debug.print("slot is null: {}\\n", .{slot == null});
+}`,
+  },
+  linus: {
+    formula: "*?*Node",
+    title: "The good-taste.md trick",
+    blurb:
+      "A non-null pointer to a nullable pointer. This \u2014 not **Node \u2014 is the real Zig translation of Linus's indirect-pointer remove(): the outer pointer (p) can never be null, but the slot it points at (head, or some node's .next) legitimately can be.",
+    code: `const std = @import("std");
+
+const Node = struct {
+    value: i32,
+    next: ?*Node = null,
+};
+
+// Zig translation of remove_list_entry_fast() from good-taste.md.
+// p's type is *?*Node: p itself is never null, but *p (a head
+// pointer or a .next field) legitimately can be.
+fn removeEntry(head: *?*Node, entry: *Node) void {
+    var p: *?*Node = head;
+    while (p.* != entry) : (p = &p.*.?.next) {}
+    p.* = entry.next;
+}
+
+pub fn main() void {
+    var c = Node{ .value = 3 };
+    var b = Node{ .value = 2, .next = &c };
+    var a = Node{ .value = 1, .next = &b };
+    var head: ?*Node = &a;
+
+    removeEntry(&head, &b); // unlink the middle node
+
+    var walk = head;
+    while (walk) |n| : (walk = n.next) {
+        std.debug.print("{d}\\n", .{n.value});
+    }
+}`,
+  },
+};
+
+const ZIG_PLAY_URL = "https://zig-play.dev/";
+
+/* ============================================================================
+   VECTOR + MATRIX DATA
+   ========================================================================== */
+
+const VECTOR_ITEMS = ["Node", "?Node"];
+
+const MATRIX_ROWS = [
+  { key: "ptr", label: "Ptr (*)" },
+  { key: "optptr", label: "Opt-Ptr (?*)" },
+];
+const MATRIX_COLS = [
+  { key: "val", label: "Value (Node)" },
+  { key: "optval", label: "Opt-Value (?Node)" },
+];
+const MATRIX_CELLS = {
+  "ptr:val": "*Node",
+  "ptr:optval": "*?Node",
+  "optptr:val": "?*Node",
+  "optptr:optval": "?*?Node",
+};
+
+/* ============================================================================
+   CUBE GEOMETRY
+   ----------------------------------------------------------------------------
+   Static isometric projection (no rotation, no CSS 3D). Axes:
+     a (x, screen-right-down)  -> pointer present?
+     b (y, screen-left-down)   -> pointer-to-pointer present?
+     c (z, screen-up)          -> Optional-of-Node?
+   a=0,b=1 is geometrically drawn but logically invalid: you can't have a
+   second pointer level without a first.
+   ========================================================================== */
+
+const COS30 = Math.cos(Math.PI / 6);
+const SIN30 = Math.sin(Math.PI / 6);
+const S = 100; // ground (a,b) unit scale
+const SZ = 78; // vertical (c) unit scale -- deliberately != S so opposite
+// corners (0,0,0) and (1,1,1) never land on the same pixel.
+
+function project(a, b, c) {
+  return {
+    x: (a - b) * S * COS30,
+    y: (a + b) * S * SIN30 - c * SZ,
+  };
+}
+
+function cubeType(a, b, c) {
+  if (a === 0 && b === 1) return { invalid: true };
+  const depth = a === 0 ? 0 : b === 0 ? 1 : 2;
+  const type = "*".repeat(depth) + (c === 1 ? "?Node" : "Node");
+  return { invalid: false, type };
+}
+
+const CUBE_VERTICES = [];
+for (const a of [0, 1]) {
+  for (const b of [0, 1]) {
+    for (const c of [0, 1]) {
+      CUBE_VERTICES.push({ a, b, c, ...project(a, b, c), ...cubeType(a, b, c) });
+    }
+  }
+}
+
+const CUBE_EDGES = [];
+for (let i = 0; i < CUBE_VERTICES.length; i++) {
+  for (let j = i + 1; j < CUBE_VERTICES.length; j++) {
+    const v1 = CUBE_VERTICES[i];
+    const v2 = CUBE_VERTICES[j];
+    const diff =
+      Math.abs(v1.a - v2.a) + Math.abs(v1.b - v2.b) + Math.abs(v1.c - v2.c);
+    if (diff === 1) CUBE_EDGES.push([v1, v2]);
+  }
+}
+
+/* ============================================================================
+   COMPONENT
+   ========================================================================== */
+
+export default function ZigTypeSpace() {
+  const [selected, setSelected] = useState("linus");
+  const example = EXAMPLES[selected];
+
+  const [copied, setCopied] = useState(false);
+  const copy = () => {
+    navigator.clipboard?.writeText(example.code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+  };
+
+  return (
+    <div style={styles.app}>
+      <style>{css}</style>
+
+      <header style={styles.header}>
+        <h1 style={styles.h1}>
+          <span style={styles.h1Accent}>zig</span> type space
+        </h1>
+        <p style={styles.sub}>
+          value &rarr; pointer &rarr; pointer-to-pointer, crossed with Optional. Click any type to load a
+          runnable example.
+        </p>
+      </header>
+
+      <div style={styles.layout}>
+        <main style={styles.main}>
+          {/* 1. VECTOR */}
+          <Section
+            index="01"
+            title="the vector"
+            hint="Node vs. ?Node \u2014 value, or optional value. No pointer yet."
+          >
+            <div style={styles.vectorRow}>
+              {VECTOR_ITEMS.map((k) => (
+                <TypeChip key={k} typeKey={k} selected={selected} onSelect={setSelected} size="lg" />
+              ))}
+            </div>
+          </Section>
+
+          {/* 2. MATRIX */}
+          <Section
+            index="02"
+            title="the matrix"
+            hint="One pointer level, crossed with pointer-nullability and value-optionality."
+          >
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th style={styles.thCorner} />
+                  {MATRIX_COLS.map((col) => (
+                    <th key={col.key} style={styles.th}>
+                      {col.label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {MATRIX_ROWS.map((row) => (
+                  <tr key={row.key}>
+                    <td style={styles.thRow}>{row.label}</td>
+                    {MATRIX_COLS.map((col) => {
+                      const type = MATRIX_CELLS[`${row.key}:${col.key}`];
+                      return (
+                        <td key={col.key} style={styles.td}>
+                          <TypeChip typeKey={type} selected={selected} onSelect={setSelected} size="md" />
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Section>
+
+          {/* 3. CUBE */}
+          <Section
+            index="03"
+            title="the cube"
+            hint="x = pointer \u00b7 y = pointer-to-pointer \u00b7 z (up) = Optional. Static \u2014 nothing spins."
+          >
+            <div style={styles.cubeWrap}>
+              <svg viewBox="-140 -130 280 270" style={styles.cubeSvg}>
+                {CUBE_EDGES.map(([v1, v2], i) => {
+                  const dashed = v1.invalid || v2.invalid;
+                  return (
+                    <line
+                      key={i}
+                      x1={v1.x}
+                      y1={v1.y}
+                      x2={v2.x}
+                      y2={v2.y}
+                      stroke={dashed ? T.rule : T.edge}
+                      strokeWidth={1.5}
+                      strokeDasharray={dashed ? "3 4" : undefined}
+                    />
+                  );
+                })}
+
+                {/* axis indicators from the origin (0,0,0) = plain Node */}
+                <AxisLabel x={120} y={72} color={T.cyan} label="x \u00b7 pointer" />
+                <AxisLabel x={-124} y={72} color={T.violet} anchor="end" label="y \u00b7 ptr-to-ptr" />
+                <AxisLabel x={0} y={-104} color={T.green} anchor="middle" label="z \u00b7 Optional" />
+
+                {CUBE_VERTICES.map((v, i) => (
+                  <CubeVertex key={i} v={v} selected={selected} onSelect={setSelected} />
+                ))}
+              </svg>
+            </div>
+            <p style={styles.cubeFoot}>
+              Dashed vertices (x=0, y=1) are geometrically present but not legal types: you can't have a
+              second pointer indirection without a first.
+            </p>
+          </Section>
+
+          {/* CALLOUT */}
+          <Section index="04" title="the actual good-taste.md type" hint="Where the cube's **Node quietly diverges from the real trick.">
+            <button
+              style={{
+                ...styles.linusCard,
+                ...(selected === "linus" ? styles.linusCardActive : {}),
+              }}
+              onClick={() => setSelected("linus")}
+            >
+              <code style={styles.linusFormula}>*?*Node</code>
+              <span style={styles.linusText}>
+                Non-null pointer to a nullable pointer &mdash; not <code>**Node</code>. The outer pointer
+                (p) can never be null; the slot it points at (head, or a node's .next) legitimately can be.
+              </span>
+            </button>
+          </Section>
+        </main>
+
+        {/* SIDEBAR */}
+        <aside style={styles.sidebar}>
+          <div style={styles.sidebarInner}>
+            <span style={styles.sidebarEyebrow}>selected type</span>
+            <code style={styles.sidebarFormula}>{example.formula}</code>
+            <h3 style={styles.sidebarTitle}>{example.title}</h3>
+            <p style={styles.sidebarBlurb}>{example.blurb}</p>
+
+            <pre style={styles.codeBlock}>
+              <code>{example.code}</code>
+            </pre>
+
+            <div style={styles.sidebarActions}>
+              <button style={styles.copyBtn} onClick={copy}>
+                {copied ? "copied \u2713" : "copy code"}
+              </button>
+              <a href={ZIG_PLAY_URL} target="_blank" rel="noreferrer" style={styles.playLink}>
+                open zig-play.dev &rarr;
+              </a>
+            </div>
+            <p style={styles.sidebarNote}>Paste the copied snippet into zig-play.dev's editor and run it.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  );
+}
+
+function Section({ index, title, hint, children }) {
+  return (
+    <section style={styles.section}>
+      <div style={styles.sectionHead}>
+        <span style={styles.sectionIndex}>{index}</span>
+        <div>
+          <h2 style={styles.sectionTitle}>{title}</h2>
+          <p style={styles.sectionHint}>{hint}</p>
+        </div>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function TypeChip({ typeKey, selected, onSelect, size }) {
+  const isSel = selected === typeKey;
+  return (
+    <button
+      onClick={() => onSelect(typeKey)}
+      style={{
+        ...styles.chip,
+        ...(size === "lg" ? styles.chipLg : styles.chipMd),
+        ...(isSel ? styles.chipActive : {}),
+      }}
+    >
+      {typeKey}
+    </button>
+  );
+}
+
+function AxisLabel({ x, y, color, label, anchor = "start" }) {
+  return (
+    <text x={x} y={y} fill={color} fontSize="11" fontWeight="600" textAnchor={anchor} style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
+      {label}
+    </text>
+  );
+}
+
+function CubeVertex({ v, selected, onSelect }) {
+  const key = v.invalid ? null : v.type;
+  const isSel = key && selected === key;
+  const color = v.invalid ? T.rule : v.c === 1 ? T.green : T.cyan;
+  const labelDx = v.a === 0 && v.b === 0 ? -6 : 6;
+  const anchor = v.a === 0 && v.b === 0 ? "end" : "start";
+
+  return (
+    <g
+      onClick={() => key && onSelect(key)}
+      style={{ cursor: key ? "pointer" : "default" }}
+    >
+      <circle
+        cx={v.x}
+        cy={v.y}
+        r={isSel ? 8 : 6}
+        fill={v.invalid ? T.bg : isSel ? color : T.panel}
+        stroke={color}
+        strokeWidth={isSel ? 2.5 : 1.5}
+        strokeDasharray={v.invalid ? "2 2" : undefined}
+      />
+      <text
+        x={v.x + labelDx}
+        y={v.y - 10}
+        fontSize={v.invalid ? 9 : 11}
+        fontWeight={isSel ? 700 : 600}
+        fill={v.invalid ? T.inkDim : isSel ? color : T.ink}
+        textAnchor={anchor}
+        style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+      >
+        {v.invalid ? "n/a" : v.type}
+      </text>
+    </g>
+  );
+}
+
+/* ============================================================================
+   DESIGN TOKENS
+   ========================================================================== */
+
+const T = {
+  bg: "#0b0d10",
+  panel: "#14171c",
+  panelAlt: "#181c22",
+  rule: "#262c34",
+  edge: "#3a4552",
+  ink: "#d7dee6",
+  inkDim: "#717d8a",
+  amber: "#f2a93c", // zig's brand tone, used sparingly
+  cyan: "#5ec4d6",
+  violet: "#9d8cf0",
+  green: "#7fd99a",
+};
+
+const css = `
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@500;600;700&display=swap');
+  * { box-sizing: border-box; }
+  button { font-family: inherit; cursor: pointer; }
+  ::selection { background: ${T.amber}44; }
+`;
+
+const styles = {
+  app: {
+    minHeight: "100vh",
+    background: T.bg,
+    color: T.ink,
+    fontFamily: "'IBM Plex Sans', sans-serif",
+    padding: "28px 28px 60px",
+  },
+  header: { marginBottom: "24px" },
+  h1: {
+    fontFamily: "'IBM Plex Mono', monospace",
+    fontSize: "24px",
+    fontWeight: 700,
+    margin: 0,
+    letterSpacing: "-0.01em",
+  },
+  h1Accent: { color: T.amber },
+  sub: { color: T.inkDim, fontSize: "13px", marginTop: "6px", maxWidth: "560px", lineHeight: 1.5 },
+  layout: { display: "grid", gridTemplateColumns: "1fr 320px", gap: "24px", alignItems: "start" },
+  main: { display: "flex", flexDirection: "column", gap: "8px" },
+  section: {
+    borderTop: `1px solid ${T.rule}`,
+    padding: "24px 0",
+  },
+  sectionHead: { display: "flex", gap: "14px", marginBottom: "16px" },
+  sectionIndex: {
+    fontFamily: "'IBM Plex Mono', monospace",
+    fontSize: "12px",
+    color: T.amber,
+    fontWeight: 700,
+    paddingTop: "3px",
+  },
+  sectionTitle: {
+    fontFamily: "'IBM Plex Mono', monospace",
+    fontSize: "16px",
+    fontWeight: 700,
+    margin: 0,
+    textTransform: "lowercase",
+  },
+  sectionHint: { color: T.inkDim, fontSize: "12.5px", marginTop: "3px", maxWidth: "520px" },
+  vectorRow: { display: "flex", gap: "12px" },
+  chip: {
+    fontFamily: "'IBM Plex Mono', monospace",
+    background: T.panel,
+    border: `1px solid ${T.rule}`,
+    color: T.ink,
+    borderRadius: "7px",
+    fontWeight: 600,
+  },
+  chipLg: { padding: "16px 22px", fontSize: "17px" },
+  chipMd: { padding: "10px 14px", fontSize: "13px", width: "100%" },
+  chipActive: { borderColor: T.amber, color: T.amber, background: T.amber + "14" },
+  table: { borderCollapse: "collapse", width: "100%", maxWidth: "520px" },
+  thCorner: { border: `1px solid ${T.rule}`, background: T.panelAlt },
+  th: {
+    border: `1px solid ${T.rule}`,
+    background: T.panelAlt,
+    padding: "10px",
+    fontSize: "11.5px",
+    color: T.inkDim,
+    fontWeight: 600,
+    textTransform: "uppercase",
+    letterSpacing: "0.04em",
+  },
+  thRow: {
+    border: `1px solid ${T.rule}`,
+    background: T.panelAlt,
+    padding: "10px",
+    fontSize: "11.5px",
+    color: T.inkDim,
+    fontWeight: 600,
+    whiteSpace: "nowrap",
+  },
+  td: { border: `1px solid ${T.rule}`, padding: "10px" },
+  cubeWrap: { display: "flex", justifyContent: "center" },
+  cubeSvg: { width: "100%", maxWidth: "460px", height: "auto" },
+  cubeFoot: { color: T.inkDim, fontSize: "11.5px", textAlign: "center", marginTop: "6px", maxWidth: "480px", marginLeft: "auto", marginRight: "auto" },
+  linusCard: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+    alignItems: "flex-start",
+    textAlign: "left",
+    width: "100%",
+    background: T.panel,
+    border: `1px solid ${T.rule}`,
+    borderLeft: `3px solid ${T.amber}`,
+    borderRadius: "8px",
+    padding: "16px 18px",
+  },
+  linusCardActive: { background: T.amber + "12", borderColor: T.amber },
+  linusFormula: {
+    fontFamily: "'IBM Plex Mono', monospace",
+    fontSize: "20px",
+    fontWeight: 700,
+    color: T.amber,
+  },
+  linusText: { color: T.ink, fontSize: "13px", lineHeight: 1.6 },
+  sidebar: { position: "sticky", top: "24px" },
+  sidebarInner: {
+    background: T.panel,
+    border: `1px solid ${T.rule}`,
+    borderRadius: "10px",
+    padding: "18px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+  },
+  sidebarEyebrow: {
+    fontSize: "10px",
+    textTransform: "uppercase",
+    letterSpacing: "0.1em",
+    color: T.inkDim,
+    fontWeight: 600,
+  },
+  sidebarFormula: {
+    fontFamily: "'IBM Plex Mono', monospace",
+    fontSize: "26px",
+    fontWeight: 700,
+    color: T.amber,
+  },
+  sidebarTitle: { fontSize: "14px", margin: "2px 0 0", fontWeight: 700 },
+  sidebarBlurb: { fontSize: "12.5px", color: T.inkDim, lineHeight: 1.55, margin: 0 },
+  codeBlock: {
+    background: T.bg,
+    border: `1px solid ${T.rule}`,
+    borderRadius: "7px",
+    padding: "12px",
+    fontSize: "11px",
+    lineHeight: 1.6,
+    overflowX: "auto",
+    color: T.ink,
+    fontFamily: "'IBM Plex Mono', monospace",
+    margin: "6px 0",
+    maxHeight: "440px",
+  },
+  sidebarActions: { display: "flex", gap: "8px", alignItems: "center" },
+  copyBtn: {
+    background: T.panelAlt,
+    border: `1px solid ${T.rule}`,
+    color: T.ink,
+    borderRadius: "6px",
+    padding: "8px 12px",
+    fontSize: "11.5px",
+    fontWeight: 600,
+    fontFamily: "'IBM Plex Mono', monospace",
+  },
+  playLink: {
+    color: T.cyan,
+    fontSize: "11.5px",
+    fontWeight: 600,
+    fontFamily: "'IBM Plex Mono', monospace",
+    textDecoration: "none",
+  },
+  sidebarNote: { fontSize: "10.5px", color: T.inkDim, marginTop: "2px" },
+};
+```
+
+</details>
+
+<details>
+  <summary>zig ?int vs int memory size</summary>
+
+```zig
+const std = @import("std");
+
+pub fn main() void {
+    std.debug.print("--- Value Optionality (Uses a Tag) ---\n", .{});
+    std.debug.print("size of i32:     {} bytes\n", .{@sizeOf(i32)});
+    std.debug.print("size of ?i32:    {} bytes (Larger!)\n", .{@sizeOf(?i32)});
+
+    std.debug.print("\n--- Pointer Optionality (Optimized) ---\n", .{});
+    std.debug.print("size of *i32:    {} bytes\n", .{@sizeOf(*i32)});
+    std.debug.print("size of ?*i32:   {} bytes (Same size!)\n", .{@sizeOf(?*i32)});
+
+    // Demonstrate distinguishing 0 from null
+    var maybe_int: ?i32 = 0;
+    if (maybe_int) |val| {
+        std.debug.print("\nmaybe_int is present and its value is: {}\n", .{val});
+    }
+
+    maybe_int = null;
+    if (maybe_int == null) {
+        std.debug.print("maybe_int is now null, which is different from 0.\n", .{});
+    }
+}
+```
+
+</details>
+
+<details>
+  <summary>zig ?*?*?int -> print path</summary>
+
+```zig
+const std = @import("std");
+
+inline fn deepPrint(outer: ?*?*?i32, base_addr: usize) void {
+    // Helper to print formatting logic once
+    const printAddr = struct {
+        fn run(label: []const u8, ptr: anytype, base: usize) void {
+            const addr = @intFromPtr(ptr);
+            const offset = @as(i128, @intCast(addr)) - @as(i128, @intCast(base));
+            // Manually add '+' for positive offsets since Zig doesn't support {:+}
+            const sign = if (offset >= 0) "+" else "";
+            std.debug.print("{s} [0x{x} (base{s}{d})] -> ", .{ label, addr, sign, offset });
+        }
+    }.run;
+
+    // Level 1: Outer Pointer
+    if (outer) |inner_ptr_ref| {
+        printAddr("outer ptr", inner_ptr_ref, base_addr);
+
+        // Level 2: Inner Pointer
+        if (inner_ptr_ref.*) |int_ref| {
+            printAddr("inner ptr", int_ref, base_addr);
+
+            // Level 3: The actual Integer Value
+            if (int_ref.*) |val| {
+                std.debug.print("int was {}\n", .{val});
+            } else {
+                std.debug.print("int was null -> STOP\n", .{});
+            }
+        } else {
+            std.debug.print("inner ptr [null] -> STOP\n", .{});
+        }
+    } else {
+        std.debug.print("outer ptr [null] -> STOP\n", .{});
+    }
+}
+
+pub fn main() void {
+    // Capture base address
+    var origin: i32 = 0;
+    const base_addr = @intFromPtr(&origin);
+
+    std.debug.print("--- Triple-Nullability Cube (Base: 0x{x}) ---\n\n", .{base_addr});
+
+    // Setup variables on the stack
+    var middle_null: ?*?i32 = null;
+
+    var val_null: ?i32 = null;
+    var middle_to_val_null: ?*?i32 = &val_null;
+
+    var val_one: ?i32 = 1;
+    var middle_to_val_one: ?*?i32 = &val_one;
+
+    // V1: Root is null
+    std.debug.print("V1: ", .{});
+    deepPrint(null, base_addr);
+
+    // V2: Root exists, points to a null pointer
+    std.debug.print("V2: ", .{});
+    deepPrint(&middle_null, base_addr);
+
+    // V3: Root and Inner exist, but value is null
+    std.debug.print("V3: ", .{});
+    deepPrint(&middle_to_val_null, base_addr);
+
+    // V4: All layers exist
+    std.debug.print("V4: ", .{});
+    deepPrint(&middle_to_val_one, base_addr);
+}
+```
+
+</details>
+
+```
+--- Triple-Nullability Cube (Base: 0x7ffe9e4604b0) ---
+
+V1: outer ptr [null] -> STOP
+V2: outer ptr [0x7ffe9e460498 (base-24)] -> inner ptr [null] -> STOP
+V3: outer ptr [0x7ffe9e4604a0 (base-16)] -> inner ptr [0x7ffe9e4604b4 (base+4)] -> int was null -> STOP
+V4: outer ptr [0x7ffe9e4604a8 (base-8)] -> inner ptr [0x7ffe9e4604bc (base+12)] -> int was 1
+```
+
+<details>
+  <summary>zig</summary>
+
+```zig
+const std = @import("std");
+
+const Node = struct {
+    value: i32 = 0,
+    next: ?*Node = null,
+};
+
+// --- CONFIGURATION ---
+const use_fast = true;
+const mode_string = if (use_fast) "FAST (Indirect Pointer)" else "SLOW (Prev Pointer)";
+
+/// Implementation 1: Slow (Tracking previous node)
+fn removeEntrySlow(head: *?*Node, entry: *Node) void { // non-null pointer to nullable pointer to non-optional Node. Why to nullable? Bc we will make the stack cell 00000 if only one node
+    var prev: ?*Node = null;
+    var walk = head.*;
+
+    while (walk != entry) {
+        prev = walk;
+        // .? asserts walk is not null because we assume the entry exists in the list
+        walk = walk.?.next;
+    }
+
+    if (prev == null) {
+        head.* = entry.next;
+    } else {
+        prev.?.next = entry.next;
+    }
+}
+
+/// Implementation 2: Fast (Using indirect pointers)
+/// This is the Zig version of the "Linus Torvalds" pointer approach
+fn removeEntryFast(head: *?*Node, entry: *Node) void {
+    // p is a pointer to a pointer (indirect pointer)
+    var p: *?*Node = head;
+
+    // While the pointer we are looking at doesn't point to the target entry
+    while (p.* != entry) {
+        // Move 'p' to point to the address of the 'next' field of the current node
+        p = &p.*.?.next;
+    }
+
+    // Direct assignment: update the 'next' field of the previous node
+    // (or the head itself) to skip the entry.
+    p.* = entry.next;
+}
+
+inline fn removeEntry(head: *?*Node, entry: *Node) void {
+    if (comptime use_fast) {
+        removeEntryFast(head, entry);
+    } else {
+        removeEntrySlow(head, entry);
+    }
+}
+
+/// Helper: Print the list
+fn printList(head: ?*Node) void {
+    var curr = head;
+    while (curr) |n| {
+        std.debug.print("{} -> ", .{n.value});
+        curr = n.next;
+    }
+    std.debug.print("null\n", .{});
+}
+
+/// Helper: O(1) Append using indirect tail pointer
+/// Returns the address of the 'next' field of the new node
+fn append(tail: *?*Node, allocator: std.mem.Allocator, val: i32) !*?*Node {
+    const new_node = try allocator.create(Node);
+    new_node.* = .{ .value = val, .next = null };
+
+    tail.* = new_node;
+    return &new_node.next;
+}
+
+pub fn main() !void {
+    // page_allocator is the most stable allocator across different Zig versions
+    const allocator = std.heap.page_allocator;
+
+    std.debug.print("=== Running with: {s} ===\n\n", .{mode_string});
+
+    var head: ?*Node = null;
+    var tail_ptr: *?*Node = &head;
+
+    // O(1) Appends (Zero loops, Zero 'if' statements)
+    tail_ptr = try append(tail_ptr, allocator, 10);
+    tail_ptr = try append(tail_ptr, allocator, 20);
+    tail_ptr = try append(tail_ptr, allocator, 30);
+    tail_ptr = try append(tail_ptr, allocator, 40);
+    tail_ptr = try append(tail_ptr, allocator, 50);
+
+    std.debug.print("Original list:\n", .{});
+    printList(head);
+
+    // 1. Remove FRONT (10)
+    if (head) |front| {
+        removeEntry(&head, front);
+        allocator.destroy(front);
+        std.debug.print("\nAfter removing FRONT (10):\n", .{});
+        printList(head);
+    }
+
+    // 2. Remove END (50)
+    var end_search = head;
+    while (end_search) |n| {
+        if (n.next == null) break;
+        end_search = n.next;
+    }
+
+    if (end_search) |end| {
+        removeEntry(&head, end);
+        allocator.destroy(end);
+        std.debug.print("\nAfter removing END (50):\n", .{});
+        printList(head);
+    }
+
+    // Cleanup remaining list memory
+    var curr = head;
+    while (curr) |n| {
+        const next = n.next;
+        allocator.destroy(n);
+        curr = next;
+    }
+}
+```
+
+</details>
+
+<details>
+  <summary>c3 (doenst work)</summary>
+
+```c3
+module main;
+
+import std::io;
+
+struct Node {
+    int value;
+    Node* next;
+}
+
+const bool USE_FAST = true;
+
+/**
+ * Implementation 1: Slow
+ */
+fn void remove_entry_slow(Node** head, Node* entry) {
+    Node* prev = null;
+    Node* walk = *head;
+
+    while (walk != entry) {
+        prev = walk;
+        walk = walk.next;
+    }
+
+    if (prev == null) {
+        *head = entry.next;
+    } else {
+        prev.next = entry.next;
+    }
+}
+
+/**
+ * Implementation 2: Fast (Indirect Pointer)
+ */
+fn void remove_entry_fast(Node** head, Node* entry) {
+    Node** p = head;
+
+    while (*p != entry) {
+        // p points to the previous node's 'next' field (or 'head')
+        // we take the address of the current node's 'next' field
+        p = &((*p).next);
+    }
+
+    // This updates the actual memory slot 'p' points to
+    *p = entry.next;
+}
+
+fn void remove_entry(Node** head, Node* entry) {
+    if (USE_FAST) {
+        remove_entry_fast(head, entry);
+    } else {
+        remove_entry_slow(head, entry);
+    }
+}
+
+/**
+ * O(1) Append
+ * Note: mem::new(Node) is the standard C3 allocation syntax
+ */
+fn Node** append(Node** tail, int val) {
+    Node* new_node = mem::new(Node);
+    new_node.value = val;
+    new_node.next = null;
+
+    *tail = new_node;
+    return &new_node.next;
+}
+
+fn void print_list(Node* head) {
+    Node* curr = head;
+    while (curr != null) {
+        io::printf("%d -> ", curr.value);
+        curr = curr.next;
+    }
+    io::printn("null");
+}
+
+fn int main() {
+    io::printf("=== Running with: %s ===\n", USE_FAST ? "FAST" : "SLOW");
+
+    Node* head = null;
+    Node** tail_ptr = &head;
+
+    // O(1) Appends
+    tail_ptr = append(tail_ptr, 10);
+    tail_ptr = append(tail_ptr, 20);
+    tail_ptr = append(tail_ptr, 30);
+    tail_ptr = append(tail_ptr, 40);
+    tail_ptr = append(tail_ptr, 50);
+
+    io::printn("Original list:");
+    print_list(head);
+
+    // 1. Remove FRONT (10)
+    if (head != null) {
+        Node* front = head;
+        remove_entry(&head, front);
+        mem::free(front);
+        io::printn("\nAfter removing FRONT (10):");
+        print_list(head);
+    }
+
+    // 2. Remove END (50)
+    Node* end_search = head;
+    while (end_search != null && end_search.next != null) {
+        end_search = end_search.next;
+    }
+
+    if (end_search != null) {
+        remove_entry(&head, end_search);
+        mem::free(end_search);
+        io::printn("\nAfter removing END (50):");
+        print_list(head);
+    }
+
+    // Cleanup remaining memory
+    Node* curr = head;
+    while (curr != null) {
+        Node* next = curr.next;
+        mem::free(curr);
+        curr = next;
+    }
+
+    return 0;
+}
+```
+
+</details>
+
+<details>
+  <summary>go</summary>
+
+```go
+
+```
+
+</details>
+
+
+
+<details>
+  <summary>go (no not-null pointers like in zig. so shit)</summary>
+
+```go
+package main
+
+import "fmt"
+
+type Node struct {
+	Value int
+	Next  *Node
+}
+
+// Implementation 1: Slow (Traditional prev pointer)
+func removeEntrySlow(head **Node, entry *Node) {
+	var prev *Node = nil
+	walk := *head
+
+	for walk != entry && walk != nil {
+		prev = walk
+		walk = walk.Next
+	}
+
+	if prev == nil {
+		// Entry was the head
+		*head = entry.Next
+	} else {
+		// Entry was in the middle or end
+		prev.Next = entry.Next
+	}
+}
+
+// Implementation 2: Fast (Indirect Pointer approach)
+// This is the Go version of the Linus Torvalds approach.
+func removeEntryFast(head **Node, entry *Node) {
+	// p is a pointer to a pointer (**Node)
+	p := head
+
+	// Iterate until the pointer we are looking at points to the entry
+	for *p != entry {
+		// Advance p to point to the address of the 'Next' field
+		// of the current node.
+		p = &((*p).Next)
+	}
+
+	// Update the pointer (either the head or a Next field)
+	// to skip the entry.
+	*p = entry.Next
+}
+
+// Helper: O(1) Append using indirect tail pointer
+func appendNode(tail **Node, val int) **Node {
+	newNode := &Node{Value: val, Next: nil}
+	*tail = newNode
+	// Return the address of the Next field of the new node
+	return &newNode.Next
+}
+
+func printList(head *Node) {
+	for curr := head; curr != nil; curr = curr.Next {
+		fmt.Printf("%d -> ", curr.Value)
+	}
+	fmt.Println("nil")
+}
+
+func main() {
+	var head *Node = nil
+	// tailPtr points to the pointer that needs to be updated
+	tailPtr := &head
+
+	// O(1) Appends
+	tailPtr = appendNode(tailPtr, 10)
+	tailPtr = appendNode(tailPtr, 20)
+	tailPtr = appendNode(tailPtr, 30)
+	tailPtr = appendNode(tailPtr, 40)
+	tailPtr = appendNode(tailPtr, 50)
+
+	fmt.Println("Original list:")
+	printList(head)
+
+	// 1. Remove FRONT (10)
+	if head != nil {
+		front := head
+		removeEntryFast(&head, front)
+		fmt.Println("\nAfter removing FRONT (10):")
+		printList(head)
+	}
+
+	// 2. Remove END (50)
+	var end *Node = head
+	for end.Next != nil {
+		end = end.Next
+	}
+	removeEntryFast(&head, end)
+	fmt.Println("\nAfter removing END (50):")
+	printList(head)
+}
+```
+
+</details>
+
+<details>
+  <summary>rust (but unsafe if needed and double pointers but outer is nullable and inner is not nullable)</summary>
+
+```rust
+use std::ptr::{NonNull};
+
+struct Node {
+    value: i32,
+    // The "inner" pointer. Using Option<NonNull> is the Rust way to
+    // have a "nullable pointer" that is non-nullable when active.
+    next: Option<NonNull<Node>>,
+}
+
+// HERE IS A PROBLEM : I WANT TO REQUIRE THAT head ON INPUT is NOT NULL, but on output MAY BE NULL, and the memory location should be same
+unsafe fn remove_entry_fast(head: &mut Option<NonNull<Node>>, entry: NonNull<Node>) {
+    // 1. Handle "outer is nullable" check
+    // THIS IS NEEDED WHEN USING
+    // head: *mut Option<NonNull<Node>>
+    // instead of
+    // head: &mut Option<NonNull<Node>>
+    // NOT NEEDED NOT bc & guarantees NonNull pointers
+    //if head.is_null() { return; }
+
+    // 'p' is our indirect pointer (pointer to a pointer)
+    let mut p: *mut Option<NonNull<Node>> = head;
+
+    // While the pointer at 'p' does not point to our entry
+    // We compare the addresses of the NonNull pointers
+    unsafe {
+    while (*p).is_some_and(|node_ptr| node_ptr != entry) {
+        // Move 'p' to point to the address of the 'next' field of the current node
+        // We unwrap the optional because the while loop condition guaranteed it exists
+        p = &mut (*(*p).unwrap().as_ptr()).next;
+    }
+
+    // Direct assignment: The pointer at 'p' (either 'head' or a 'next' field)
+    // is updated to point to whatever the entry was pointing to.
+    *p = (*entry.as_ptr()).next;
+    }
+}
+
+// TODO: maybe this will reuse
+
+/// The "Linus" signature:
+/// - head_addr: A Non-nullable pointer to a nullable pointer slot.
+/// - entry: The non-nullable node to remove.
+/// - Returns: A reference to the same memory slot after modification.
+// unsafe fn remove_entry_fast<'a>(
+//     head_addr: NonNull<Option<NonNull<Node>>>,
+//     entry: NonNull<Node>
+// ) -> &'a Option<NonNull<Node>> {
+//
+//     // p is our indirect pointer (starts at the address of 'head')
+//     let mut p: *mut Option<NonNull<Node>> = head_addr.as_ptr();
+//
+//     unsafe {
+//         // While the pointer inside slot 'p' does not point to 'entry'
+//         while (*p).map_or(false, |node_ptr| node_ptr != entry) {
+//             // p = address of the 'next' field of the current node
+//             p = &mut (*(*p).unwrap().as_ptr()).next;
+//         }
+//
+//         // The "Magic" update: Write the successor's address into the slot 'p' points to.
+//         // This slot is either the 'head' variable or a 'next' field.
+//         *p = (*entry.as_ptr()).next;
+//
+//         // Return a reference to the updated memory location
+//         &*p
+//     }
+// }
+
+
+/// Helper: O(1) Append using indirect tail pointer
+unsafe fn append(tail: *mut Option<NonNull<Node>>, val: i32) -> *mut Option<NonNull<Node>> {
+    // Allocate a new node on the heap (Box::into_raw keeps it alive)
+    let new_node = Box::into_raw(Box::new(Node {
+        value: val,
+        next: None,
+    }));
+
+    unsafe {
+    let non_null_node = NonNull::new_unchecked(new_node);
+
+    // Link the new node into the slot pointed to by tail
+    *tail = Some(non_null_node);
+
+    // Return the address of the new node's next field
+    &mut (*new_node).next
+    }
+}
+
+fn print_list(head: Option<NonNull<Node>>) {
+    let mut curr = head;
+    while let Some(node_ptr) = curr {
+        unsafe {
+            print!("{} -> ", (*node_ptr.as_ptr()).value);
+            curr = (*node_ptr.as_ptr()).next;
+        }
+    }
+    println!("null");
+}
+
+#[inline(never)]
+pub fn main() {
+    let mut head: Option<NonNull<Node>> = None;
+    let mut tail_ptr: *mut Option<NonNull<Node>> = &mut head;
+
+    unsafe {
+        // O(1) Appends
+        tail_ptr = append(tail_ptr, 10);
+        tail_ptr = append(tail_ptr, 20);
+        tail_ptr = append(tail_ptr, 30);
+        tail_ptr = append(tail_ptr, 40);
+        _ = append(tail_ptr, 50); // Use _ to avoid unused assignment warning
+
+        println!("Original list:");
+        print_list(head);
+
+        // 1. Remove FRONT (10)
+        if let Some(front) = head {
+            remove_entry_fast(&mut head, front);
+            // Re-constitute Box to free memory
+            let _ = Box::from_raw(front.as_ptr());
+            println!("\nAfter removing FRONT (10):");
+            print_list(head);
+        }
+
+        // 2. Remove END (50)
+        let mut end = head.unwrap();
+        while let Some(next_node) = (*end.as_ptr()).next {
+            end = next_node;
+        }
+        remove_entry_fast(&mut head, end);
+        let _ = Box::from_raw(end.as_ptr());
+        println!("\nAfter removing END (50):");
+        print_list(head);
+
+        // Cleanup remaining
+        let mut curr = head;
+        while let Some(node_ptr) = curr {
+            let next = (*node_ptr.as_ptr()).next;
+            let _ = Box::from_raw(node_ptr.as_ptr());
+            curr = next;
+        }
+    }
+}
+```
+
 </details>
