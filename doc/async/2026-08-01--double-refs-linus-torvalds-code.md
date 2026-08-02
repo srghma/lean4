@@ -3048,11 +3048,14 @@ main()
 
 </details>
 
+<!--
 <details>
   <summary>go</summary>
 
 ```go
-
 ```
 
 </details>
+-->
+
+- the safe version was fastest https://github.com/srghma/aeneas-test
