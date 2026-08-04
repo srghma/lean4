@@ -24,3 +24,8 @@ A term's definition may require additional properties that are not listed in thi
 ✅ indicates the property is always true for that relation type. ✗ indicates it is not guaranteed (may or may not hold).
 
 NOTE: Asymm ✅ + [Std.Total](https://github.com/leanprover/lean4/blob/d8b18978322de05a8f3dba51ef03cf5461676c17/src/Init/Core.lean#L2582)/Connected ✅ = Trichotomous (Divided into three parts. for all x and y in X, and for a binary relation R, exactly one of xRy, yRx or x=y holds)
+
+TODO:
+1. check **Strict ($<$) vs. Non-Strict ($\le$) Orders**:
+   * **Non-strict relations ($\le$)**: Defined using `Trichotomous` (`Total` + `Antisymm`) + `Refl`.
+   * **Strict relations ($<$)**: Defined using `Trichotomous` (`Total` + `Antisymm`) + `Irrefl` + `Asymm`.
