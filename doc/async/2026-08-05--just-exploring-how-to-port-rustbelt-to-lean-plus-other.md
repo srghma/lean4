@@ -148,10 +148,73 @@ By pairing a spec language like **MM0** with an enumerator and a theorem prover 
 
 <details>
   
-  <summary>how to write in lean. there is a vector with length 2 of booleans AND this vector contains all possible permutations/variants.
-Vec (Cardinal.mk (Vec 2 Bool)) (Vec 2 Bool) ?</summary>
+  <summary>excluded middle with minimal number of axioms?</summary>
 
 ```lean
+/-!
+# Excluded middle from choice + quotients, without `funext`
+This file completes the development sketched by the user: a Diaconescu-style
+derivation of the law of excluded middle from `Classical.choice` (used through
+`Classical.indefiniteDescription`) together with quotient types (`Quot.sound`).
+The final theorem `EMQuot.em_via_quotient` depends only on the axioms
+`propext`, `Classical.choice` and `Quot.sound`; in particular **`funext` is not
+used**.  `propext` is still needed: it is what makes the map `test` below
+respect the relation `boolRel p`, since `Quot.lift` into `Prop` requires an
+*equality* of propositions.
+-/
+namespace EMQuot
+/-- 1. Relation on `Bool` parameterized by `p`: it is equality, collapsed to the
+total relation as soon as `p` holds. -/
+def boolRel (p : Prop) (b1 b2 : Bool) : Prop :=
+  b1 = b2 ∨ p
+/-- 2. Quotient type over `Bool`. -/
+def BoolQuot (p : Prop) : Type :=
+  Quot (boolRel p)
+/-- 3. Constructors for quotient terms. -/
+def qFalse (p : Prop) : BoolQuot p := Quot.mk (boolRel p) false
+/-- 3. Constructors for quotient terms. -/
+def qTrue (p : Prop) : BoolQuot p := Quot.mk (boolRel p) true
+/-- 4. Non-constructive representative extraction via
+`Classical.indefiniteDescription`. -/
+noncomputable def out {p : Prop} (q : BoolQuot p) : Bool :=
+  (Classical.indefiniteDescription _ (Quot.exists_rep q)).val
+theorem out_spec {p : Prop} (q : BoolQuot p) : Quot.mk (boolRel p) (out q) = q :=
+  (Classical.indefiniteDescription _ (Quot.exists_rep q)).property
+/-- 5. Main theorem: excluded middle from choice + quotients, without `funext`. -/
+theorem em_via_quotient (p : Prop) : p ∨ ¬p := by
+  let f_out := out (qFalse p)
+  let t_out := out (qTrue p)
+  if h_eq : f_out = t_out then
+    -- Branch 1: the extracted representatives are equal.
+    -- Then `qFalse p = qTrue p`, and lifting a predicate extracts `p`.
+    have h_q_eq : qFalse p = qTrue p := by
+      have h1 : qFalse p = Quot.mk (boolRel p) f_out := (out_spec (qFalse p)).symm
+      have h2 : qTrue p = Quot.mk (boolRel p) t_out := (out_spec (qTrue p)).symm
+      rw [h1, h2, h_eq]
+    -- A predicate mapping `Bool` to `Prop` that evaluates to `p` on `true`.
+    let test (b : Bool) : Prop := if b = true then p else True
+    have test_respects : ∀ b1 b2, boolRel p b1 b2 → (test b1 = test b2) := by
+      intro b1 b2 hrel
+      cases hrel with
+      | inl h_eq_bool => rw [h_eq_bool]
+      | inr hp => cases b1 <;> cases b2 <;> simp [test, hp]
+    let testQuot : BoolQuot p → Prop := Quot.lift test test_respects
+    have h_eval_f : testQuot (qFalse p) = True := rfl
+    have h_eval_t : testQuot (qTrue p) = p := rfl
+    have h_p_eq_true : p = True := by
+      calc p = testQuot (qTrue p) := h_eval_t.symm
+        _ = testQuot (qFalse p) := by rw [← h_q_eq]
+        _ = True := h_eval_f
+    exact Or.inl (h_p_eq_true ▸ trivial)
+  else
+    -- Branch 2: the extracted representatives differ.
+    -- If `p` held, the relation would be total, so `qFalse p = qTrue p` and
+    -- hence the representatives would agree — contradiction.
+    refine Or.inr (fun hp => h_eq ?_)
+    exact congrArg out (Quot.sound (Or.inr hp) : qFalse p = qTrue p)
+-- Axiom audit: `propext`, `Classical.choice`, `Quot.sound`.  No `funext`.
+#print axioms em_via_quotient
+end EMQuot
 ```
 
 </details>
