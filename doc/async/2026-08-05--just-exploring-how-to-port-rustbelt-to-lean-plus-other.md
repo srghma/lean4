@@ -217,4 +217,83 @@ theorem em_via_quotient (p : Prop) : p ∨ ¬p := by
 end EMQuot
 ```
 
+
+```lean
+/-!
+# Excluded middle from the smallest axiom set we could achieve: `Classical.choice` + `propext`
+The file `EMViaQuotient.lean` derives excluded middle from
+`Classical.choice`, `Quot.sound` and `propext` (no `funext`; recall that in Lean 4
+`funext` is *not* an axiom — it is a theorem whose only axiom is `Quot.sound`).
+Here we push further and remove `Quot.sound` as well: the theorem
+`EMMin.em_two_axioms` below depends on exactly two axioms,
+```
+[propext, Classical.choice]
+```
+so it uses neither `Quot.sound` nor (a fortiori) `funext`.
+## The idea
+The usual Diaconescu argument chooses elements from the two subsets
+`U = {b : Bool | b = false ∨ p}` and `V = {b : Bool | b = true ∨ p}` of `Bool`,
+and proves `U = V` from `p` by `funext` + `propext`.  We avoid `funext` by
+*presenting a subset of `Bool` by its two membership propositions*: the pair
+`(q₀, q₁)` denotes `{b | if b then q₀ else q₁}`.  With this presentation `U` is
+the pair `(p, True)` and `V` is the pair `(True, p)`, and once `propext` turns
+`p` into `True` the two pairs are literally the same *arguments* of the same
+function `Sub`, so `congrArg`/`subst` suffices — no function extensionality is
+needed anywhere, and no quotients are involved.
+Choice is applied through `Classical.choice`, whose argument is a `Nonempty`
+proof; since `Prop` is definitionally proof irrelevant, the chosen element
+depends only on the type, which is exactly what makes the argument work.
+-/
+namespace EMMin
+/-- Membership predicate of the "subset of `Bool`" presented by the pair of
+propositions `(q₀, q₁)`: `true` belongs to it iff `q₀`, and `false` belongs to
+it iff `q₁`. -/
+def Mem (q₀ q₁ : Prop) (b : Bool) : Prop := cond b q₀ q₁
+/-- The subtype of `Bool` cut out by the pair of propositions `(q₀, q₁)`. -/
+def Sub (q₀ q₁ : Prop) : Type := {b : Bool // Mem q₀ q₁ b}
+/-- Choice: pick an element of `Sub q₀ q₁` out of a `Nonempty` proof, and return
+its underlying boolean.  Because `Nonempty` is a proof-irrelevant `Prop`, the
+result depends only on the propositions `q₀` and `q₁`. -/
+noncomputable def pick (q₀ q₁ : Prop) (h : Nonempty (Sub q₀ q₁)) : Bool :=
+  (Classical.choice h).val
+theorem pick_mem (q₀ q₁ : Prop) (h : Nonempty (Sub q₀ q₁)) : Mem q₀ q₁ (pick q₀ q₁ h) :=
+  (Classical.choice h).property
+/-- `{b | b = false ∨ p}` in pair presentation: it always contains `false`. -/
+theorem nonempty_left (p : Prop) : Nonempty (Sub p True) := ⟨⟨false, trivial⟩⟩
+/-- `{b | b = true ∨ p}` in pair presentation: it always contains `true`. -/
+theorem nonempty_right (p : Prop) : Nonempty (Sub True p) := ⟨⟨true, trivial⟩⟩
+/-- The chosen element of the "left" subset. -/
+noncomputable def u (p : Prop) : Bool := pick p True (nonempty_left p)
+/-- The chosen element of the "right" subset. -/
+noncomputable def v (p : Prop) : Bool := pick True p (nonempty_right p)
+/-- Easy direction (uses only `Classical.choice`): the witnesses can only agree
+if `p` holds. -/
+theorem p_or_ne (p : Prop) : p ∨ u p ≠ v p := by
+  have hu : Mem p True (u p) := pick_mem p True (nonempty_left p)
+  have hv : Mem True p (v p) := pick_mem True p (nonempty_right p)
+  revert hu hv
+  cases hcu : u p <;> cases hcv : v p <;> intro hu hv
+  · exact Or.inl hv          -- `u = false`, `v = false`: `v`'s membership is `p`
+  · exact Or.inr Bool.noConfusion
+  · exact Or.inl hu          -- `u = true`: `u`'s membership is `p`
+  · exact Or.inl hu
+/-- Hard direction (uses `propext`): if `p` holds then both subsets are the pair
+`(True, True)`, hence the very same type, hence choice returns the same
+element. -/
+theorem eq_of_p (p : Prop) (hp : p) : u p = v p := by
+  have hpt : p = True := propext ⟨fun _ => trivial, fun _ => hp⟩
+  subst hpt
+  rfl
+/-- **Excluded middle from two axioms**: `Classical.choice` and `propext`.
+In particular neither `Quot.sound` nor `funext` is used. -/
+theorem em_two_axioms (p : Prop) : p ∨ ¬p :=
+  if h : u p = v p then
+    Or.inl ((p_or_ne p).resolve_right fun hne => hne h)
+  else
+    Or.inr fun hp => h (eq_of_p p hp)
+-- Axiom audit: `[propext, Classical.choice]`.
+#print axioms em_two_axioms
+end EMMin
+```
+
 </details>
