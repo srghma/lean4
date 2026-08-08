@@ -935,3 +935,5 @@ def VEnv.Canonicity (env : VEnv) : Prop :=
 
 
 consistency of HoTT (relative to Kan complex [1](https://github.com/HoTT/book/blob/578b85cc8d586b1677ec4335148adeb443057d24/introduction.tex#L360) [2](https://github.com/HoTT/book/blob/578b85cc8d586b1677ec4335148adeb443057d24/formal.tex#L1185)
+
+consistency vs soundness
