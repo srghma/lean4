@@ -654,5 +654,281 @@ MetaCoq / Coq Coq Correct! (Sozeau et al., 2020)
 
 <details>
 <summary>
+what is proved
 </summary>
+
+
+```
+metarocq/
+│
+├── template-coq/       # Quoting/unquoting library (reifies Coq terms into Coq ASTs)
+│
+├── pcuic/              # THE SPECIFICATION & METATHEORY
+│   └── theories/
+│       ├── PCUICTyping.v            # <--- Declarative typing specification (Σ ;;; Γ |- t : T)
+│       ├── PCUICCumulativitySpec.v  # <--- Conversion & cumulativity specification
+│       └── PCUICSR.v                # <--- Proof of Subject Reduction
+│
+├── safechecker/        # THE VERIFIED TYPE-CHECKER IMPLEMENTATION
+│   └── theories/
+│       ├── PCUICTypeChecker.v       # <--- Executable type checking algorithm
+│       └── PCUICSafeChecker.v       # <--- Soundness & completeness proofs
+│
+└── erasure/            # CERTIFIED ERASURE PIPELINE
+    └── theories/                    # <--- Proof stripping / extraction to Untyped Lambda Calculus
+```
+
+### **1. Weakening**
+- **Files:** 
+  - `pcuic/theories/Typing/PCUICWeakeningTyp.v` (local context weakening)
+  - `pcuic/theories/Conversion/PCUICWeakeningConv.v` (conversion/reduction weakening)
+  - `pcuic/theories/Typing/PCUICWeakeningEnvTyp.v` (global environment weakening)
+  - `pcuic/theories/Conversion/PCUICWeakeningEnvConv.v` (environment weakening for conversion)
+- **Main theorems:**
+  - `weakening_typing` - Typing preserved by extending local context
+  - `weakening_red` - Reduction preserved by context extension
+  - `weakening_cumul` - Cumulativity preserved by weakening
+  - `weakening_env_*` - Various weakening lemmas for global environment extension
+
+### **2. Confluence**
+- **File:** `pcuic/theories/PCUICConfluence.v`
+- **Key results:**
+  - Confluence via parallel reduction diamond property (`PCUICParallelReductionConfluence`)
+  - Transitivity of conversion/cumulativity on well-typed terms
+
+### **3. Subject Reduction**
+- **File:** `pcuic/theories/PCUICSR.v` (line 840)
+- **Main definition:**
+  ```rocq prover
+  Definition SR_red1 {cf} Σ Γ t T :=
+    forall u (Hu : closed_red1 Σ Γ t u), Σ ;;; Γ |- u : T.
+  ```
+
+### **4. Principality**
+- **File:** `pcuic/theories/PCUICPrincipality.v` (line 74)
+- **Main theorem:**
+  ```rocq prover
+  Theorem principal_type {Γ u A} : Σ ;;; Γ |- u : A ->
+    ∑ C, (forall B, Σ ;;; Γ |- u : B -> Σ ;;; Γ ⊢ C ≤ B × Σ ;;; Γ |- u : C).
+  ```
+- Every typable term has a smallest (principal) type
+
+### **5. Bidirectional Typing**
+- **Files:**
+  - `pcuic/theories/Bidirectional/BDTyping.v` - Core bidirectional rules
+  - `pcuic/theories/Bidirectional/BDToPCUIC.v` (line 105) - Bidirectional → undirected typing
+  - `pcuic/theories/Bidirectional/BDFromPCUIC.v` (line 382) - Undirected → bidirectional typing
+  - `pcuic/theories/Bidirectional/BDUnique.v` - Inferred types are unique
+  - `pcuic/theories/Bidirectional/BDStrengthening.v` (line 475) - Weakening from contexts
+- **Key theorems:**
+  - `typing_infering` - Every typing derives an infering judgment
+  - `typing_checking` - Every typing derives a checking judgment
+  - Strengthening: unused variables can be removed from context
+
+### **6. Elimination Restrictions**
+- **File:** `pcuic/theories/PCUICElimination.v` (line 1)
+- **Definitions:**
+  - `SingletonProp` - Singleton elimination from Prop to Type restrictions
+  - `Computational` - Computational inductives forbid proof arguments
+  - `Subsingleton` - Subsingleton properties of inductives
+- These ensure singleton elimination criterion for propositional types
+
+### **7. Canonicity**
+- **File:** `pcuic/theories/PCUICCanonicity.v` (line 1)
+- **Main theorem:**
+  ```rocq prover
+  Lemma pcuic_canonicity {cf:checker_flags} {nor : normalizing_flags} Σ 
+    {normalization_in: NormalizationIn Σ} t i u args :
+    axiom_free Σ -> wf Σ ->
+    Σ ;;; [] |- t : mkApps (tInd i u) args ->
+    { t':term & (Σ ;;; [] |- t' : mkApps (tInd i u) args) * 
+                (Σ ;;; [] |- t =s t') * construct_cofix_discr (head t')}.
+  ```
+- Weak head normal form of term of inductive type is a constructor application
+
+### **8. Consistency**
+- **File:** `pcuic/theories/PCUICConsistency.v` (line 1)
+- **Main theorem:**
+  ```rocq prover
+  Theorem pcuic_consistent {cf:checker_flags} {nor : normalizing_flags} Σ
+    {normalization_in: NormalizationIn Σ} t False_pcuic :
+    declared_inductive Σ False_pcuic False_mib False_oib ->
+    wf_ext Σ -> axiom_free Σ ->
+    Σ ;;; [] |- t : tInd False_pcuic []  -> False.
+  ```
+- **Depends on:** `pcuic_canonicity` + `NormalizationIn` (strong normalization postulate)
+- Proves PCUIC cannot derive `False` assuming strong normalization
+
+
+</details>
+
+
+
+<details>
+<summary>
+do they use Omega inaccessiables?
+</summary>
+
+
+  **No, they do not use inaccessible cardinals.**
+
+Instead, MetaCoq circumvents Gödel's Incompleteness Theorem by making **Strong Normalization an explicit hypothesis** in the theorem statement:
+
+```coq
+{normalization_in : NormalizationIn Σ}
+```
+
+---
+
+### How this theorem works
+
+Look at the premises of `pcuic_consistent`:
+
+1. `{normalization_in : NormalizationIn Σ}`  
+   This is an **unproved hypothesis/parameter** asserting that every term in the environment $\Sigma$ strongly normalizes (terminates).
+2. `axiom_free Σ`  
+   Asserts that the environment contains no unproved axioms (like `sorry` or arbitrary postulates).
+3. `declared_inductive Σ False_pcuic False_mib False_oib`  
+   States that `False` is defined as an inductive type with **zero constructors** (`ind_ctors := []`).
+
+#### The Proof Logic inside the snippet:
+1. `destruct (pcuic_canonicity ...) as [...]`  
+   Because of the `normalization_in` hypothesis, MetaCoq can invoke the **Canonicity Theorem** (`pcuic_canonicity`). Canonicity states: *"If a closed term $t$ has an inductive type, $t$ must evaluate to a constructor or cofixpoint."*
+2. `destruct t0; try discriminate ctor.`  
+   It checks what constructor $t$ evaluated to.
+3. `cbn in H1. rewrite nth_error_nil in H1. discriminate.`  
+   Since `False_oib` was defined with `ind_ctors := []` (0 constructors), no constructor exists for $t$ to evaluate to! This creates a contradiction and completes the proof that $t : \text{False}$ is impossible.
+
+---
+
+### Comparison with `Lean4LeanModel`
+
+| Project | Hypothesis Used | Logical Meaning |
+| :--- | :--- | :--- |
+| **`Lean4LeanModel`** (Lean 4) | `OmegaInaccessibles` | *"Assuming set theory has $\omega$ inaccessible cardinals, Lean is consistent."* (Builds a Set-Theoretic Model) |
+| **MetaCoq / MetaRocq** (Coq) | `NormalizationIn Σ` | *"Assuming PCUIC terms strongly normalize, PCUIC is consistent."* (Syntactic Canonicity Proof) |
+
+Neither project violates Gödel's Incompleteness Theorem. Both require an unproved assumption to state consistency: Lean uses a **set-theoretic large cardinal hypothesis**, while MetaCoq uses a **proof-theoretic normalization hypothesis**.
+
+
+</details>
+
+
+
+<details>
+<summary>
+if we would use this idea of strong normalization instead of inaccessiables - how would consistency theorem look like for lean?
+  
+and how to define strong normalization in lean4lean-model?
+</summary>
+
+
+If we replace the set-theoretic approach (`OmegaInaccessibles`) with the syntactic approach (**Strong Normalization** and **Canonicity**), the consistency theorem for Lean would no longer depend on cardinal arithmetic. 
+
+Instead, it would depend on a hypothesis asserting that **reduction in Lean terminates for all well-typed terms**.
+
+---
+
+### 1. How the Consistency Theorem Would Look in Lean 4
+
+Currently, the theorem in `Lean4LeanModel` looks like this:
+
+```lean
+-- CURRENT APPROACH (Set-Theoretic / Model Theory)
+theorem consistency (hlarge : OmegaInaccessibles.{u}) {env : VEnv} (henv : env.WF) (U : Nat) :
+    ¬ ∃ e, env.HasType U [] e VExpr.false
+```
+
+With Strong Normalization, the theorem statement would look like this:
+
+```lean
+-- ALTERNATIVE APPROACH (Syntactic / Proof Theory)
+theorem consistency_via_sn {env : VEnv} (henv : env.WF) (hax : env.AxiomFree)
+    (hsn : env.StrongNormalization) (U : Nat) :
+    ¬ ∃ e, env.HasType U [] e VExpr.false := by
+  rintro ⟨e, he⟩
+  -- 1. By Strong Normalization, `e` reduces to a normal form `v`
+  obtain ⟨v, hred, hnf⟩ := hsn.has_normal_form he
+  -- 2. By Subject Reduction, `v` also has type `VExpr.false`
+  have hv_type : env.HasType U [] v VExpr.false := subject_reduction he hred
+  -- 3. By Canonicity, a closed normal form of an inductive type must be a constructor
+  have hctor := canonicity henv hnf hv_type
+  -- 4. But `VExpr.false` has 0 constructors! Contradiction.
+  exact no_constructors_for_false hctor
+```
+
+---
+
+### 2. How to Define Strong Normalization in `lean4lean-model`
+
+To formalize this in Lean 4, you need four key definitions: **One-Step Reduction**, **Normal Form**, **Accessibility (`Acc`)**, and **Canonicity**.
+
+#### Step A: Define One-Step Reduction (`Step`)
+First, define single-step reduction $e_1 \rightsquigarrow e_2$ in environment `env` ($\beta$-reduction for lambdas, $\zeta$-reduction for lets, $\delta$-reduction for unfolding definitions, and $\iota$-reduction for inductive pattern matching/recursors):
+
+```lean
+/-- Single-step reduction relation `e1 ⇝ e2` in an environment `env`. -/
+inductive VEnv.Step (env : VEnv) : VExpr → VExpr → Prop
+  | beta (a b : VExpr) :
+      Step env (.app (.lam _ _ body) arg) (body.instantiate1 arg)
+  | zeta (T val body : VExpr) :
+      Step env (.letE _ T val body _) (body.instantiate1 val)
+  | delta (name : Name) (decl : VDecl) (args : List VExpr) :
+      env.find? name = Some decl → decl.value = Some val →
+      Step env (.const name) val
+  | iota ... -- recursor / pattern-matching reduction rules
+  | app_left {e1 e2 e'} : Step env e1 e2 → Step env (.app e1 e') (.app e2 e')
+  | app_right {e1 e2 e'} : Step env e1 e2 → Step env (.app e' e1) (.app e' e2)
+```
+
+#### Step B: Define Normal Forms (`IsNormalForm`)
+An expression is in normal form if it cannot take any further reduction steps:
+
+```lean
+/-- An expression is in normal form if no reduction step can be taken. -/
+def VExpr.IsNormalForm (env : VEnv) (e : VExpr) : Prop :=
+  ∀ e', ¬ env.Step e e'
+```
+
+#### Step C: Define Strong Normalization using `Acc`
+In Lean 4, "Strong Normalization" (no infinite reduction chains $e_0 \rightsquigarrow e_1 \rightsquigarrow e_2 \rightsquigarrow \dots$) is formally defined using Lean's built-in **`Acc` (Accessibility)** predicate on the reversed step relation:
+
+```lean
+/-- A term `e` is strongly normalizing if it is accessible under the reverse step relation.
+    This means every reduction path starting at `e` is finite. -/
+def VExpr.IsSN (env : VEnv) (e : VExpr) : Prop :=
+  Acc (fun e2 e1 => env.Step e1 e2) e
+
+/-- An environment `env` is strongly normalizing if all well-typed closed terms are strongly normalizing. -/
+def VEnv.StrongNormalization (env : VEnv) : Prop :=
+  ∀ (U : Nat) (e T : VExpr), env.HasType U [] e T → VExpr.IsSN env e
+```
+
+#### Step D: Define Canonicity (`Canonicity`)
+Canonicity states that if a closed, normal-form expression `v` has an inductive type $I$, then `v` **must** be a constructor application of $I$:
+
+```lean
+/-- Canonicity: A closed, well-typed term in normal form whose type is an inductive type
+    must be applied to one of that inductive type's constructors. -/
+def VEnv.Canonicity (env : VEnv) : Prop :=
+  ∀ (U : Nat) (v : VExpr) (ind_name : Name) (args : List VExpr),
+    env.HasType U [] v (.app (.const ind_name) args) →
+    v.IsNormalForm env →
+    ∃ (ctor_name : Name) (ctor_args : List VExpr),
+      v = .mkApps (.const ctor_name) ctor_args ∧
+      env.IsConstructorOf ctor_name ind_name
+```
+
+---
+
+### Summary of Differences
+
+| Feature | Current Model (`OmegaInaccessibles`) | Alternative Model (`StrongNormalization`) |
+| :--- | :--- | :--- |
+| **Flavour** | **Set-Theoretic / Model-Theoretic** | **Proof-Theoretic / Syntactic** |
+| **Core Hypothesis** | `∃ κ : ℕ → Cardinal, StrictMono κ ∧ ∀ n, (κ n).IsInaccessible` | `∀ e T, env.HasType U [] e T → Acc (flip (env.Step)) e` |
+| **Mechanism** | Maps Lean terms into mathematical sets ($V_{\kappa_n}$). `VExpr.false` evaluates to $\emptyset$. | Proves closed terms reduce to normal forms. `VExpr.false` has 0 normal form constructors. |
+| **Similar To** | Werner (1997), Barras (2010), Mario Carneiro (2019) | MetaCoq / MetaRocq (Sozeau et al., 2020) |
+
+
 </details>
