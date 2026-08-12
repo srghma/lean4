@@ -184,6 +184,21 @@ partial def bigOmega : T := littleOmega bigOmega
 -- ### Summary
 -- * **Little $\omega$** ($\lambda x.\ x\ x$): Expressible as `omega₁ : T → T` in Lean because `Prop` is impredicative.
 -- * **Big $\Omega$** ($\omega \, \omega$): **Impossible** to write in Lean because `omega₁` has type `T → T`, not `T`, preventing the infinite loop!
+
+-- IF the Y combinator existed in Prop:
+def Y : ∀ {A : Prop}, (A → A) → A := ...
+
+-- We can easily construct an identity proof for False:
+def false_id : False → False := fun h => h
+
+-- Boom: A proof of False without any premises!
+theorem proof_of_false : False := Y false_id
+
+-- Y = \lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x))
+
+-- Works for programming, but CANNOT be used inside proofs!
+partial def Y {A : Type} (f : A → A) : A :=
+  f (Y f)
 ```
 
 
