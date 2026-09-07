@@ -13,6 +13,7 @@ public import Lean.EnvExtension
 public import Lean.Environment
 public import Lean.Data.Name
 public import Lean.Meta.Eval
+public meta import Lean.Parser.Extra
 public meta import Init.Data.ToString.Name
 
 public section
@@ -21,28 +22,61 @@ namespace Lean.Compiler.JS
 
 inductive JSBinOp where
   | and | bitAnd | bitOr | bitXor | divide | eq | ge | gt | in_ | instanceOf | le | lsh | lt | minus | mod | neq | of | or | plus | rsh | strictEq | strictNeq | times | ursh
-  deriving Repr, BEq
+  deriving Repr, BEq, Inhabited
 
 inductive JSUnaryOp where
   | decr | delete | incr | minus | not | plus | tilde | typeof | void
-  deriving Repr, BEq
+  deriving Repr, BEq, Inhabited
 
-inductive JsInlineExpr where
-  | funArg (idx : Nat) -- like De Bruijn indices, everything else is copied from https://hackage.haskell.org/package/language-javascript
-  | identifier (name : String)
-  | decimal (val : Nat)
-  | hex (val : Nat) -- 0xFF for example, should be rendered as 0xFF too
-  | stringLiteral (val : String)
-  | arrayLiteral (elems : Array JsInlineExpr)
-  | callExpression (fn : JsInlineExpr) (args : Array JsInlineExpr)
-  | memberDot (obj : JsInlineExpr) (name : String)
-  | memberSquare (obj : JsInlineExpr) (idx : JsInlineExpr)
-  | unaryExpression (op : JSUnaryOp) (arg : JsInlineExpr)
-  | expressionBinary (op : JSBinOp) (lhs : JsInlineExpr) (rhs : JsInlineExpr)
-  | expressionTernary (cond : JsInlineExpr) (thenExpr : JsInlineExpr) (elseExpr : JsInlineExpr)
-  | memberNew (expr : JsInlineExpr) (args : Array JsInlineExpr)
-  | throw (expr : JsInlineExpr)
-  deriving Repr, BEq
+mutual
+  inductive JsInlineExpr where
+    | funArg (idx : Nat) -- like De Bruijn indices, everything else is copied from https://hackage.haskell.org/package/language-javascript
+    | identifier (name : String)
+    | decimal (val : Nat)
+    | hex (val : Nat) -- 0xFF for example, should be rendered as 0xFF too
+    | stringLiteral (val : String)
+    | boolLiteral (val : Bool)
+    | arrayLiteral (elems : Array JsInlineExpr)
+    | objectLiteral (fields : Array (String × JsInlineExpr))
+    | callExpression (fn : JsInlineExpr) (args : Array JsInlineExpr)
+    | memberDot (obj : JsInlineExpr) (name : String)
+    | memberSquare (obj : JsInlineExpr) (idx : JsInlineExpr)
+    | unaryExpression (op : JSUnaryOp) (arg : JsInlineExpr)
+    | expressionBinary (op : JSBinOp) (lhs : JsInlineExpr) (rhs : JsInlineExpr)
+    | expressionTernary (cond : JsInlineExpr) (thenExpr : JsInlineExpr) (elseExpr : JsInlineExpr)
+    | memberNew (expr : JsInlineExpr) (args : Array JsInlineExpr)
+    | throw (expr : JsInlineExpr)
+    | arrowFunction (params : Array String) (body : JsInlineExpr)
+    | arrowFunctionBlock (params : Array String) (body : Array JsInlineStmt)
+    | isTag (obj : JsInlineExpr) (tag : Name)
+    | getField (obj : JsInlineExpr) (idx : Nat)
+    | mkObject (tag : Name) (fields : Array JsInlineExpr)
+    deriving Repr, BEq, Inhabited
+
+  inductive JsInlineStmt where
+    | const (name : String) (val : JsInlineExpr)
+    | letVar (name : String) (val : JsInlineExpr)
+    | assign (lhs : JsInlineExpr) (rhs : JsInlineExpr)
+    | expr (e : JsInlineExpr)
+    | return (e : JsInlineExpr)
+    | while (cond : JsInlineExpr) (body : Array JsInlineStmt)
+    deriving Repr, BEq, Inhabited
+end
+
+public def mangleString (s : String) : String :=
+  s.foldl (fun res c =>
+    if c.isAlphanum then
+      res.push c
+    else if c == '.' then
+      res.push '$'
+    else if c == '_' then
+      res ++ "__"
+    else
+      res ++ s!"_u{c.toNat.toUInt32.toNat}_"
+  ) ""
+
+public def mangleName (n : Name) : String :=
+  mangleString n.toString
 
 def throwNewError (msg : String) : JsInlineExpr := .throw (.memberNew (.identifier "Error") #[.stringLiteral msg])
 def plus a b := JsInlineExpr.expressionBinary .plus a b
@@ -57,7 +91,6 @@ def lt a b := JsInlineExpr.expressionBinary .lt a b
 def gt a b := JsInlineExpr.expressionBinary .gt a b
 def bitAnd a b := JsInlineExpr.expressionBinary .bitAnd a b
 def rsh a b := JsInlineExpr.expressionBinary .rsh a b
-
 
 private unsafe def evalJsInlineExprUnsafe (e : Expr) : MetaM JsInlineExpr :=
   Meta.evalExpr' JsInlineExpr ``Lean.Compiler.JS.JsInlineExpr e
@@ -79,7 +112,8 @@ instance : Pow Lean.Compiler.JS.JsInlineExpr Lean.Compiler.JS.JsInlineExpr where
 
 namespace Lean.Compiler.JS
 
--- 1. Declare the syntax category for our JS subset
+-- 1. Declare the syntax categories for our JS subset
+declare_syntax_cat js_stmt
 declare_syntax_cat js_expr
 
 -- 2. Define the grammar for the category
@@ -89,7 +123,7 @@ syntax num : js_expr                            -- Literals: 64, 0xFF
 syntax str : js_expr                            -- String literals
 syntax ident : js_expr                          -- Identifiers: Error, Uint8Array
 syntax "(" js_expr ")" : js_expr                -- Parentheses
-syntax "[]" : js_expr                           -- Empty array
+syntax "[" (js_expr,*)? "]" : js_expr            -- Array literal: [], [a, b]
 syntax js_expr "[" js_expr "]" : js_expr        -- Bracket access
 syntax js_expr "." ident : js_expr              -- Member dot access
 syntax js_expr "(" (js_expr,*)? ")" : js_expr   -- Function calls
@@ -98,201 +132,187 @@ syntax "new " ident "()" "." ident "(" (js_expr,*)? ")" : js_expr  -- Chained: n
 syntax "new " ident "()" "." ident "(" (js_expr,*)? ")" "." ident : js_expr  -- Chained + prop: new Foo().method(args).prop
 syntax "throw " js_expr : js_expr               -- Throw statements
 
--- Binary and Ternary operators with precedence
-syntax:60 js_expr " + " js_expr : js_expr
-syntax:60 js_expr " - " js_expr : js_expr
-syntax:70 js_expr " * " js_expr : js_expr
-syntax:70 js_expr " / " js_expr : js_expr
-syntax:70 js_expr " % " js_expr : js_expr
-syntax:70 js_expr " ^ " js_expr : js_expr
-syntax:40 js_expr " == " js_expr : js_expr
-syntax:40 js_expr " <= " js_expr : js_expr
-syntax:40 js_expr " < " js_expr : js_expr
-syntax:40 js_expr " > " js_expr : js_expr
-syntax:50 js_expr " & " js_expr : js_expr
-syntax:50 js_expr " >> " js_expr : js_expr
-syntax:20 js_expr " ? " js_expr " : " js_expr : js_expr
+-- Unary operators
+syntax "!" js_expr : js_expr
+syntax "-" js_expr : js_expr
+syntax "~" js_expr : js_expr
 
--- 3. Define the top-level bracket syntax
-syntax "⟪" js_expr "⟫" : term
+-- Binary and Ternary operators with precedence
+syntax:30 js_expr " || " js_expr : js_expr
+syntax:35 js_expr " && " js_expr : js_expr
+syntax:40 js_expr " == " js_expr : js_expr
+syntax:40 js_expr " === " js_expr : js_expr
+syntax:40 js_expr " != " js_expr : js_expr
+syntax:40 js_expr " !== " js_expr : js_expr
+syntax:45 js_expr " <= " js_expr : js_expr
+syntax:45 js_expr " < " js_expr : js_expr
+syntax:45 js_expr " > " js_expr : js_expr
+syntax:45 js_expr " >= " js_expr : js_expr
+syntax:50 js_expr " | " js_expr : js_expr
+syntax:55 js_expr " ^ " js_expr : js_expr
+syntax:60 js_expr " & " js_expr : js_expr
+syntax:65 js_expr " << " js_expr : js_expr
+syntax:65 js_expr " >> " js_expr : js_expr
+syntax:65 js_expr " >>> " js_expr : js_expr
+syntax:70 js_expr " + " js_expr : js_expr
+syntax:70 js_expr " - " js_expr : js_expr
+syntax:80 js_expr " * " js_expr : js_expr
+syntax:80 js_expr " / " js_expr : js_expr
+syntax:80 js_expr " % " js_expr : js_expr
+syntax:20 js_expr " ? " js_expr " : " js_expr : js_expr
+syntax "({" (ident ":" js_expr),* "})" : js_expr
+syntax "({})" : js_expr
+
+-- Arrow function expressions
+syntax "(" (ident,*)? ")" " => " js_expr : js_expr
+syntax ident " => " js_expr : js_expr
+
+-- Arrow function (block body)
+syntax "(" (ident,*)? ")" " => " "{" js_stmt* "}" : js_expr
+
+-- Statements
+syntax "const " ident " = " js_expr (";")? : js_stmt
+syntax "let " ident " = " js_expr (";")? : js_stmt
+syntax js_expr " = " js_expr (";")? : js_stmt
+syntax "return " js_expr (";")? : js_stmt
+syntax "while " "(" js_expr ")" "{" js_stmt* "}" : js_stmt
+syntax js_expr (";")? : js_stmt
+
+-- Helper constructs requested by user
+syntax "isTag" "(" js_expr "," Lean.Parser.nameLit ")" : js_expr
+syntax "isTag" "(" js_expr "," ident ")" : js_expr
+syntax "getField" "(" js_expr "," num ")" : js_expr
+syntax "mkObject" "(" Lean.Parser.nameLit ("," js_expr)* ")" : js_expr
+syntax "mkObject" "(" ident ("," js_expr)* ")" : js_expr
+
+-- 3. Define top-level bracket syntax
+syntax "[JS|" js_expr "]" : term
+syntax "[JS_STMT|" js_stmt "]" : term
+
+public meta def toJsIdent (n : Name) : MacroM (TSyntax `term) := do
+  if n == `true then
+    `(JsInlineExpr.boolLiteral true)
+  else if n == `false then
+    `(JsInlineExpr.boolLiteral false)
+  else match n with
+    | .str p member =>
+      if p != .anonymous then
+        let parent ← toJsIdent p
+        `(JsInlineExpr.memberDot $parent $(quote member))
+      else
+        `(JsInlineExpr.identifier $(quote member))
+    | _ => `(JsInlineExpr.identifier $(quote n.toString))
 
 -- 4. Macro rules to translate JS syntax to JsInlineExpr
 macro_rules
-  | `(⟪ #$n:num .$p:ident ⟫) => `(JsInlineExpr.memberDot (JsInlineExpr.funArg $n) $(Lean.quote p.getId.toString))
-  | `(⟪ #$n:num ⟫) => `(JsInlineExpr.funArg $n)
-  | `(⟪ $n:num ⟫) => `(JsInlineExpr.decimal $n)
-  | `(⟪ $s:str ⟫) => `(JsInlineExpr.stringLiteral $s)
-  | `(⟪ $id:ident ⟫) => `(JsInlineExpr.identifier $(quote id.getId.toString))
-  | `(⟪ ($e) ⟫) => `(⟪ $e ⟫)
-  | `(⟪ [] ⟫) => `(JsInlineExpr.arrayLiteral #[])
-  | `(⟪ $obj[$idx] ⟫) => `(JsInlineExpr.memberSquare ⟪$obj⟫ ⟪$idx⟫)
-  | `(⟪ $obj.$id:ident ⟫) => `(JsInlineExpr.memberDot ⟪$obj⟫ $(quote id.getId.toString))
-  | `(⟪ $fn($[$args],*) ⟫) => `(JsInlineExpr.callExpression ⟪$fn⟫ #[$[⟪$args⟫],*])
+  | `([JS| #$n:num .$p:ident ]) => `(JsInlineExpr.memberDot (JsInlineExpr.funArg $n) $(Lean.quote p.getId.toString))
+  | `([JS| #$n:num ]) => `(JsInlineExpr.funArg $n)
+  | `([JS| $n:num ]) => `(JsInlineExpr.decimal $n)
+  | `([JS| $s:str ]) => `(JsInlineExpr.stringLiteral $s)
+  | `([JS| $id:ident ]) => toJsIdent id.getId
+  | `([JS| ($e) ]) => `([JS| $e ])
+  | `([JS| [ $[$elems],* ] ]) => `(JsInlineExpr.arrayLiteral #[$[[JS| $elems ]],*])
+  | `([JS| $obj[$idx] ]) => `(JsInlineExpr.memberSquare [JS| $obj ] [JS| $idx ])
+  | `([JS| $obj.$id:ident ]) => `(JsInlineExpr.memberDot [JS| $obj ] $(quote id.getId.toString))
+  | `([JS| $fn($[$args],*) ]) => `(JsInlineExpr.callExpression [JS| $fn ] #[$[[JS| $args ]],*])
   -- new Ctor(args)
-  | `(⟪ new $cls:ident ($[$args],*) ⟫) =>
-    `(JsInlineExpr.memberNew (JsInlineExpr.identifier $(Lean.quote cls.getId.toString)) #[$[⟪$args⟫],*])
+  | `([JS| new $cls:ident ($[$args],*) ]) =>
+    `(JsInlineExpr.memberNew (JsInlineExpr.identifier $(Lean.quote cls.getId.toString)) #[$[[JS| $args ]],*])
   -- new Ctor().method(args)
-  | `(⟪ new $cls:ident () . $m:ident ($[$args],*) ⟫) =>
+  | `([JS| new $cls:ident () . $m:ident ($[$args],*) ]) =>
     `(JsInlineExpr.callExpression
         (JsInlineExpr.memberDot
           (JsInlineExpr.memberNew (JsInlineExpr.identifier $(Lean.quote cls.getId.toString)) #[])
           $(Lean.quote m.getId.toString))
-        #[$[⟪$args⟫],*])
+        #[$[[JS| $args ]],*])
   -- new Ctor().method(args).prop
-  | `(⟪ new $cls:ident () . $m:ident ($[$args],*) . $prop:ident ⟫) =>
+  | `([JS| new $cls:ident () . $m:ident ($[$args],*) . $prop:ident ]) =>
     `(JsInlineExpr.memberDot
         (JsInlineExpr.callExpression
           (JsInlineExpr.memberDot
             (JsInlineExpr.memberNew (JsInlineExpr.identifier $(Lean.quote cls.getId.toString)) #[])
             $(Lean.quote m.getId.toString))
-          #[$[⟪$args⟫],*])
+          #[$[[JS| $args ]],*])
         $(Lean.quote prop.getId.toString))
-  | `(⟪ throw $e ⟫) => `(JsInlineExpr.throw ⟪$e⟫)
+  | `([JS| throw $e ]) => `(JsInlineExpr.throw [JS| $e ])
 
   -- Binary Operators
-  | `(⟪ $a + $b ⟫)  => `(JsInlineExpr.expressionBinary .plus ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a - $b ⟫)  => `(JsInlineExpr.expressionBinary .minus ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a * $b ⟫)  => `(JsInlineExpr.expressionBinary .times ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a / $b ⟫)  => `(JsInlineExpr.expressionBinary .divide ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a % $b ⟫)  => `(JsInlineExpr.expressionBinary .mod ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a ^ $b ⟫)  => `(Lean.Compiler.JS.pow ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a == $b ⟫) => `(JsInlineExpr.expressionBinary .eq ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a <= $b ⟫) => `(JsInlineExpr.expressionBinary .le ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a < $b ⟫)  => `(JsInlineExpr.expressionBinary .lt ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a > $b ⟫)  => `(JsInlineExpr.expressionBinary .gt ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a & $b ⟫)  => `(JsInlineExpr.expressionBinary .bitAnd ⟪$a⟫ ⟪$b⟫)
-  | `(⟪ $a >> $b ⟫) => `(JsInlineExpr.expressionBinary .rsh ⟪$a⟫ ⟪$b⟫)
+  -- Unary operators
+  | `([JS| ! $a ])      => `(JsInlineExpr.unaryExpression .not [JS| $a ])
+  | `([JS| - $a ])      => `(JsInlineExpr.unaryExpression .minus [JS| $a ])
+  | `([JS| ~ $a ])      => `(JsInlineExpr.unaryExpression .tilde [JS| $a ])
+
+  -- Binary operators
+  | `([JS| $a || $b ])  => `(JsInlineExpr.expressionBinary .or [JS| $a ] [JS| $b ])
+  | `([JS| $a && $b ])  => `(JsInlineExpr.expressionBinary .and [JS| $a ] [JS| $b ])
+  | `([JS| $a != $b ])  => `(JsInlineExpr.expressionBinary .neq [JS| $a ] [JS| $b ])
+  | `([JS| $a !== $b ]) => `(JsInlineExpr.expressionBinary .strictNeq [JS| $a ] [JS| $b ])
+  | `([JS| $a >= $b ])  => `(JsInlineExpr.expressionBinary .ge [JS| $a ] [JS| $b ])
+  | `([JS| $a | $b ])   => `(JsInlineExpr.expressionBinary .bitOr [JS| $a ] [JS| $b ])
+  | `([JS| $a << $b ])  => `(JsInlineExpr.expressionBinary .lsh [JS| $a ] [JS| $b ])
+  | `([JS| $a + $b ])   => `(JsInlineExpr.expressionBinary .plus [JS| $a ] [JS| $b ])
+  | `([JS| $a - $b ])   => `(JsInlineExpr.expressionBinary .minus [JS| $a ] [JS| $b ])
+  | `([JS| $a * $b ])   => `(JsInlineExpr.expressionBinary .times [JS| $a ] [JS| $b ])
+  | `([JS| $a / $b ])   => `(JsInlineExpr.expressionBinary .divide [JS| $a ] [JS| $b ])
+  | `([JS| $a % $b ])   => `(JsInlineExpr.expressionBinary .mod [JS| $a ] [JS| $b ])
+  | `([JS| $a ^ $b ])   => `(Lean.Compiler.JS.pow [JS| $a ] [JS| $b ])
+  | `([JS| $a == $b ])  => `(JsInlineExpr.expressionBinary .eq [JS| $a ] [JS| $b ])
+  | `([JS| $a === $b ]) => `(JsInlineExpr.expressionBinary .strictEq [JS| $a ] [JS| $b ])
+  | `([JS| $a <= $b ])  => `(JsInlineExpr.expressionBinary .le [JS| $a ] [JS| $b ])
+  | `([JS| $a < $b ])   => `(JsInlineExpr.expressionBinary .lt [JS| $a ] [JS| $b ])
+  | `([JS| $a > $b ])   => `(JsInlineExpr.expressionBinary .gt [JS| $a ] [JS| $b ])
+  | `([JS| $a & $b ])   => `(JsInlineExpr.expressionBinary .bitAnd [JS| $a ] [JS| $b ])
+  | `([JS| $a >> $b ])  => `(JsInlineExpr.expressionBinary .rsh [JS| $a ] [JS| $b ])
+  | `([JS| $a >>> $b ]) => `(JsInlineExpr.expressionBinary .ursh [JS| $a ] [JS| $b ])
+
+  -- Object literals
+  | `([JS| ({}) ])      => `(JsInlineExpr.objectLiteral #[])
+  | `([JS| ({ $[$keys:ident : $vals:js_expr],* }) ]) =>
+    `(JsInlineExpr.objectLiteral #[ $[ ($(quote keys.getId.toString), [JS| $vals ]) ],* ])
 
   -- Ternary
-  | `(⟪ $c ? $t : $e ⟫) => `(JsInlineExpr.expressionTernary ⟪$c⟫ ⟪$t⟫ ⟪$e⟫)
+  | `([JS| $c ? $t : $e ]) => `(JsInlineExpr.expressionTernary [JS| $c ] [JS| $t ] [JS| $e ])
+
+  -- Arrow function expressions
+  | `([JS| ($[$params],*) => $body:js_expr ]) =>
+    let ps := quote (params.map fun p => p.getId.toString)
+    `(JsInlineExpr.arrowFunction $ps [JS| $body ])
+  | `([JS| $p:ident => $body:js_expr ]) =>
+    `(JsInlineExpr.arrowFunction #[$(quote p.getId.toString)] [JS| $body ])
+
+  -- Arrow function with block body
+  | `([JS| ($[$params],*) => { $[$stmts:js_stmt]* } ]) =>
+    let ps := quote (params.map fun p => p.getId.toString)
+    `(JsInlineExpr.arrowFunctionBlock $ps #[$[[JS_STMT| $stmts ]],*])
+
+  -- isTag
+  | `([JS| isTag($obj, $tag:name) ]) =>
+    `(JsInlineExpr.isTag [JS| $obj ] $(quote tag.getName))
+  | `([JS| isTag($obj, $tag:ident) ]) =>
+    `(JsInlineExpr.isTag [JS| $obj ] $(quote tag.getId))
+
+  -- getField
+  | `([JS| getField($obj, $idx:num) ]) =>
+    `(JsInlineExpr.getField [JS| $obj ] $(quote idx.getNat))
+
+  -- mkObject
+  | `([JS| mkObject($tag:name $[, $fields:js_expr]* ) ]) =>
+    `(JsInlineExpr.mkObject $(quote tag.getName) #[$[[JS| $fields ]],*])
+  | `([JS| mkObject($tag:ident $[, $fields:js_expr]* ) ]) =>
+    `(JsInlineExpr.mkObject $(quote tag.getId) #[$[[JS| $fields ]],*])
+
+macro_rules
+  | `([JS_STMT| const $x = $val:js_expr $[;]? ]) =>
+    `(JsInlineStmt.const $(quote x.getId.toString) [JS| $val ])
+  | `([JS_STMT| let $x = $val:js_expr $[;]? ]) =>
+    `(JsInlineStmt.letVar $(quote x.getId.toString) [JS| $val ])
+  | `([JS_STMT| $lhs:js_expr = $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assign [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| return $val:js_expr $[;]? ]) =>
+    `(JsInlineStmt.return [JS| $val ])
+  | `([JS_STMT| while ($c:js_expr) { $[$body]* } ]) =>
+    `(JsInlineStmt.while [JS| $c ] #[$[[JS_STMT| $body ]],*])
+  | `([JS_STMT| $e:js_expr $[;]? ]) =>
+    `(JsInlineStmt.expr [JS| $e ])
 
 end Lean.Compiler.JS
-
-namespace Lean.Compiler.JS.Impl
-
--- Prelude
-
-def isScalarObj := ⟪throw new Error("lean_is_scalar is not and should not be implemented")⟫
-def sorryAx := ⟪throw new Error("lean_sorry is not and should not be implemented")⟫
-def natAdd := ⟪#0 + #1⟫
-def natMul := ⟪#0 * #1⟫
-def natPow := ⟪#0 ^ #1⟫
-def natDecEq := ⟪#0 == #1⟫
-def natPred := ⟪(#0 > 0) ? (#0 - 1) : 0⟫
-def natDecLe := ⟪#0 <= #1⟫
-def natDecLt := ⟪#0 < #1⟫
-def natSub := ⟪(#0 > #1) ? (#0 - #1) : 0⟫
-def natDiv := ⟪(#1 > 0) ? (#0 / #1) : 0⟫
-def natMod := ⟪(#1 > 0) ? (#0 % #1) : 0⟫
-def systemPlatformGetNumBits := ⟪64⟫
-def uint8OfNat := ⟪#0 & 0xFF⟫
-def uint8DecEq := ⟪#0 == #1⟫
-def uint8DecLt := ⟪#0 < #1⟫
-def uint8DecLe := ⟪#0 <= #1⟫
-def uint16OfNat := ⟪#0 & 0xFFFF⟫
-def uint16DecEq := ⟪#0 == #1⟫
-def uint32OfNat := ⟪#0 >> 0⟫
-def uint32DecEq := ⟪#0 == #1⟫
-def uint32DecLt := ⟪#0 < #1⟫
-def uint32DecLe := ⟪#0 <= #1⟫
-def uint64DecEq := ⟪#0 == #1⟫
-def usizeDecEq := ⟪#0 == #1⟫
-def mkEmptyArrayWithCapacity := ⟪[]⟫
-def arrayGetSize := ⟪(#0).length⟫
-def arrayGet := ⟪#0[#1]⟫
-def mkEmptyByteArray := ⟪new Uint8Array(0)⟫
-def byteArraySize := ⟪(#0).length⟫
-def stringToUtf8 := ⟪new TextEncoder().encode(#0)⟫
-def stringFromUtf8Unchecked := ⟪new TextDecoder().decode(#0)⟫
-def stringMk := ⟪throw new Error("lean_string_mk should not be implemented")⟫
-def stringDecEq := ⟪#0 == #1⟫
-def floatOfScientific := ⟪throw new Error("lean_float_of_scientific is not and should not be implemented (we should just render floats?)")⟫
-def stringUtf8ByteSize := ⟪new TextEncoder().encode(#0).length⟫
-
--- function mkListNil() {
---   return { tag: "List$nil" };
--- }
-
--- function mkListCons(head, tail) {
---   return { tag: "List$cons", _1: head, _2: tail };
--- }
-
--- function arrayToList(arr) {
---   let out = mkListNil();
---   for (let i = arr.length - 1; i >= 0; i--) {
---     out = mkListCons(arr[i], out);
---   }
---   return out;
--- }
-
--- function listToArray(list) {
---   const out = [];
---   let curr = list;
---   while (curr.tag === "List$cons") {
---     out.push(curr._1);
---     curr = curr._2;
---   }
---   return out;
--- }
-
--- export function Function$comp(f, g, x) {
---   return f(g(x));
--- }
-
--- export function lean_array_push(arr, value) {
---   const out = arr.slice();
---   out.push(value);
---   return out;
--- }
-
--- export function lean_array_to_list(arr) {
---   return arrayToList(arr);
--- }
-
--- export function lean_array_mk(list) {
---   return listToArray(list);
--- }
-
--- export function lean_array_get(defaultValue, arr, idx) {
---   return idx < arr.length ? arr[idx] : defaultValue;
--- }
-
--- export function lean_array_get_borrowed(defaultValue, arr, idx) {
---   return idx < arr.length ? arr[idx] : defaultValue;
--- }
-
--- export function lean_array_fget_borrowed(arr, idx) {
---   return arr[idx];
--- }
-
--- export function lean_uint32_to_nat(n) {
---   return n >>> 0;
--- }
-
--- export function lean_uint32_dec_eq(a, b) {
---   return (a >>> 0) === (b >>> 0);
--- }
-
--- export function lean_uint32_dec_lt(a, b) {
---   return (a >>> 0) < (b >>> 0);
--- }
-
--- export function lean_uint32_dec_le(a, b) {
---   return (a >>> 0) <= (b >>> 0);
--- }
-
--- export function lean_string_dec_eq(a, b) {
---   return a === b;
--- }
-
--- export function lean_panic_fn_borrowed(_, msg) {
---   throw new Error(String(msg));
--- }
-
--- // ByteArray → UInt8 → ByteArray
--- export function lean_byte_array_push(a, b) {
---   const newArr = new Uint8Array(a.length + 1);
---   newArr.set(a);
---   newArr[a.length] = b;
---   return newArr;
--- }

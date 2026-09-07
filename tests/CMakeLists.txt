@@ -185,7 +185,7 @@ function(add_test_pile DIR GLOB)
       if(ARGS_FIXTURES_REQUIRED)
         set_tests_properties("${FILE_IN_SOURCE_DIR}" PROPERTIES FIXTURES_REQUIRED "${ARGS_FIXTURES_REQUIRED}")
       endif()
-      if(FILE_IN_SOURCE_DIR MATCHES "^es6/")
+      if(FILE_IN_SOURCE_DIR MATCHES "^(es6|es6_elab)/")
         set_tests_properties("${FILE_IN_SOURCE_DIR}" PROPERTIES LABELS "es6")
       endif()
     endif()
@@ -323,6 +323,7 @@ add_test_pile(compile *.lean BENCH PART2)
 add_test_pile(compile_bench *.lean BENCH PART2)
 add_test_pile(docparse *.txt)
 add_test_pile(es6 *.lean)
+add_test_pile(es6_elab *.lean)
 add_test_pile(
   elab
   *.lean
