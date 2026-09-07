@@ -185,6 +185,9 @@ function(add_test_pile DIR GLOB)
       if(ARGS_FIXTURES_REQUIRED)
         set_tests_properties("${FILE_IN_SOURCE_DIR}" PROPERTIES FIXTURES_REQUIRED "${ARGS_FIXTURES_REQUIRED}")
       endif()
+      if(FILE_IN_SOURCE_DIR MATCHES "^es6/")
+        set_tests_properties("${FILE_IN_SOURCE_DIR}" PROPERTIES LABELS "es6")
+      endif()
     endif()
 
     if(RUN_BENCH_EXISTS AND NOT EXISTS "${FILE}.no_bench")
@@ -319,6 +322,7 @@ add_test_pile(../doc/examples *.lean)
 add_test_pile(compile *.lean BENCH PART2)
 add_test_pile(compile_bench *.lean BENCH PART2)
 add_test_pile(docparse *.txt)
+add_test_pile(es6 *.lean)
 add_test_pile(
   elab
   *.lean
@@ -364,3 +368,9 @@ add_combined_measurements("${BENCH_MEASUREMENTS}" "${BENCH_MEASUREMENTS_PART1}" 
 add_custom_target(bench-part1 DEPENDS lean "${BENCH_MEASUREMENTS_PART1}" COMMENT "Run benchmarks (part 1)")
 add_custom_target(bench-part2 DEPENDS lean "${BENCH_MEASUREMENTS_PART2}" COMMENT "Run benchmarks (part 2)")
 add_custom_target(bench DEPENDS lean "${BENCH_MEASUREMENTS}" COMMENT "Run all benchmarks")
+
+add_custom_target(test-es6
+  COMMAND ${CMAKE_CTEST_COMMAND} -L es6 --output-on-failure
+  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+  COMMENT "Run all ES6 emitter tests"
+)
