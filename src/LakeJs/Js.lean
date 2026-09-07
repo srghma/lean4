@@ -48,6 +48,7 @@ mutual
     | throw (expr : JsInlineExpr)
     | arrowFunction (params : Array String) (body : JsInlineExpr)
     | arrowFunctionBlock (params : Array String) (body : Array JsInlineStmt)
+    | inlineFunc (params : Array String) (body : Array JsInlineStmt) (returns : Option JsInlineExpr)
     | isTag (obj : JsInlineExpr) (tag : Name)
     | getField (obj : JsInlineExpr) (idx : Nat)
     | mkObject (tag : Name) (fields : Array JsInlineExpr)
@@ -57,9 +58,14 @@ mutual
     | const (name : String) (val : JsInlineExpr)
     | letVar (name : String) (val : JsInlineExpr)
     | assign (lhs : JsInlineExpr) (rhs : JsInlineExpr)
+    | assignOp (op : JSBinOp) (lhs : JsInlineExpr) (rhs : JsInlineExpr)
     | expr (e : JsInlineExpr)
     | return (e : JsInlineExpr)
     | while (cond : JsInlineExpr) (body : Array JsInlineStmt)
+    | forLoop (init : JsInlineStmt) (cond : JsInlineExpr) (step : JsInlineStmt) (body : Array JsInlineStmt)
+    | ifElse (cond : JsInlineExpr) (thenBranch : Array JsInlineStmt) (elseBranch : Array JsInlineStmt)
+    | incr (e : JsInlineExpr)
+    | decr (e : JsInlineExpr)
     deriving Repr, BEq, Inhabited
 end
 
@@ -126,6 +132,8 @@ syntax "(" js_expr ")" : js_expr                -- Parentheses
 syntax "[" (js_expr,*)? "]" : js_expr            -- Array literal: [], [a, b]
 syntax js_expr "[" js_expr "]" : js_expr        -- Bracket access
 syntax js_expr "." ident : js_expr              -- Member dot access
+syntax js_expr "()" : js_expr
+syntax js_expr "(" ")" : js_expr
 syntax js_expr "(" (js_expr,*)? ")" : js_expr   -- Function calls
 syntax "new " ident "(" (js_expr,*)? ")" : js_expr   -- New expression: new Foo(args)
 syntax "new " ident "()" "." ident "(" (js_expr,*)? ")" : js_expr  -- Chained: new Foo().method(args)
@@ -160,22 +168,39 @@ syntax:80 js_expr " * " js_expr : js_expr
 syntax:80 js_expr " / " js_expr : js_expr
 syntax:80 js_expr " % " js_expr : js_expr
 syntax:20 js_expr " ? " js_expr " : " js_expr : js_expr
-syntax "({" (ident ":" js_expr),* "})" : js_expr
-syntax "({})" : js_expr
+syntax "(" "{" (ident ":" js_expr),* "}" ")" : js_expr
+syntax "(" "{" "}" ")" : js_expr
 
 -- Arrow function expressions
 syntax "(" (ident,*)? ")" " => " js_expr : js_expr
+syntax "()" " => " js_expr : js_expr
+syntax "(" ")" " => " js_expr : js_expr
 syntax ident " => " js_expr : js_expr
 
 -- Arrow function (block body)
 syntax "(" (ident,*)? ")" " => " "{" js_stmt* "}" : js_expr
+syntax "()" " => " "{" js_stmt* "}" : js_expr
+syntax "(" ")" " => " "{" js_stmt* "}" : js_expr
 
 -- Statements
 syntax "const " ident " = " js_expr (";")? : js_stmt
 syntax "let " ident " = " js_expr (";")? : js_stmt
 syntax js_expr " = " js_expr (";")? : js_stmt
+syntax js_expr " += " js_expr (";")? : js_stmt
+syntax js_expr " -= " js_expr (";")? : js_stmt
+syntax js_expr " *= " js_expr (";")? : js_stmt
+syntax js_expr " /= " js_expr (";")? : js_stmt
+syntax js_expr " %= " js_expr (";")? : js_stmt
+syntax js_expr " |= " js_expr (";")? : js_stmt
+syntax js_expr " &= " js_expr (";")? : js_stmt
+syntax js_expr " ^= " js_expr (";")? : js_stmt
+syntax js_expr "++" (";")? : js_stmt
 syntax "return " js_expr (";")? : js_stmt
 syntax "while " "(" js_expr ")" "{" js_stmt* "}" : js_stmt
+syntax "for " "(" js_stmt js_expr ";" js_stmt ")" "{" js_stmt* "}" : js_stmt
+syntax "if " "(" js_expr ")" "{" js_stmt* "}" ("else" "{" js_stmt* "}")? : js_stmt
+syntax "if " "(" js_expr ")" "{" js_stmt* "}" "else " js_stmt : js_stmt
+syntax "if " "(" js_expr ")" js_stmt : js_stmt
 syntax js_expr (";")? : js_stmt
 
 -- Helper constructs requested by user
@@ -188,6 +213,9 @@ syntax "mkObject" "(" ident ("," js_expr)* ")" : js_expr
 -- 3. Define top-level bracket syntax
 syntax "[JS|" js_expr "]" : term
 syntax "[JS_STMT|" js_stmt "]" : term
+syntax "[JS_FUNC|" "inputs" "(" (ident,*)? ")" "|" "returns" "=" js_expr:51 "|" js_stmt* "]" : term
+syntax "[JS_FUNC|" "inputs" "(" (ident,*)? ")" "|" js_stmt* "]" : term
+syntax "[JS_FUNC|" "(" (ident,*)? ")" " => " "{" js_stmt* "}" "]" : term
 
 public meta def toJsIdent (n : Name) : MacroM (TSyntax `term) := do
   if n == `true then
@@ -214,6 +242,8 @@ macro_rules
   | `([JS| [ $[$elems],* ] ]) => `(JsInlineExpr.arrayLiteral #[$[[JS| $elems ]],*])
   | `([JS| $obj[$idx] ]) => `(JsInlineExpr.memberSquare [JS| $obj ] [JS| $idx ])
   | `([JS| $obj.$id:ident ]) => `(JsInlineExpr.memberDot [JS| $obj ] $(quote id.getId.toString))
+  | `([JS| $fn() ]) => `(JsInlineExpr.callExpression [JS| $fn ] #[])
+  | `([JS| $fn( ) ]) => `(JsInlineExpr.callExpression [JS| $fn ] #[])
   | `([JS| $fn($[$args],*) ]) => `(JsInlineExpr.callExpression [JS| $fn ] #[$[[JS| $args ]],*])
   -- new Ctor(args)
   | `([JS| new $cls:ident ($[$args],*) ]) =>
@@ -267,13 +297,20 @@ macro_rules
 
   -- Object literals
   | `([JS| ({}) ])      => `(JsInlineExpr.objectLiteral #[])
-  | `([JS| ({ $[$keys:ident : $vals:js_expr],* }) ]) =>
-    `(JsInlineExpr.objectLiteral #[ $[ ($(quote keys.getId.toString), [JS| $vals ]) ],* ])
+  | `([JS| ({ $[$keys:ident : $vals:js_expr],* }) ]) => do
+    let mut pairs := #[]
+    for k in keys, v in vals do
+      pairs := pairs.push (← `(($(quote k.getId.toString), [JS| $v ])))
+    `(JsInlineExpr.objectLiteral #[$pairs,*])
 
   -- Ternary
   | `([JS| $c ? $t : $e ]) => `(JsInlineExpr.expressionTernary [JS| $c ] [JS| $t ] [JS| $e ])
 
   -- Arrow function expressions
+  | `([JS| () => $body:js_expr ]) =>
+    `(JsInlineExpr.arrowFunction #[] [JS| $body ])
+  | `([JS| ( ) => $body:js_expr ]) =>
+    `(JsInlineExpr.arrowFunction #[] [JS| $body ])
   | `([JS| ($[$params],*) => $body:js_expr ]) =>
     let ps := quote (params.map fun p => p.getId.toString)
     `(JsInlineExpr.arrowFunction $ps [JS| $body ])
@@ -281,6 +318,10 @@ macro_rules
     `(JsInlineExpr.arrowFunction #[$(quote p.getId.toString)] [JS| $body ])
 
   -- Arrow function with block body
+  | `([JS| () => { $[$stmts:js_stmt]* } ]) =>
+    `(JsInlineExpr.arrowFunctionBlock #[] #[$[[JS_STMT| $stmts ]],*])
+  | `([JS| ( ) => { $[$stmts:js_stmt]* } ]) =>
+    `(JsInlineExpr.arrowFunctionBlock #[] #[$[[JS_STMT| $stmts ]],*])
   | `([JS| ($[$params],*) => { $[$stmts:js_stmt]* } ]) =>
     let ps := quote (params.map fun p => p.getId.toString)
     `(JsInlineExpr.arrowFunctionBlock $ps #[$[[JS_STMT| $stmts ]],*])
@@ -302,17 +343,56 @@ macro_rules
     `(JsInlineExpr.mkObject $(quote tag.getId) #[$[[JS| $fields ]],*])
 
 macro_rules
-  | `([JS_STMT| const $x = $val:js_expr $[;]? ]) =>
+  | `([JS_STMT| const $x:ident = $val:js_expr $[;]? ]) =>
     `(JsInlineStmt.const $(quote x.getId.toString) [JS| $val ])
-  | `([JS_STMT| let $x = $val:js_expr $[;]? ]) =>
+  | `([JS_STMT| let $x:ident = $val:js_expr $[;]? ]) =>
     `(JsInlineStmt.letVar $(quote x.getId.toString) [JS| $val ])
   | `([JS_STMT| $lhs:js_expr = $rhs:js_expr $[;]? ]) =>
     `(JsInlineStmt.assign [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $lhs:js_expr += $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assignOp .plus [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $lhs:js_expr -= $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assignOp .minus [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $lhs:js_expr *= $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assignOp .times [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $lhs:js_expr /= $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assignOp .divide [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $lhs:js_expr %= $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assignOp .mod [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $lhs:js_expr |= $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assignOp .bitOr [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $lhs:js_expr &= $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assignOp .bitAnd [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $lhs:js_expr ^= $rhs:js_expr $[;]? ]) =>
+    `(JsInlineStmt.assignOp .bitXor [JS| $lhs ] [JS| $rhs ])
+  | `([JS_STMT| $e:js_expr ++ $[;]? ]) =>
+    `(JsInlineStmt.incr [JS| $e ])
   | `([JS_STMT| return $val:js_expr $[;]? ]) =>
     `(JsInlineStmt.return [JS| $val ])
   | `([JS_STMT| while ($c:js_expr) { $[$body]* } ]) =>
     `(JsInlineStmt.while [JS| $c ] #[$[[JS_STMT| $body ]],*])
+  | `([JS_STMT| for ($init:js_stmt $cond:js_expr ; $step:js_stmt) { $[$body]* } ]) =>
+    `(JsInlineStmt.forLoop [JS_STMT| $init ] [JS| $cond ] [JS_STMT| $step ] #[$[[JS_STMT| $body ]],*])
+  | `([JS_STMT| if ($cond:js_expr) { $[$thenB]* } else { $[$elseB]* } ]) =>
+    `(JsInlineStmt.ifElse [JS| $cond ] #[$[[JS_STMT| $thenB ]],*] #[$[[JS_STMT| $elseB ]],*])
+  | `([JS_STMT| if ($cond:js_expr) { $[$thenB]* } else $elseS:js_stmt ]) =>
+    `(JsInlineStmt.ifElse [JS| $cond ] #[$[[JS_STMT| $thenB ]],*] #[ [JS_STMT| $elseS ] ])
+  | `([JS_STMT| if ($cond:js_expr) { $[$thenB]* } ]) =>
+    `(JsInlineStmt.ifElse [JS| $cond ] #[$[[JS_STMT| $thenB ]],*] #[])
+  | `([JS_STMT| if ($cond:js_expr) $thenS:js_stmt ]) =>
+    `(JsInlineStmt.ifElse [JS| $cond ] #[ [JS_STMT| $thenS ] ] #[])
   | `([JS_STMT| $e:js_expr $[;]? ]) =>
     `(JsInlineStmt.expr [JS| $e ])
+
+macro_rules
+  | `([JS_FUNC| inputs ( $[$params:ident],* ) | returns = $ret:js_expr | $[$stmts:js_stmt]* ]) =>
+    let ps := quote (params.map fun p => p.getId.toString)
+    `(JsInlineExpr.inlineFunc $ps #[$[[JS_STMT| $stmts ]],*] (some [JS| $ret ]))
+  | `([JS_FUNC| inputs ( $[$params:ident],* ) | $[$stmts:js_stmt]* ]) =>
+    let ps := quote (params.map fun p => p.getId.toString)
+    `(JsInlineExpr.inlineFunc $ps #[$[[JS_STMT| $stmts ]],*] none)
+  | `([JS_FUNC| ( $[$params:ident],* ) => { $[$stmts:js_stmt]* } ]) =>
+    let ps := quote (params.map fun p => p.getId.toString)
+    `(JsInlineExpr.inlineFunc $ps #[$[[JS_STMT| $stmts ]],*] none)
 
 end Lean.Compiler.JS

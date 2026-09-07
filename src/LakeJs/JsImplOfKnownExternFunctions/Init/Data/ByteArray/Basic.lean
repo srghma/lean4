@@ -1,53 +1,25 @@
-export function lean_sarray_dec_eq(arr1, arr2) {
-  if (arr1.length !== arr2.length) return false;
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i] !== arr2[i]) return false;
-  }
-  return true;
-}
+import LakeJs.Js
 
-export function lean_sarray_size(arr) {
-  return arr.length;
-}
+open Lean.Compiler.JS
 
-export function lean_byte_array_uget(arr, idx) {
-  return arr[idx];
-}
-
-export function lean_byte_array_get(arr, idx) {
-  return arr[idx];
-}
-
-export function lean_byte_array_fget(arr, idx) {
-  return arr[idx];
-}
-
-export function lean_byte_array_set(arr, idx, val) {
+def lean_sarray_dec_eq := [JS|((arr1, arr2) => {
+  return (arr1 == arr2);
+})(#0, #1)]
+def lean_sarray_size := [JS|(#0).length]
+def lean_byte_array_uget := [JS|#0[#1]]
+def lean_byte_array_get := [JS|#0[#1]]
+def lean_byte_array_fget := [JS|#0[#1]]
+def lean_byte_array_set := [JS|((arr, idx, val) => {
   arr[idx] = val;
   return arr;
-}
-
-export function lean_byte_array_fset(arr, idx, val) {
-  arr[idx] = val;
-  return arr;
-}
-
-export function lean_byte_array_uset(arr, idx, val) {
-  arr[idx] = val;
-  return arr;
-}
-
-export function lean_byte_array_hash(arr) {
+})(#0, #1, #2)]
+def lean_byte_array_fset := lean_byte_array_set
+def lean_byte_array_uset := lean_byte_array_set
+def lean_byte_array_hash := [JS|((arr) => {
   let hash = 0;
-  for (let i = 0; i < arr.length; i++) {
-    hash = ((hash << 5) - hash) + arr[i];
-    hash |= 0; // Convert to 32bit integer
-  }
   return hash;
-}
-
-export function lean_byte_array_copy_slice(dst, dstOff, src, srcOff, len) {
-  const subarray = src.subarray(srcOff, srcOff + len);
-  dst.set(subarray, dstOff);
+})(#0)]
+def lean_byte_array_copy_slice := [JS|((dst, dstOff, src, srcOff, len) => {
+  dst.set(src.subarray(srcOff, srcOff + len), dstOff);
   return dst;
-}
+})(#0, #1, #2, #3, #4)]

@@ -1,9 +1,13 @@
-export function lean_nat_gcd(a, b) {
+import LakeJs.Js
+
+open Lean.Compiler.JS
+
+def lean_nat_gcd := [JS_FUNC|inputs(a, b)|returns=a|
   a = BigInt(a);
   b = BigInt(b);
-  while (b !== 0n) {
-    a %= b;
-    [a, b] = [b, a];
+  while (b != 0) {
+    const t = b;
+    b = a % b;
+    a = t;
   }
-  return a;
-}
+]

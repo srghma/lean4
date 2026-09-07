@@ -1,16 +1,8 @@
-export function lean_sharecommon_eq(...args) {
-  throw new Error('not implemented');
-}
+import LakeJs.Js
 
-export function lean_sharecommon_hash(...args) {
-  throw new Error('not implemented');
-}
+open Lean.Compiler.JS
 
-export function lean_state_sharecommon(...args) {
-  throw new Error('not implemented');
-}
-
-export function lean_sharecommon_quick(...args) {
-  throw new Error('not implemented');
-}
-
+def lean_sharecommon_eq := [JS|throw new Error("not implemented")]
+def lean_sharecommon_hash := [JS|throw new Error("not implemented")]
+def lean_state_sharecommon := [JS|throw new Error("not implemented")]
+def lean_sharecommon_quick := [JS|throw new Error("not implemented")]

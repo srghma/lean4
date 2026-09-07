@@ -1,9 +1,9 @@
-export function lean_array_fset(arr, idx, val) {
-  arr[idx] = val;
-  return arr;
-}
+import LakeJs.Js
 
-export function lean_array_set(arr, idx, val) {
+open Lean.Compiler.JS
+
+def lean_array_fset := [JS_FUNC|inputs(arr, idx, val)|returns=arr|
   arr[idx] = val;
-  return arr;
-}
+]
+
+def lean_array_set := lean_array_fset

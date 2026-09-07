@@ -1,4 +1,5 @@
-export function lean_nat_log2(...args) {
-  throw new Error('not implemented');
-}
+import LakeJs.Js
 
+open Lean.Compiler.JS
+
+def lean_nat_log2 := [JS|throw new Error("lean_nat_log2 is not implemented")]

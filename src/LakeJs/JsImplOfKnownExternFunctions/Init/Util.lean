@@ -1,36 +1,18 @@
-export const lean_dbg_trace = (s, f) => {
+import LakeJs.Js
+
+open Lean.Compiler.JS
+
+def lean_dbg_trace := [JS|((s, f) => {
   console.log(s);
-  return f();
-};
+  return f( );
+})(#0, #1)]
 
-export const lean_dbg_trace_if_shared = (s, a) => {
-  return a;
-};
+def lean_dbg_trace_if_shared := [JS|#1]
+def lean_dbg_stack_trace := [JS|((f) => f( ))(#0)]
+def lean_dbg_stack_trace_if := [JS|((cond, f) => f( ))(#0, #1)]
+def lean_dbg_sleep := [JS|throw new Error("not implemented")]
+def lean_ptr_addr := [JS|throw new Error("not implemented")]
+def lean_is_exclusive_obj := [JS|throw new Error("not implemented")]
 
-export const lean_dbg_stack_trace = (f) => {
-  console.trace();
-  return f();
-};
-
-export const lean_dbg_stack_trace_if = (cond, f) => {
-  if (cond) {
-    console.trace();
-  }
-  return f();
-};
-
-export function lean_dbg_sleep(...args) {
-  throw new Error('not implemented');
-}
-
-export function lean_ptr_addr(...args) {
-  throw new Error('not implemented');
-}
-
-export function lean_is_exclusive_obj(...args) {
-  throw new Error('not implemented');
-}
-
-export function mkPanicMessageWithDecl(modName, declName, line, col, msg) {
-  return `${modName}:${declName}:${line}:${col}: ${msg}`;
-}
+namespace LakeJs
+def mkPanicMessageWithDecl := [JS|((modName, declName, line, col, msg) => msg)(#0, #1, #2, #3, #4)]

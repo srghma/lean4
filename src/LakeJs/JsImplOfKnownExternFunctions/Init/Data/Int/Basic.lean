@@ -1,47 +1,15 @@
-export function lean_nat_to_int(n) {
-  return BigInt(n);
-}
+import LakeJs.Js
 
-export function lean_int_neg_succ_of_nat(n) {
-  return -BigInt(n) - 1n;
-}
+open Lean.Compiler.JS
 
-export function lean_int_neg(n) {
-  return -n;
-}
-
-export function lean_int_add(a, b) {
-  return a + b;
-}
-
-export function lean_int_mul(a, b) {
-  return a * b;
-}
-
-export function lean_int_sub(a, b) {
-  return a - b;
-}
-
-export function lean_int_dec_eq(a, b) {
-  return a === b;
-}
-
-export function lean_int_dec_nonneg(n) {
-  return n >= 0n;
-}
-
-export function lean_int_dec_le(a, b) {
-  return a <= b;
-}
-
-export function lean_int_dec_lt(a, b) {
-  return a < b;
-}
-
-export function lean_nat_abs(n) {
-  return n < 0n ? -n : n;
-}
-
-export function Int$toNat(n) {
-  return n < 0n ? 0 : Number(n);
-}
+def lean_nat_to_int := [JS|#0]
+def lean_int_neg_succ_of_nat := [JS|-#0 - 1]
+def lean_int_neg := [JS|-#0]
+def lean_int_add := [JS|#0 + #1]
+def lean_int_mul := [JS|#0 * #1]
+def lean_int_sub := [JS|#0 - #1]
+def lean_int_dec_eq := [JS|#0 == #1]
+def lean_int_dec_nonneg := [JS|#0 >= 0]
+def lean_int_dec_le := [JS|#0 <= #1]
+def lean_int_dec_lt := [JS|#0 < #1]
+def lean_nat_abs := [JS|(#0 < 0) ? -#0 : #0]

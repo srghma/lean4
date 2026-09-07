@@ -1,19 +1,6 @@
-const encoder = new TextEncoder();
+import LakeJs.Js
 
-export function lean_string_to_utf8(str) {
-  return encoder.encode(str);
-}
+open Lean.Compiler.JS
 
-export function lean_string_append(s1, s2) {
-  return s1 + s2;
-}
-
-export function String$intercalate(sep, xs) {
-  const parts = [];
-  let curr = xs;
-  while (curr.tag === "List$cons") {
-    parts.push(curr._1);
-    curr = curr._2;
-  }
-  return parts.join(sep);
-}
+def lean_string_to_utf8 := [JS|encoder.encode(#0)]
+def lean_string_append := [JS|#0 + #1]

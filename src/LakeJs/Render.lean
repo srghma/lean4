@@ -68,17 +68,44 @@ mutual
     | .arrowFunctionBlock params stmts =>
       let stmtsStr := String.join (stmts.toList.map fun s => "  " ++ renderJsStmt s ++ "\n")
       s!"(({", ".intercalate params.toList}) => \{\n{stmtsStr}})"
+    | .inlineFunc params body returnsOpt =>
+      let paramStr := ", ".intercalate params.toList
+      let bodyStrs := body.toList.map (fun s => "  " ++ renderJsStmt s ++ "\n")
+      let retStr := match returnsOpt with
+        | some r => s!"  return {renderJs r};\n"
+        | none => ""
+      s!"(({paramStr}) => \{\n{String.join bodyStrs}{retStr}})"
 
   public partial def renderJsStmt (s : JsInlineStmt) : String :=
     match s with
     | .const name val => s!"const {name} = {renderJs val};"
     | .letVar name val => s!"let {name} = {renderJs val};"
     | .assign lhs rhs => s!"{renderJs lhs} = {renderJs rhs};"
+    | .assignOp op lhs rhs =>
+      let opStr := match op with
+        | .plus => "+=" | .minus => "-=" | .times => "*=" | .divide => "/=" | .mod => "%="
+        | .bitOr => "|=" | .bitAnd => "&=" | .bitXor => "^=" | _ => "="
+      s!"{renderJs lhs} {opStr} {renderJs rhs};"
+    | .incr e => s!"{renderJs e}++;"
+    | .decr e => s!"{renderJs e}--;"
     | .expr e => s!"{renderJs e};"
     | .return e => s!"return {renderJs e};"
     | .while cond body =>
       let bodyStr := String.join (body.toList.map fun st => "    " ++ renderJsStmt st ++ "\n")
       s!"while ({renderJs cond}) \{\n{bodyStr}  }"
+    | .forLoop init cond step body =>
+      let initStr := renderJsStmt init
+      let stepStr := renderJsStmt step
+      let stepTrim := if stepStr.endsWith ";" then (stepStr.dropEnd 1).toString else stepStr
+      let bodyStr := String.join (body.toList.map fun st => "    " ++ renderJsStmt st ++ "\n")
+      s!"for ({initStr} {renderJs cond}; {stepTrim}) \{\n{bodyStr}  }"
+    | .ifElse cond thenB elseB =>
+      let thenStr := String.join (thenB.toList.map fun st => "    " ++ renderJsStmt st ++ "\n")
+      if elseB.isEmpty then
+        s!"if ({renderJs cond}) \{\n{thenStr}  }"
+      else
+        let elseStr := String.join (elseB.toList.map fun st => "    " ++ renderJsStmt st ++ "\n")
+        s!"if ({renderJs cond}) \{\n{thenStr}  } else \{\n{elseStr}  }"
 end
 
 end Lean.Compiler.JS

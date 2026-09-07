@@ -1,32 +1,22 @@
-export function lean_void_mk(a) {
-  return a;
-}
+import LakeJs.Js
 
-export function lean_st_mk_ref(a) {
-  return { value: a };
-}
+open Lean.Compiler.JS
 
-export function lean_st_ref_get(ref) {
-  return ref.value;
-}
-
-export function lean_st_ref_set(ref, a) {
+def lean_void_mk := [JS|#0]
+def lean_st_mk_ref := [JS|({ value: #0 })]
+def lean_st_ref_get := [JS|(#0).value]
+def lean_st_ref_set := [JS|((ref, a) => {
   ref.value = a;
   return null;
-}
-
-export function lean_st_ref_swap(ref, a) {
+})(#0, #1)]
+def lean_st_ref_swap := [JS|((ref, a) => {
   const old = ref.value;
   ref.value = a;
   return old;
-}
-
-export function lean_st_ref_take(ref) {
+})(#0, #1)]
+def lean_st_ref_take := [JS|((ref) => {
   const old = ref.value;
   ref.value = undefined;
   return old;
-}
-
-export function lean_st_ref_ptr_eq(ref1, ref2) {
-  return ref1 === ref2;
-}
+})(#0)]
+def lean_st_ref_ptr_eq := [JS|#0 === #1]

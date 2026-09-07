@@ -1,16 +1,8 @@
-export function lean_io_promise_new(...args) {
-  throw new Error('not implemented');
-}
+import LakeJs.Js
 
-export function lean_io_promise_resolve(...args) {
-  throw new Error('not implemented');
-}
+open Lean.Compiler.JS
 
-export function lean_io_promise_result_opt(...args) {
-  throw new Error('not implemented');
-}
-
-export function lean_option_get_or_block(...args) {
-  throw new Error('not implemented');
-}
-
+def lean_io_promise_new := [JS|throw new Error("not implemented")]
+def lean_io_promise_resolve := [JS|throw new Error("not implemented")]
+def lean_io_promise_result_opt := [JS|throw new Error("not implemented")]
+def lean_option_get_or_block := [JS|throw new Error("not implemented")]

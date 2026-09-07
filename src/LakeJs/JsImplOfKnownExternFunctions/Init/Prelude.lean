@@ -31,7 +31,7 @@ def lean_mk_empty_array_with_capacity := [JS|[]]
 def lean_array_get_size := [JS|(#0).length]
 def lean_array_push := [JS|(#0).concat(Array.of(#1))]
 def lean_array_to_list := [JS|(#0).reduceRight((out, item) => mkObject(`List.cons, item, out), mkObject(`List.nil))]
-def lean_array_mk := [JS|((curr) => {
+def lean_array_mk := [JS_FUNC|inputs(curr)|returns=out|
   const out = [];
   while (isTag(curr, `List.cons)) {
     const head = getField(curr, 0);
@@ -39,8 +39,7 @@ def lean_array_mk := [JS|((curr) => {
     out.push(head);
     curr = tail;
   }
-  return out;
-})(#0)]
+]
 def lean_array_get := [JS|(#2 < (#1).length) ? #1[#2] : #0]
 def lean_array_get_borrowed := lean_array_get
 def lean_array_fget := [JS|#0[#1]]

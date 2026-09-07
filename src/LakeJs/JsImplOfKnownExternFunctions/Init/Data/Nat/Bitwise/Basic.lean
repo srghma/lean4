@@ -1,19 +1,9 @@
-export function lean_nat_land(a, b) {
-  return a & b;
-}
+import LakeJs.Js
 
-export function lean_nat_lor(a, b) {
-  return a | b;
-}
+open Lean.Compiler.JS
 
-export function lean_nat_lxor(a, b) {
-  return a ^ b;
-}
-
-export function lean_nat_shiftl(a, b) {
-  return a << b;
-}
-
-export function lean_nat_shiftr(a, b) {
-  return a >> b;
-}
+def lean_nat_land := [JS|#0 & #1]
+def lean_nat_lor := [JS|#0 | #1]
+def lean_nat_lxor := [JS|#0 ^ #1]
+def lean_nat_shiftl := [JS|#0 << #1]
+def lean_nat_shiftr := [JS|#0 >> #1]

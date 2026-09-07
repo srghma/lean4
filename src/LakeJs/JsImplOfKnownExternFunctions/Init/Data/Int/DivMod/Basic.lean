@@ -1,38 +1,33 @@
-export function lean_int_emod(a, b) {
-  a = BigInt(a);
-  b = BigInt(b);
-  if (b === 0n) return a;
-  let r = a % b;
-  if (r < 0n) {
-    r += (b < 0n ? -b : b);
-  }
-  return r;
-}
+import LakeJs.Js
 
-export function lean_int_ediv(a, b) {
-  a = BigInt(a);
-  b = BigInt(b);
-  if (b === 0n) return 0n;
-  return (a - lean_int_emod(a, b)) / b;
-}
+open Lean.Compiler.JS
 
-export function lean_int_div_exact(a, b) {
+def lean_int_emod := [JS|((a, b) => {
   a = BigInt(a);
   b = BigInt(b);
-  if (b === 0n) return false;
-  return a % b === 0n;
-}
+  return (b == 0) ? a : (a % b);
+})(#0, #1)]
 
-export function lean_int_div(a, b) {
+def lean_int_ediv := [JS|((a, b) => {
   a = BigInt(a);
   b = BigInt(b);
-  if (b === 0n) return 0n;
-  return a / b;
-}
+  return (b == 0) ? 0 : (a / b);
+})(#0, #1)]
 
-export function lean_int_mod(a, b) {
+def lean_int_div_exact := [JS|((a, b) => {
   a = BigInt(a);
   b = BigInt(b);
-  if (b === 0n) return a;
-  return a % b;
-}
+  return (b == 0) ? false : (a % b == 0);
+})(#0, #1)]
+
+def lean_int_div := [JS|((a, b) => {
+  a = BigInt(a);
+  b = BigInt(b);
+  return (b == 0) ? 0 : (a / b);
+})(#0, #1)]
+
+def lean_int_mod := [JS|((a, b) => {
+  a = BigInt(a);
+  b = BigInt(b);
+  return (b == 0) ? a : (a % b);
+})(#0, #1)]
