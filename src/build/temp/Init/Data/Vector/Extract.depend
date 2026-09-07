@@ -1,0 +1,1 @@
+build/Init/Data/Vector/Extract.olean: build/Init/Data/Vector/Basic.olean build/Init/ByCases.olean build/Init/Data/Array/Bootstrap.olean build/Init/Data/Array/Extract.olean build/Init/Data/Vector/Lemmas.olean build/Init/Omega.olean

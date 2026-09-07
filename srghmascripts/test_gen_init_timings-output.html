@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>gen_init cargo timings</title>
+  <style>
+    :root { color-scheme: light; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; color: #111827; background: #f8fafc; }
+    h1 { font-size: 1.5rem; margin: 0 0 12px; }
+    .meta, .summary { margin: 0 0 16px; color: #374151; }
+    table { border-collapse: collapse; width: 100%; background: white; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+    th, td { border: 1px solid #d1d5db; padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #e5e7eb; position: sticky; top: 0; }
+    td.ok { color: #065f46; font-weight: 600; }
+    td.failed { color: #991b1b; font-weight: 600; }
+    td.skipped { color: #92400e; font-weight: 600; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .notes { margin-top: 12px; color: #4b5563; }
+  </style>
+</head>
+<body>
+  <h1>gen_init cargo timings</h1>
+  <p class="meta">manifest: <code>src/rust/Cargo.toml</code> · package: <code>gen_init</code> · default jobs: <code>20</code> · hot jobs: <code>8</code></p>
+  <p class="summary">passed: 12 · failed: 0 · skipped: 0</p>
+  <table>
+    <thead>
+      <tr>
+        <th>sccache</th>
+        <th>threads=8</th>
+        <th>mode</th>
+        <th>cold status</th>
+        <th>cold time</th>
+        <th>cold peak rss</th>
+        <th>cold report</th>
+        <th>cold log</th>
+        <th>hot status</th>
+        <th>hot time</th>
+        <th>hot peak rss</th>
+        <th>hot report</th>
+        <th>hot log</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+          <td>off</td>
+          <td>default</td>
+          <td>build/default</td>
+          <td class="ok">passed</td><td class="ok">48.38s</td><td>3,197,632 KiB (3122.7 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-build-default-OVgFgp/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-build-default-OVgFgp/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">4.58s</td><td>76,816 KiB (75.0 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-build-default-OVgFgp/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-build-default-OVgFgp/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>off</td>
+          <td>default</td>
+          <td>build/mold</td>
+          <td class="ok">passed</td><td class="ok">54.74s</td><td>3,198,648 KiB (3123.7 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-build-mold-o61PUp/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-build-mold-o61PUp/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">5.22s</td><td>76,548 KiB (74.8 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-build-mold-o61PUp/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-build-mold-o61PUp/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>off</td>
+          <td>default</td>
+          <td>check</td>
+          <td class="ok">passed</td><td class="ok">43.72s</td><td>2,153,976 KiB (2103.5 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-check-2bke7L/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-check-2bke7L/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">4.79s</td><td>76,684 KiB (74.9 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-check-2bke7L/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads-default-check-2bke7L/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>off</td>
+          <td>8</td>
+          <td>build/default</td>
+          <td class="ok">passed</td><td class="ok">58.87s</td><td>3,196,836 KiB (3121.9 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads8-build-default-FOaXS7/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads8-build-default-FOaXS7/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">4.48s</td><td>76,464 KiB (74.7 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads8-build-default-FOaXS7/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads8-build-default-FOaXS7/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>off</td>
+          <td>8</td>
+          <td>build/mold</td>
+          <td class="ok">passed</td><td class="ok">45.63s</td><td>3,198,760 KiB (3123.8 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads8-build-mold-jU43bC/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads8-build-mold-jU43bC/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">4.39s</td><td>76,324 KiB (74.5 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads8-build-mold-jU43bC/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads8-build-mold-jU43bC/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>off</td>
+          <td>8</td>
+          <td>check</td>
+          <td class="ok">passed</td><td class="ok">33.77s</td><td>2,155,016 KiB (2104.5 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads8-check-eoTwS7/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads8-check-eoTwS7/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">4.32s</td><td>77,088 KiB (75.3 MiB)</td><td><a href="file:///tmp/gen-init-timings-plain-threads8-check-eoTwS7/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-plain-threads8-check-eoTwS7/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>on</td>
+          <td>default</td>
+          <td>build/default</td>
+          <td class="ok">passed</td><td class="ok">1m37.65s</td><td>3,197,980 KiB (3123.0 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-build-default-SYT9F9/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-build-default-SYT9F9/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">53.31s</td><td>3,196,476 KiB (3121.6 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-build-default-SYT9F9/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-build-default-SYT9F9/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>on</td>
+          <td>default</td>
+          <td>build/mold</td>
+          <td class="ok">passed</td><td class="ok">1m48.09s</td><td>3,197,280 KiB (3122.3 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-build-mold-BzJQdW/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-build-mold-BzJQdW/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">55.18s</td><td>3,197,956 KiB (3123.0 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-build-mold-BzJQdW/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-build-mold-BzJQdW/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>on</td>
+          <td>default</td>
+          <td>check</td>
+          <td class="ok">passed</td><td class="ok">1m18.69s</td><td>2,155,020 KiB (2104.5 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-check-6KyuNc/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-check-6KyuNc/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">44.66s</td><td>2,153,332 KiB (2102.9 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-check-6KyuNc/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads-default-check-6KyuNc/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>on</td>
+          <td>8</td>
+          <td>build/default</td>
+          <td class="ok">passed</td><td class="ok">1m48.26s</td><td>3,196,220 KiB (3121.3 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-build-default-Co0W5f/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-build-default-Co0W5f/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">58.49s</td><td>3,197,068 KiB (3122.1 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-build-default-Co0W5f/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-build-default-Co0W5f/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>on</td>
+          <td>8</td>
+          <td>build/mold</td>
+          <td class="ok">passed</td><td class="ok">1m55.11s</td><td>3,197,040 KiB (3122.1 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-build-mold-5OVGBt/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-build-mold-5OVGBt/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">1m02.77s</td><td>3,198,084 KiB (3123.1 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-build-mold-5OVGBt/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-build-mold-5OVGBt/hot.log">log</a></td>
+        </tr>
+
+        <tr>
+          <td>on</td>
+          <td>8</td>
+          <td>check</td>
+          <td class="ok">passed</td><td class="ok">1m18.04s</td><td>2,154,184 KiB (2103.7 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-check-y2UBX3/cold-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-check-y2UBX3/cold.log">log</a></td>
+          <td class="ok">passed</td><td class="ok">45.20s</td><td>2,153,936 KiB (2103.5 MiB)</td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-check-y2UBX3/hot-cargo-timing.html">report</a></td><td><a href="file:///tmp/gen-init-timings-sccache-threads8-check-y2UBX3/hot.log">log</a></td>
+        </tr>
+    </tbody>
+  </table>
+</body>
+</html>

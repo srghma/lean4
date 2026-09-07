@@ -1,0 +1,1 @@
+build/Init/WFTactics.olean: build/Init/WF.olean build/Init/Data/Nat/Basic.olean

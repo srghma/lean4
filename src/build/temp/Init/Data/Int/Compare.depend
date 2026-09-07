@@ -1,0 +1,1 @@
+build/Init/Data/Int/Compare.olean: build/Init/Data/Ord/Basic.olean build/Init/Data/Order/ClassesExtra.olean build/Init/Data/Ord/Basic.olean build/Init/Omega.olean

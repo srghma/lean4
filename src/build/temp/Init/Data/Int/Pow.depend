@@ -1,0 +1,1 @@
+build/Init/Data/Int/Pow.olean: build/Init/Data/Int/Basic.olean build/Init/ByCases.olean build/Init/Data/Nat/Lemmas.olean build/Init/Omega.olean build/Init/RCases.olean

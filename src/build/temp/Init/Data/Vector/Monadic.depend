@@ -1,0 +1,1 @@
+build/Init/Data/Vector/Monadic.olean: build/Init/Data/Vector/Basic.olean build/Init/Data/Vector/Attach.olean build/Init/Data/Array/Monadic.olean

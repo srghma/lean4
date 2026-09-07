@@ -1,0 +1,1 @@
+build/Init/Data/List/Nat/Count.olean: build/Init/GetElem.olean build/Init/ByCases.olean build/Init/Data/Bool.olean build/Init/Data/List/Count.olean build/Init/Data/List/Lemmas.olean build/Init/Data/List/Sublist.olean build/Init/Data/Nat/Lemmas.olean build/Init/Data/Nat/MinMax.olean build/Init/Omega.olean

@@ -1,0 +1,1 @@
+build/Init/Data/List/Nat/InsertIdx.olean: build/Init/GetElem.olean build/Init/Data/List/Erase.olean build/Init/Data/List/Lemmas.olean build/Init/Data/List/Nat/Modify.olean build/Init/Data/Nat/Lemmas.olean build/Init/Data/Option/Lemmas.olean build/Init/Omega.olean

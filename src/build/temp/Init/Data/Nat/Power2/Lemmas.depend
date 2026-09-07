@@ -1,0 +1,1 @@
+build/Init/Data/Nat/Power2/Lemmas.olean: build/Init/Data/Nat/Power2/Basic.olean build/Init/Data/Nat/Log2.olean build/Init/Data/Nat/Power2/Basic.olean build/Init/PropLemmas.olean build/Init/ByCases.olean build/Init/Data/Int/Pow.olean build/Init/Data/Nat/Bitwise/Lemmas.olean build/Init/Data/Nat/Lemmas.olean build/Init/Omega.olean build/Init/RCases.olean

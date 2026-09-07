@@ -1,0 +1,1 @@
+build/Init/Data/Format/Syntax.olean: build/Init/Data/ToString/Name.olean build/Init/Data/ToString/Basic.olean build/Init/Data/Format/Instances.olean build/Init/Data/Format/Macro.olean

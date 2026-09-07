@@ -1,0 +1,1 @@
+build/Init/WFExtrinsicFix.olean: build/Init/WF.olean build/Init/Classical.olean build/Init/Ext.olean build/Init/NotationExtra.olean

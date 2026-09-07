@@ -1,0 +1,1 @@
+build/Std/Data/Iterators/Lemmas/Equivalence/Basic.olean: build/Init/Internal/Order.olean build/Init/Data/Iterators/Basic.olean build/Std/Data/Iterators/Lemmas/Equivalence/HetT.olean

@@ -1,0 +1,1 @@
+build/Std/Data/Iterators/Lemmas/Producers/Array.olean: build/Std/Data/Iterators/Lemmas/Consumers/Collect.olean build/Std/Data/Iterators/Lemmas/Consumers/Loop.olean build/Init/Data/List/TakeDrop.olean build/Std/Data/Iterators/Producers/Array.olean build/Init/Data/Iterators/Producers/List.olean build/Std/Data/Iterators/Lemmas/Producers/Monadic/Array.olean

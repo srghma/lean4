@@ -1,0 +1,1 @@
+build/Init/Meta/Defs.olean: build/Init/Prelude.olean build/Init/Data/Array/Basic.olean build/Init/MetaTypes.olean build/Init/Data/Array/GetLit.olean build/Init/Data/Char/Basic.olean build/Init/MetaTypes.olean build/Init/WFTactics.olean

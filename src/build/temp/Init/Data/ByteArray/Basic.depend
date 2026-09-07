@@ -1,0 +1,1 @@
+build/Init/Data/ByteArray/Basic.olean: build/Init/Data/UInt/BasicAux.olean build/Init/Data/Array/DecidableEq.olean build/Init/Data/List/Attach.olean build/Init/Data/Array/Bootstrap.olean build/Init/Data/Array/Lemmas.olean build/Init/Omega.olean

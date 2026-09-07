@@ -1,0 +1,1 @@
+build/Std/Async/Basic.olean: build/Init/System/Promise.olean build/Init/While.olean

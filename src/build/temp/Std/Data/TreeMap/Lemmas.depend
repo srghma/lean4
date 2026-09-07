@@ -1,0 +1,1 @@
+build/Std/Data/TreeMap/Lemmas.olean: build/Std/Data/DTreeMap/Lemmas.olean build/Std/Data/TreeMap/AdditionalOperations.olean build/Init/Data/Array/Perm.olean build/Init/Data/List/Pairwise.olean

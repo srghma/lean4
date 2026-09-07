@@ -113,7 +113,7 @@ inductive Bool : Type where
 export Bool (false true)
 
 /-- Compute whether `x` is a tagged pointer or not. -/
-@[extern "lean_is_scalar"]
+@[extern "lean_is_scalar", js_extern_inlined Lean.Compiler.JS.Impl.isScalarObj]
 unsafe axiom isScalarObj {α : Type u} (x : α) : Bool
 
 /--
@@ -790,7 +790,7 @@ in the expression. A synthetic `sorry` acts like a regular one, except that it
 suppresses follow-up errors in order to prevent an error from causing a cascade
 of other errors because the desired term was not constructed.
 -/
-@[extern "lean_sorry", never_extract]
+@[extern "lean_sorry", never_extract, js_extern_inlined Lean.Compiler.JS.Impl.sorryAx]
 axiom sorryAx (α : Sort u) (synthetic : Bool) : α
 
 theorem Bool.eq_false_of_ne_true : {b : Bool} → Not (Eq b true) → Eq b false
@@ -1886,7 +1886,7 @@ arbitrary-precision arithmetic library. The definition provided here is the logi
 -/
 /- One might expect/hope that this was `implicit_reducible` rather than `instance_reducible`.
 Currently, the test `tests/elab/whnfProj.lean` fails if we make this change. -/
-@[extern "lean_nat_add", instance_reducible]
+@[extern "lean_nat_add", instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.natAdd]
 protected def Nat.add : (@& Nat) → (@& Nat) → Nat
   | a, Nat.zero   => a
   | a, Nat.succ b => Nat.succ (Nat.add a b)
@@ -1907,7 +1907,7 @@ arbitrary-precision arithmetic library. The definition provided here is the logi
 -/
 /- One might expect/hope that this was `implicit_reducible` rather than `instance_reducible`.
 Currently, the stage 2 build fails in `Init/Grind/Ring/Basic.lean` if we make this change. -/
-@[extern "lean_nat_mul", instance_reducible]
+@[extern "lean_nat_mul", instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.natMul]
 protected def Nat.mul : (@& Nat) → (@& Nat) → Nat
   | _, 0          => 0
   | a, Nat.succ b => Nat.add (Nat.mul a b) a
@@ -1922,7 +1922,7 @@ The power operation on natural numbers, usually accessed via the `^` operator.
 This function is overridden in both the kernel and the compiler to efficiently evaluate using the
 arbitrary-precision arithmetic library. The definition provided here is the logical model.
 -/
-@[extern "lean_nat_pow"]
+@[extern "lean_nat_pow", js_extern_inlined Lean.Compiler.JS.Impl.natPow]
 protected def Nat.pow (m : @& Nat) : (@& Nat) → Nat
   | 0      => 1
   | succ n => Nat.mul (Nat.pow m n) m
@@ -1936,7 +1936,7 @@ Boolean equality of natural numbers, usually accessed via the `==` operator.
 This function is overridden in both the kernel and the compiler to efficiently evaluate using the
 arbitrary-precision arithmetic library. The definition provided here is the logical model.
 -/
-@[extern "lean_nat_dec_eq"]
+@[extern "lean_nat_dec_eq", js_extern_inlined Lean.Compiler.JS.Impl.natDecEq]
 def Nat.beq : (@& Nat) → (@& Nat) → Bool
   | zero,   zero   => true
   | zero,   succ _ => false
@@ -1986,7 +1986,7 @@ Examples:
  * `(if 3 = 4 then "yes" else "no") = "no"`
  * `show 12 = 12 by decide`
 -/
-@[reducible, extern "lean_nat_dec_eq"]
+@[reducible, extern "lean_nat_dec_eq", js_extern_inlined Lean.Compiler.JS.Impl.natDecEq]
 protected def Nat.decEq (n m : @& Nat) : Decidable (Eq n m) where
   decide := beq n m
   reflects_decide :=
@@ -2008,7 +2008,7 @@ Examples:
  * `Nat.ble 5 2 = false`
  * `Nat.ble 5 5 = true`
 -/
-@[extern "lean_nat_dec_le"]
+@[extern "lean_nat_dec_le", js_extern_inlined Lean.Compiler.JS.Impl.natDecLe]
 def Nat.ble : @& Nat → @& Nat → Bool
   | zero,   _      => true
   | succ _, zero   => false
@@ -2092,7 +2092,7 @@ The predecessor of a natural number is one less than it. The predecessor of `0` 
 This definition is overridden in the compiler with an efficient implementation. This definition is
 the logical model.
 -/
-@[extern "lean_nat_pred", implicit_reducible]
+@[extern "lean_nat_pred", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.natPred]
 def Nat.pred : (@& Nat) → Nat
   | 0      => 0
   | succ a => a
@@ -2205,7 +2205,7 @@ Examples:
  * `show 12 ≤ 12 by decide`
  * `show 5 ≤ 12 by decide`
 -/
-@[extern "lean_nat_dec_le"]
+@[extern "lean_nat_dec_le", js_extern_inlined Lean.Compiler.JS.Impl.natDecLe]
 instance Nat.decLe (n m : @& Nat) : Decidable (LE.le n m) where
   decide := ble n m
   reflects_decide :=
@@ -2223,7 +2223,7 @@ Examples:
  * `(if 6 < 4 then "yes" else "no") = "no"`
  * `show 5 < 12 by decide`
 -/
-@[extern "lean_nat_dec_lt"]
+@[extern "lean_nat_dec_lt", js_extern_inlined Lean.Compiler.JS.Impl.natDecLt]
 instance Nat.decLt (n m : @& Nat) : Decidable (LT.lt n m) :=
   decLe (succ n) m
 
@@ -2246,7 +2246,7 @@ Examples:
 -/
 /- One might expect/hope that this was `implicit_reducible` rather than `instance_reducible`.
 Currently, the stage 2 build fails in `Init/Data/BitVec/Lemmas.lean` if we make this change. -/
-@[extern "lean_nat_sub", instance_reducible]
+@[extern "lean_nat_sub", instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.natSub]
 protected def Nat.sub : (@& Nat) → (@& Nat) → Nat
   | a, 0      => a
   | a, succ b => pred (Nat.sub a b)
@@ -2305,7 +2305,7 @@ Examples:
  * `0 / 22 = 0`
  * `5 / 0 = 0`
 -/
-@[extern "lean_nat_div", irreducible]
+@[extern "lean_nat_div", irreducible, js_extern_inlined Lean.Compiler.JS.Impl.natDiv]
 protected def Nat.div (x y : @& Nat) : Nat :=
   dite (LT.lt 0 y) (fun hy =>
     let rec
@@ -2335,7 +2335,7 @@ reductions](lean-manual://section/type-system) when the `Nat`s contain free vari
 This function is overridden at runtime with an efficient implementation. This definition is the
 logical model.
 -/
-@[extern "lean_nat_mod"]
+@[extern "lean_nat_mod", js_extern_inlined Lean.Compiler.JS.Impl.natMod]
 protected noncomputable def Nat.modCore (x y : Nat) : Nat :=
   dite (LT.lt 0 y)
     (fun hy =>
@@ -2393,7 +2393,7 @@ Examples:
  * `show ∀ (n : Nat), 0 % n = 0 from fun _ => rfl`
  * `show ∀ (m : Nat), 5 % (m + 6) = 5 from fun _ => rfl`
 -/
-@[extern "lean_nat_mod"]
+@[extern "lean_nat_mod", js_extern_inlined Lean.Compiler.JS.Impl.natMod]
 protected def Nat.mod : @& Nat → @& Nat → Nat
   /-
   Nat.modCore is defined with fuel and thus does not reduce with open terms very well.
@@ -2425,7 +2425,7 @@ same word size as the host. It also helps avoid having type checking be architec
 
 Lean only works on 64 and 32 bit systems. This fact is visible in the return type.
 -/
-@[extern "lean_system_platform_nbits"] opaque System.Platform.getNumBits : Unit → Subtype fun (n : Nat) => Or (Eq n 32) (Eq n 64) :=
+@[extern "lean_system_platform_nbits", js_extern_inlined Lean.Compiler.JS.Impl.systemPlatformGetNumBits] opaque System.Platform.getNumBits : Unit → Subtype fun (n : Nat) => Or (Eq n 32) (Eq n 64) :=
   fun _ => ⟨64, Or.inr rfl⟩ -- inhabitant
 
 /--
@@ -2583,7 +2583,7 @@ enough to be representable without overflow; it must be smaller than `2^8`.
 
 This function is overridden at runtime with an efficient implementation.
 -/
-@[extern "lean_uint8_of_nat", implicit_reducible]
+@[extern "lean_uint8_of_nat", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint8OfNat]
 def UInt8.ofNatLT (n : @& Nat) (h : LT.lt n UInt8.size) : UInt8 where
   toBitVec := BitVec.ofNatLT n h
 
@@ -2599,7 +2599,7 @@ Examples:
  * `UInt8.ofNat 259 = 3`
  * `UInt8.ofNat 32770 = 2`
 -/
-@[extern "lean_uint8_of_nat", implicit_reducible]
+@[extern "lean_uint8_of_nat", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint8OfNat]
 def UInt8.ofNat (n : @& Nat) : UInt8 := ⟨BitVec.ofNat 8 n⟩
 
 set_option bootstrap.genMatcherCode false in
@@ -2614,7 +2614,7 @@ Examples:
  * `(if (6 : UInt8) = 7 then "yes" else "no") = "no"`
  * `show (7 : UInt8) = 7 by decide`
 -/
-@[extern "lean_uint8_dec_eq", implicit_reducible]
+@[extern "lean_uint8_dec_eq", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint8DecEq]
 def UInt8.decEq (a b : UInt8) : Decidable (Eq a b) where
   decide := decide (Eq a.toBitVec b.toBitVec)
   reflects_decide :=
@@ -2651,7 +2651,7 @@ Examples:
  * `(if (5 : UInt8) < 5 then "yes" else "no") = "no"`
  * `show ¬((7 : UInt8) < 7) by decide`
 -/
-@[extern "lean_uint8_dec_lt", instance_reducible]
+@[extern "lean_uint8_dec_lt", instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint8DecLt]
 def UInt8.decLt (a b : UInt8) : Decidable (LT.lt a b) :=
   inferInstanceAs (Decidable (LT.lt a.toBitVec b.toBitVec))
 
@@ -2667,7 +2667,7 @@ Examples:
  * `(if (5 : UInt8) ≤ 15 then "yes" else "no") = "yes"`
  * `show (7 : UInt8) ≤ 7 by decide`
 -/
-@[extern "lean_uint8_dec_le", instance_reducible]
+@[extern "lean_uint8_dec_le", instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint8DecLe]
 def UInt8.decLe (a b : UInt8) : Decidable (LE.le a b) :=
   inferInstanceAs (Decidable (LE.le a.toBitVec b.toBitVec))
 
@@ -2701,7 +2701,7 @@ enough to be representable without overflow; it must be smaller than `2^16`.
 
 This function is overridden at runtime with an efficient implementation.
 -/
-@[extern "lean_uint16_of_nat", implicit_reducible]
+@[extern "lean_uint16_of_nat", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint16OfNat]
 def UInt16.ofNatLT (n : @& Nat) (h : LT.lt n UInt16.size) : UInt16 where
   toBitVec := BitVec.ofNatLT n h
 
@@ -2718,7 +2718,7 @@ Examples:
  * `(if (6 : UInt16) = 7 then "yes" else "no") = "no"`
  * `show (7 : UInt16) = 7 by decide`
 -/
-@[extern "lean_uint16_dec_eq", implicit_reducible]
+@[extern "lean_uint16_dec_eq", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint16DecEq]
 def UInt16.decEq (a b : UInt16) : Decidable (Eq a b) where
   decide := decide (Eq a.toBitVec b.toBitVec)
   reflects_decide :=
@@ -2750,8 +2750,8 @@ structure UInt32 where
   -/
   toBitVec : BitVec 32
 
-attribute [extern "lean_uint32_of_nat_mk"] UInt32.ofBitVec
-attribute [extern "lean_uint32_to_nat"] UInt32.toBitVec
+attribute [extern "lean_uint32_of_nat_mk", js_extern_inlined Lean.Compiler.JS.Impl.uint32OfNat] UInt32.ofBitVec
+attribute [extern "lean_uint32_to_nat", js_extern_inlined Lean.Compiler.JS.Impl.uint32OfNat] UInt32.toBitVec
 
 /--
 Converts a natural number to a 32-bit unsigned integer. Requires a proof that the number is small
@@ -2759,7 +2759,7 @@ enough to be representable without overflow; it must be smaller than `2^32`.
 
 This function is overridden at runtime with an efficient implementation.
 -/
-@[extern "lean_uint32_of_nat", implicit_reducible]
+@[extern "lean_uint32_of_nat", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint32OfNat]
 def UInt32.ofNatLT (n : @& Nat) (h : LT.lt n UInt32.size) : UInt32 where
   toBitVec := BitVec.ofNatLT n h
 
@@ -2783,7 +2783,7 @@ Examples:
  * `(if (6 : UInt32) = 7 then "yes" else "no") = "no"`
  * `show (7 : UInt32) = 7 by decide`
 -/
-@[extern "lean_uint32_dec_eq", implicit_reducible]
+@[extern "lean_uint32_dec_eq", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint32DecEq]
 def UInt32.decEq (a b : UInt32) : Decidable (Eq a b) where
   decide := decide (Eq a.toBitVec b.toBitVec)
   reflects_decide :=
@@ -2813,7 +2813,7 @@ Examples:
  * `(if (5 : UInt32) < 5 then "yes" else "no") = "no"`
  * `show ¬((7 : UInt32) < 7) by decide`
 -/
-@[extern "lean_uint32_dec_lt", instance_reducible]
+@[extern "lean_uint32_dec_lt", instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint32DecLt]
 def UInt32.decLt (a b : UInt32) : Decidable (LT.lt a b) :=
   inferInstanceAs (Decidable (LT.lt a.toBitVec b.toBitVec))
 
@@ -2829,7 +2829,7 @@ Examples:
  * `(if (5 : UInt32) ≤ 15 then "yes" else "no") = "yes"`
  * `show (7 : UInt32) ≤ 7 by decide`
 -/
-@[extern "lean_uint32_dec_le", instance_reducible]
+@[extern "lean_uint32_dec_le", instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint32DecLe]
 def UInt32.decLe (a b : UInt32) : Decidable (LE.le a b) :=
   inferInstanceAs (Decidable (LE.le a.toBitVec b.toBitVec))
 
@@ -2883,7 +2883,7 @@ Examples:
  * `(if (6 : UInt64) = 7 then "yes" else "no") = "no"`
  * `show (7 : UInt64) = 7 by decide`
 -/
-@[extern "lean_uint64_dec_eq", implicit_reducible]
+@[extern "lean_uint64_dec_eq", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint64DecEq]
 def UInt64.decEq (a b : UInt64) : Decidable (Eq a b) where
   decide := decide (Eq a.toBitVec b.toBitVec)
   reflects_decide :=
@@ -2953,7 +2953,7 @@ Examples:
  * `(if (6 : USize) = 7 then "yes" else "no") = "no"`
  * `show (7 : USize) = 7 by decide`
 -/
-@[extern "lean_usize_dec_eq"]
+@[extern "lean_usize_dec_eq", js_extern_inlined Lean.Compiler.JS.Impl.usizeDecEq]
 def USize.decEq (a b : USize) : Decidable (Eq a b) where
   decide := decide (Eq a.toBitVec b.toBitVec)
   reflects_decide :=
@@ -3000,7 +3000,7 @@ private theorem isValidChar_UInt32 {n : Nat} (h : n.isValidChar) : LT.lt n UInt3
 Pack a `Nat` encoding a valid codepoint into a `Char`.
 This function is overridden with a native implementation.
 -/
-@[extern "lean_uint32_of_nat", implicit_reducible]
+@[extern "lean_uint32_of_nat", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.uint32OfNat]
 def Char.ofNatAux (n : @& Nat) (h : n.isValidChar) : Char where
   val := ⟨BitVec.ofNatLT n
     -- We would conventionally use `by exact` here to enter a private context, but `exact` does not
@@ -3380,14 +3380,14 @@ Constructs a new empty array with initial capacity `c`.
 
 This will be deprecated in favor of `Array.emptyWithCapacity` in the future.
 -/
-@[extern "lean_mk_empty_array_with_capacity"]
+@[extern "lean_mk_empty_array_with_capacity", js_extern_inlined Lean.Compiler.JS.Impl.mkEmptyArrayWithCapacity]
 def Array.mkEmpty {α : Type u} (c : @& Nat) : Array α where
   toList := List.nil
 
 /--
 Constructs a new empty array with initial capacity `c`.
 -/
-@[extern "lean_mk_empty_array_with_capacity", implicit_reducible]
+@[extern "lean_mk_empty_array_with_capacity", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.mkEmptyArrayWithCapacity]
 def Array.emptyWithCapacity {α : Type u} (c : @& Nat) : Array α where
   toList := List.nil
 
@@ -3408,7 +3408,7 @@ internal detail that's not observable by Lean code.
 -/
 /- One might expect/hope that this was `implicit_reducible` rather than `instance_reducible`.
 Currently, the stage 2 build fails in `Init/Data/List/MapIdx.lean` if we make this change. -/
-@[extern "lean_array_get_size", tagged_return, instance_reducible]
+@[extern "lean_array_get_size", tagged_return, instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.arrayGetSize]
 def Array.size {α : Type u} (a : @& Array α) : Nat :=
  a.toList.length
 
@@ -3431,7 +3431,7 @@ This function does not use `get_elem_tactic` to automatically find the proof tha
 the index is in bounds. This is because the tactic itself needs to look up values in
 arrays.
 -/
-@[extern "lean_array_fget", implicit_reducible]
+@[extern "lean_array_fget", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.arrayGet]
 def Array.getInternal {α : Type u} (a : @& Array α) (i : @& Nat) (h : LT.lt i a.size) : α :=
   a.toList.get ⟨i, h⟩
 
@@ -3580,7 +3580,7 @@ attribute [extern "lean_byte_array_data"] ByteArray.data
 /--
 Constructs a new empty byte array with initial capacity `c`.
 -/
-@[extern "lean_mk_empty_byte_array", implicit_reducible]
+@[extern "lean_mk_empty_byte_array", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.mkEmptyByteArray]
 def ByteArray.emptyWithCapacity (c : @& Nat) : ByteArray :=
   { data := Array.empty }
 
@@ -3618,7 +3618,7 @@ Returns the number of bytes in the byte array.
 This is the number of bytes actually in the array, as distinct from its capacity, which is the
 amount of memory presently allocated for the array.
 -/
-@[extern "lean_byte_array_size", tagged_return, implicit_reducible]
+@[extern "lean_byte_array_size", tagged_return, implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.byteArraySize]
 def ByteArray.size : (@& ByteArray) → Nat
   | ⟨bs⟩ => bs.size
 
@@ -3688,8 +3688,8 @@ structure String where ofByteArray ::
   /-- The bytes of the string form valid UTF-8. -/
   isValidUTF8 : ByteArray.IsValidUTF8 toByteArray
 
-attribute [extern "lean_string_to_utf8"] String.toByteArray
-attribute [extern "lean_string_from_utf8_unchecked"] String.ofByteArray
+attribute [extern "lean_string_to_utf8", js_extern_inlined Lean.Compiler.JS.Impl.stringToUtf8] String.toByteArray
+attribute [extern "lean_string_from_utf8_unchecked", js_extern_inlined Lean.Compiler.JS.Impl.stringFromUtf8Unchecked] String.ofByteArray
 
 /--
 Creates a string that contains the characters in a list, in order.
@@ -3699,7 +3699,7 @@ Examples:
  * `String.ofList [] = ""`
  * `String.ofList ['a', 'a', 'a'] = "aaa"`
 -/
-@[extern "lean_string_mk", implicit_reducible]
+@[extern "lean_string_mk", implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.stringMk]
 def String.ofList (data : List Char) : String :=
   ⟨List.utf8Encode data, .intro data rfl⟩
 
@@ -3709,7 +3709,7 @@ Decides whether two strings are equal. Normally used via the `DecidableEq String
 
 At runtime, this function is overridden with an efficient native implementation.
 -/
-@[extern "lean_string_dec_eq", instance_reducible]
+@[extern "lean_string_dec_eq", instance_reducible, js_extern_inlined Lean.Compiler.JS.Impl.stringDecEq]
 def String.decEq (s₁ s₂ : @& String) : Decidable (Eq s₁ s₂) :=
   match s₁, s₂ with
   | ⟨⟨⟨s₁⟩⟩, _⟩, ⟨⟨⟨s₂⟩⟩, _⟩ =>
@@ -3779,7 +3779,7 @@ The number of bytes used by the string's UTF-8 encoding.
 
 At runtime, this function takes constant time because the byte length of strings is cached.
 -/
-@[extern "lean_string_utf8_byte_size", tagged_return, implicit_reducible]
+@[extern "lean_string_utf8_byte_size", tagged_return, implicit_reducible, js_extern_inlined Lean.Compiler.JS.Impl.stringUtf8ByteSize]
 def String.utf8ByteSize (s : @& String) : Nat :=
   s.toByteArray.size
 

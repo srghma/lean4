@@ -1,0 +1,1 @@
+build/Init/Data/Fin/Fold.olean: build/Init/Control/Lawful/Basic.olean build/Init/Ext.olean build/Init/Data/Fin/Lemmas.olean build/Init/Data/Nat/Lemmas.olean build/Init/Omega.olean build/Init/TacticsExtra.olean build/Init/WFTactics.olean build/Init/Hints.olean

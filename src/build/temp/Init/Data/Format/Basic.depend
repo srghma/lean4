@@ -1,0 +1,1 @@
+build/Init/Data/Format/Basic.olean: build/Init/Data/Int/Basic.olean build/Init/Data/String/Bootstrap.olean build/Init/Control/State.olean build/Init/Data/Nat/Bitwise/Basic.olean

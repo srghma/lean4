@@ -1,0 +1,1 @@
+build/Init/Data/Range/Polymorphic/Char.olean: build/Init/Data/Char/Ordinal.olean build/Init/Data/Range/Polymorphic/Fin.olean build/Init/Data/Range/Polymorphic/Map.olean build/Init/Data/Char/Order.olean build/Init/Data/Fin/Lemmas.olean build/Init/Data/Option/Lemmas.olean

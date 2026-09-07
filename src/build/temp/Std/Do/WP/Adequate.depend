@@ -1,0 +1,1 @@
+build/Std/Do/WP/Adequate.olean: build/Std/Do/WP/Monad.olean build/Std/Do/Internal/Ensures/Def.olean

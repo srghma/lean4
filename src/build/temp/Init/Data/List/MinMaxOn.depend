@@ -1,0 +1,1 @@
+build/Init/Data/List/MinMaxOn.olean: build/Init/Data/Order/MinMaxOn.olean build/Init/Data/List/Lemmas.olean build/Init/Data/List/TakeDrop.olean build/Init/Data/Order/Lemmas.olean build/Init/Data/List/Sublist.olean build/Init/Data/List/MinMax.olean build/Init/Data/Option/Lemmas.olean build/Init/ByCases.olean build/Init/Data/Bool.olean

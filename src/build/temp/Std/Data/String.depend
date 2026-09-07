@@ -1,0 +1,1 @@
+build/Std/Data/String.olean: build/Std/Data/String/ToNat.olean build/Std/Data/String/ToInt.olean

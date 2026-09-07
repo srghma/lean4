@@ -1,0 +1,1 @@
+build/Init/Data/Array/Attach.olean: build/Init/Data/List/Attach.olean build/Init/Data/Array/Lemmas.olean build/Init/Data/Array/Bootstrap.olean build/Init/Data/Array/Count.olean

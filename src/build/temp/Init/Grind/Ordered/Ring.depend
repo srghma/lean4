@@ -1,0 +1,1 @@
+build/Init/Grind/Ordered/Ring.olean: build/Init/Grind/Ring/Basic.olean build/Init/Grind/Ordered/Module.olean build/Init/Data/Nat/Lemmas.olean build/Init/Grind/Ordered/Order.olean build/Init/Omega.olean build/Init/RCases.olean

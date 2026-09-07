@@ -1,0 +1,1 @@
+build/Init/Omega/Logic.olean: build/Init/Grind/Tactics.olean build/Init/PropLemmas.olean

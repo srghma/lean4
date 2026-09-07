@@ -1,0 +1,1 @@
+build/Init/Data/Array/Sort.olean: build/Init/Data/Array/Sort/Basic.olean build/Init/Data/Array/Sort/Lemmas.olean

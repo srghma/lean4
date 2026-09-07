@@ -1,0 +1,1 @@
+build/Init/Control/Lawful/Lemmas.olean: build/Init/Control/Lawful/Basic.olean build/Init/Classical.olean build/Init/Ext.olean build/Init/ByCases.olean

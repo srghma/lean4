@@ -1,0 +1,1 @@
+build/Init/Data/Iterators/Basic.olean: build/Init/NotationExtra.olean build/Init/WFTactics.olean build/Init/Ext.olean build/Init/PropLemmas.olean

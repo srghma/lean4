@@ -1,0 +1,1 @@
+build/Init/Data/AC.olean: build/Init/GetElem.olean build/Init/ByCases.olean build/Init/PropLemmas.olean

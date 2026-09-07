@@ -1,0 +1,1 @@
+build/Init/Data/Ord/Vector.olean: build/Init/Data/Order/Ord.olean build/Init/Data/Vector/Basic.olean build/Init/Data/Vector/Lemmas.olean

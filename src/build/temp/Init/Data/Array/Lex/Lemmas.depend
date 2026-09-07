@@ -1,0 +1,1 @@
+build/Init/Data/Array/Lex/Lemmas.olean: build/Init/Data/Array/Lex/Basic.olean build/Init/Data/Array/Lex/Basic.olean build/Init/Data/Range/Polymorphic/NatLemmas.olean build/Init/Data/BEq.olean build/Init/Data/Array/DecidableEq.olean build/Init/Data/Array/Lemmas.olean build/Init/Data/Bool.olean build/Init/Data/List/Lex.olean build/Init/Data/Range/Polymorphic/Lemmas.olean

@@ -1,0 +1,1 @@
+build/Init/Data/Order/LemmasExtra.olean: build/Init/ByCases.olean build/Init/Classical.olean build/Init/Data/Order/Classes.olean build/Init/Data/Order/ClassesExtra.olean build/Init/Data/Order/Ord.olean build/Init/Data/Bool.olean build/Init/Data/Order/FactoriesExtra.olean build/Init/Data/Order/Lemmas.olean

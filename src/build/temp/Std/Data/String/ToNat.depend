@@ -1,0 +1,1 @@
+build/Std/Data/String/ToNat.olean: build/Init/Data/String/Slice.olean build/Init/Data/String/Search.olean build/Init/Data/Nat/ToString.olean build/Init/Data/String/Slice.olean build/Init/Data/String/Search.olean build/Init/Data/String/Lemmas/Iterate.olean build/Std/Tactic/Do.olean build/Init/Data/List/Sublist.olean

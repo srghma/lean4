@@ -1,0 +1,1 @@
+build/Std/Sat.olean: build/Std/Sat/AIG.olean build/Std/Sat/CNF.olean

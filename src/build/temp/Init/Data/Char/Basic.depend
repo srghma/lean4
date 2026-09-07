@@ -1,0 +1,1 @@
+build/Init/Data/Char/Basic.olean: build/Init/Data/UInt/BasicAux.olean build/Init/Data/Nat/Div/Basic.olean

@@ -1,0 +1,1 @@
+build/Init/GrindInstances/Ring/Int.olean: build/Init/Grind/Ring/Basic.olean build/Init/Data/Int/Lemmas.olean build/Init/Data/Int/Pow.olean build/Init/Data/Int/DivMod/Lemmas.olean build/Init/Meta.olean

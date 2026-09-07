@@ -11,6 +11,7 @@ import Lean.Elab.ParseImportsFast
 import Lean.Server.Watchdog
 import Lean.Server.FileWorker
 import Lean.Compiler.LCNF.EmitC
+import Lean.Compiler.LCNF.EmitEs6
 import Init.System.Platform
 import Lean.Compiler.Options
 import Std.Async.Process
@@ -151,6 +152,7 @@ def displayHelp (useStderr : Bool) : IO Unit := do
   out.putStrLn    "  -i, --i=iname          create ilean file"
   out.putStrLn    "  -c, --c=fname          name of the C output file"
   out.putStrLn    "  -b, --bc=fname         name of the LLVM bitcode file"
+  out.putStrLn    "  -A, --javascript=fname name of the Javascript bitcode file"
   out.putStrLn    "      --stdin            take input from stdin"
   out.putStrLn    "  -R, --root=dir         set package root directory from which the module name\n"
   out.putStrLn    "                         of the input file is calculated\n"
@@ -242,6 +244,7 @@ structure ShellOptions where
   ileanFileName? : Option System.FilePath := none
   cFileName? : Option System.FilePath := none
   bcFileName? : Option System.FilePath := none
+  javascriptFileName? : Option System.FilePath := none
   jsonOutput : Bool := false
   errorOnKinds : Array Name := #[]
   printStats : Bool := false
@@ -327,6 +330,8 @@ def ShellOptions.process (opts : ShellOptions)
     return {opts with cFileName? := ← checkOptArg "c" optArg?}
   | 'b' => -- `-b, --bc=fname`
     return {opts with bcFileName? := ← checkOptArg "b" optArg?}
+  | 'A' => -- `-A, --javascript=fname`
+    return {opts with javascriptFileName? := ← checkOptArg "A" optArg?}
   | 's' => -- `-s, --tstack=num`
     let arg ← checkOptArg "s" optArg?
     let some stackSize := arg.toNat?
@@ -569,6 +574,14 @@ def shellMain (args : List String) (opts : ShellOptions) : IO UInt32 := do
       initLLVM
       profileitIO "LLVM code generation" opts.leanOpts do
         emitLLVM env mainModuleName bc
+    if let some javascript := opts.javascriptFileName? then
+      let .ok out ← IO.FS.Handle.mk javascript .write |>.toBaseIO
+        | IO.eprintln s!"failed to create '{javascript}'"
+          return 1
+      profileitIO "JavaScript code generation" opts.leanOpts do
+        let data ← Compiler.LCNF.emitEs6 mainModuleName
+          |>.toIO' { fileName, fileMap := default } { env }
+        out.write data.toUTF8
   displayCumulativeProfilingTimes
   if Internal.hasAddressSanitizer () then
     return if env?.isSome then 0 else 1

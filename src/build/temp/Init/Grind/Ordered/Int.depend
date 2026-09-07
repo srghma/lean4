@@ -1,0 +1,1 @@
+build/Init/Grind/Ordered/Int.olean: build/Init/Grind/Ordered/Ring.olean build/Init/GrindInstances/Ring/Int.olean build/Init/Omega.olean

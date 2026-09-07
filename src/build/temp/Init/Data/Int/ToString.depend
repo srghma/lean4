@@ -1,0 +1,1 @@
+build/Init/Data/Int/ToString.olean: build/Init/Data/ToString/Extra.olean build/Init/Data/Int/Repr.olean build/Init/Data/Int/Order.olean build/Init/Data/Int/LemmasAux.olean

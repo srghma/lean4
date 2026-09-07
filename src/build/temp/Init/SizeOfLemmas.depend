@@ -1,0 +1,1 @@
+build/Init/SizeOfLemmas.olean: build/Init/Data/Char/Basic.olean build/Init/SizeOf.olean build/Init/Data/Char/Basic.olean build/Init/Data/Nat/Linear.olean build/Init/MetaTypes.olean

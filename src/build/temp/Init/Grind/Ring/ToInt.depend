@@ -1,0 +1,1 @@
+build/Init/Grind/Ring/ToInt.olean: build/Init/Grind/Ring/Basic.olean build/Init/Conv.olean build/Init/Data/Int/Pow.olean

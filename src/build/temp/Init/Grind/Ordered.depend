@@ -1,0 +1,1 @@
+build/Init/Grind/Ordered.olean: build/Init/Grind/Ordered/Order.olean build/Init/Grind/Ordered/Module.olean build/Init/Grind/Ordered/Ring.olean build/Init/Grind/Ordered/Field.olean build/Init/Grind/Ordered/Int.olean build/Init/Grind/Ordered/Rat.olean build/Init/Grind/Ordered/Linarith.olean

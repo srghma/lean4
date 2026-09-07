@@ -1,0 +1,1 @@
+build/Std/Data/TreeSet/DecidableEquiv.olean: build/Std/Data/TreeMap/DecidableEquiv.olean build/Std/Data/TreeSet/Basic.olean

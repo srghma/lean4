@@ -1,0 +1,1 @@
+build/Std/Internal/Do/PredTrans.olean: build/Std/Internal/Do/Assertion.olean build/Std/Internal/Do/ExceptPost.olean

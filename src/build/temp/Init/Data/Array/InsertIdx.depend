@@ -1,0 +1,1 @@
+build/Init/Data/Array/InsertIdx.olean: build/Init/Data/Array/Basic.olean build/Init/Data/List/Nat/InsertIdx.olean build/Init/Data/List/ToArray.olean build/Init/Data/Nat/Lemmas.olean build/Init/Omega.olean

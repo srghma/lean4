@@ -1,0 +1,1 @@
+build/Init/Data/List/Basic.olean: build/Init/Data/List/Notation.olean build/Init/Data/Zero.olean build/Init/Grind/Tactics.olean build/Init/SimpLemmas.olean build/Init/Data/Nat/Basic.olean

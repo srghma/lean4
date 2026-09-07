@@ -1,0 +1,1 @@
+build/Init/Data/Array/Nat.olean: build/Init/Data/Array/MinMax.olean build/Init/Data/List/Nat/Sum.olean build/Init/Data/List/Nat/Prod.olean build/Init/Data/Array/Lemmas.olean

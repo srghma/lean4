@@ -1,0 +1,1 @@
+build/Init/WF.olean: build/Init/BinderNameHint.olean build/Init/Grind/Tactics.olean build/Init/Data/Nat/Basic.olean

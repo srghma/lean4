@@ -1,0 +1,1 @@
+build/Init/Data/String/Pattern.olean: build/Init/Data/String/Pattern/Basic.olean build/Init/Data/String/Pattern/Char.olean build/Init/Data/String/Pattern/String.olean build/Init/Data/String/Pattern/Pred.olean

@@ -1,0 +1,1 @@
+build/Init/Task.olean: build/Init/Core.olean build/Init/Data/List/Basic.olean build/Init/Data/Nat/Bitwise/Basic.olean

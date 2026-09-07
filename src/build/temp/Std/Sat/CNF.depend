@@ -1,0 +1,1 @@
+build/Std/Sat/CNF.olean: build/Std/Sat/CNF/Basic.olean build/Std/Sat/CNF/Literal.olean build/Std/Sat/CNF/Relabel.olean build/Std/Sat/CNF/RelabelFin.olean build/Std/Sat/CNF/Dimacs.olean

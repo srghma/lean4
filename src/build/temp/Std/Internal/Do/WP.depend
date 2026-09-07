@@ -1,0 +1,1 @@
+build/Std/Internal/Do/WP.olean: build/Std/Internal/Do/WP/Basic.olean build/Std/Internal/Do/WP/Lemmas.olean

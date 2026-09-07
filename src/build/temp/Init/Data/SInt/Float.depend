@@ -1,0 +1,1 @@
+build/Init/Data/SInt/Float.olean: build/Init/Data/Float.olean build/Init/Data/SInt/Basic.olean

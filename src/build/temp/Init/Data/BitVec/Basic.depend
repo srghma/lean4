@@ -1,0 +1,1 @@
+build/Init/Data/BitVec/Basic.olean: build/Init/Data/Int/Bitwise/Basic.olean build/Init/Data/Bool.olean build/Init/Data/Int/DivMod/Basic.olean build/Init/WF.olean build/Init/Data/Nat/Bitwise/Lemmas.olean build/Init/Data/Nat/Lemmas.olean build/Init/Data/Nat/Linear.olean build/Init/Meta/Defs.olean build/Init/Omega.olean build/Init/WFTactics.olean

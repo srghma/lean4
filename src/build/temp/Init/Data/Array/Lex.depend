@@ -1,0 +1,1 @@
+build/Init/Data/Array/Lex.olean: build/Init/Data/Array/Lex/Basic.olean build/Init/Data/Array/Lex/Lemmas.olean

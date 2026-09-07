@@ -1,0 +1,1 @@
+build/Init/Data/Array/BinSearch.olean: build/Init/Data/Array/Basic.olean build/Init/Data/Bool.olean build/Init/Omega.olean build/Init/WFTactics.olean

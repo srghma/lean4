@@ -1,0 +1,1 @@
+build/Init/Data/String/Lemmas/Pattern/Split.olean: build/Init/Data/String/Lemmas/Pattern/Split/Basic.olean build/Init/Data/String/Lemmas/Pattern/Split/Char.olean build/Init/Data/String/Lemmas/Pattern/Split/Pred.olean

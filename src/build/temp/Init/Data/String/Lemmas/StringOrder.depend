@@ -1,0 +1,1 @@
+build/Init/Data/String/Lemmas/StringOrder.olean: build/Init/Data/String/Basic.olean build/Init/Data/Order/Classes.olean build/Init/Data/List/Lex.olean build/Init/Data/Char/Lemmas.olean build/Init/Data/Char/Order.olean build/Init/Data/Order/Factories.olean build/Init/Data/Order/Lemmas.olean

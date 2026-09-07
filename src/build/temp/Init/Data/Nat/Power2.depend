@@ -1,0 +1,1 @@
+build/Init/Data/Nat/Power2.olean: build/Init/Data/Nat/Power2/Basic.olean build/Init/Data/Nat/Power2/Lemmas.olean

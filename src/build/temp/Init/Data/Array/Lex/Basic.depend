@@ -1,0 +1,1 @@
+build/Init/Data/Array/Lex/Basic.olean: build/Init/Data/Range/Polymorphic/RangeIterator.olean build/Init/Data/Range/Polymorphic/Iterators.olean build/Init/Data/Range/Polymorphic/Nat.olean build/Init/Omega.olean

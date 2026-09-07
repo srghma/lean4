@@ -1,0 +1,1 @@
+build/Init/Data/Array/OfFn.olean: build/Init/Data/Array/Basic.olean build/Init/Data/List/OfFn.olean build/Init/Data/Array/Bootstrap.olean build/Init/Data/Array/Monadic.olean build/Init/Data/Fin/Lemmas.olean build/Init/Data/List/FinRange.olean build/Init/Data/Option/Lemmas.olean build/Init/Omega.olean

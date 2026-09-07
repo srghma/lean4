@@ -1,0 +1,1 @@
+build/Init/Control/Lawful.olean: build/Init/Control/Lawful/Basic.olean build/Init/Control/Lawful/Instances.olean build/Init/Control/Lawful/Lemmas.olean build/Init/Control/Lawful/MonadLift.olean build/Init/Control/Lawful/MonadAttach.olean

@@ -1,0 +1,1 @@
+build/Init/Data/String/Lemmas/IsEmpty.olean: build/Init/Data/String/Basic.olean build/Init/Data/String/Defs.olean build/Init/Data/String/Lemmas/Order.olean build/Init/Data/String/Lemmas/Basic.olean build/Init/Data/String/OrderInstances.olean build/Init/Grind.olean

@@ -1,0 +1,1 @@
+build/Std/Async.olean: build/Std/Async/Basic.olean build/Std/Async/ContextAsync.olean build/Std/Async/Timer.olean build/Std/Async/TCP.olean build/Std/Async/UDP.olean build/Std/Async/DNS.olean build/Std/Async/Select.olean build/Std/Async/Process.olean build/Std/Async/System.olean build/Std/Async/Signal.olean build/Std/Async/IO.olean

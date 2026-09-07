@@ -1,0 +1,1 @@
+build/Std/Tactic/Do/Syntax.olean: build/Std/Do.olean build/Std/Tactic/Do/ProofMode.olean build/Init/Data/Array/GetLit.olean build/Init/Grind/Interactive.olean

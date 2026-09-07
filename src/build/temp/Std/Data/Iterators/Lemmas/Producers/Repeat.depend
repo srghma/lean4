@@ -1,0 +1,1 @@
+build/Std/Data/Iterators/Lemmas/Producers/Repeat.olean: build/Std/Data/Iterators/Producers/Repeat.olean build/Init/Data/Iterators/Lemmas/Combinators/Take.olean build/Init/Data/Iterators/Lemmas/Consumers/Access.olean build/Init/Data/Iterators/Lemmas/Consumers/Collect.olean build/Init/Data/Option/Lemmas.olean

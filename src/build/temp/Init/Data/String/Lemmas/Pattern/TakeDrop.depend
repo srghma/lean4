@@ -1,0 +1,1 @@
+build/Init/Data/String/Lemmas/Pattern/TakeDrop.olean: build/Init/Data/String/Lemmas/Pattern/TakeDrop/Basic.olean build/Init/Data/String/Lemmas/Pattern/TakeDrop/Char.olean build/Init/Data/String/Lemmas/Pattern/TakeDrop/Pred.olean build/Init/Data/String/Lemmas/Pattern/TakeDrop/String.olean

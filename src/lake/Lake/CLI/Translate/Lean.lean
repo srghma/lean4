@@ -133,6 +133,7 @@ instance : ToLean BuildType := ⟨BuildType.toLean⟩
 protected def Backend.toLean : Backend → Term
 | .c => mkCIdent ``c
 | .llvm => mkCIdent ``llvm
+| .es6 => mkCIdent ``es6
 | .default => mkCIdent ``default
 
 instance : ToLean Backend := ⟨Backend.toLean⟩

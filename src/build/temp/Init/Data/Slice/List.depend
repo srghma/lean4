@@ -1,0 +1,1 @@
+build/Init/Data/Slice/List.olean: build/Init/Data/Slice/List/Basic.olean build/Init/Data/Slice/List/Iterator.olean build/Init/Data/Slice/List/Lemmas.olean

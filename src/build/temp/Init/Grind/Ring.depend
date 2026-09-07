@@ -1,0 +1,1 @@
+build/Init/Grind/Ring.olean: build/Init/Grind/Ring/Basic.olean build/Init/Grind/Ring/Field.olean build/Init/Grind/Ring/OfScientific.olean build/Init/Grind/Ring/Envelope.olean build/Init/Grind/Ring/CommSolver.olean build/Init/Grind/Ring/CommSemiringAdapter.olean build/Init/Grind/Ring/ToInt.olean

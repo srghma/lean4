@@ -35,6 +35,10 @@ public inductive Backend
   -/
   | llvm
   /--
+  Force the ES6 backend.
+  -/
+  | es6
+  /--
   Use the default backend. Can be overridden by more specific configuration.
   -/
   | default
@@ -49,6 +53,7 @@ public def ofString? (s : String) : Option Backend :=
   match s with
   | "c" => some .c
   | "llvm" => some .llvm
+  | "es6" => some .es6
   | "default" => some .default
   | _ => none
 
@@ -56,6 +61,7 @@ public protected def toString (bt : Backend) : String :=
   match bt with
   | .c => "c"
   | .llvm => "llvm"
+  | .es6 => "es6"
   | .default => "default"
 
 instance : ToString Backend := ⟨Backend.toString⟩

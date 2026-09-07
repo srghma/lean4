@@ -1,0 +1,1 @@
+build/Init/Grind/Ordered/Order.olean: build/Init/Data/Order/Classes.olean build/Init/Grind/Tactics.olean build/Init/Data/Order/Lemmas.olean

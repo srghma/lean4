@@ -1,0 +1,1 @@
+build/Init/Data/Iterators/Combinators/Monadic/Take.olean: build/Init/Data/Iterators/Consumers/Monadic/Loop.olean build/Init/Classical.olean build/Init/ByCases.olean build/Init/Omega.olean

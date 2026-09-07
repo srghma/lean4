@@ -1,0 +1,1 @@
+build/Init/Internal/Order/Basic.olean: build/Init/System/IO.olean build/Init/Control/Except.olean build/Init/Control/StateRef.olean build/Init/Control/Option.olean build/Init/System/ST.olean build/Init/ByCases.olean

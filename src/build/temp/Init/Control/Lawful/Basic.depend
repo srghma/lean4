@@ -1,0 +1,1 @@
+build/Init/Control/Lawful/Basic.olean: build/Init/Control/Id.olean build/Init/Grind/Tactics.olean build/Init/Ext.olean

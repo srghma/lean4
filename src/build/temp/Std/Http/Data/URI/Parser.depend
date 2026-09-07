@@ -1,0 +1,1 @@
+build/Std/Http/Data/URI/Parser.olean: build/Init/While.olean build/Init/Data/String/Basic.olean build/Std/Internal/Parsec.olean build/Std/Internal/Parsec/ByteArray.olean build/Std/Http/Data/URI/Basic.olean build/Std/Http/Data/URI/Config.olean build/Init/Data/String/Search.olean

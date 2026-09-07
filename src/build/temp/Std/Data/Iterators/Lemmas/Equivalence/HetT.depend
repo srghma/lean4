@@ -1,0 +1,1 @@
+build/Std/Data/Iterators/Lemmas/Equivalence/HetT.olean: build/Init/Data/Iterators/Internal/LawfulMonadLiftFunction.olean build/Init/Data/Iterators/PostconditionMonad.olean build/Init/Classical.olean

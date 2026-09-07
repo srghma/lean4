@@ -1,0 +1,1 @@
+build/Init/Data/Array/Zip.olean: build/Init/Data/Array/Basic.olean build/Init/Control/Lawful.olean build/Init/Data/Function.olean build/Init/Data/Array/Lemmas.olean build/Init/Data/List/Nat/TakeDrop.olean build/Init/Data/List/Zip.olean build/Init/Data/Option/Lemmas.olean build/Init/Data/Prod.olean build/Init/Omega.olean

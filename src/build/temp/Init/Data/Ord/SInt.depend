@@ -1,0 +1,1 @@
+build/Init/Data/Ord/SInt.olean: build/Init/Data/Order/Ord.olean build/Init/Data/Order/ClassesExtra.olean build/Init/Data/SInt/Basic.olean build/Init/Data/SInt/Lemmas.olean build/Init/Data/Order/Lemmas.olean

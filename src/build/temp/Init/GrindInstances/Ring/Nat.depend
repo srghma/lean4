@@ -1,0 +1,1 @@
+build/Init/GrindInstances/Ring/Nat.olean: build/Init/Grind/Ordered/Ring.olean build/Init/Data/Nat/Lemmas.olean build/Init/Omega.olean

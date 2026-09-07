@@ -1,0 +1,1 @@
+build/Std/Async/DNS.olean: build/Std/Time.olean build/Std/Internal/UV.olean build/Std/Async/Basic.olean build/Init/Data/Function.olean

@@ -1,0 +1,1 @@
+build/Init/Data/List/Nat/Modify.olean: build/Init/Ext.olean build/Init/NotationExtra.olean build/Init/ByCases.olean build/Init/Data/List/Erase.olean build/Init/Data/List/Nat/Erase.olean build/Init/Data/List/Nat/TakeDrop.olean build/Init/Data/List/TakeDrop.olean build/Init/Data/Nat/Lemmas.olean build/Init/Data/Option/Lemmas.olean build/Init/Omega.olean

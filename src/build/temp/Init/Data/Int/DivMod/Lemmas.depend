@@ -1,0 +1,1 @@
+build/Init/Data/Int/DivMod/Lemmas.olean: build/Init/TacticsExtra.olean build/Init/Data/Int/DivMod/Basic.olean build/Init/Data/Nat/Div/Basic.olean build/Init/NotationExtra.olean build/Init/ByCases.olean build/Init/Data/Bool.olean build/Init/Data/Nat/Div/Lemmas.olean build/Init/Data/Nat/Lemmas.olean build/Init/Omega.olean build/Init/RCases.olean

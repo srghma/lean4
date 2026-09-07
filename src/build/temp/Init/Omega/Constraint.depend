@@ -1,0 +1,1 @@
+build/Init/Omega/Constraint.olean: build/Init/Omega/Coeffs.olean build/Init/Data/Int/Lemmas.olean build/Init/Data/Int/Order.olean build/Init/Data/ToString/Macro.olean build/Init/Omega/Int.olean build/Init/PropLemmas.olean build/Init/RCases.olean

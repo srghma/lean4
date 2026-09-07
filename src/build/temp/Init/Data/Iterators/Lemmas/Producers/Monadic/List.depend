@@ -1,0 +1,1 @@
+build/Init/Data/Iterators/Lemmas/Producers/Monadic/List.olean: build/Init/Data/Iterators/Producers/Monadic/List.olean build/Init/Data/Iterators/Lemmas/Consumers/Monadic/Collect.olean build/Init/Data/List/ToArray.olean

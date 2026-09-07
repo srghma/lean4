@@ -1,0 +1,1 @@
+build/Init/Omega.olean: build/Init/Omega/Int.olean build/Init/Omega/IntList.olean build/Init/Omega/LinearCombo.olean build/Init/Omega/Constraint.olean build/Init/Omega/Logic.olean build/Init/Data/Int/Lemmas.olean build/Init/Data/Int/Order.olean build/Init/Data/Nat/Order.olean build/Init/Data/Order/Lemmas.olean

@@ -1,0 +1,1 @@
+build/Init/Data/Nat/Compare.olean: build/Init/Data/Order/ClassesExtra.olean build/Init/Data/Ord/Basic.olean

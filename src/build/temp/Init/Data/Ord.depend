@@ -1,0 +1,1 @@
+build/Init/Data/Ord.olean: build/Init/Data/Ord/Basic.olean build/Init/Data/Ord/BitVec.olean build/Init/Data/Ord/SInt.olean build/Init/Data/Ord/String.olean build/Init/Data/Ord/UInt.olean build/Init/Data/Ord/Vector.olean build/Init/Data/Ord/Array.olean

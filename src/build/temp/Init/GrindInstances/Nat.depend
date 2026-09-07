@@ -1,0 +1,1 @@
+build/Init/GrindInstances/Nat.olean: build/Init/Grind/Ordered/Module.olean build/Init/Omega.olean

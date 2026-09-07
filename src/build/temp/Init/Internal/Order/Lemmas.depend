@@ -1,0 +1,1 @@
+build/Init/Internal/Order/Lemmas.olean: build/Init/Data/List/Control.olean build/Init/Data/Option/Basic.olean build/Init/Data/Array/Basic.olean build/Init/Internal/Order/Basic.olean build/Init/Data/List/Monadic.olean build/Init/Data/Array/Bootstrap.olean

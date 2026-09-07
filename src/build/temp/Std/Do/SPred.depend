@@ -1,0 +1,1 @@
+build/Std/Do/SPred.olean: build/Std/Do/SPred/SVal.olean build/Std/Do/SPred/SPred.olean build/Std/Do/SPred/Notation.olean build/Std/Do/SPred/Laws.olean build/Std/Do/SPred/DerivedLaws.olean

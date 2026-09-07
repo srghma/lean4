@@ -1,0 +1,1 @@
+build/Init/MacroTrace.olean: build/Init/Meta.olean build/Init/Notation.olean build/Init/Data/ToString/Macro.olean

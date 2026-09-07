@@ -52,7 +52,7 @@ trace: [Compiler.pushProj] size: 10
           let _x.3 : tobj := Nat.add val.1 val.2;
           let _x.4 : obj := ctor_1[Option.some] _x.3;
           return _x.4
-[Compiler.pushProj] size: 27
+[Compiler.pushProj] size: 25
     def test2 @&a b : tobj :=
       cases a : tobj
       | Option.none =>
@@ -69,23 +69,21 @@ trace: [Compiler.pushProj] size: 10
           jp resetjp.3 _x.4 isShared.5 : tobj :=
             let _x.6 : tobj := Nat.add val.1 val.2;
             dec val.2;
-            jp reusejp.7 _x.8 : tobj :=
-              return _x.8;
             cases isShared.5 : tobj
             | Bool.false =>
               oset _x.4 [0] := _x.6;
-              goto reusejp.7 _x.4
+              return _x.4
             | Bool.true =>
-              let reuseFailAlloc.9 : obj := ctor_1[Option.some] _x.6;
-              goto reusejp.7 reuseFailAlloc.9;
-          let isSharedCheck.10 : UInt8 := isShared b;
-          cases isSharedCheck.10 : tobj
+              let reuseFailAlloc.7 : obj := ctor_1[Option.some] _x.6;
+              return reuseFailAlloc.7;
+          let isSharedCheck.8 : UInt8 := isShared b;
+          cases isSharedCheck.8 : tobj
           | Bool.false =>
-            goto resetjp.3 b isSharedCheck.10
+            goto resetjp.3 b isSharedCheck.8
           | Bool.true =>
             inc val.2;
             dec b;
-            goto resetjp.3 ◾ isSharedCheck.10
+            goto resetjp.3 ◾ isSharedCheck.8
 [Compiler.pushProj] size: 2
     def test2._boxed a b : tobj :=
       let res : tobj := test2 a b;
@@ -123,7 +121,7 @@ trace: [Compiler.pushProj] size: 14
           let _x.7 : tobj := Nat.add val.5 val.6;
           let _x.8 : obj := ctor_1[Option.some] _x.7;
           return _x.8
-[Compiler.pushProj] size: 48
+[Compiler.pushProj] size: 44
     def test3 a b : tobj :=
       cases a : tobj
       | Option.none =>
@@ -137,49 +135,45 @@ trace: [Compiler.pushProj] size: 14
             let _x.5 : tagged := 1;
             let _x.6 : tobj := Nat.add val.1 _x.5;
             dec val.1;
-            jp reusejp.7 _x.8 : tobj :=
-              return _x.8;
             cases isShared.4 : tobj
             | Bool.false =>
               oset _x.3 [0] := _x.6;
-              goto reusejp.7 _x.3
+              return _x.3
             | Bool.true =>
-              let reuseFailAlloc.9 : obj := ctor_1[Option.some] _x.6;
-              goto reusejp.7 reuseFailAlloc.9;
-          let isSharedCheck.10 : UInt8 := isShared a;
-          cases isSharedCheck.10 : tobj
+              let reuseFailAlloc.7 : obj := ctor_1[Option.some] _x.6;
+              return reuseFailAlloc.7;
+          let isSharedCheck.8 : UInt8 := isShared a;
+          cases isSharedCheck.8 : tobj
           | Bool.false =>
-            goto resetjp.2 a isSharedCheck.10
+            goto resetjp.2 a isSharedCheck.8
           | Bool.true =>
             inc val.1;
             dec a;
-            goto resetjp.2 ◾ isSharedCheck.10
+            goto resetjp.2 ◾ isSharedCheck.8
         | Option.some =>
-          let val.11 : tobj := oproj[0] a;
-          inc val.11;
+          let val.9 : tobj := oproj[0] a;
+          inc val.9;
           dec[ref][1 objs] a;
-          let val.12 : tobj := oproj[0] b;
-          jp resetjp.13 _x.14 isShared.15 : tobj :=
-            let _x.16 : tobj := Nat.add val.11 val.12;
-            dec val.12;
-            dec val.11;
-            jp reusejp.17 _x.18 : tobj :=
-              return _x.18;
-            cases isShared.15 : tobj
+          let val.10 : tobj := oproj[0] b;
+          jp resetjp.11 _x.12 isShared.13 : tobj :=
+            let _x.14 : tobj := Nat.add val.9 val.10;
+            dec val.10;
+            dec val.9;
+            cases isShared.13 : tobj
             | Bool.false =>
-              oset _x.14 [0] := _x.16;
-              goto reusejp.17 _x.14
+              oset _x.12 [0] := _x.14;
+              return _x.12
             | Bool.true =>
-              let reuseFailAlloc.19 : obj := ctor_1[Option.some] _x.16;
-              goto reusejp.17 reuseFailAlloc.19;
-          let isSharedCheck.20 : UInt8 := isShared b;
-          cases isSharedCheck.20 : tobj
+              let reuseFailAlloc.15 : obj := ctor_1[Option.some] _x.14;
+              return reuseFailAlloc.15;
+          let isSharedCheck.16 : UInt8 := isShared b;
+          cases isSharedCheck.16 : tobj
           | Bool.false =>
-            goto resetjp.13 b isSharedCheck.20
+            goto resetjp.11 b isSharedCheck.16
           | Bool.true =>
-            inc val.12;
+            inc val.10;
             dec b;
-            goto resetjp.13 ◾ isSharedCheck.20
+            goto resetjp.11 ◾ isSharedCheck.16
 -/
 #guard_msgs in
 set_option pp.letVarTypes true in
@@ -217,7 +211,7 @@ trace: [Compiler.pushProj] size: 18
             let _x.8 : tobj := Nat.add val.6 val.7;
             let _x.9 : obj := ctor_1[Option.some] _x.8;
             return _x.9
-[Compiler.pushProj] size: 54
+[Compiler.pushProj] size: 50
     def test4 a b c : tobj :=
       cases a : tobj
       | Option.none =>
@@ -231,56 +225,52 @@ trace: [Compiler.pushProj] size: 18
             let _x.5 : tagged := 1;
             let _x.6 : tobj := Nat.add val.1 _x.5;
             dec val.1;
-            jp reusejp.7 _x.8 : tobj :=
-              return _x.8;
             cases isShared.4 : tobj
             | Bool.false =>
               oset _x.3 [0] := _x.6;
-              goto reusejp.7 _x.3
+              return _x.3
             | Bool.true =>
-              let reuseFailAlloc.9 : obj := ctor_1[Option.some] _x.6;
-              goto reusejp.7 reuseFailAlloc.9;
-          let isSharedCheck.10 : UInt8 := isShared a;
-          cases isSharedCheck.10 : tobj
+              let reuseFailAlloc.7 : obj := ctor_1[Option.some] _x.6;
+              return reuseFailAlloc.7;
+          let isSharedCheck.8 : UInt8 := isShared a;
+          cases isSharedCheck.8 : tobj
           | Bool.false =>
-            goto resetjp.2 a isSharedCheck.10
+            goto resetjp.2 a isSharedCheck.8
           | Bool.true =>
             inc val.1;
             dec a;
-            goto resetjp.2 ◾ isSharedCheck.10
+            goto resetjp.2 ◾ isSharedCheck.8
         | Option.some =>
           cases c : tobj
           | Bool.false =>
             dec[ref][1 objs] b;
             dec[ref][1 objs] a;
-            let _x.11 : tagged := ctor_0[Option.none];
-            return _x.11
+            let _x.9 : tagged := ctor_0[Option.none];
+            return _x.9
           | Bool.true =>
-            let val.12 : tobj := oproj[0] a;
-            inc val.12;
+            let val.10 : tobj := oproj[0] a;
+            inc val.10;
             dec[ref][1 objs] a;
-            let val.13 : tobj := oproj[0] b;
-            jp resetjp.14 _x.15 isShared.16 : tobj :=
-              let _x.17 : tobj := Nat.add val.12 val.13;
-              dec val.13;
-              dec val.12;
-              jp reusejp.18 _x.19 : tobj :=
-                return _x.19;
-              cases isShared.16 : tobj
+            let val.11 : tobj := oproj[0] b;
+            jp resetjp.12 _x.13 isShared.14 : tobj :=
+              let _x.15 : tobj := Nat.add val.10 val.11;
+              dec val.11;
+              dec val.10;
+              cases isShared.14 : tobj
               | Bool.false =>
-                oset _x.15 [0] := _x.17;
-                goto reusejp.18 _x.15
+                oset _x.13 [0] := _x.15;
+                return _x.13
               | Bool.true =>
-                let reuseFailAlloc.20 : obj := ctor_1[Option.some] _x.17;
-                goto reusejp.18 reuseFailAlloc.20;
-            let isSharedCheck.21 : UInt8 := isShared b;
-            cases isSharedCheck.21 : tobj
+                let reuseFailAlloc.16 : obj := ctor_1[Option.some] _x.15;
+                return reuseFailAlloc.16;
+            let isSharedCheck.17 : UInt8 := isShared b;
+            cases isSharedCheck.17 : tobj
             | Bool.false =>
-              goto resetjp.14 b isSharedCheck.21
+              goto resetjp.12 b isSharedCheck.17
             | Bool.true =>
-              inc val.13;
+              inc val.11;
               dec b;
-              goto resetjp.14 ◾ isSharedCheck.21
+              goto resetjp.12 ◾ isSharedCheck.17
 [Compiler.pushProj] size: 2
     def test4._boxed a b c : tobj :=
       let c.boxed : UInt8 := unbox c;
@@ -300,4 +290,3 @@ def test4 (a b : Option Nat) (c : Bool) : Option Nat :=
       | false => none
     | none => some (a + 1)
   | none => none
-

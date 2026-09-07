@@ -1,0 +1,1 @@
+build/Init/Grind/Ordered/Rat.olean: build/Init/Grind/Ordered/Ring.olean build/Init/GrindInstances/Ring/Rat.olean

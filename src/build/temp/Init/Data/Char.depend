@@ -1,0 +1,1 @@
+build/Init/Data/Char.olean: build/Init/Data/Char/Basic.olean build/Init/Data/Char/Lemmas.olean build/Init/Data/Char/Order.olean build/Init/Data/Char/Ordinal.olean

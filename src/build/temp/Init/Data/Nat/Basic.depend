@@ -1,0 +1,1 @@
+build/Init/Data/Nat/Basic.olean: build/Init/SimpLemmas.olean build/Init/Data/NeZero.olean build/Init/Grind/Tactics.olean

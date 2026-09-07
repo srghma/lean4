@@ -1,0 +1,1 @@
+build/Init/Data/SInt/Float32.olean: build/Init/Data/Float32.olean build/Init/Data/SInt/Basic.olean

@@ -1,0 +1,1 @@
+build/Init/Data/UInt/Log2.olean: build/Init/Prelude.olean build/Init/Data/Fin/Log2.olean build/Init/Data/UInt/BasicAux.olean

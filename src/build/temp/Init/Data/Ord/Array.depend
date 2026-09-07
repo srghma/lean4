@@ -1,0 +1,1 @@
+build/Init/Data/Ord/Array.olean: build/Init/Data/Ord/Basic.olean build/Init/Omega.olean build/Init/ByCases.olean build/Init/Data/Array/Basic.olean build/Init/WFTactics.olean

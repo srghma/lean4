@@ -1,0 +1,1 @@
+build/Init/LawfulBEqTactics.olean: build/Init/Core.olean build/Init/Data/Bool.olean build/Init/ByCases.olean build/Init/Classical.olean

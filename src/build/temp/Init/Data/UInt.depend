@@ -1,0 +1,1 @@
+build/Init/Data/UInt.olean: build/Init/Data/UInt/BasicAux.olean build/Init/Data/UInt/Basic.olean build/Init/Data/UInt/Log2.olean build/Init/Data/UInt/Lemmas.olean build/Init/Data/UInt/Bitwise.olean

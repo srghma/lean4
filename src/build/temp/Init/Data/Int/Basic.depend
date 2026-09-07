@@ -1,0 +1,1 @@
+build/Init/Data/Int/Basic.olean: build/Init/Data/Cast.olean build/Init/Data/Nat/Basic.olean

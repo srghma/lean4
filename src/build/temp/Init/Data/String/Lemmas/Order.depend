@@ -1,0 +1,1 @@
+build/Init/Data/String/Lemmas/Order.olean: build/Init/Data/String/Basic.olean build/Init/Data/String/OrderInstances.olean build/Init/Data/String/Lemmas/Basic.olean build/Init/Data/Order/Lemmas.olean build/Init/Omega.olean build/Init/ByCases.olean

@@ -1,0 +1,1 @@
+build/Init/Data/List/Nat/Erase.olean: build/Init/GetElem.olean build/Init/Data/List/Erase.olean build/Init/Data/List/Nat/TakeDrop.olean build/Init/Data/List/TakeDrop.olean build/Init/Omega.olean

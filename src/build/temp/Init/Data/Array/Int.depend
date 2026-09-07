@@ -1,0 +1,1 @@
+build/Init/Data/Array/Int.olean: build/Init/Data/List/Int/Sum.olean build/Init/Data/List/Int/Prod.olean build/Init/Data/Array/MinMax.olean build/Init/Data/Int/Lemmas.olean

@@ -1,0 +1,1 @@
+build/Std/Internal/UV.olean: build/Std/Internal/UV/Loop.olean build/Std/Internal/UV/Timer.olean build/Std/Internal/UV/TCP.olean build/Std/Internal/UV/UDP.olean build/Std/Internal/UV/System.olean build/Std/Internal/UV/DNS.olean build/Std/Internal/UV/Signal.olean

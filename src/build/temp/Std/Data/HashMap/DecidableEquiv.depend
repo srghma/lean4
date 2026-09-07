@@ -1,0 +1,1 @@
+build/Std/Data/HashMap/DecidableEquiv.olean: build/Std/Data/DHashMap/DecidableEquiv.olean build/Std/Data/HashMap/Basic.olean

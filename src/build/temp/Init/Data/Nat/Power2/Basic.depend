@@ -1,0 +1,1 @@
+build/Init/Data/Nat/Power2/Basic.olean: build/Init/Grind/Tactics.olean build/Init/Data/Nat/Linear.olean build/Init/NotationExtra.olean build/Init/WFTactics.olean

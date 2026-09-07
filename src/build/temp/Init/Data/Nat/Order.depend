@@ -1,0 +1,1 @@
+build/Init/Data/Nat/Order.olean: build/Init/Data/Nat/Basic.olean build/Init/Data/Nat/MinMax.olean build/Init/Data/Order/Classes.olean build/Init/Data/Order/Factories.olean build/Init/NotationExtra.olean

@@ -1,0 +1,1 @@
+build/Init/GrindInstances.olean: build/Init/GrindInstances/ToInt.olean build/Init/GrindInstances/Ring.olean build/Init/GrindInstances/Nat.olean

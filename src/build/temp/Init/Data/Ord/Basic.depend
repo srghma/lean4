@@ -1,0 +1,1 @@
+build/Init/Data/Ord/Basic.olean: build/Init/ByCases.olean build/Init/Ext.olean build/Init/PropLemmas.olean build/Init/Data/Char/Basic.olean build/Init/Classical.olean

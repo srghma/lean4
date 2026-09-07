@@ -1,0 +1,1 @@
+build/Init/Data/Array/Bootstrap.olean: build/Init/Data/Array/Basic.olean build/Init/Data/List/Control.olean build/Init/Data/List/Lemmas.olean build/Init/Data/List/TakeDrop.olean

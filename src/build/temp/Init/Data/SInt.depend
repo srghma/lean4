@@ -1,0 +1,1 @@
+build/Init/Data/SInt.olean: build/Init/Data/SInt/Basic.olean build/Init/Data/SInt/Float.olean build/Init/Data/SInt/Float32.olean build/Init/Data/SInt/Lemmas.olean build/Init/Data/SInt/Bitwise.olean

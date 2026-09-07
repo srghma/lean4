@@ -1,0 +1,1 @@
+build/Init/Data/List/Nat/Sum.olean: build/Init/Data/List/MinMax.olean build/Init/BinderPredicates.olean build/Init/NotationExtra.olean build/Init/Data/Nat/Div/Lemmas.olean build/Init/Data/Nat/Lemmas.olean build/Init/Data/Nat/MinMax.olean build/Init/Data/Option/Lemmas.olean build/Init/Omega.olean

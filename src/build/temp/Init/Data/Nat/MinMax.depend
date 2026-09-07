@@ -1,0 +1,1 @@
+build/Init/Data/Nat/MinMax.olean: build/Init/Data/Nat/Basic.olean build/Init/ByCases.olean build/Init/PropLemmas.olean

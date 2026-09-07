@@ -1,0 +1,1 @@
+build/Std/Do.olean: build/Std/Do/SPred.olean build/Std/Do/WP.olean build/Std/Do/Triple.olean build/Std/Do/PredTrans.olean build/Std/Do/PostCond.olean build/Std/Do/Internal.olean

@@ -1,0 +1,1 @@
+build/Init/GrindInstances/Ring/UInt.olean: build/Init/GrindInstances/ToInt.olean build/Init/GrindInstances/ToInt.olean build/Init/Data/UInt/Basic.olean build/Init/Data/UInt/Lemmas.olean build/Init/Grind/Ring/Basic.olean build/Init/Grind/Ring/ToInt.olean

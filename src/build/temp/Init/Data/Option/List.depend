@@ -1,0 +1,1 @@
+build/Init/Data/Option/List.olean: build/Init/Data/List/Control.olean build/Init/Data/Option/Instances.olean build/Init/Data/List/Control.olean build/Init/Data/Option/Lemmas.olean build/Init/Data/Bool.olean build/Init/Data/List/Lemmas.olean

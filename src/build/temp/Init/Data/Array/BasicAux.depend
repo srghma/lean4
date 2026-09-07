@@ -1,0 +1,1 @@
+build/Init/Data/Array/BasicAux.olean: build/Init/Data/Array/Basic.olean build/Init/Data/Array/Set.olean build/Init/Util.olean build/Init/Data/Nat/Linear.olean

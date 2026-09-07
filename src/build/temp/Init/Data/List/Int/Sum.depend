@@ -1,0 +1,1 @@
+build/Init/Data/List/Int/Sum.olean: build/Init/Data/Int/DivMod/Lemmas.olean build/Init/Data/List/MinMax.olean build/Init/Data/Int/DivMod/Basic.olean build/Init/Data/List/Basic.olean build/Init/Omega.olean

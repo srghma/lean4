@@ -1,0 +1,1 @@
+build/Init/Data/Range/Polymorphic/Nat.olean: build/Init/Data/Nat/Lemmas.olean build/Init/Data/Range/Polymorphic/Instances.olean build/Init/Data/Nat/MinMax.olean build/Init/Omega.olean build/Init/RCases.olean

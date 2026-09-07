@@ -1,0 +1,1 @@
+build/Init/Data/Int/Bitwise/Lemmas.olean: build/Init/Data/Int/Bitwise/Basic.olean build/Init/Data/Int/Bitwise/Basic.olean build/Init/Data/Int/DivMod/Basic.olean build/Init/ByCases.olean build/Init/Data/Int/DivMod/Lemmas.olean build/Init/Data/Int/Pow.olean build/Init/Data/Nat/Bitwise/Lemmas.olean build/Init/Data/Nat/Lemmas.olean build/Init/Omega.olean build/Init/RCases.olean

@@ -1,0 +1,1 @@
+build/Init/Data/Subtype/Order.olean: build/Init/Data/Order/Classes.olean build/Init/Data/Order/Lemmas.olean build/Init/Ext.olean

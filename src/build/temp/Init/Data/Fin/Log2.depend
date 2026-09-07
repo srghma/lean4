@@ -1,0 +1,1 @@
+build/Init/Data/Fin/Log2.olean: build/Init/Prelude.olean build/Init/Data/Nat/Log2.olean

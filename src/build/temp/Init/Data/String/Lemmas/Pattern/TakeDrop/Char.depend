@@ -1,0 +1,1 @@
+build/Init/Data/String/Lemmas/Pattern/TakeDrop/Char.olean: build/Init/Data/String/Slice.olean build/Init/Data/String/TakeDrop.olean build/Init/Data/String/Lemmas/Pattern/TakeDrop/Basic.olean build/Init/Data/String/Lemmas/Pattern/Char.olean build/Init/Data/Option/Lemmas.olean build/Init/Data/String/Lemmas/FindPos.olean build/Init/Data/List/Sublist.olean

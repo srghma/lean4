@@ -1,0 +1,1 @@
+build/Init/Data/String/Lemmas/Pattern/String.olean: build/Init/Data/String/Lemmas/Pattern/String/Basic.olean build/Init/Data/String/Lemmas/Pattern/String/ForwardPattern.olean build/Init/Data/String/Lemmas/Pattern/String/ForwardSearcher.olean

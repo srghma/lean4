@@ -1,0 +1,1 @@
+build/Init/GrindInstances/Ring/Fin.olean: build/Init/Data/Zero.olean build/Init/GrindInstances/ToInt.olean build/Init/GrindInstances/ToInt.olean build/Init/Data/Fin/Lemmas.olean build/Init/Grind/Ring/Basic.olean build/Init/Data/Nat/Lemmas.olean build/Init/Data/Nat/MinMax.olean

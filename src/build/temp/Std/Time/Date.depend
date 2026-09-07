@@ -1,0 +1,1 @@
+build/Std/Time/Date.olean: build/Std/Time/Date/Basic.olean build/Std/Time/Date/PlainDate.olean

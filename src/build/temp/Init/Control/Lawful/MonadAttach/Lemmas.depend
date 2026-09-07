@@ -1,0 +1,1 @@
+build/Init/Control/Lawful/MonadAttach/Lemmas.olean: build/Init/Control/MonadAttach.olean build/Init/Classical.olean build/Init/Control/Lawful/Basic.olean build/Init/Control/Lawful/MonadLift/Basic.olean build/Init/Control/Lawful/MonadLift/Lemmas.olean build/Init/RCases.olean

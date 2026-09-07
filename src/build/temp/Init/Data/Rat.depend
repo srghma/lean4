@@ -1,0 +1,1 @@
+build/Init/Data/Rat.olean: build/Init/Data/Rat/Basic.olean build/Init/Data/Rat/Lemmas.olean

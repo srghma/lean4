@@ -1,0 +1,1 @@
+build/Std.olean: build/Std/Data.olean build/Std/Do.olean build/Std/Sat.olean build/Std/Sync.olean build/Std/Time.olean build/Std/Tactic.olean build/Std/Internal.olean build/Std/Net.olean

@@ -1,0 +1,1 @@
+build/Std/Sync/Channel.olean: build/Init/Data/Queue.olean build/Std/Sync/Mutex.olean build/Std/Async/IO.olean build/Init/Data/Vector/Basic.olean build/Init/Data/Option/BasicAux.olean build/Init/Omega.olean

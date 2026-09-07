@@ -1,0 +1,1 @@
+build/Init/Data/Array/DecidableEq.olean: build/Init/Data/Array/Basic.olean build/Init/Data/Array/Basic.olean build/Init/Data/Nat/Lemmas.olean build/Init/ByCases.olean build/Init/Classical.olean build/Init/Data/BEq.olean build/Init/Data/Bool.olean build/Init/Data/List/Nat/BEq.olean build/Init/RCases.olean

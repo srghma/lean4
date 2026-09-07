@@ -1,0 +1,1 @@
+build/Init/Data/Int/DivMod.olean: build/Init/Data/Int/DivMod/Basic.olean build/Init/Data/Int/DivMod/Bootstrap.olean build/Init/Data/Int/DivMod/Lemmas.olean build/Init/Data/Int/DivMod/Pow.olean

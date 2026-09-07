@@ -1,0 +1,1 @@
+build/Std/Sat/CNF/RelabelFin.olean: build/Init/Data/Nat/Order.olean build/Std/Sat/CNF/Relabel.olean build/Init/Data/Option/Lemmas.olean build/Init/Omega.olean build/Init/Data/List/Impl.olean build/Init/Data/List/MinMax.olean build/Init/Data/Array/MinMax.olean build/Init/TacticsExtra.olean

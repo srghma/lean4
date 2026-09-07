@@ -1,0 +1,1 @@
+build/Init/Data/Nat/Bitwise/Lemmas.olean: build/Init/Data/Nat/Bitwise/Basic.olean build/Init/BinderPredicates.olean build/Init/Data/Bool.olean build/Init/Data/Nat/Log2.olean build/Init/ByCases.olean build/Init/Data/Int/Pow.olean build/Init/Data/Nat/Lemmas.olean build/Init/Omega.olean build/Init/RCases.olean build/Init/TacticsExtra.olean

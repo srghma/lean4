@@ -1,0 +1,1 @@
+build/Std/Time/Internal/Bounded.olean: build/Init/Data/Int/DivMod/Lemmas.olean build/Init/Data/Order/Ord.olean build/Init/Data/Int/Repr.olean build/Init/Omega.olean build/Init/Ext.olean

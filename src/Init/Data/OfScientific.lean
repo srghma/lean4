@@ -32,7 +32,8 @@ exactly.
    Float.ofBits 0x4415AF1D78B58C40, Float.ofBits 0x444B1AE4D6E2EF50,
    Float.ofBits 0x4480F0CF064DD592]
 
-@[expose] protected def Float.ofScientific (m : Nat) (s : Bool) (e : Nat) : Float :=
+@[expose, js_extern_inlined Lean.Compiler.JS.Impl.floatOfScientific]
+protected def Float.ofScientific (m : Nat) (s : Bool) (e : Nat) : Float :=
   if h : m < 2 ^ 53 ∧ e ≤ 22 then
     -- Fast case: both `m` and `10 ^ e` are representable as floats.
     let powerOfTen : Float :=

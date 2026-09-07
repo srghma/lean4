@@ -1,0 +1,1 @@
+build/Init/SizeOf.olean: build/Init/Notation.olean build/Init/Tactics.olean

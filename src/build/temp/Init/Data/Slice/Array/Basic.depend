@@ -1,0 +1,1 @@
+build/Init/Data/Slice/Array/Basic.olean: build/Init/Data/Array/Subarray.olean build/Init/Data/Slice/Notation.olean build/Init/Data/Range/Polymorphic/Nat.olean

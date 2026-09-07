@@ -1,0 +1,1 @@
+build/Init/Data/String/Pattern/Pred.olean: build/Init/Data/String/Pattern/Basic.olean build/Init/Data/String/Lemmas/IsEmpty.olean build/Init/Data/String/Termination.olean build/Init/Omega.olean build/Init/Data/String/Basic.olean build/Init/Data/String/Lemmas/Order.olean build/Init/Data/Option/Lemmas.olean build/Init/Data/String/Lemmas/FindPos.olean

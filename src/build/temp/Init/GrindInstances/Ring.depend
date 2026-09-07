@@ -1,0 +1,1 @@
+build/Init/GrindInstances/Ring.olean: build/Init/GrindInstances/Ring/Nat.olean build/Init/GrindInstances/Ring/Int.olean build/Init/GrindInstances/Ring/UInt.olean build/Init/GrindInstances/Ring/SInt.olean build/Init/GrindInstances/Ring/Fin.olean build/Init/GrindInstances/Ring/BitVec.olean build/Init/GrindInstances/Ring/Rat.olean

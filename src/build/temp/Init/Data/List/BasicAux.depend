@@ -1,0 +1,1 @@
+build/Init/Data/List/BasicAux.olean: build/Init/GetElem.olean build/Init/WFTactics.olean build/Init/ByCases.olean build/Init/Classical.olean build/Init/Data/Array/Basic.olean build/Init/Data/Nat/Linear.olean

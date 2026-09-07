@@ -1,0 +1,1 @@
+build/Init/Data/Array/Extract.olean: build/Init/BinderPredicates.olean build/Init/Ext.olean build/Init/NotationExtra.olean build/Init/ByCases.olean build/Init/Data/Array/Bootstrap.olean build/Init/Data/Array/Lemmas.olean build/Init/Data/Bool.olean build/Init/Data/List/Nat/TakeDrop.olean build/Init/Data/List/TakeDrop.olean build/Init/Omega.olean

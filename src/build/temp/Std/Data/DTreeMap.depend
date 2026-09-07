@@ -1,0 +1,1 @@
+build/Std/Data/DTreeMap.olean: build/Std/Data/DTreeMap/Basic.olean build/Std/Data/DTreeMap/AdditionalOperations.olean build/Std/Data/DTreeMap/Lemmas.olean build/Std/Data/DTreeMap/Iterator.olean build/Std/Data/DTreeMap/Slice.olean build/Std/Data/DTreeMap/DecidableEquiv.olean
