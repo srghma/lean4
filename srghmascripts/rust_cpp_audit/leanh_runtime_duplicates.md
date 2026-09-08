@@ -1,0 +1,396 @@
+# leanh/runtime duplicate audit
+
+- source declarations scanned: 185
+- runtime definitions matched: 152
+- duplicated names: 100
+- output annotations: duplicate in <source> at line <n> (🔁)
+
+## leanh/src/lib.rs
+
+- [ ] `arity` (mod) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `datatypes` (mod) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `in_emit_rust` (mod) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `not_in_emit_rust` (mod) -> not found in runtime/src/{kernel,library,runtime}
+
+## leanh/src/datatypes.rs
+
+- [ ] `LEAN_CLOSURE_MAX_ARGS` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_MAX_SMALL_NAT` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanCtorObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanExternalFinalizeProc` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanExternalForeachProc` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `ObjInitFn` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `U8InitFn` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `U16InitFn` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `U32InitFn` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `U64InitFn` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `UsizeInitFn` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `F32InitFn` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `F64InitFn` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanExternalClass` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanArrayObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanStringObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanClosureObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanScalarArray` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanThunkObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `LeanRefObject` (struct) -> [src/rust/runtime/src/runtime_io_ref.rs:18](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_io_ref.rs#L18) (struct)
+- [ ] `LeanOnceCell` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanTaskObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanPromiseObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanTaskImp` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanExternalObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanMpzStruct` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `MpzT` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LeanMpzObject` (struct) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_MAX_CTOR_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_PROMISE_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_CLOSURE_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_ARRAY_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_STRUCT_ARRAY_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_SCALAR_ARRAY_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_STRING_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_MPZ_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_THUNK_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_TASK_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_REF_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_EXTERNAL_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_RESERVED_TAG` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `LEAN_OBJECT_SIZE_DELTA` (const) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `G_TO_FREE` (static) -> not found in runtime/src/{kernel,library,runtime}
+
+## leanh/src/not_in_emit_rust.rs
+
+- [x] `get_next` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:254](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L254) (fn)
+- [ ] `lean_align` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_array_byte_size` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:157](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L157) (fn), [src/rust/runtime/src/runtime_object_size.rs:18](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_size.rs#L18) (fn)
+- [x] `lean_array_cptr` (fn) -> [src/rust/runtime/src/runtime_object_array.rs:33](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_array.rs#L33) (fn), [src/rust/runtime/src/runtime_object_rc.rs:147](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L147) (fn)
+- [x] `lean_array_size` (fn) -> [src/rust/runtime/src/base.rs:327](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L327) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:329](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L329) (fn), [src/rust/runtime/src/runtime_object_rc.rs:152](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L152) (fn)
+- [x] `lean_closure_arg_cptr` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:174](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L174) (fn)
+- [x] `lean_closure_num_fixed` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:179](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L179) (fn)
+- [x] `lean_closure_byte_size` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:184](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L184) (fn), [src/rust/runtime/src/runtime_object_size.rs:56](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_size.rs#L56) (fn)
+- [ ] `lean_global_alloc` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_alloc_small_object` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:222](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L222) (fn)
+- [x] `lean_alloc_ctor_memory` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:243](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L243) (fn)
+- [ ] `lean_global_dealloc` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_dealloc` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:138](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L138) (fn)
+- [x] `lean_free_small_object` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:234](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L234) (fn)
+- [x] `lean_is_st` (fn) -> [src/rust/runtime/src/library_instantiate_mvars.rs:242](/home/srghma/projects/lean4/src/rust/runtime/src/library_instantiate_mvars.rs#L242) (fn), [src/rust/runtime/src/runtime_object_rc.rs:47](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L47) (fn)
+- [ ] `lean_mpz_clear` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_ptr_tag` (fn) -> [src/rust/runtime/src/base.rs:167](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L167) (fn), [src/rust/runtime/src/kernel_type_checker.rs:297](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L297) (fn)
+- [x] `lean_ctor_num_objs` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:249](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L249) (fn), [src/rust/runtime/src/runtime_object_rc.rs:190](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L190) (fn)
+- [x] `lean_ctor_obj_cptr` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:195](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L195) (fn)
+- [ ] `lean_ctor_scalar_cptr` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `lean_is_ref` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_sarray_byte_size` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:163](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L163) (fn), [src/rust/runtime/src/runtime_object_size.rs:32](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_size.rs#L32) (fn)
+- [x] `lean_string_byte_size` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:169](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L169) (fn), [src/rust/runtime/src/runtime_object_size.rs:44](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_size.rs#L44) (fn), [src/rust/runtime/src/runtime_object_string.rs:28](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L28) (fn)
+- [x] `lean_free_object` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:109](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L109) (fn), [src/rust/runtime/src/runtime_apply.rs:13](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L13) (fn), [src/rust/runtime/src/runtime_object_array.rs:15](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_array.rs#L15) (fn), [src/rust/runtime/src/runtime_object_rc.rs:393](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L393) (fn), [src/rust/runtime/src/runtime_object_string.rs:16](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L16) (fn)
+- [x] `lean_string_data` (fn) -> [src/rust/runtime/src/runtime_object_string.rs:715](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L715) (fn)
+- [x] `lock_once_cell` (fn) -> [src/rust/runtime/src/runtime_once.rs:11](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_once.rs#L11) (fn)
+- [x] `pop_back` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:276](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L276) (fn)
+- [x] `set_next` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:262](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L262) (fn)
+- [x] `push_back` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:270](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L270) (fn)
+- [x] `unlock_once_cell` (fn) -> [src/rust/runtime/src/runtime_once.rs:21](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_once.rs#L21) (fn)
+- [x] `run_once` (fn) -> [src/rust/runtime/src/runtime_once.rs:26](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_once.rs#L26) (fn)
+- [x] `lean_alloc_ctor` (fn) -> [src/rust/runtime/src/kernel_type_checker.rs:309](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L309) (fn), [src/rust/runtime/src/library_instantiate_mvars.rs:233](/home/srghma/projects/lean4/src/rust/runtime/src/library_instantiate_mvars.rs#L233) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:255](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L255) (fn), [src/rust/runtime/src/runtime_object_string.rs:53](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L53) (fn), [src/rust/runtime/src/runtime_process.rs:68](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_process.rs#L68) (fn)
+- [x] `lean_box` (fn) -> [src/rust/runtime/src/base.rs:663](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L663) (fn)
+- [x] `lean_usize_to_nat` (fn) -> [src/rust/runtime/src/kernel_type_checker.rs:654](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L654) (fn), [src/rust/runtime/src/runtime_object_string.rs:78](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L78) (fn)
+- [ ] `lean_is_scalar_bool` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `dec_for_del` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:283](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L283) (fn)
+- [x] `lean_del_core_other` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:302](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L302) (fn)
+- [x] `lean_del_core` (fn) -> [src/rust/runtime/src/runtime_object_rc.rs:366](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L366) (fn)
+- [x] `lean_alloc_object` (fn) -> [src/rust/runtime/src/base.rs:27](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L27) (fn), [src/rust/runtime/src/runtime_object_rc.rs:379](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L379) (fn)
+- [x] `lean_alloc_string` (fn) -> [src/rust/runtime/src/base.rs:386](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L386) (fn)
+- [x] `lean_dec_ref_cold` (fn) -> [src/rust/runtime/src/base.rs:23](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L23) (fn), [src/rust/runtime/src/runtime_object_rc.rs:408](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L408) (fn)
+- [x] `lean_obj_once_cold` (fn) -> [src/rust/runtime/src/runtime_once.rs:39](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_once.rs#L39) (fn)
+
+## leanh/src/in_emit_rust.rs
+
+- [x] `lean_box_uint32` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:283](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L283) (fn), [src/rust/runtime/src/runtime_object_string.rs:63](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L63) (fn)
+- [ ] `lean_box_usize` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_closure_set` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:271](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L271) (fn), [src/rust/runtime/src/runtime_io_task.rs:35](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_io_task.rs#L35) (fn)
+- [x] `lean_cstr_to_nat` (fn) -> [src/rust/runtime/src/runtime_object_nat_int.rs:170](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_nat_int.rs#L170) (fn)
+- [x] `lean_ctor_get` (fn) -> [src/rust/runtime/src/base.rs:234](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L234) (fn), [src/rust/runtime/src/kernel_type_checker.rs:303](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L303) (fn)
+- [x] `lean_ctor_get_float` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:166](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L166) (fn)
+- [x] `lean_ctor_get_float32` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:175](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L175) (fn)
+- [x] `lean_ctor_get_uint16` (fn) -> [src/rust/runtime/src/base.rs:244](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L244) (fn)
+- [x] `lean_ctor_get_uint32` (fn) -> [src/rust/runtime/src/runtime_process.rs:45](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_process.rs#L45) (fn)
+- [x] `lean_ctor_get_uint64` (fn) -> [src/rust/runtime/src/base.rs:262](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L262) (fn)
+- [x] `lean_ctor_get_uint8` (fn) -> [src/rust/runtime/src/base.rs:239](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L239) (fn)
+- [x] `lean_ctor_get_usize` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:156](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L156) (fn)
+- [x] `lean_ctor_set` (fn) -> [src/rust/runtime/src/kernel_type_checker.rs:325](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L325) (fn), [src/rust/runtime/src/library_instantiate_mvars.rs:229](/home/srghma/projects/lean4/src/rust/runtime/src/library_instantiate_mvars.rs#L229) (fn), [src/rust/runtime/src/runtime_object_string.rs:48](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L48) (fn), [src/rust/runtime/src/runtime_process.rs:62](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_process.rs#L62) (fn)
+- [x] `lean_ctor_set_float` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:223](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L223) (fn)
+- [x] `lean_box_float` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:295](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L295) (fn), [src/rust/runtime/src/runtime_float.rs:24](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_float.rs#L24) (fn)
+- [x] `lean_ctor_set_float32` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:232](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L232) (fn)
+- [x] `lean_box_float32` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:312](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L312) (fn), [src/rust/runtime/src/runtime_float.rs:34](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_float.rs#L34) (fn)
+- [ ] `lean_ctor_set_tag` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_ctor_set_uint16` (fn) -> [src/rust/runtime/src/base.rs:254](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L254) (fn)
+- [x] `lean_ctor_set_uint32` (fn) -> [src/rust/runtime/src/runtime_process.rs:53](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_process.rs#L53) (fn)
+- [x] `lean_ctor_set_uint64` (fn) -> [src/rust/runtime/src/base.rs:267](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L267) (fn)
+- [x] `lean_box_uint64` (fn) -> [src/rust/runtime/src/base.rs:310](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L310) (fn)
+- [x] `lean_ctor_set_uint8` (fn) -> [src/rust/runtime/src/base.rs:249](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L249) (fn)
+- [x] `lean_ctor_set_usize` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:213](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L213) (fn)
+- [ ] `lean_float32_once` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `lean_float_once` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_inc_ref_n` (fn) -> [src/rust/runtime/src/base.rs:181](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L181) (fn)
+- [x] `lean_inc_ref` (fn) -> [src/rust/runtime/src/base.rs:195](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L195) (fn)
+- [x] `lean_init_task_manager` (fn) -> [src/rust/runtime/src/runtime_object_task.rs:792](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_task.rs#L792) (fn)
+- [x] `lean_initialize_runtime_module` (fn) -> [src/rust/runtime/src/base.rs:1147](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L1147) (fn)
+- [x] `lean_initialize` (fn) -> [src/rust/runtime/src/base.rs:1224](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L1224) (fn)
+- [x] `lean_io_mark_end_initialization` (fn) -> [src/rust/runtime/src/base.rs:1482](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L1482) (fn)
+- [x] `lean_io_result_mk_ok` (fn) -> [src/rust/runtime/src/base.rs:1774](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L1774) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:99](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L99) (fn)
+- [x] `lean_is_exclusive` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:362](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L362) (fn), [src/rust/runtime/src/runtime_apply.rs:47](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L47) (fn), [src/rust/runtime/src/runtime_object_array.rs:23](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_array.rs#L23) (fn), [src/rust/runtime/src/runtime_object_string.rs:43](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L43) (fn)
+- [x] `lean_is_scalar` (fn) -> [src/rust/runtime/src/base.rs:162](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L162) (fn), [src/rust/runtime/src/kernel_type_checker.rs:291](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L291) (fn)
+- [x] `lean_alloc_closure` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:261](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L261) (fn), [src/rust/runtime/src/runtime_apply.rs:52](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L52) (fn), [src/rust/runtime/src/runtime_object_rc.rs:200](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L200) (fn)
+- [x] `lean_dec_ref` (fn) -> [src/rust/runtime/src/base.rs:200](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L200) (fn)
+- [x] `lean_dec` (fn) -> [src/rust/runtime/src/base.rs:227](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L227) (fn)
+- [x] `lean_ctor_release` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:241](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L241) (fn)
+- [x] `lean_del_object` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:368](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L368) (fn)
+- [ ] `lean_dec_ref_known` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_inc` (fn) -> [src/rust/runtime/src/base.rs:213](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L213) (fn)
+- [x] `lean_inc_n` (fn) -> [src/rust/runtime/src/base.rs:220](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L220) (fn)
+- [x] `lean_mark_persistent` (fn) -> [src/rust/runtime/src/base.rs:24](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L24) (fn), [src/rust/runtime/src/kernel_type_checker.rs:33](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L33) (fn), [src/rust/runtime/src/library_util.rs:26](/home/srghma/projects/lean4/src/rust/runtime/src/library_util.rs#L26) (fn), [src/rust/runtime/src/runtime_io_ref.rs:14](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_io_ref.rs#L14) (fn), [src/rust/runtime/src/runtime_object_rc.rs:437](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L437) (fn)
+- [x] `lean_mk_string_unchecked` (fn) -> [src/rust/runtime/src/runtime_object_string.rs:209](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L209) (fn)
+- [x] `lean_mk_string` (fn) -> [src/rust/runtime/src/base.rs:20](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L20) (fn), [src/rust/runtime/src/kernel_type_checker.rs:366](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L366) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:93](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L93) (fn), [src/rust/runtime/src/runtime_object_string.rs:238](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L238) (fn)
+- [ ] `lean_obj_once` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_run_main` (fn) -> [src/rust/runtime/src/runtime_thread.rs:240](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_thread.rs#L240) (fn), [src/rust/runtime/src/runtime_thread.rs:273](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_thread.rs#L273) (fn)
+- [x] `lean_setup_args` (fn) -> [src/rust/runtime/src/runtime_libuv.rs:42](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_libuv.rs#L42) (fn)
+- [ ] `lean_uint16_once` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `lean_uint32_once` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `lean_uint64_once` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `lean_uint8_once` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_unbox` (fn) -> [src/rust/runtime/src/base.rs:157](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L157) (fn), [src/rust/runtime/src/kernel_type_checker.rs:355](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L355) (fn)
+- [ ] `lean_small_nat` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `lean_obj_tag` (fn) -> [src/rust/runtime/src/base.rs:176](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L176) (fn)
+- [x] `lean_io_result_is_error` (fn) -> [src/rust/runtime/src/base.rs:426](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L426) (fn)
+- [x] `lean_io_result_is_ok` (fn) -> [src/rust/runtime/src/base.rs:421](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L421) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:96](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L96) (fn)
+- [x] `lean_io_result_get_value` (fn) -> [src/rust/runtime/src/base.rs:431](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L431) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:97](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L97) (fn)
+- [x] `lean_io_result_show_error` (fn) -> [src/rust/runtime/src/base.rs:450](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L450) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:98](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L98) (fn)
+- [x] `lean_unbox_float` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:306](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L306) (fn), [src/rust/runtime/src/runtime_object_array.rs:63](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_array.rs#L63) (fn)
+- [x] `lean_unbox_float32` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:323](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L323) (fn)
+- [x] `lean_unbox_uint32` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:289](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L289) (fn), [src/rust/runtime/src/runtime_object_string.rs:68](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L68) (fn)
+- [x] `lean_unbox_uint64` (fn) -> [src/rust/runtime/src/base.rs:317](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L317) (fn)
+- [ ] `lean_unbox_usize` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `lean_unsigned_to_nat` (fn) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `lean_usize_once` (fn) -> not found in runtime/src/{kernel,library,runtime}
+
+## leanh/src/arity.rs
+
+- [x] `closure_fun` (fn) -> [src/rust/runtime/src/runtime_apply.rs:17](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L17) (fn)
+- [x] `closure_arity` (fn) -> [src/rust/runtime/src/runtime_apply.rs:23](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L23) (fn)
+- [x] `closure_num_fixed` (fn) -> [src/rust/runtime/src/runtime_apply.rs:29](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L29) (fn)
+- [x] `closure_arg_cptr` (fn) -> [src/rust/runtime/src/runtime_apply.rs:35](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L35) (fn)
+- [x] `fx` (fn) -> [src/rust/runtime/src/runtime_apply.rs:41](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L41) (fn)
+- [ ] `CurryFn1` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn2` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn3` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn4` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn5` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn6` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn7` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn8` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn9` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn10` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn11` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn12` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn13` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn14` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn15` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [ ] `CurryFn16` (type) -> not found in runtime/src/{kernel,library,runtime}
+- [x] `fix_args` (fn) -> [src/rust/runtime/src/runtime_apply.rs:78](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L78) (fn)
+- [x] `curry` (fn) -> [src/rust/runtime/src/runtime_apply.rs:842](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L842) (fn)
+- [x] `call_exact` (fn) -> [src/rust/runtime/src/runtime_apply.rs:454](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L454) (fn)
+- [x] `apply_generic` (fn) -> [src/rust/runtime/src/runtime_apply.rs:484](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L484) (fn)
+- [x] `lean_apply_m` (fn) -> [src/rust/runtime/src/runtime_apply.rs:648](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L648) (fn)
+- [x] `lean_apply_n` (fn) -> [src/rust/runtime/src/library_ir_interpreter.rs:61](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L61) (fn), [src/rust/runtime/src/runtime_apply.rs:658](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L658) (fn)
+
+## Runtime matches
+
+- `LeanRefObject` <- src/rust/leanh/src/datatypes.rs:97:struct -> [src/rust/runtime/src/runtime_io_ref.rs:18](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_io_ref.rs#L18) (struct)
+- `apply_generic` <- src/rust/leanh/src/arity.rs:290:fn -> [src/rust/runtime/src/runtime_apply.rs:484](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L484) (fn)
+- `call_exact` <- src/rust/leanh/src/arity.rs:261:fn -> [src/rust/runtime/src/runtime_apply.rs:454](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L454) (fn)
+- `closure_arg_cptr` <- src/rust/leanh/src/arity.rs:27:fn -> [src/rust/runtime/src/runtime_apply.rs:35](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L35) (fn)
+- `closure_arity` <- src/rust/leanh/src/arity.rs:15:fn -> [src/rust/runtime/src/runtime_apply.rs:23](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L23) (fn)
+- `closure_fun` <- src/rust/leanh/src/arity.rs:9:fn -> [src/rust/runtime/src/runtime_apply.rs:17](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L17) (fn)
+- `closure_num_fixed` <- src/rust/leanh/src/arity.rs:21:fn -> [src/rust/runtime/src/runtime_apply.rs:29](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L29) (fn)
+- `curry` <- src/rust/leanh/src/arity.rs:226:fn -> [src/rust/runtime/src/runtime_apply.rs:842](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L842) (fn)
+- `dec_for_del` <- src/rust/leanh/src/not_in_emit_rust.rs:353:fn -> [src/rust/runtime/src/runtime_object_rc.rs:283](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L283) (fn)
+- `fix_args` <- src/rust/leanh/src/arity.rs:198:fn -> [src/rust/runtime/src/runtime_apply.rs:78](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L78) (fn)
+- `fx` <- src/rust/leanh/src/arity.rs:33:fn -> [src/rust/runtime/src/runtime_apply.rs:41](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L41) (fn)
+- `get_next` <- src/rust/leanh/src/not_in_emit_rust.rs:16:fn -> [src/rust/runtime/src/runtime_object_rc.rs:254](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L254) (fn)
+- `lean_alloc_closure` <- src/rust/leanh/src/in_emit_rust.rs:264:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:261](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L261) (fn), [src/rust/runtime/src/runtime_apply.rs:52](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L52) (fn), [src/rust/runtime/src/runtime_object_rc.rs:200](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L200) (fn)
+- `lean_alloc_ctor` <- src/rust/leanh/src/not_in_emit_rust.rs:309:fn -> [src/rust/runtime/src/kernel_type_checker.rs:309](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L309) (fn), [src/rust/runtime/src/library_instantiate_mvars.rs:233](/home/srghma/projects/lean4/src/rust/runtime/src/library_instantiate_mvars.rs#L233) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:255](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L255) (fn), [src/rust/runtime/src/runtime_object_string.rs:53](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L53) (fn), [src/rust/runtime/src/runtime_process.rs:68](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_process.rs#L68) (fn)
+- `lean_alloc_ctor_memory` <- src/rust/leanh/src/not_in_emit_rust.rs:103:fn -> [src/rust/runtime/src/runtime_object_rc.rs:243](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L243) (fn)
+- `lean_alloc_object` <- src/rust/leanh/src/not_in_emit_rust.rs:459:fn -> [src/rust/runtime/src/base.rs:27](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L27) (fn), [src/rust/runtime/src/runtime_object_rc.rs:379](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L379) (fn)
+- `lean_alloc_small_object` <- src/rust/leanh/src/not_in_emit_rust.rs:92:fn -> [src/rust/runtime/src/runtime_object_rc.rs:222](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L222) (fn)
+- `lean_alloc_string` <- src/rust/leanh/src/not_in_emit_rust.rs:469:fn -> [src/rust/runtime/src/base.rs:386](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L386) (fn)
+- `lean_apply_m` <- src/rust/leanh/src/arity.rs:453:fn -> [src/rust/runtime/src/runtime_apply.rs:648](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L648) (fn)
+- `lean_apply_n` <- src/rust/leanh/src/arity.rs:462:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:61](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L61) (fn), [src/rust/runtime/src/runtime_apply.rs:658](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L658) (fn)
+- `lean_array_byte_size` <- src/rust/leanh/src/not_in_emit_rust.rs:36:fn -> [src/rust/runtime/src/runtime_object_rc.rs:157](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L157) (fn), [src/rust/runtime/src/runtime_object_size.rs:18](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_size.rs#L18) (fn)
+- `lean_array_cptr` <- src/rust/leanh/src/not_in_emit_rust.rs:46:fn -> [src/rust/runtime/src/runtime_object_array.rs:33](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_array.rs#L33) (fn), [src/rust/runtime/src/runtime_object_rc.rs:147](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L147) (fn)
+- `lean_array_size` <- src/rust/leanh/src/not_in_emit_rust.rs:52:fn -> [src/rust/runtime/src/base.rs:327](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L327) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:329](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L329) (fn), [src/rust/runtime/src/runtime_object_rc.rs:152](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L152) (fn)
+- `lean_box` <- src/rust/leanh/src/not_in_emit_rust.rs:326:fn -> [src/rust/runtime/src/base.rs:663](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L663) (fn)
+- `lean_box_float` <- src/rust/leanh/src/in_emit_rust.rs:114:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:295](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L295) (fn), [src/rust/runtime/src/runtime_float.rs:24](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_float.rs#L24) (fn)
+- `lean_box_float32` <- src/rust/leanh/src/in_emit_rust.rs:128:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:312](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L312) (fn), [src/rust/runtime/src/runtime_float.rs:34](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_float.rs#L34) (fn)
+- `lean_box_uint32` <- src/rust/leanh/src/in_emit_rust.rs:21:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:283](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L283) (fn), [src/rust/runtime/src/runtime_object_string.rs:63](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L63) (fn)
+- `lean_box_uint64` <- src/rust/leanh/src/in_emit_rust.rs:160:fn -> [src/rust/runtime/src/base.rs:310](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L310) (fn)
+- `lean_closure_arg_cptr` <- src/rust/leanh/src/not_in_emit_rust.rs:58:fn -> [src/rust/runtime/src/runtime_object_rc.rs:174](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L174) (fn)
+- `lean_closure_byte_size` <- src/rust/leanh/src/not_in_emit_rust.rs:70:fn -> [src/rust/runtime/src/runtime_object_rc.rs:184](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L184) (fn), [src/rust/runtime/src/runtime_object_size.rs:56](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_size.rs#L56) (fn)
+- `lean_closure_num_fixed` <- src/rust/leanh/src/not_in_emit_rust.rs:64:fn -> [src/rust/runtime/src/runtime_object_rc.rs:179](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L179) (fn)
+- `lean_closure_set` <- src/rust/leanh/src/in_emit_rust.rs:39:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:271](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L271) (fn), [src/rust/runtime/src/runtime_io_task.rs:35](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_io_task.rs#L35) (fn)
+- `lean_cstr_to_nat` <- src/rust/leanh/src/in_emit_rust.rs:47:fn -> [src/rust/runtime/src/runtime_object_nat_int.rs:170](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_nat_int.rs#L170) (fn)
+- `lean_ctor_get` <- src/rust/leanh/src/in_emit_rust.rs:58:fn -> [src/rust/runtime/src/base.rs:234](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L234) (fn), [src/rust/runtime/src/kernel_type_checker.rs:303](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L303) (fn)
+- `lean_ctor_get_float` <- src/rust/leanh/src/in_emit_rust.rs:66:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:166](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L166) (fn)
+- `lean_ctor_get_float32` <- src/rust/leanh/src/in_emit_rust.rs:71:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:175](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L175) (fn)
+- `lean_ctor_get_uint16` <- src/rust/leanh/src/in_emit_rust.rs:76:fn -> [src/rust/runtime/src/base.rs:244](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L244) (fn)
+- `lean_ctor_get_uint32` <- src/rust/leanh/src/in_emit_rust.rs:81:fn -> [src/rust/runtime/src/runtime_process.rs:45](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_process.rs#L45) (fn)
+- `lean_ctor_get_uint64` <- src/rust/leanh/src/in_emit_rust.rs:86:fn -> [src/rust/runtime/src/base.rs:262](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L262) (fn)
+- `lean_ctor_get_uint8` <- src/rust/leanh/src/in_emit_rust.rs:91:fn -> [src/rust/runtime/src/base.rs:239](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L239) (fn)
+- `lean_ctor_get_usize` <- src/rust/leanh/src/in_emit_rust.rs:96:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:156](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L156) (fn)
+- `lean_ctor_num_objs` <- src/rust/leanh/src/not_in_emit_rust.rs:167:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:249](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L249) (fn), [src/rust/runtime/src/runtime_object_rc.rs:190](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L190) (fn)
+- `lean_ctor_obj_cptr` <- src/rust/leanh/src/not_in_emit_rust.rs:176:fn -> [src/rust/runtime/src/runtime_object_rc.rs:195](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L195) (fn)
+- `lean_ctor_release` <- src/rust/leanh/src/in_emit_rust.rs:308:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:241](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L241) (fn)
+- `lean_ctor_set` <- src/rust/leanh/src/in_emit_rust.rs:101:fn -> [src/rust/runtime/src/kernel_type_checker.rs:325](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L325) (fn), [src/rust/runtime/src/library_instantiate_mvars.rs:229](/home/srghma/projects/lean4/src/rust/runtime/src/library_instantiate_mvars.rs#L229) (fn), [src/rust/runtime/src/runtime_object_string.rs:48](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L48) (fn), [src/rust/runtime/src/runtime_process.rs:62](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_process.rs#L62) (fn)
+- `lean_ctor_set_float` <- src/rust/leanh/src/in_emit_rust.rs:109:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:223](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L223) (fn)
+- `lean_ctor_set_float32` <- src/rust/leanh/src/in_emit_rust.rs:123:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:232](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L232) (fn)
+- `lean_ctor_set_uint16` <- src/rust/leanh/src/in_emit_rust.rs:145:fn -> [src/rust/runtime/src/base.rs:254](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L254) (fn)
+- `lean_ctor_set_uint32` <- src/rust/leanh/src/in_emit_rust.rs:150:fn -> [src/rust/runtime/src/runtime_process.rs:53](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_process.rs#L53) (fn)
+- `lean_ctor_set_uint64` <- src/rust/leanh/src/in_emit_rust.rs:155:fn -> [src/rust/runtime/src/base.rs:267](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L267) (fn)
+- `lean_ctor_set_uint8` <- src/rust/leanh/src/in_emit_rust.rs:169:fn -> [src/rust/runtime/src/base.rs:249](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L249) (fn)
+- `lean_ctor_set_usize` <- src/rust/leanh/src/in_emit_rust.rs:174:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:213](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L213) (fn)
+- `lean_dealloc` <- src/rust/leanh/src/not_in_emit_rust.rs:125:fn -> [src/rust/runtime/src/runtime_object_rc.rs:138](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L138) (fn)
+- `lean_dec` <- src/rust/leanh/src/in_emit_rust.rs:299:fn -> [src/rust/runtime/src/base.rs:227](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L227) (fn)
+- `lean_dec_ref` <- src/rust/leanh/src/in_emit_rust.rs:288:fn -> [src/rust/runtime/src/base.rs:200](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L200) (fn)
+- `lean_dec_ref_cold` <- src/rust/leanh/src/not_in_emit_rust.rs:486:fn -> [src/rust/runtime/src/base.rs:23](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L23) (fn), [src/rust/runtime/src/runtime_object_rc.rs:408](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L408) (fn)
+- `lean_del_core` <- src/rust/leanh/src/not_in_emit_rust.rs:442:fn -> [src/rust/runtime/src/runtime_object_rc.rs:366](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L366) (fn)
+- `lean_del_core_other` <- src/rust/leanh/src/not_in_emit_rust.rs:373:fn -> [src/rust/runtime/src/runtime_object_rc.rs:302](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L302) (fn)
+- `lean_del_object` <- src/rust/leanh/src/in_emit_rust.rs:318:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:368](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L368) (fn)
+- `lean_free_object` <- src/rust/leanh/src/not_in_emit_rust.rs:215:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:109](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L109) (fn), [src/rust/runtime/src/runtime_apply.rs:13](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L13) (fn), [src/rust/runtime/src/runtime_object_array.rs:15](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_array.rs#L15) (fn), [src/rust/runtime/src/runtime_object_rc.rs:393](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L393) (fn), [src/rust/runtime/src/runtime_object_string.rs:16](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L16) (fn)
+- `lean_free_small_object` <- src/rust/leanh/src/not_in_emit_rust.rs:133:fn -> [src/rust/runtime/src/runtime_object_rc.rs:234](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L234) (fn)
+- `lean_inc` <- src/rust/leanh/src/in_emit_rust.rs:342:fn -> [src/rust/runtime/src/base.rs:213](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L213) (fn)
+- `lean_inc_n` <- src/rust/leanh/src/in_emit_rust.rs:349:fn -> [src/rust/runtime/src/base.rs:220](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L220) (fn)
+- `lean_inc_ref` <- src/rust/leanh/src/in_emit_rust.rs:220:fn -> [src/rust/runtime/src/base.rs:195](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L195) (fn)
+- `lean_inc_ref_n` <- src/rust/leanh/src/in_emit_rust.rs:204:fn -> [src/rust/runtime/src/base.rs:181](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L181) (fn)
+- `lean_init_task_manager` <- src/rust/leanh/src/in_emit_rust.rs:225:fn -> [src/rust/runtime/src/runtime_object_task.rs:792](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_task.rs#L792) (fn)
+- `lean_initialize` <- src/rust/leanh/src/in_emit_rust.rs:231:fn -> [src/rust/runtime/src/base.rs:1224](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L1224) (fn)
+- `lean_initialize_runtime_module` <- src/rust/leanh/src/in_emit_rust.rs:228:fn -> [src/rust/runtime/src/base.rs:1147](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L1147) (fn)
+- `lean_io_mark_end_initialization` <- src/rust/leanh/src/in_emit_rust.rs:238:fn -> [src/rust/runtime/src/base.rs:1482](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L1482) (fn)
+- `lean_io_result_get_value` <- src/rust/leanh/src/in_emit_rust.rs:575:fn -> [src/rust/runtime/src/base.rs:431](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L431) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:97](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L97) (fn)
+- `lean_io_result_is_error` <- src/rust/leanh/src/in_emit_rust.rs:565:fn -> [src/rust/runtime/src/base.rs:426](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L426) (fn)
+- `lean_io_result_is_ok` <- src/rust/leanh/src/in_emit_rust.rs:570:fn -> [src/rust/runtime/src/base.rs:421](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L421) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:96](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L96) (fn)
+- `lean_io_result_mk_ok` <- src/rust/leanh/src/in_emit_rust.rs:241:fn -> [src/rust/runtime/src/base.rs:1774](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L1774) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:99](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L99) (fn)
+- `lean_io_result_show_error` <- src/rust/leanh/src/in_emit_rust.rs:583:fn -> [src/rust/runtime/src/base.rs:450](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L450) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:98](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L98) (fn)
+- `lean_is_exclusive` <- src/rust/leanh/src/in_emit_rust.rs:250:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:362](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L362) (fn), [src/rust/runtime/src/runtime_apply.rs:47](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_apply.rs#L47) (fn), [src/rust/runtime/src/runtime_object_array.rs:23](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_array.rs#L23) (fn), [src/rust/runtime/src/runtime_object_string.rs:43](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L43) (fn)
+- `lean_is_scalar` <- src/rust/leanh/src/in_emit_rust.rs:259:fn -> [src/rust/runtime/src/base.rs:162](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L162) (fn), [src/rust/runtime/src/kernel_type_checker.rs:291](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L291) (fn)
+- `lean_is_st` <- src/rust/leanh/src/not_in_emit_rust.rs:141:fn -> [src/rust/runtime/src/library_instantiate_mvars.rs:242](/home/srghma/projects/lean4/src/rust/runtime/src/library_instantiate_mvars.rs#L242) (fn), [src/rust/runtime/src/runtime_object_rc.rs:47](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L47) (fn)
+- `lean_mark_persistent` <- src/rust/leanh/src/in_emit_rust.rs:356:fn -> [src/rust/runtime/src/base.rs:24](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L24) (fn), [src/rust/runtime/src/kernel_type_checker.rs:33](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L33) (fn), [src/rust/runtime/src/library_util.rs:26](/home/srghma/projects/lean4/src/rust/runtime/src/library_util.rs#L26) (fn), [src/rust/runtime/src/runtime_io_ref.rs:14](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_io_ref.rs#L14) (fn), [src/rust/runtime/src/runtime_object_rc.rs:437](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L437) (fn)
+- `lean_mk_string` <- src/rust/leanh/src/in_emit_rust.rs:379:fn -> [src/rust/runtime/src/base.rs:20](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L20) (fn), [src/rust/runtime/src/kernel_type_checker.rs:366](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L366) (fn), [src/rust/runtime/src/library_ir_interpreter.rs:93](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L93) (fn), [src/rust/runtime/src/runtime_object_string.rs:238](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L238) (fn)
+- `lean_mk_string_unchecked` <- src/rust/leanh/src/in_emit_rust.rs:365:fn -> [src/rust/runtime/src/runtime_object_string.rs:209](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L209) (fn)
+- `lean_obj_once_cold` <- src/rust/leanh/src/not_in_emit_rust.rs:509:fn -> [src/rust/runtime/src/runtime_once.rs:39](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_once.rs#L39) (fn)
+- `lean_obj_tag` <- src/rust/leanh/src/in_emit_rust.rs:554:fn -> [src/rust/runtime/src/base.rs:176](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L176) (fn)
+- `lean_ptr_tag` <- src/rust/leanh/src/not_in_emit_rust.rs:161:fn -> [src/rust/runtime/src/base.rs:167](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L167) (fn), [src/rust/runtime/src/kernel_type_checker.rs:297](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L297) (fn)
+- `lean_run_main` <- src/rust/leanh/src/in_emit_rust.rs:402:fn -> [src/rust/runtime/src/runtime_thread.rs:240](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_thread.rs#L240) (fn), [src/rust/runtime/src/runtime_thread.rs:273](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_thread.rs#L273) (fn)
+- `lean_sarray_byte_size` <- src/rust/leanh/src/not_in_emit_rust.rs:197:fn -> [src/rust/runtime/src/runtime_object_rc.rs:163](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L163) (fn), [src/rust/runtime/src/runtime_object_size.rs:32](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_size.rs#L32) (fn)
+- `lean_setup_args` <- src/rust/leanh/src/in_emit_rust.rs:411:fn -> [src/rust/runtime/src/runtime_libuv.rs:42](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_libuv.rs#L42) (fn)
+- `lean_string_byte_size` <- src/rust/leanh/src/not_in_emit_rust.rs:206:fn -> [src/rust/runtime/src/runtime_object_rc.rs:169](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L169) (fn), [src/rust/runtime/src/runtime_object_size.rs:44](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_size.rs#L44) (fn), [src/rust/runtime/src/runtime_object_string.rs:28](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L28) (fn)
+- `lean_string_data` <- src/rust/leanh/src/not_in_emit_rust.rs:233:fn -> [src/rust/runtime/src/runtime_object_string.rs:715](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L715) (fn)
+- `lean_unbox` <- src/rust/leanh/src/in_emit_rust.rs:460:fn -> [src/rust/runtime/src/base.rs:157](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L157) (fn), [src/rust/runtime/src/kernel_type_checker.rs:355](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L355) (fn)
+- `lean_unbox_float` <- src/rust/leanh/src/in_emit_rust.rs:591:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:306](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L306) (fn), [src/rust/runtime/src/runtime_object_array.rs:63](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_array.rs#L63) (fn)
+- `lean_unbox_float32` <- src/rust/leanh/src/in_emit_rust.rs:596:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:323](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L323) (fn)
+- `lean_unbox_uint32` <- src/rust/leanh/src/in_emit_rust.rs:601:fn -> [src/rust/runtime/src/library_ir_interpreter.rs:289](/home/srghma/projects/lean4/src/rust/runtime/src/library_ir_interpreter.rs#L289) (fn), [src/rust/runtime/src/runtime_object_string.rs:68](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L68) (fn)
+- `lean_unbox_uint64` <- src/rust/leanh/src/in_emit_rust.rs:614:fn -> [src/rust/runtime/src/base.rs:317](/home/srghma/projects/lean4/src/rust/runtime/src/base.rs#L317) (fn)
+- `lean_usize_to_nat` <- src/rust/leanh/src/not_in_emit_rust.rs:332:fn -> [src/rust/runtime/src/kernel_type_checker.rs:654](/home/srghma/projects/lean4/src/rust/runtime/src/kernel_type_checker.rs#L654) (fn), [src/rust/runtime/src/runtime_object_string.rs:78](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_string.rs#L78) (fn)
+- `lock_once_cell` <- src/rust/leanh/src/not_in_emit_rust.rs:244:fn -> [src/rust/runtime/src/runtime_once.rs:11](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_once.rs#L11) (fn)
+- `pop_back` <- src/rust/leanh/src/not_in_emit_rust.rs:255:fn -> [src/rust/runtime/src/runtime_object_rc.rs:276](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L276) (fn)
+- `push_back` <- src/rust/leanh/src/not_in_emit_rust.rs:279:fn -> [src/rust/runtime/src/runtime_object_rc.rs:270](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L270) (fn)
+- `run_once` <- src/rust/leanh/src/not_in_emit_rust.rs:294:fn -> [src/rust/runtime/src/runtime_once.rs:26](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_once.rs#L26) (fn)
+- `set_next` <- src/rust/leanh/src/not_in_emit_rust.rs:265:fn -> [src/rust/runtime/src/runtime_object_rc.rs:262](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_object_rc.rs#L262) (fn)
+- `unlock_once_cell` <- src/rust/leanh/src/not_in_emit_rust.rs:288:fn -> [src/rust/runtime/src/runtime_once.rs:21](/home/srghma/projects/lean4/src/rust/runtime/src/runtime_once.rs#L21) (fn)
+
+## Not duplicated
+
+- `CurryFn1` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn10` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn11` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn12` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn13` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn14` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn15` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn16` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn2` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn3` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn4` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn5` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn6` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn7` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn8` (src/rust/leanh/src/arity.rs:type)
+- `CurryFn9` (src/rust/leanh/src/arity.rs:type)
+- `F32InitFn` (src/rust/leanh/src/datatypes.rs:type)
+- `F64InitFn` (src/rust/leanh/src/datatypes.rs:type)
+- `G_TO_FREE` (src/rust/leanh/src/datatypes.rs:static)
+- `LEAN_ARRAY_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_CLOSURE_MAX_ARGS` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_CLOSURE_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_EXTERNAL_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_MAX_CTOR_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_MAX_SMALL_NAT` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_MPZ_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_OBJECT_SIZE_DELTA` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_PROMISE_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_REF_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_RESERVED_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_SCALAR_ARRAY_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_STRING_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_STRUCT_ARRAY_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_TASK_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LEAN_THUNK_TAG` (src/rust/leanh/src/datatypes.rs:const)
+- `LeanArrayObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanClosureObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanCtorObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanExternalClass` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanExternalFinalizeProc` (src/rust/leanh/src/datatypes.rs:type)
+- `LeanExternalForeachProc` (src/rust/leanh/src/datatypes.rs:type)
+- `LeanExternalObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanMpzObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanMpzStruct` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanOnceCell` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanPromiseObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanScalarArray` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanStringObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanTaskImp` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanTaskObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `LeanThunkObject` (src/rust/leanh/src/datatypes.rs:struct)
+- `MpzT` (src/rust/leanh/src/datatypes.rs:type)
+- `ObjInitFn` (src/rust/leanh/src/datatypes.rs:type)
+- `usize` (src/rust/leanh/src/datatypes.rs:type)
+- `U16InitFn` (src/rust/leanh/src/datatypes.rs:type)
+- `U32InitFn` (src/rust/leanh/src/datatypes.rs:type)
+- `U64InitFn` (src/rust/leanh/src/datatypes.rs:type)
+- `U8InitFn` (src/rust/leanh/src/datatypes.rs:type)
+- `UsizeInitFn` (src/rust/leanh/src/datatypes.rs:type)
+- `lean_box_usize` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_ctor_set_tag` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_dec_ref_known` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_float_once` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_float32_once` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_obj_once` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_small_nat` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_uint16_once` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_uint32_once` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_uint64_once` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_uint8_once` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_unbox_usize` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_unsigned_to_nat` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `lean_usize_once` (src/rust/leanh/src/in_emit_rust.rs:fn)
+- `arity` (src/rust/leanh/src/lib.rs:mod)
+- `datatypes` (src/rust/leanh/src/lib.rs:mod)
+- `in_emit_rust` (src/rust/leanh/src/lib.rs:mod)
+- `not_in_emit_rust` (src/rust/leanh/src/lib.rs:mod)
+- `lean_align` (src/rust/leanh/src/not_in_emit_rust.rs:fn)
+- `lean_ctor_scalar_cptr` (src/rust/leanh/src/not_in_emit_rust.rs:fn)
+- `lean_global_alloc` (src/rust/leanh/src/not_in_emit_rust.rs:fn)
+- `lean_global_dealloc` (src/rust/leanh/src/not_in_emit_rust.rs:fn)
+- `lean_is_ref` (src/rust/leanh/src/not_in_emit_rust.rs:fn)
+- `lean_is_scalar_bool` (src/rust/leanh/src/not_in_emit_rust.rs:fn)
+- `lean_mpz_clear` (src/rust/leanh/src/not_in_emit_rust.rs:fn)

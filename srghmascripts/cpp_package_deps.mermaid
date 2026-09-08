@@ -1,0 +1,35 @@
+graph TD
+  include[include]
+  shell[shell]
+
+  subgraph core["strongly connected core"]
+    util[util]
+    kernel[kernel]
+    runtime[runtime]
+    library[library]
+    initialize[initialize]
+  end
+
+  util --> include
+  runtime --> include
+  library --> include
+
+  kernel --> util
+  kernel --> runtime
+  kernel --> library
+
+  util --> kernel
+  util --> runtime
+  util --> library
+  util --> initialize
+
+  runtime --> util
+
+  library --> util
+  library --> kernel
+  library --> runtime
+
+  initialize --> util
+  initialize --> kernel
+  initialize --> runtime
+  initialize --> library

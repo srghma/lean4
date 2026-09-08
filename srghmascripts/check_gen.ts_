@@ -1,0 +1,283 @@
+#!/usr/bin/env bun
+
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+
+const rootDir = path.resolve(path.join(import.meta.dir, ".."));
+const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "lean-gen-check-"));
+
+const genRoot = path.join(rootDir, "src/rust/lean_runtime/src/gen");
+const leanImportsRoot = path.join(rootDir, "src/rust/lean_runtime/src/lean_imports_rs");
+const allGenRoots = ["Init", "Std", "Lean", "Lake", "Leanc", "LeanIR", "LeanChecker", "LakeMain"];
+
+const rootDeps = new Map<string, string[]>([
+  ["Init", ["Init"]],
+  ["Std", ["Init", "Std"]],
+  ["Lean", ["Init", "Std", "Lean"]],
+  ["Lake", ["Init", "Std", "Lean", "Lake"]],
+  ["Leanc", ["Init", "Std", "Lean", "Lake", "Leanc"]],
+  ["LeanIR", ["Init", "Std", "Lean", "LeanIR"]],
+  ["LeanChecker", ["Init", "Std", "Lean", "Lake", "LeanChecker"]],
+  ["LakeMain", ["Init", "Std", "Lean", "Lake", "LakeMain"]],
+]);
+
+const usage = () => {
+  console.error("usage: bun srghmascripts/check_gen.ts [--full | --roots Init,Std,Lean | --files Init/Prelude.rs,Std.lean.rs]");
+  process.exit(2);
+};
+
+const parseSelection = () => {
+  const rootsArg = process.argv.find((arg) => arg.startsWith("--roots="));
+  const filesArg = process.argv.find((arg) => arg.startsWith("--files="));
+  if ([process.argv.includes("--full"), !!rootsArg, !!filesArg].filter(Boolean).length > 1) usage();
+  if (process.argv.includes("--full")) return { roots: allGenRoots, files: undefined };
+  if (filesArg) {
+    const files = filesArg
+      .slice("--files=".length)
+      .split(",")
+      .map((file) => file.trim())
+      .filter(Boolean);
+    if (files.length === 0) usage();
+    return { roots: undefined, files: new Set(files) };
+  }
+  if (!rootsArg) return { roots: allGenRoots, files: undefined };
+
+  const requested = rootsArg
+    .slice("--roots=".length)
+    .split(",")
+    .map((root) => root.trim())
+    .filter(Boolean);
+  if (requested.length === 0) usage();
+
+  const expanded = new Set<string>();
+  for (const root of requested) {
+    const deps = rootDeps.get(root);
+    if (!deps) {
+      console.error(`unknown generated root ${JSON.stringify(root)}; expected one of ${allGenRoots.join(", ")}`);
+      process.exit(2);
+    }
+    for (const dep of deps) expanded.add(dep);
+  }
+  return { roots: [...expanded], files: undefined };
+};
+
+const selection = parseSelection();
+const selectedGenRoots = selection.roots ? new Set(selection.roots) : undefined;
+const selectedGenFiles = selection.files;
+const checkTimeoutSeconds = Number.parseInt(Bun.env.LEAN_GEN_CHECK_TIMEOUT_SECONDS ?? "300", 10);
+const maxOutputLines = Number.parseInt(Bun.env.LEAN_GEN_CHECK_MAX_OUTPUT_LINES ?? "200", 10);
+
+const shellQuote = (arg: string) => `'${arg.replaceAll("'", "'\\''")}'`;
+
+async function* walkFiles(dir: string): AsyncGenerator<string> {
+  for (const entry of await fs.readdir(dir, { withFileTypes: true }).catch(() => [])) {
+    const abs = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      yield* walkFiles(abs);
+    } else if (entry.isFile()) {
+      yield abs;
+    }
+  }
+}
+
+const run = async (args: string[]) => {
+  const command =
+    Number.isFinite(checkTimeoutSeconds) && checkTimeoutSeconds > 0
+      ? ["timeout", "--signal=INT", "--kill-after=30s", `${checkTimeoutSeconds}s`, ...args]
+      : args;
+  const shellCommand = [
+    "set -o pipefail",
+    `${command.map(shellQuote).join(" ")} 2>&1 | sed -n '1,${maxOutputLines}p'`,
+    "exit ${PIPESTATUS[0]}",
+  ].join("; ");
+  const proc = Bun.spawn(["bash", "-lc", shellCommand], {
+    cwd: rootDir,
+    env: {
+      ...Bun.env,
+      CARGO_INCREMENTAL: "0",
+      RUSTFLAGS: [Bun.env.RUSTFLAGS, "-Awarnings"].filter(Boolean).join(" "),
+    },
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+  const code = await proc.exited;
+  if (code !== 0) process.exit(code);
+};
+
+type ModuleNode = {
+  children: Map<string, ModuleNode>;
+  source?: string;
+  importPath?: string[];
+};
+
+const sanitizeModuleName = (name: string) => {
+  const stem = name.replace(/\.rs$/, "");
+  return ["gen", "loop", "type"].includes(stem) ? `r#${stem}` : stem;
+};
+
+const buildModuleTree = async (sourceRoot: string) => {
+  const root: ModuleNode = { children: new Map() };
+  for await (const file of walkFiles(sourceRoot)) {
+    if (!file.endsWith(".rs")) continue;
+    const parts = path.relative(sourceRoot, file).split(path.sep);
+    if (sourceRoot === genRoot) {
+      const rel = parts.join("/");
+      if (selectedGenFiles) {
+        if (!selectedGenFiles.has(rel)) continue;
+      } else {
+        const topLevel = parts[0]!.replace(/\.rs$/, "");
+        if (!selectedGenRoots?.has(topLevel)) continue;
+      }
+    }
+    let node = root;
+    for (const part of parts.slice(0, -1)) {
+      const name = sanitizeModuleName(part);
+      const child = node.children.get(name) ?? { children: new Map() };
+      node.children.set(name, child);
+      node = child;
+    }
+    const leafName = sanitizeModuleName(parts.at(-1)!);
+    const leaf = node.children.get(leafName) ?? { children: new Map() };
+    leaf.source = file;
+    if (sourceRoot === genRoot) {
+      const importFile = path.join(leanImportsRoot, ...parts);
+      if (
+        await fs
+          .access(importFile)
+          .then(() => true)
+          .catch(() => false)
+      ) {
+        leaf.importPath = parts.map(sanitizeModuleName);
+      }
+    }
+    node.children.set(leafName, leaf);
+  }
+  return root;
+};
+
+const emitModuleTree = async (node: ModuleNode, dir: string) => {
+  await fs.mkdir(dir, { recursive: true });
+  const lines: string[] = ["use crate::*;", ""];
+
+  for (const [name, child] of [...node.children.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+    lines.push(`pub mod ${name};`);
+    await emitModuleTree(child, path.join(dir, name.replace(/^r#/, "")));
+  }
+
+  if (node.source) {
+    if (node.importPath) {
+      lines.push("");
+      lines.push(`use crate::lean_imports_rs::${node.importPath.join("::")}::*;`);
+    }
+    lines.push("");
+    lines.push(`include!(${JSON.stringify(node.source)});`);
+  }
+
+  await fs.writeFile(path.join(dir, "mod.rs"), `${lines.join("\n")}\n`);
+};
+
+try {
+  console.error(
+    selectedGenFiles
+      ? `checking generated Rust files: ${[...selectedGenFiles].join(", ")}`
+      : `checking generated Rust roots: ${[...(selectedGenRoots ?? [])].join(", ")}`,
+  );
+  console.error(`temporary check crate: ${tmpDir}`);
+
+  await fs.mkdir(path.join(tmpDir, "src"), { recursive: true });
+  await fs.writeFile(
+    path.join(tmpDir, "Cargo.toml"),
+    [
+      "[package]",
+      'name = "lean-gen-check"',
+      'version = "0.0.0"',
+      'edition = "2024"',
+      "",
+      "[lib]",
+      'path = "src/lib.rs"',
+      "",
+      "[profile.dev]",
+      "debug = 0",
+      "incremental = false",
+      "",
+    ].join("\n"),
+  );
+
+  await fs.writeFile(
+    path.join(tmpDir, "src/lib.rs"),
+    [
+      "#![allow(non_snake_case, non_upper_case_globals, non_camel_case_types)]",
+      "#![allow(unused_imports, unused_variables, dead_code, improper_ctypes)]",
+      "#![allow(unreachable_code, unsafe_op_in_unsafe_fn)]",
+      "",
+      "pub enum LeanObject {}",
+      "",
+      "extern crate self as lean_runtime;",
+      "",
+      "pub mod leanh {",
+      "    pub use crate::*;",
+      "",
+      "    #[repr(C)]",
+      "    pub struct LeanCtorObject<const N: usize> {",
+      "        pub m_header: LeanObject,",
+      "        pub m_objs: [*mut LeanObject; N],",
+      "    }",
+      "",
+      "    #[repr(C)]",
+      "    pub struct LeanStringObject<const N: usize> {",
+      "        pub m_header: LeanObject,",
+      "        pub m_size: usize,",
+      "        pub m_capacity: usize,",
+      "        pub m_length: usize,",
+      "        pub m_data: [core::ffi::c_char; N],",
+      "    }",
+      "",
+      "    #[repr(C)]",
+      "    pub struct LeanClosureObject<const N: usize> {",
+      "        pub m_header: LeanObject,",
+      "        pub m_fun: *const core::ffi::c_void,",
+      "        pub m_arity: u16,",
+      "        pub m_num_fixed: u16,",
+      "        pub m_objs: [*mut LeanObject; N],",
+      "    }",
+      "",
+      "    #[repr(C)]",
+      "    pub struct LeanArrayObject<const N: usize> {",
+      "        pub m_header: LeanObject,",
+      "        pub m_size: usize,",
+      "        pub m_capacity: usize,",
+      "        pub m_data: [*mut LeanObject; N],",
+      "    }",
+      "",
+      "    #[repr(C)]",
+      "    pub struct LeanScalarArrayObject<const N: usize> {",
+      "        pub m_header: LeanObject,",
+      "        pub m_size: usize,",
+      "        pub m_capacity: usize,",
+      "        pub m_data: [u8; N],",
+      "    }",
+      "}",
+      "",
+      "pub mod lean_imports_rs;",
+      "",
+      "pub mod r#gen;",
+      "",
+    ].join("\n"),
+  );
+
+  await emitModuleTree(await buildModuleTree(genRoot), path.join(tmpDir, "src/gen"));
+  await emitModuleTree(await buildModuleTree(leanImportsRoot), path.join(tmpDir, "src/lean_imports_rs"));
+
+  await run([
+    "cargo",
+    "check",
+    "--quiet",
+    "--message-format",
+    "short",
+    "--manifest-path",
+    path.join(tmpDir, "Cargo.toml"),
+  ]);
+} finally {
+  await fs.rm(tmpDir, { recursive: true, force: true });
+}
