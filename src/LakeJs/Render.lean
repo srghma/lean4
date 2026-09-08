@@ -13,41 +13,41 @@ public section
 
 namespace Lean.Compiler.JS
 
+public def indentLines (s : String) : String :=
+  let lines := (s.split (· == '\n')).toList
+  String.intercalate "\n" (lines.map fun l => if l.isEmpty then "" else "  " ++ l)
+
 mutual
-  public partial def renderJs (e : JsInlineExpr) : String :=
+  public partial def renderExpr {n : Nat} (e : Expr n) (env : Array String := #[]) : String :=
     match e with
-    | .funArg idx => s!"#${idx}"
-    | .identifier name => name
-    | .decimal val => s!"{val}"
-    | .hex val => s!"0x{Nat.toDigits 16 val |> String.ofList}"
-    | .stringLiteral val => s!"\"{val}\""
-    | .boolLiteral val => if val then "true" else "false"
-    | .arrayLiteral elems =>
-      "[" ++ ", ".intercalate (elems.map renderJs).toList ++ "]"
-    | .objectLiteral fields =>
-      if fields.isEmpty then "{}"
-      else "({ " ++ ", ".intercalate (fields.map fun (k, v) => s!"{k}: {renderJs v}").toList ++ " })"
-    | .isTag obj tag =>
-      s!"({renderJs obj}.tag === \"{mangleName tag}\")"
-    | .getField obj idx =>
-      s!"{renderJs obj}._{idx + 1}"
-    | .mkObject tag fields =>
-      if fields.isEmpty then
-        s!"(\{ tag: \"{mangleName tag}\" })"
+    | .var i =>
+      if i.val < env.size then env[i.val]! else s!"#${i.val}"
+    | .global name => name
+    | .num val => s!"{val}"
+    | .numLit val => val
+    | .str val => s!"\"{val}\""
+    | .bool val => if val then "true" else "false"
+    | .obj props =>
+      let pairs := props.toList.map fun (p, v) => s!"{p}: {renderExpr v env}"
+      "({ " ++ ", ".intercalate pairs ++ " })"
+    | .arr elems =>
+      "[" ++ ", ".intercalate (elems.toList.map (renderExpr · env)) ++ "]"
+    | .call fn args =>
+      if fn == Expr.global "throw" then
+        match args.toList with
+        | [arg] => s!"throw {renderExpr arg env}"
+        | _ => s!"throw {renderExpr fn env}"
       else
-        let fieldStrs := fields.mapIdx fun i f => s!"_{i + 1}: {renderJs f}"
-        s!"(\{ tag: \"{mangleName tag}\", {", ".intercalate fieldStrs.toList} })"
-    | .callExpression fn args =>
-      s!"{renderJs fn}({", ".intercalate (args.map renderJs).toList})"
-    | .memberDot obj name =>
-      s!"{renderJs obj}.{name}"
-    | .memberSquare obj idx =>
-      s!"{renderJs obj}[{renderJs idx}]"
-    | .unaryExpression op arg =>
+        s!"{renderExpr fn env}({", ".intercalate (args.toList.map (renderExpr · env))})"
+    | .prop obj name =>
+      s!"{renderExpr obj env}.{name}"
+    | .index obj idx =>
+      s!"{renderExpr obj env}[{renderExpr idx env}]"
+    | .unary op a =>
       let opStr := match op with
         | .not => "!" | .minus => "-" | .tilde => "~" | .typeof => "typeof " | _ => ""
-      s!"{opStr}{renderJs arg}"
-    | .expressionBinary op lhs rhs =>
+      s!"{opStr}{renderExpr a env}"
+    | .binop op a b =>
       let opStr := match op with
         | .plus => "+" | .minus => "-" | .times => "*" | .divide => "/" | .mod => "%"
         | .eq => "==" | .strictEq => "===" | .neq => "!=" | .strictNeq => "!=="
@@ -56,56 +56,114 @@ mutual
         | .bitAnd => "&" | .bitOr => "|" | .bitXor => "^"
         | .lsh => "<<" | .rsh => ">>" | .ursh => ">>>"
         | _ => "=="
-      s!"({renderJs lhs} {opStr} {renderJs rhs})"
-    | .expressionTernary cond t e =>
-      s!"({renderJs cond} ? {renderJs t} : {renderJs e})"
-    | .memberNew expr args =>
-      s!"new {renderJs expr}({", ".intercalate (args.map renderJs).toList})"
-    | .throw expr =>
-      s!"throw {renderJs expr}"
-    | .arrowFunction params body =>
-      s!"(({", ".intercalate params.toList}) => {renderJs body})"
-    | .arrowFunctionBlock params stmts =>
-      let stmtsStr := String.join (stmts.toList.map fun s => "  " ++ renderJsStmt s ++ "\n")
-      s!"(({", ".intercalate params.toList}) => \{\n{stmtsStr}})"
-    | .inlineFunc params body returnsOpt =>
-      let paramStr := ", ".intercalate params.toList
-      let bodyStrs := body.toList.map (fun s => "  " ++ renderJsStmt s ++ "\n")
-      let retStr := match returnsOpt with
-        | some r => s!"  return {renderJs r};\n"
-        | none => ""
-      s!"(({paramStr}) => \{\n{String.join bodyStrs}{retStr}})"
-
-  public partial def renderJsStmt (s : JsInlineStmt) : String :=
-    match s with
-    | .const name val => s!"const {name} = {renderJs val};"
-    | .letVar name val => s!"let {name} = {renderJs val};"
-    | .assign lhs rhs => s!"{renderJs lhs} = {renderJs rhs};"
-    | .assignOp op lhs rhs =>
-      let opStr := match op with
-        | .plus => "+=" | .minus => "-=" | .times => "*=" | .divide => "/=" | .mod => "%="
-        | .bitOr => "|=" | .bitAnd => "&=" | .bitXor => "^=" | _ => "="
-      s!"{renderJs lhs} {opStr} {renderJs rhs};"
-    | .incr e => s!"{renderJs e}++;"
-    | .decr e => s!"{renderJs e}--;"
-    | .expr e => s!"{renderJs e};"
-    | .return e => s!"return {renderJs e};"
-    | .while cond body =>
-      let bodyStr := String.join (body.toList.map fun st => "    " ++ renderJsStmt st ++ "\n")
-      s!"while ({renderJs cond}) \{\n{bodyStr}  }"
-    | .forLoop init cond step body =>
-      let initStr := renderJsStmt init
-      let stepStr := renderJsStmt step
-      let stepTrim := if stepStr.endsWith ";" then (stepStr.dropEnd 1).toString else stepStr
-      let bodyStr := String.join (body.toList.map fun st => "    " ++ renderJsStmt st ++ "\n")
-      s!"for ({initStr} {renderJs cond}; {stepTrim}) \{\n{bodyStr}  }"
-    | .ifElse cond thenB elseB =>
-      let thenStr := String.join (thenB.toList.map fun st => "    " ++ renderJsStmt st ++ "\n")
-      if elseB.isEmpty then
-        s!"if ({renderJs cond}) \{\n{thenStr}  }"
+      s!"({renderExpr a env} {opStr} {renderExpr b env})"
+    | .cond c t e =>
+      s!"({renderBExpr c env} ? {renderExpr t env} : {renderExpr e env})"
+    | .new cls args =>
+      s!"new {renderExpr cls env}({", ".intercalate (args.toList.map (renderExpr · env))})"
+    | .assign lhs rhs =>
+      s!"{renderExpr lhs env} = {renderExpr rhs env}"
+    | .arrowExpr params body =>
+      let freshParams := (List.range params).map (fun i => s!"_p{i}")
+      let env' := env ++ freshParams.toArray
+      let pStr := ", ".intercalate freshParams
+      s!"(({pStr}) => {renderExpr body env'})"
+    | .leanGeneratedEnumIsTag obj tag =>
+      s!"({renderExpr obj env}.tag === \"{mangleName tag}\")"
+    | .leanGeneratedEnumGetField obj idx =>
+      s!"{renderExpr obj env}._{idx + 1}"
+    | .leanGeneratedEnumMk tag fields =>
+      if fields.toList.isEmpty then
+        s!"(\{ tag: \"{mangleName tag}\" })"
       else
-        let elseStr := String.join (elseB.toList.map fun st => "    " ++ renderJsStmt st ++ "\n")
-        s!"if ({renderJs cond}) \{\n{thenStr}  } else \{\n{elseStr}  }"
+        let fieldStrs := fields.toList.mapIdx fun i f => s!"_{i + 1}: {renderExpr f env}"
+        s!"(\{ tag: \"{mangleName tag}\", {", ".intercalate fieldStrs} })"
+
+  public partial def renderBExpr {n : Nat} (b : BExpr n) (env : Array String := #[]) : String :=
+    match b with
+    | .tt => "true"
+    | .ff => "false"
+    | .truthy e => renderExpr e env
+    | .lt a b => s!"({renderExpr a env} < {renderExpr b env})"
+    | .le a b => s!"({renderExpr a env} <= {renderExpr b env})"
+    | .eq a b => s!"({renderExpr a env} == {renderExpr b env})"
+    | .strictEq a b => s!"({renderExpr a env} === {renderExpr b env})"
+    | .not c => s!"!{renderBExpr c env}"
+    | .and c d => s!"({renderBExpr c env} && {renderBExpr d env})"
+    | .or c d => s!"({renderBExpr c env} || {renderBExpr d env})"
 end
 
+mutual
+  public partial def renderStmt {n : Nat} (st : Stmt n) (env : Array String := #[]) : String :=
+    match st with
+    | .ret e => s!"return {renderExpr e env};"
+    | .letIn val k =>
+      let varName := s!"_v{env.size}"
+      let initStr := s!"const {varName} = {renderExpr val env};"
+      let kStr := renderStmt k (env.push varName)
+      s!"{initStr}\n{kStr}"
+    | .letClosure f captures k =>
+      let varName := s!"_v{env.size}"
+      let fStr := renderInlinableFunc f
+      let capStrs := captures.toList.map (renderExpr · env)
+      let initStr := s!"const {varName} = {fStr}({", ".intercalate capStrs});"
+      let kStr := renderStmt k (env.push varName)
+      s!"{initStr}\n{kStr}"
+    | .seq e k =>
+      let eStr := s!"{renderExpr e env};"
+      let kStr := renderStmt k env
+      if kStr.isEmpty || kStr == "break;" then eStr else s!"{eStr}\n{kStr}"
+    | .ifElse cond t e k =>
+      let tStr := renderStmt t env
+      let eStr := renderStmt e env
+      let kStr := renderStmt k env
+      let ifBlock :=
+        if eStr.isEmpty || eStr == "break;" then
+          s!"if ({renderBExpr cond env}) \{\n{indentLines tStr}\n}"
+        else
+          s!"if ({renderBExpr cond env}) \{\n{indentLines tStr}\n} else \{\n{indentLines eStr}\n}"
+      if kStr.isEmpty || kStr == "break;" then ifBlock else s!"{ifBlock}\n{kStr}"
+    | .loop m stateNames state0 cond body k =>
+      let inits := (List.range m).map fun i =>
+        let sName := if i < stateNames.size then stateNames[i]! else s!"_s{i}"
+        let initVal := if i < state0.toList.length then renderExpr state0.toList[i]! env else "undefined"
+        s!"let {sName} = {initVal};"
+      let loopScope := env ++ stateNames
+      let condStr := renderBExpr cond loopScope
+      let bodyStr := renderStmt body loopScope
+      let kStr := renderStmt k loopScope
+      let initsStr := String.intercalate "\n" inits
+      let loopStr :=
+        if cond == BExpr.tt then
+          s!"while (true) \{\n{indentLines bodyStr}\n}"
+        else
+          s!"while ({condStr}) \{\n{indentLines bodyStr}\n}"
+      if kStr.isEmpty || kStr == "break;" then
+        s!"{initsStr}\n{loopStr}"
+      else
+        s!"{initsStr}\n{loopStr}\n{kStr}"
+    | .continue newState =>
+      if newState.toList.isEmpty then
+        "continue;"
+      else
+        let stepStrs := newState.toList.map (renderExpr · env)
+        s!"continue ({", ".intercalate stepStrs});"
+    | .break_ => "break;"
+
+  public partial def renderInlinableFunc {n : Nat} (f : InlinableFunc n) : String :=
+    match f with
+    | .mk paramNames _ body returnsOpt =>
+      let env := paramNames
+      let paramsStr := String.intercalate ", " env.toList
+      let bodyStr := renderStmt body env
+      let retStr := match returnsOpt with
+        | some r => s!"\n  return {renderExpr r env};"
+        | none => ""
+      s!"(({paramsStr}) => \{\n{indentLines bodyStr}{retStr}\n})"
+end
+
+public def renderJs {n : Nat} (e : Expr n) (env : Array String := #[]) : String :=
+  renderExpr e env
+
 end Lean.Compiler.JS
+

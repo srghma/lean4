@@ -35,7 +35,7 @@ def evalPartial := applyInline lean_array_mk #[listPartial]
 })(unknownRest)"
 
 -- Test 4: Unknown list (runtime argument)
-def evalUnknown := applyInline lean_array_mk #[.identifier "inputList"]
+def evalUnknown := applyInline lean_array_mk #[ [JS|inputList] ]
 
 #guard renderJs evalUnknown == "((curr) => {
   const out = [];

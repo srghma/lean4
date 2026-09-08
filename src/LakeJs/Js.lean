@@ -8,6 +8,7 @@ prelude
 public import Init.Prelude
 public import Init.Coe
 public import Init.Data.Repr
+public import Init.Data.Vector
 public import Lean.Attributes
 public import Lean.EnvExtension
 public import Lean.Environment
@@ -18,8 +19,6 @@ public meta import Init.Data.ToString.Name
 
 public section
 
-namespace Lean.Compiler.JS
-
 inductive JSBinOp where
   | and | bitAnd | bitOr | bitXor | divide | eq | ge | gt | in_ | instanceOf | le | lsh | lt | minus | mod | neq | of | or | plus | rsh | strictEq | strictNeq | times | ursh
   deriving Repr, BEq, Inhabited
@@ -29,370 +28,114 @@ inductive JSUnaryOp where
   deriving Repr, BEq, Inhabited
 
 mutual
-  inductive JsInlineExpr where
-    | funArg (idx : Nat) -- like De Bruijn indices, everything else is copied from https://hackage.haskell.org/package/language-javascript
-    | identifier (name : String)
-    | decimal (val : Nat)
-    | hex (val : Nat) -- 0xFF for example, should be rendered as 0xFF too
-    | stringLiteral (val : String)
-    | boolLiteral (val : Bool)
-    | arrayLiteral (elems : Array JsInlineExpr)
-    | objectLiteral (fields : Array (String × JsInlineExpr))
-    | callExpression (fn : JsInlineExpr) (args : Array JsInlineExpr)
-    | memberDot (obj : JsInlineExpr) (name : String)
-    | memberSquare (obj : JsInlineExpr) (idx : JsInlineExpr)
-    | unaryExpression (op : JSUnaryOp) (arg : JsInlineExpr)
-    | expressionBinary (op : JSBinOp) (lhs : JsInlineExpr) (rhs : JsInlineExpr)
-    | expressionTernary (cond : JsInlineExpr) (thenExpr : JsInlineExpr) (elseExpr : JsInlineExpr)
-    | memberNew (expr : JsInlineExpr) (args : Array JsInlineExpr)
-    | throw (expr : JsInlineExpr)
-    | arrowFunction (params : Array String) (body : JsInlineExpr)
-    | arrowFunctionBlock (params : Array String) (body : Array JsInlineStmt)
-    | inlineFunc (params : Array String) (body : Array JsInlineStmt) (returns : Option JsInlineExpr)
-    | isTag (obj : JsInlineExpr) (tag : Name)
-    | getField (obj : JsInlineExpr) (idx : Nat)
-    | mkObject (tag : Name) (fields : Array JsInlineExpr)
+  inductive PropExprList : Nat → Type where
+    | nil : PropExprList n
+    | cons (prop : String) (val : Expr n) (tail : PropExprList n) : PropExprList n
     deriving Repr, BEq, Inhabited
 
-  inductive JsInlineStmt where
-    | const (name : String) (val : JsInlineExpr)
-    | letVar (name : String) (val : JsInlineExpr)
-    | assign (lhs : JsInlineExpr) (rhs : JsInlineExpr)
-    | assignOp (op : JSBinOp) (lhs : JsInlineExpr) (rhs : JsInlineExpr)
-    | expr (e : JsInlineExpr)
-    | return (e : JsInlineExpr)
-    | while (cond : JsInlineExpr) (body : Array JsInlineStmt)
-    | forLoop (init : JsInlineStmt) (cond : JsInlineExpr) (step : JsInlineStmt) (body : Array JsInlineStmt)
-    | ifElse (cond : JsInlineExpr) (thenBranch : Array JsInlineStmt) (elseBranch : Array JsInlineStmt)
-    | incr (e : JsInlineExpr)
-    | decr (e : JsInlineExpr)
+  inductive ExprList : Nat → Type where
+    | nil : ExprList n
+    | cons (head : Expr n) (tail : ExprList n) : ExprList n
+    deriving Repr, BEq, Inhabited
+
+  inductive Expr : Nat → Type where
+    | var    (i : Fin n)                                        : Expr n
+    | global (name : String)                                    : Expr n
+    | num    (val : Nat)                                        : Expr n
+    | numLit (val : String)                                     : Expr n
+    | str    (val : String)                                     : Expr n
+    | bool   (val : Bool)                                       : Expr n
+    | obj    (props : PropExprList n)                           : Expr n
+    | arr    (elems : ExprList n)                               : Expr n
+    | call   (fn : Expr n) (args : ExprList n)                  : Expr n
+    | prop   (obj : Expr n) (name : String)                     : Expr n
+    | index  (obj idx : Expr n)                                 : Expr n
+    | unary  (op : JSUnaryOp) (a : Expr n)                      : Expr n
+    | binop  (op : JSBinOp) (a b : Expr n)                      : Expr n
+    | cond   (c : BExpr n) (t e : Expr n)                       : Expr n
+    | new    (cls : Expr n) (args : ExprList n)                 : Expr n
+    | assign (lhs rhs : Expr n)                                 : Expr n
+    | arrowExpr (params : Nat) (body : Expr (n + params))       : Expr n
+    | leanGeneratedEnumIsTag    (obj : Expr n) (tag : Name)     : Expr n
+    | leanGeneratedEnumGetField (obj : Expr n) (idx : Nat)      : Expr n
+    | leanGeneratedEnumMk       (tag : Name) (fields : ExprList n) : Expr n
+    deriving Repr, BEq, Inhabited
+
+  inductive BExpr : Nat → Type where
+    | tt                                         : BExpr n
+    | ff                                         : BExpr n
+    | truthy (e : Expr n)                        : BExpr n
+    | lt (a b : Expr n)                          : BExpr n
+    | le (a b : Expr n)                          : BExpr n
+    | eq (a b : Expr n)                          : BExpr n
+    | strictEq (a b : Expr n)                    : BExpr n
+    | not (c : BExpr n)                          : BExpr n
+    | and (c d : BExpr n)                        : BExpr n
+    | or (c d : BExpr n)                         : BExpr n
     deriving Repr, BEq, Inhabited
 end
 
-public def mangleString (s : String) : String :=
-  s.foldl (fun res c =>
-    if c.isAlphanum then
-      res.push c
-    else if c == '.' then
-      res.push '$'
-    else if c == '_' then
-      res ++ "__"
-    else
-      res ++ s!"_u{c.toNat.toUInt32.toNat}_"
-  ) ""
+public def PropExprList.toList : PropExprList n → List (String × Expr n)
+  | .nil => []
+  | .cons p v tail => (p, v) :: tail.toList
 
-public def mangleName (n : Name) : String :=
-  mangleString n.toString
+public def PropExprList.ofList : List (String × Expr n) → PropExprList n
+  | [] => .nil
+  | (p, v) :: tail => .cons p v (ofList tail)
 
-def throwNewError (msg : String) : JsInlineExpr := .throw (.memberNew (.identifier "Error") #[.stringLiteral msg])
-def plus a b := JsInlineExpr.expressionBinary .plus a b
-def minus a b := JsInlineExpr.expressionBinary .minus a b
-def times a b := JsInlineExpr.expressionBinary .times a b
-def divide a b := JsInlineExpr.expressionBinary .divide a b
-def mod a b := JsInlineExpr.expressionBinary .mod a b
-def pow a b := JsInlineExpr.callExpression (.memberDot (.identifier "Math") "pow") #[a, b]
-def eq a b := JsInlineExpr.expressionBinary .eq a b
-def le a b := JsInlineExpr.expressionBinary .le a b
-def lt a b := JsInlineExpr.expressionBinary .lt a b
-def gt a b := JsInlineExpr.expressionBinary .gt a b
-def bitAnd a b := JsInlineExpr.expressionBinary .bitAnd a b
-def rsh a b := JsInlineExpr.expressionBinary .rsh a b
+public def ExprList.toList : ExprList n → List (Expr n)
+  | .nil => []
+  | .cons h t => h :: t.toList
 
-private unsafe def evalJsInlineExprUnsafe (e : Expr) : MetaM JsInlineExpr :=
-  Meta.evalExpr' JsInlineExpr ``Lean.Compiler.JS.JsInlineExpr e
+public def ExprList.toArray : ExprList n → Array (Expr n)
+  | .nil => #[]
+  | .cons h t => #[h] ++ t.toArray
 
-@[implemented_by evalJsInlineExprUnsafe]
-opaque evalJsInlineExpr (e : Expr) : MetaM JsInlineExpr
+public def ExprList.ofList : List (Expr n) → ExprList n
+  | [] => .nil
+  | x :: xs => .cons x (ofList xs)
 
-end Lean.Compiler.JS
+public def ExprList.ofArray (a : Array (Expr n)) : ExprList n :=
+  ofList a.toList
 
-open Lean.Compiler.JS
+inductive Ownership where
+  | borrowed
+  | owned
+  deriving Repr, BEq, Inhabited
 
-/-- Arithmetic operator instances on JsInlineExpr so `#0 + #1`, `#0 * #1` etc. work directly. -/
-instance : Add Lean.Compiler.JS.JsInlineExpr where add := Lean.Compiler.JS.plus
-instance : Sub Lean.Compiler.JS.JsInlineExpr where sub := Lean.Compiler.JS.minus
-instance : Mul Lean.Compiler.JS.JsInlineExpr where mul := Lean.Compiler.JS.times
-instance : Div Lean.Compiler.JS.JsInlineExpr where div := Lean.Compiler.JS.divide
-instance : Mod Lean.Compiler.JS.JsInlineExpr where mod := Lean.Compiler.JS.mod
-instance : Pow Lean.Compiler.JS.JsInlineExpr Lean.Compiler.JS.JsInlineExpr where pow := Lean.Compiler.JS.pow
+mutual
+  inductive Stmt : Nat → Type where
+    | ret        (e : Expr n)                                                    : Stmt n
+    | letIn      (val : Expr n) (k : Stmt (n+1))                                 : Stmt n
+    | letClosure {m : Nat} (f : InlinableFunc m) (captures : ExprList n) (k : Stmt (n+1)) : Stmt n
+    | seq        (e : Expr n) (k : Stmt n)                                       : Stmt n
+    | ifElse     (cond : BExpr n) (t e : Stmt n) (k : Stmt n)                   : Stmt n
+    | loop       (m : Nat) (stateNames : Array String)
+                 (state0 : ExprList n)
+                 (cond : BExpr (n+m)) (body : Stmt (n+m))
+                 (k : Stmt (n+m))                                               : Stmt n
+    | continue   (newState : ExprList n)                                         : Stmt n
+    | break_                                                                    : Stmt n
+    deriving Repr, BEq, Inhabited
 
-namespace Lean.Compiler.JS
+  inductive InlinableFunc : Nat → Type where
+    | mk (paramNames : Array String) (paramOwn : Array Ownership) (body : Stmt n) (returns : Option (Expr n)) : InlinableFunc n
+    deriving Repr, BEq, Inhabited
+end
 
--- 1. Declare the syntax categories for our JS subset
-declare_syntax_cat js_stmt
-declare_syntax_cat js_expr
+def throwNewError (msg : String) : Expr n :=
+  .call (.global "throw") (.cons (.new (.global "Error") (.cons (.str msg) .nil)) .nil)
 
--- 2. Define the grammar for the category
-syntax "#" num : js_expr                        -- Arguments: #0, #1
-syntax "#" num "." ident : js_expr              -- Arg + property: #0.length (avoids decimal-point ambiguity)
-syntax num : js_expr                            -- Literals: 64, 0xFF
-syntax str : js_expr                            -- String literals
-syntax ident : js_expr                          -- Identifiers: Error, Uint8Array
-syntax "(" js_expr ")" : js_expr                -- Parentheses
-syntax "[" (js_expr,*)? "]" : js_expr            -- Array literal: [], [a, b]
-syntax js_expr "[" js_expr "]" : js_expr        -- Bracket access
-syntax js_expr "." ident : js_expr              -- Member dot access
-syntax js_expr "()" : js_expr
-syntax js_expr "(" ")" : js_expr
-syntax js_expr "(" (js_expr,*)? ")" : js_expr   -- Function calls
-syntax "new " ident "(" (js_expr,*)? ")" : js_expr   -- New expression: new Foo(args)
-syntax "new " ident "()" "." ident "(" (js_expr,*)? ")" : js_expr  -- Chained: new Foo().method(args)
-syntax "new " ident "()" "." ident "(" (js_expr,*)? ")" "." ident : js_expr  -- Chained + prop: new Foo().method(args).prop
-syntax "throw " js_expr : js_expr               -- Throw statements
+def plus (a b : Expr n) := Expr.binop .plus a b
+def minus (a b : Expr n) := Expr.binop .minus a b
+def times (a b : Expr n) := Expr.binop .times a b
+def divide (a b : Expr n) := Expr.binop .divide a b
+def mod (a b : Expr n) := Expr.binop .mod a b
+def pow (a b : Expr n) := Expr.call (.prop (.global "Math") "pow") (.cons a (.cons b .nil))
 
--- Unary operators
-syntax "!" js_expr : js_expr
-syntax "-" js_expr : js_expr
-syntax "~" js_expr : js_expr
-
--- Binary and Ternary operators with precedence
-syntax:30 js_expr " || " js_expr : js_expr
-syntax:35 js_expr " && " js_expr : js_expr
-syntax:40 js_expr " == " js_expr : js_expr
-syntax:40 js_expr " === " js_expr : js_expr
-syntax:40 js_expr " != " js_expr : js_expr
-syntax:40 js_expr " !== " js_expr : js_expr
-syntax:45 js_expr " <= " js_expr : js_expr
-syntax:45 js_expr " < " js_expr : js_expr
-syntax:45 js_expr " > " js_expr : js_expr
-syntax:45 js_expr " >= " js_expr : js_expr
-syntax:50 js_expr " | " js_expr : js_expr
-syntax:55 js_expr " ^ " js_expr : js_expr
-syntax:60 js_expr " & " js_expr : js_expr
-syntax:65 js_expr " << " js_expr : js_expr
-syntax:65 js_expr " >> " js_expr : js_expr
-syntax:65 js_expr " >>> " js_expr : js_expr
-syntax:70 js_expr " + " js_expr : js_expr
-syntax:70 js_expr " - " js_expr : js_expr
-syntax:80 js_expr " * " js_expr : js_expr
-syntax:80 js_expr " / " js_expr : js_expr
-syntax:80 js_expr " % " js_expr : js_expr
-syntax:20 js_expr " ? " js_expr " : " js_expr : js_expr
-syntax "(" "{" (ident ":" js_expr),* "}" ")" : js_expr
-syntax "(" "{" "}" ")" : js_expr
-
--- Arrow function expressions
-syntax "(" (ident,*)? ")" " => " js_expr : js_expr
-syntax "()" " => " js_expr : js_expr
-syntax "(" ")" " => " js_expr : js_expr
-syntax ident " => " js_expr : js_expr
-
--- Arrow function (block body)
-syntax "(" (ident,*)? ")" " => " "{" js_stmt* "}" : js_expr
-syntax "()" " => " "{" js_stmt* "}" : js_expr
-syntax "(" ")" " => " "{" js_stmt* "}" : js_expr
-
--- Statements
-syntax "const " ident " = " js_expr (";")? : js_stmt
-syntax "let " ident " = " js_expr (";")? : js_stmt
-syntax js_expr " = " js_expr (";")? : js_stmt
-syntax js_expr " += " js_expr (";")? : js_stmt
-syntax js_expr " -= " js_expr (";")? : js_stmt
-syntax js_expr " *= " js_expr (";")? : js_stmt
-syntax js_expr " /= " js_expr (";")? : js_stmt
-syntax js_expr " %= " js_expr (";")? : js_stmt
-syntax js_expr " |= " js_expr (";")? : js_stmt
-syntax js_expr " &= " js_expr (";")? : js_stmt
-syntax js_expr " ^= " js_expr (";")? : js_stmt
-syntax js_expr "++" (";")? : js_stmt
-syntax "return " js_expr (";")? : js_stmt
-syntax "while " "(" js_expr ")" "{" js_stmt* "}" : js_stmt
-syntax "for " "(" js_stmt js_expr ";" js_stmt ")" "{" js_stmt* "}" : js_stmt
-syntax "if " "(" js_expr ")" "{" js_stmt* "}" ("else" "{" js_stmt* "}")? : js_stmt
-syntax "if " "(" js_expr ")" "{" js_stmt* "}" "else " js_stmt : js_stmt
-syntax "if " "(" js_expr ")" js_stmt : js_stmt
-syntax js_expr (";")? : js_stmt
-
--- Helper constructs requested by user
-syntax "isTag" "(" js_expr "," Lean.Parser.nameLit ")" : js_expr
-syntax "isTag" "(" js_expr "," ident ")" : js_expr
-syntax "getField" "(" js_expr "," num ")" : js_expr
-syntax "mkObject" "(" Lean.Parser.nameLit ("," js_expr)* ")" : js_expr
-syntax "mkObject" "(" ident ("," js_expr)* ")" : js_expr
-
--- 3. Define top-level bracket syntax
-syntax "[JS|" js_expr "]" : term
-syntax "[JS_STMT|" js_stmt "]" : term
-syntax "[JS_FUNC|" "inputs" "(" (ident,*)? ")" "|" "returns" "=" js_expr:51 "|" js_stmt* "]" : term
-syntax "[JS_FUNC|" "inputs" "(" (ident,*)? ")" "|" js_stmt* "]" : term
-syntax "[JS_FUNC|" "(" (ident,*)? ")" " => " "{" js_stmt* "}" "]" : term
-
-public meta def toJsIdent (n : Name) : MacroM (TSyntax `term) := do
-  if n == `true then
-    `(JsInlineExpr.boolLiteral true)
-  else if n == `false then
-    `(JsInlineExpr.boolLiteral false)
-  else match n with
-    | .str p member =>
-      if p != .anonymous then
-        let parent ← toJsIdent p
-        `(JsInlineExpr.memberDot $parent $(quote member))
-      else
-        `(JsInlineExpr.identifier $(quote member))
-    | _ => `(JsInlineExpr.identifier $(quote n.toString))
-
--- 4. Macro rules to translate JS syntax to JsInlineExpr
-macro_rules
-  | `([JS| #$n:num .$p:ident ]) => `(JsInlineExpr.memberDot (JsInlineExpr.funArg $n) $(Lean.quote p.getId.toString))
-  | `([JS| #$n:num ]) => `(JsInlineExpr.funArg $n)
-  | `([JS| $n:num ]) => `(JsInlineExpr.decimal $n)
-  | `([JS| $s:str ]) => `(JsInlineExpr.stringLiteral $s)
-  | `([JS| $id:ident ]) => toJsIdent id.getId
-  | `([JS| ($e) ]) => `([JS| $e ])
-  | `([JS| [ $[$elems],* ] ]) => `(JsInlineExpr.arrayLiteral #[$[[JS| $elems ]],*])
-  | `([JS| $obj[$idx] ]) => `(JsInlineExpr.memberSquare [JS| $obj ] [JS| $idx ])
-  | `([JS| $obj.$id:ident ]) => `(JsInlineExpr.memberDot [JS| $obj ] $(quote id.getId.toString))
-  | `([JS| $fn() ]) => `(JsInlineExpr.callExpression [JS| $fn ] #[])
-  | `([JS| $fn( ) ]) => `(JsInlineExpr.callExpression [JS| $fn ] #[])
-  | `([JS| $fn($[$args],*) ]) => `(JsInlineExpr.callExpression [JS| $fn ] #[$[[JS| $args ]],*])
-  -- new Ctor(args)
-  | `([JS| new $cls:ident ($[$args],*) ]) =>
-    `(JsInlineExpr.memberNew (JsInlineExpr.identifier $(Lean.quote cls.getId.toString)) #[$[[JS| $args ]],*])
-  -- new Ctor().method(args)
-  | `([JS| new $cls:ident () . $m:ident ($[$args],*) ]) =>
-    `(JsInlineExpr.callExpression
-        (JsInlineExpr.memberDot
-          (JsInlineExpr.memberNew (JsInlineExpr.identifier $(Lean.quote cls.getId.toString)) #[])
-          $(Lean.quote m.getId.toString))
-        #[$[[JS| $args ]],*])
-  -- new Ctor().method(args).prop
-  | `([JS| new $cls:ident () . $m:ident ($[$args],*) . $prop:ident ]) =>
-    `(JsInlineExpr.memberDot
-        (JsInlineExpr.callExpression
-          (JsInlineExpr.memberDot
-            (JsInlineExpr.memberNew (JsInlineExpr.identifier $(Lean.quote cls.getId.toString)) #[])
-            $(Lean.quote m.getId.toString))
-          #[$[[JS| $args ]],*])
-        $(Lean.quote prop.getId.toString))
-  | `([JS| throw $e ]) => `(JsInlineExpr.throw [JS| $e ])
-
-  -- Binary Operators
-  -- Unary operators
-  | `([JS| ! $a ])      => `(JsInlineExpr.unaryExpression .not [JS| $a ])
-  | `([JS| - $a ])      => `(JsInlineExpr.unaryExpression .minus [JS| $a ])
-  | `([JS| ~ $a ])      => `(JsInlineExpr.unaryExpression .tilde [JS| $a ])
-
-  -- Binary operators
-  | `([JS| $a || $b ])  => `(JsInlineExpr.expressionBinary .or [JS| $a ] [JS| $b ])
-  | `([JS| $a && $b ])  => `(JsInlineExpr.expressionBinary .and [JS| $a ] [JS| $b ])
-  | `([JS| $a != $b ])  => `(JsInlineExpr.expressionBinary .neq [JS| $a ] [JS| $b ])
-  | `([JS| $a !== $b ]) => `(JsInlineExpr.expressionBinary .strictNeq [JS| $a ] [JS| $b ])
-  | `([JS| $a >= $b ])  => `(JsInlineExpr.expressionBinary .ge [JS| $a ] [JS| $b ])
-  | `([JS| $a | $b ])   => `(JsInlineExpr.expressionBinary .bitOr [JS| $a ] [JS| $b ])
-  | `([JS| $a << $b ])  => `(JsInlineExpr.expressionBinary .lsh [JS| $a ] [JS| $b ])
-  | `([JS| $a + $b ])   => `(JsInlineExpr.expressionBinary .plus [JS| $a ] [JS| $b ])
-  | `([JS| $a - $b ])   => `(JsInlineExpr.expressionBinary .minus [JS| $a ] [JS| $b ])
-  | `([JS| $a * $b ])   => `(JsInlineExpr.expressionBinary .times [JS| $a ] [JS| $b ])
-  | `([JS| $a / $b ])   => `(JsInlineExpr.expressionBinary .divide [JS| $a ] [JS| $b ])
-  | `([JS| $a % $b ])   => `(JsInlineExpr.expressionBinary .mod [JS| $a ] [JS| $b ])
-  | `([JS| $a ^ $b ])   => `(Lean.Compiler.JS.pow [JS| $a ] [JS| $b ])
-  | `([JS| $a == $b ])  => `(JsInlineExpr.expressionBinary .eq [JS| $a ] [JS| $b ])
-  | `([JS| $a === $b ]) => `(JsInlineExpr.expressionBinary .strictEq [JS| $a ] [JS| $b ])
-  | `([JS| $a <= $b ])  => `(JsInlineExpr.expressionBinary .le [JS| $a ] [JS| $b ])
-  | `([JS| $a < $b ])   => `(JsInlineExpr.expressionBinary .lt [JS| $a ] [JS| $b ])
-  | `([JS| $a > $b ])   => `(JsInlineExpr.expressionBinary .gt [JS| $a ] [JS| $b ])
-  | `([JS| $a & $b ])   => `(JsInlineExpr.expressionBinary .bitAnd [JS| $a ] [JS| $b ])
-  | `([JS| $a >> $b ])  => `(JsInlineExpr.expressionBinary .rsh [JS| $a ] [JS| $b ])
-  | `([JS| $a >>> $b ]) => `(JsInlineExpr.expressionBinary .ursh [JS| $a ] [JS| $b ])
-
-  -- Object literals
-  | `([JS| ({}) ])      => `(JsInlineExpr.objectLiteral #[])
-  | `([JS| ({ $[$keys:ident : $vals:js_expr],* }) ]) => do
-    let mut pairs := #[]
-    for k in keys, v in vals do
-      pairs := pairs.push (← `(($(quote k.getId.toString), [JS| $v ])))
-    `(JsInlineExpr.objectLiteral #[$pairs,*])
-
-  -- Ternary
-  | `([JS| $c ? $t : $e ]) => `(JsInlineExpr.expressionTernary [JS| $c ] [JS| $t ] [JS| $e ])
-
-  -- Arrow function expressions
-  | `([JS| () => $body:js_expr ]) =>
-    `(JsInlineExpr.arrowFunction #[] [JS| $body ])
-  | `([JS| ( ) => $body:js_expr ]) =>
-    `(JsInlineExpr.arrowFunction #[] [JS| $body ])
-  | `([JS| ($[$params],*) => $body:js_expr ]) =>
-    let ps := quote (params.map fun p => p.getId.toString)
-    `(JsInlineExpr.arrowFunction $ps [JS| $body ])
-  | `([JS| $p:ident => $body:js_expr ]) =>
-    `(JsInlineExpr.arrowFunction #[$(quote p.getId.toString)] [JS| $body ])
-
-  -- Arrow function with block body
-  | `([JS| () => { $[$stmts:js_stmt]* } ]) =>
-    `(JsInlineExpr.arrowFunctionBlock #[] #[$[[JS_STMT| $stmts ]],*])
-  | `([JS| ( ) => { $[$stmts:js_stmt]* } ]) =>
-    `(JsInlineExpr.arrowFunctionBlock #[] #[$[[JS_STMT| $stmts ]],*])
-  | `([JS| ($[$params],*) => { $[$stmts:js_stmt]* } ]) =>
-    let ps := quote (params.map fun p => p.getId.toString)
-    `(JsInlineExpr.arrowFunctionBlock $ps #[$[[JS_STMT| $stmts ]],*])
-
-  -- isTag
-  | `([JS| isTag($obj, $tag:name) ]) =>
-    `(JsInlineExpr.isTag [JS| $obj ] $(quote tag.getName))
-  | `([JS| isTag($obj, $tag:ident) ]) =>
-    `(JsInlineExpr.isTag [JS| $obj ] $(quote tag.getId))
-
-  -- getField
-  | `([JS| getField($obj, $idx:num) ]) =>
-    `(JsInlineExpr.getField [JS| $obj ] $(quote idx.getNat))
-
-  -- mkObject
-  | `([JS| mkObject($tag:name $[, $fields:js_expr]* ) ]) =>
-    `(JsInlineExpr.mkObject $(quote tag.getName) #[$[[JS| $fields ]],*])
-  | `([JS| mkObject($tag:ident $[, $fields:js_expr]* ) ]) =>
-    `(JsInlineExpr.mkObject $(quote tag.getId) #[$[[JS| $fields ]],*])
-
-macro_rules
-  | `([JS_STMT| const $x:ident = $val:js_expr $[;]? ]) =>
-    `(JsInlineStmt.const $(quote x.getId.toString) [JS| $val ])
-  | `([JS_STMT| let $x:ident = $val:js_expr $[;]? ]) =>
-    `(JsInlineStmt.letVar $(quote x.getId.toString) [JS| $val ])
-  | `([JS_STMT| $lhs:js_expr = $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assign [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $lhs:js_expr += $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assignOp .plus [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $lhs:js_expr -= $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assignOp .minus [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $lhs:js_expr *= $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assignOp .times [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $lhs:js_expr /= $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assignOp .divide [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $lhs:js_expr %= $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assignOp .mod [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $lhs:js_expr |= $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assignOp .bitOr [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $lhs:js_expr &= $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assignOp .bitAnd [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $lhs:js_expr ^= $rhs:js_expr $[;]? ]) =>
-    `(JsInlineStmt.assignOp .bitXor [JS| $lhs ] [JS| $rhs ])
-  | `([JS_STMT| $e:js_expr ++ $[;]? ]) =>
-    `(JsInlineStmt.incr [JS| $e ])
-  | `([JS_STMT| return $val:js_expr $[;]? ]) =>
-    `(JsInlineStmt.return [JS| $val ])
-  | `([JS_STMT| while ($c:js_expr) { $[$body]* } ]) =>
-    `(JsInlineStmt.while [JS| $c ] #[$[[JS_STMT| $body ]],*])
-  | `([JS_STMT| for ($init:js_stmt $cond:js_expr ; $step:js_stmt) { $[$body]* } ]) =>
-    `(JsInlineStmt.forLoop [JS_STMT| $init ] [JS| $cond ] [JS_STMT| $step ] #[$[[JS_STMT| $body ]],*])
-  | `([JS_STMT| if ($cond:js_expr) { $[$thenB]* } else { $[$elseB]* } ]) =>
-    `(JsInlineStmt.ifElse [JS| $cond ] #[$[[JS_STMT| $thenB ]],*] #[$[[JS_STMT| $elseB ]],*])
-  | `([JS_STMT| if ($cond:js_expr) { $[$thenB]* } else $elseS:js_stmt ]) =>
-    `(JsInlineStmt.ifElse [JS| $cond ] #[$[[JS_STMT| $thenB ]],*] #[ [JS_STMT| $elseS ] ])
-  | `([JS_STMT| if ($cond:js_expr) { $[$thenB]* } ]) =>
-    `(JsInlineStmt.ifElse [JS| $cond ] #[$[[JS_STMT| $thenB ]],*] #[])
-  | `([JS_STMT| if ($cond:js_expr) $thenS:js_stmt ]) =>
-    `(JsInlineStmt.ifElse [JS| $cond ] #[ [JS_STMT| $thenS ] ] #[])
-  | `([JS_STMT| $e:js_expr $[;]? ]) =>
-    `(JsInlineStmt.expr [JS| $e ])
-
-macro_rules
-  | `([JS_FUNC| inputs ( $[$params:ident],* ) | returns = $ret:js_expr | $[$stmts:js_stmt]* ]) =>
-    let ps := quote (params.map fun p => p.getId.toString)
-    `(JsInlineExpr.inlineFunc $ps #[$[[JS_STMT| $stmts ]],*] (some [JS| $ret ]))
-  | `([JS_FUNC| inputs ( $[$params:ident],* ) | $[$stmts:js_stmt]* ]) =>
-    let ps := quote (params.map fun p => p.getId.toString)
-    `(JsInlineExpr.inlineFunc $ps #[$[[JS_STMT| $stmts ]],*] none)
-  | `([JS_FUNC| ( $[$params:ident],* ) => { $[$stmts:js_stmt]* } ]) =>
-    let ps := quote (params.map fun p => p.getId.toString)
-    `(JsInlineExpr.inlineFunc $ps #[$[[JS_STMT| $stmts ]],*] none)
-
-end Lean.Compiler.JS
+instance : Add (Expr n) where add := plus
+instance : Sub (Expr n) where sub := minus
+instance : Mul (Expr n) where mul := times
+instance : Div (Expr n) where div := divide
+instance : Mod (Expr n) where mod := mod
+instance : Pow (Expr n) (Expr n) where pow := pow
