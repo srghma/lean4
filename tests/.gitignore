@@ -11,3 +11,5 @@ measurements.jsonl
 # Created by compile tests
 *.lean.c
 *.lean.out
+
+*.lean.js.expected
