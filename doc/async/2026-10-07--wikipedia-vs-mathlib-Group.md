@@ -93,6 +93,279 @@ flowchart TD
     AssocQuasi -.->|"+ One, Inv, Div, ZPow"| Group
 ```
 
+```d2
+direction: down
+
+# --- STYLE DEFINITIONS ---
+classes: {
+  both: {
+    style: {
+      fill: "#e1f5fe"
+      stroke: "#0288d1"
+      stroke-width: 2
+    }
+  }
+  wikiOnly: {
+    style: {
+      fill: "#f5f5f5"
+      stroke: "#757575"
+      stroke-width: 2
+      stroke-dash: 4
+    }
+  }
+  mathlibOnly: {
+    style: {
+      fill: "#ffebee"
+      stroke: "#d32f2f"
+      stroke-width: 2
+    }
+  }
+}
+
+# ==========================================
+# LEVEL 0: BASE NOTATION CLASSES
+# ==========================================
+One: {
+  class: mathlibOnly
+  label: |md
+    ### class One (α : Type u)
+    *[Mathlib only]*
+    ***
+    ```lean
+    one : α
+    ```
+  |
+}
+
+Mul: {
+  class: both
+  label: |md
+    ### class Mul (α : Type u)
+    *[Both] Wikipedia: Magma*
+    ***
+    ```lean
+    mul : α → α → α
+    ```
+  |
+}
+
+Div: {
+  class: mathlibOnly
+  label: |md
+    ### class Div (α : Type u)
+    *[Mathlib only]*
+    ***
+    ```lean
+    div : α → α → α
+    ```
+  |
+}
+
+Inv: {
+  class: mathlibOnly
+  label: |md
+    ### class Inv (α : Type u)
+    *[Mathlib only]*
+    ***
+    ```lean
+    inv : α → α
+    ```
+  |
+}
+
+ZPow: {
+  class: mathlibOnly
+  label: |md
+    ### class ZPow (α : Type u)
+    *[Mathlib only]*
+    ***
+    ```lean
+    zpow : ℤ → α → α
+    ```
+  |
+}
+
+# ==========================================
+# LEVEL 1: 1 AXIOM
+# ==========================================
+Semigroup: {
+  class: both
+  label: |md
+    ### class Semigroup (G : Type u)
+    *[Both] Wikipedia: Semigroup*
+    ***
+    ```lean
+    extends Mul G where
+      mul_assoc : ∀ a b c : G,
+        a * b * c = a * (b * c)
+    ```
+  |
+}
+
+UnitalMagma: {
+  class: both
+  label: |md
+    ### class MulOneClass (M : Type u)
+    *[Both] Wikipedia: Unital Magma*
+    ***
+    ```lean
+    extends One M, Mul M where
+      one_mul : ∀ a : M, 1 * a = a
+      mul_one : ∀ a : M, a * 1 = a
+    ```
+  |
+}
+
+Quasigroup: {
+  class: wikiOnly
+  label: |md
+    ### class Quasigroup (Q : Type u)
+    *[Ghost] Wikipedia: Quasigroup*
+    ***
+    ```lean
+    extends Mul Q, Div Q, LDiv Q where
+      mul_ldiv_cancel : ∀ a b, a * (a \ b) = b
+      ldiv_mul_cancel : ∀ a b, a \ (a * b) = b
+      rdiv_mul_cancel : ∀ a b, (a / b) * b = a
+      mul_rdiv_cancel : ∀ a b, (a * b) / b = a
+
+    -- In Mathlib.Algebra.Group.Basic:
+    -- theorem mul_inv_cancel_left (a b : G) : a * (a⁻¹ * b) = b
+    -- theorem inv_mul_cancel_left (a b : G) : a⁻¹ * (a * b) = b
+    ```
+  |
+}
+
+# ==========================================
+# LEVEL 2: 2 AXIOMS
+# ==========================================
+Monoid: {
+  class: both
+  label: |md
+    ### class Monoid (M : Type u)
+    *[Both] Wikipedia: Monoid*
+    ***
+    ```lean
+    extends Semigroup M, MulOneClass M where
+      npow : ℕ → M → M := npowRec
+      npow_zero : ∀ x, npow 0 x = 1
+      npow_succ : ∀ n x, npow (n+1) x = npow n x * x
+    ```
+  |
+}
+
+Loop: {
+  class: wikiOnly
+  label: |md
+    ### class Loop (L : Type u)
+    *[Ghost] Wikipedia: Loop*
+    ***
+    ```lean
+    extends MulOneClass L, Quasigroup L
+    ```
+  |
+}
+
+AssocQuasi: {
+  class: wikiOnly
+  label: |md
+    ### class AssocQuasigroup (Q : Type u)
+    *[Ghost] Wikipedia: Assoc Quasigroup*
+    ***
+    ```lean
+    extends Semigroup Q, Quasigroup Q
+    ```
+  |
+}
+
+# ==========================================
+# LEVEL 2.5: MATHLIB INTERMEDIATE
+# ==========================================
+DivInvMonoid: {
+  class: mathlibOnly
+  label: |md
+    ### class DivInvMonoid (G : Type u)
+    *[Mathlib only]*
+    ***
+    ```lean
+    extends Monoid G, Inv G, Div G, ZPow G where
+      div := fun a b => a * b⁻¹
+      div_eq_mul_inv : ∀ a b, a / b = a * b⁻¹
+      zpow := zpowRec npowRec
+      zpow_zero' : ∀ a, a ^ 0 = 1
+      zpow_succ' : ∀ n a, a ^ (n+1) = a ^ n * a
+      zpow_neg' : ∀ n a, a ^ -(n+1) = (a ^ (n+1))⁻¹
+    ```
+  |
+}
+
+# ==========================================
+# LEVEL 3: ALL AXIOMS (COLLAPSE TARGET)
+# ==========================================
+Group: {
+  class: both
+  label: |md
+    ### class Group (G : Type u)
+    *[Both] Wikipedia: Group*
+    ***
+    ```lean
+    extends DivInvMonoid G where
+      protected inv_mul_cancel : ∀ a : G, a⁻¹ * a = 1
+    ```
+  |
+}
+
+# ==========================================
+# EDGES / INHERITANCE
+# ==========================================
+# To Semigroup
+Mul -> Semigroup: "+ mul_assoc"
+
+# To MulOneClass
+One -> UnitalMagma: "extends One"
+Mul -> UnitalMagma: "extends Mul"
+
+# To Quasigroup
+Mul -> Quasigroup: "extends Mul"
+Div -> Quasigroup: |md
+  extends Div, LDiv
+  + 4 cancellation axioms
+|
+
+# To Monoid
+Semigroup -> Monoid: "extends Semigroup"
+UnitalMagma -> Monoid: |md
+  extends MulOneClass
+  + npow operations
+|
+
+# To Loop & AssocQuasigroup
+UnitalMagma -> Loop: "purely extends"
+Quasigroup -> Loop: "purely extends"
+Semigroup -> AssocQuasi: "purely extends"
+Quasigroup -> AssocQuasi: "purely extends"
+
+# To DivInvMonoid
+Monoid -> DivInvMonoid: "extends Monoid"
+Inv -> DivInvMonoid: "extends Inv"
+Div -> DivInvMonoid: "extends Div"
+ZPow -> DivInvMonoid: |md
+  extends ZPow
+  + div_eq_mul_inv, zpow laws
+|
+
+# To Group (Collapse)
+DivInvMonoid -> Group: "+ inv_mul_cancel"
+
+Loop -> Group: "+ mul_assoc, Inv, Div, ZPow" {
+  style.stroke-dash: 4
+}
+
+AssocQuasi -> Group: "+ One, Inv, Div, ZPow" {
+  style.stroke-dash: 4
+}
+```
+
 ---
 
 ### Full Lean 4 Implementations of the Added Classes
